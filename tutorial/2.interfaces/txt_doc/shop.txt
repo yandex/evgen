@@ -1,0 +1,18 @@
+Shop.Showed 
+    
+    V1
+    Показ экрана магазина
+    
+    0. page: String - Название страницы
+    1. pageId: Int - Идентификатор страницы
+    _meta: {
+        event:  {
+            version: 1
+        },
+        MyInterfaces.Page:  {
+            version: 1
+        },
+    }
+
+
+

@@ -1,0 +1,45 @@
+MyIntEvent1 
+    
+    V1
+    Event description
+    
+    0. intParam1: Int - Интовый параметр
+
+
+
+MyIntEvent2 
+    
+    V1
+    Event description
+    
+    0. intParam2: Int - Интовый параметр
+
+
+
+MyDoubleEvent 
+    
+    V1
+    Event description
+    
+    0. doubleParam: Double - Параметр типа double
+
+
+
+MyBoolEvent 
+    
+    V1
+    Event description
+    
+    0. boolParam: Bool - Параметр для логирования времени
+
+
+
+MyTimeEvent 
+    
+    V1
+    Event description
+    
+    0. timeParam: TimeMilliseconds - Параметр типа double
+
+
+

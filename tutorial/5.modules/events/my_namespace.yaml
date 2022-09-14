@@ -1,0 +1,33 @@
+Events:
+    MyNamespace:
+        MyEvent:
+            v1:
+                description: События со всеми возможными типами параметров
+                parameters:
+                    stringParam:
+                        type: String
+                        description: Парамтер типа String
+                        default_value: val1
+                    intParam:
+                        type: Int
+                        description: Параметр типа Int
+                        default_value: 42
+                    сonstParam:
+                        type:
+                            # to include scalar value from another file you need to specify tag "!include"
+                            # with "file_path_relative_to_root:key[.nested_key2]"
+                            Const: !include params:reused_scalar_values.shop_page
+                        description: Constant parameter
+                    # to include map to another map you need to add prefix "_included" to a key
+                    _included_single_param: !include params:reused_params.single_param
+                    _included_several_params: !include params:reused_params.several_params
+                platforms:
+                    Android:
+                        app_versions: 3.14
+                        ticket: https://st.yandex-team.ru
+                    iOS:
+                        app_versions: 4.13
+                        ticket: https://st.yandex-team.ru
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://st.yandex-team.ru

@@ -1,0 +1,91 @@
+PaymentWidget.SubscriptionOffer.Showed 
+    
+    V1
+    Показ предложения оформления подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    1. offerTitle: String - Текст кнопки
+    2. offerText: String - Текст оффера
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+PaymentWidget.SubscriptionOffer.Showed 
+    
+    V2
+    Показ предложения оформления подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    1. offerTitle: String - Текст кнопки
+    2. offerText: String - Текст оффера
+    3. eventType: Const(offerShow) - Константа для единообразной обработки кросссервисных событий.
+    4. offerType: Const(subscription) - Константа для единообразной обработки кросс платформенных логов.
+    5. monetizationModel: Const(SVOD) - Константа для единообразной обработки кросссервисных событий.
+    6. billingProductId: Int - id продукта в биллинге
+    7. position: Int - Порядковый номер оффера одного типа. Считаются
+свехру вниз, слева направо. Например, если это
+баннеры (upsale) на витрине Магазина, то
+считаются сверху вниз от экрана.
+    8. page: Const(payment_widget) - название экрана, где находится оффер
+    9. path: Enum(payment_widget, purchase_option) - Путь до оффера.
+    10. title: String - Название контента, для которого вызван виджет оплаты,
+если виджет вызван для контретного контента. Иначе пустая строка
+    11. uuid: String - Universally unique identifier контента, для которого вызван виджет оплаты, если виджет вызван для контретного контента. Иначе -1
+    _meta: {
+        event:  {
+            version: 2
+        },
+    }
+
+
+
+PaymentWidget.SubscriptionOffer.Navigated 
+    
+    V1
+    Переход на оплату подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    1. offerTitle: String - Текст кнопки
+    2. offerText: String - Текст оффера
+    3. eventType: Const(offerClick) - Константа для единообразной обработки кросссервисных событий.
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+PaymentWidget.SubscriptionOffer.Navigated 
+    
+    V2
+    Переход на оплату подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    1. offerTitle: String - Текст кнопки
+    2. offerText: String - Текст оффера
+    3. eventType: Const(offerClick) - Константа для единообразной обработки кросссервисных событий.
+    4. offerType: Const(subscription) - Константа для единообразной обработки кросс платформенных логов.
+    5. monetizationModel: Const(SVOD) - Константа для единообразной обработки кросссервисных событий.
+    6. billingProductId: Int - id продукта в биллинге
+    7. position: Int - Порядковый номер оффера одного типа. Считаются
+свехру вниз, слева направо. Например, если это
+баннеры (upsale) на витрине Магазина, то
+считаются сверху вниз от экрана.
+    8. page: Const(payment_widget) - название экрана, где находится оффер
+    9. path: Enum(payment_widget, purchase_option) - Путь до оффера.
+    10. title: String - Название контента, для которого вызван виджет оплаты,
+если виджет вызван для контретного контента. Иначе пустая строка
+    11. uuid: String - Universally unique identifier контента, для которого вызван виджет оплаты, если виджет вызван для контретного контента. Иначе -1
+    _meta: {
+        event:  {
+            version: 2
+        },
+    }
+
+
+

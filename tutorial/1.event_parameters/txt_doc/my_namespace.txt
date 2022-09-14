@@ -1,0 +1,34 @@
+MyNamespace.MyEvent 
+    
+    V1
+    События со всеми возможными типами параметров
+    
+    0. stringParam: String - Параметр типа String
+    1. intParam: Int - Параметр типа Int
+    2. longIntParam: Long Int - Параметр типа Long Int
+    3. boolParam: Bool - Параметр типа Bool
+    4. doubleParam: Double - Параметр типа Double
+    5. constParam: Const(ValueToLog) - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
+    6. enumParam: Enum(option1, option2, option3) - Параметр типа Enum. При логировании можно
+выбрать только один вариант. В коде имеет
+тип MyNamespaceMyEventEnumparam
+    7. namedEnumParam: Enum(Pages: screen_1, screen_2, screen_3) - Параметр типа Enum. В коде имеет тип Pages.
+Если какой-то enum используется больше одного раза,
+то лучше давать ему явное имя, разботчики смогут
+обращаться к нему однообразно
+    8. dictParam: Dict - параметр типа Dict.
+    9. platformConst: PlatformConst(Android: AndroidValue
+iOS: iOSValue
+WebSmartTV: WebSmartTVValue
+) - Платформозависимая константа
+    10. listOfInt: constants.LIST_FIELD[Int] - Список целочисленных параметров
+    11. listOfDouble: constants.LIST_FIELD[Double] - Список флотовых параметров
+    12. listOfString: constants.LIST_FIELD[String] - Cписок строк
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+

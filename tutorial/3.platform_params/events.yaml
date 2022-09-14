@@ -1,0 +1,90 @@
+Constants:
+
+  _GlobalParameters: &GlobalParameters .GlobalParams
+  # Константы для платформозависимых параметров
+  PlatformParameters: &PlatformParameters .PlatformParams
+  Events: &Events Events
+  parameters: &parameters parameters
+  type: &type type
+  description: &description description
+  comment: &comment comment
+  platforms: &platforms platforms
+  app_versions: &app_versions app_versions
+  ticket: &ticket ticket
+  in_progress: &in_progress in_progress
+  not_supported: &not_supported not_supported
+  int: &int Int
+  bool: &bool Bool
+  double: &double Double
+  string: &string String
+  enum: &enum Enum
+  dict: &dict Dict
+  enum_values: &values values
+  enum_name: &name name
+  abstract: &abstract abstract
+  const: &const Const
+  true: &true True
+  inheritance: &inheritance inheritance
+  documentation_dir: &documentation_dir documentation_dir
+
+*inheritance:
+    android: &android Android
+    ios: &ios iOS
+    web_smart_tv: &web_smart_tv WebSmartTV
+
+
+*GlobalParameters:
+    *parameters:
+    *description: Эти параметры добавляются к параметрам каждого события.
+
+
+# Платформозависимые параметры
+*PlatformParameters:
+    *android:  # Должно совпадать с названием платформы, указанной в событиях
+        *description: Эти параметры добавляются к параметрам, отправленных с Android
+        *parameters:
+            appVersion:
+                *type: *string
+                *description: Версия приложения
+
+    *ios:
+        *description: Эти параметры добавляются к параметрам, отправленных с iOS
+        *parameters:
+            hasSubscription:
+                *type: *bool
+                *description: Есть ли у пользователя подписка
+
+
+*Events:
+    MyEvent:
+        v1:
+            *parameters:
+            *description: Event description
+            *platforms:
+                *android:
+                  *app_versions: *in_progress
+                  *ticket: https://st.yandex-team.ru
+                *ios:
+                  *app_versions: *in_progress
+                  *ticket: https://st.yandex-team.ru
+                *web_smart_tv:
+                    *app_versions: *in_progress
+                    *ticket: https://st.yandex-team.ru
+
+    AlsoMyEvent:
+        Logged:
+            v1:
+                *parameters:
+                *description: Also event description
+                *comment: Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
+                *platforms:
+                    *android:
+                      *app_versions: *in_progress
+                      *ticket: https://st.yandex-team.ru
+                    *ios:
+                      *app_versions: *in_progress
+                      *ticket: https://st.yandex-team.ru
+                    *web_smart_tv:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+

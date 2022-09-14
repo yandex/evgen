@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "evgen"
+version = "1.0.0"
+description = "Tool to make contracts between analytics and developers"
+authors = ["Dmitry Zhukov <dima.m.zhukov@gmail.com>"]
+
+readme = "README.md"
+
+packages = [{ include = "evgen", from = "src" }]
+
+[tool.poetry.scripts]
+run_evgen = "evgen.scripts.run_evgen:main"
+check_evgen_result = "evgen.scripts.check_evgen_result:main"
+
+[tool.poetry.dependencies]
+python = ">=3.8, <3.11"
+numpy = "1.22.3"
+pandas = "1.4.3"
+six = "1.15.0"
+stringcase = "1.2.0"
+inflection = "0.5.1"
+tabulate = "0.8.9"
+PyYAML = "6.0"
+
+[tool.poetry.dev-dependencies]
+black = "22.3.0"
+isort = "5.10.1"
+
+[tool.black]
+target-version = ['py310']
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

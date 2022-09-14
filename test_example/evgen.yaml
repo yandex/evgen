@@ -1,0 +1,45 @@
+code:
+  AndroidJava:
+    platform: 'Android'
+    output_dir: 'android_java'
+    language: 'java'
+    class_name: 'EvgenAnalytics'
+    only_last_version: false
+  AndroidKotlin:
+    platform: 'Android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
+    class_name: 'EvgenAnalytics'
+    only_last_version: false
+  iOSSwift: # Эти названия групп конфигов могут быть произвольными
+    platform: 'iOS'
+    output_dir: 'ios_swift'
+    language: 'swift'
+    class_name: 'EvgenAnalytics'
+    only_last_version: false
+  iOSCSharp: # Эти названия групп конфигов могут быть произвольными
+    platform: 'iOS'
+    output_dir: 'ios_c_sharp'
+    language: 'c_sharp'
+    class_name: 'EvgenAnalytics'
+    only_last_version: false
+  WebSmartTV:
+    platform: 'WebSmartTV'
+    output_dir: 'web_smart_tv'
+    language: 'type_script'
+    class_name: 'EvgenAnalytics'
+    only_last_version: false
+  WebSmartTVLastVersion:
+    platform: 'WebSmartTV'
+    output_dir: 'web_smart_tv_last_version'
+    language: 'type_script'
+    class_name: 'EvgenAnalytics'
+    only_last_version: true
+doc:
+  Markdown:
+    extension: 'md'
+    output_dir: 'md_doc'
+  Txt:
+    extension: 'txt'
+    output_dir: 'txt_doc'
+

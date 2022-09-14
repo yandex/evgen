@@ -1,0 +1,119 @@
+/**
+    AUTO-GENERATED FILE. DO NOT MODIFY
+    This class was automatically generated.
+*/
+
+package ru.yandex.kinopoisk;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
+public final class EvgenAnalytics {
+    public static final class GlobalParams {
+        public String globalParam;
+        public Map<String, Object> paramsMap;
+        public GlobalParams(String globalParam) {
+            this.globalParam = globalParam;
+            Map<String, Object> params = new HashMap<>();
+            params.put("globalParam", globalParam);
+            this.paramsMap = params;
+        }
+    }
+    
+    public static final class PlatformParams {
+        public Map<String, Object> paramsMap;
+        public PlatformParams() {
+            Map<String, Object> params = new HashMap<>();
+            this.paramsMap = params;
+        }
+    }
+    
+    public interface GlobalParamsProvider {
+        GlobalParams getGlobalParams();
+    }
+    
+    public interface PlatformParamsProvider {
+        PlatformParams getPlatformParams();
+    }
+    
+    public interface Tracker {
+        void trackEvent(final String eventName, final Map<String, ?> parameters);
+    }
+    
+    public EvgenAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
+        this.tracker = tracker;
+        this.globalParamsProvider = globalParamsProvider;
+        this.platformParamsProvider = platformParamsProvider;
+    }
+    
+    private void trackEvent(String eventName, Map<String, ?> parameters) {
+        Map<String, Object> mergedParams = new HashMap<>(parameters);
+        mergedParams.putAll(this.globalParamsProvider.getGlobalParams().paramsMap);
+        mergedParams.putAll(this.platformParamsProvider.getPlatformParams().paramsMap);
+        this.tracker.trackEvent(eventName, mergedParams);
+    }
+    
+    private Map<String, Object>  makeMeta(int event_version, Map<String, ?> interfaces ) {
+        Map<String, Object> metaDict = new HashMap<>();
+        Map<String, Object> eventDict = new HashMap<>();
+        eventDict.put("version", event_version);
+        metaDict.put("event", eventDict);
+        metaDict.put("interfaces", interfaces);
+        return metaDict;
+    }
+    
+    private Tracker tracker;
+    private GlobalParamsProvider globalParamsProvider;
+    private PlatformParamsProvider platformParamsProvider;
+    
+    /**
+        Первое событие с переиспользуемым параметром
+        
+        0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+    */
+    public void anotherNamespaceEvent1(String reusedParam) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("reusedParam", reusedParam);
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(1, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("AnotherNamespace.Event1", params);
+    }
+    
+    /**
+        Второе событие с переиспользуемым параметром
+        
+        0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+    */
+    public void anotherNamespaceEvent2(String reusedParam) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("reusedParam", reusedParam);
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(1, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("AnotherNamespace.Event2", params);
+    }
+    
+    /**
+        События со всеми возможными типами параметров
+        
+        0. stringParam - Парамтер типа String
+        1. intParam - Параметр типа Int
+        2. paramFromAnotherFile - Параметр, описанный в отдельным файле.
+        3. batchParam1 - Параметр, описанный в отдельным файле.
+        4. batchParam2 - Параметр, описанный в отдельным файле.
+    */
+    public void myNamespaceMyEvent(String stringParam, int intParam, String paramFromAnotherFile, String batchParam1, String batchParam2) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("stringParam", stringParam);
+        params.put("intParam", String.valueOf(intParam));
+        params.put("paramFromAnotherFile", paramFromAnotherFile);
+        params.put("batchParam1", batchParam1);
+        params.put("batchParam2", batchParam2);
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(1, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("MyNamespace.MyEvent", params);
+    }
+    
+}

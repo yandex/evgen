@@ -1,0 +1,18 @@
+MyNamespace.MyEvent 
+    
+    V1
+    События со всеми возможными типами параметров
+    
+    0. stringParam: String - Парамтер типа String
+    1. intParam: Int - Параметр типа Int
+    2. paramFromAnotherFile: String - Параметр, описанный в отдельным файле.
+    3. batchParam1: String - Параметр, описанный в отдельным файле.
+    4. batchParam2: String - Параметр, описанный в отдельным файле.
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+

@@ -1,0 +1,157 @@
+Constants:
+
+  Events: &Events Events
+  Interfaces: &Interfaces Interfaces
+  GlobalParameters: &GlobalParameters .GlobalParams
+  parameters: &parameters parameters
+  type: &type type
+  description: &description description
+  comment: &comment comment
+  platforms: &platforms platforms
+  app_versions: &app_versions app_versions
+  ticket: &ticket ticket
+  interface: &interface interface
+  in_progress: &in_progress in_progress
+  not_supported: &not_supported not_supported
+  int: &int Int
+  long_int: &long_int Long Int
+  bool: &bool Bool
+  double: &double Double
+  string: &string String
+  enum: &enum Enum
+  dict: &dict Dict
+  enum_values: &values values
+  enum_name: &name name
+  abstract: &abstract abstract
+  const: &const Const
+  platformConst: &platformConst PlatformConst
+  true: &true True
+  inheritance: &inheritance inheritance
+  documentation_dir: &documentation_dir documentation_dir
+
+*inheritance:
+    android: &android Android
+    ios: &ios iOS
+    web_smart_tv: &web_smart_tv WebSmartTV
+
+
+*GlobalParameters:
+    *parameters:
+    *description: Эти параметры добавляются к параметрам каждого события.
+
+
+*Events:
+    Shop:
+        Showed:
+            v1:
+                *description: Показ экрана магазина
+                *interface: MyInterfaces.Page
+                *parameters:
+                    page: # Попробуйте изменить название параметра. Код не сгенирируется, так как событие больше не будет удовлетворять интерфейсу
+                        *type: *string
+                        *description: Название страницы
+                    pageId:
+                        *type: *int
+                        *description: Идентификатор страницы
+                *platforms:
+                    *android:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+                    *ios:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+                    *web_smart_tv:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+
+
+    Showcase:
+        Movie:
+            Showed:
+                v1:
+                    *description: Показ экрана магазина
+                    *interface:
+                        - MyInterfaces.Page
+                        - MyInterfaces.Movie
+                    *parameters:
+                        page:
+                            *type: *string
+                            *description: Название страницы
+                        movieName:
+                            *type: *string
+                            *description: Название фильма
+                        movieId:
+                            *type: *int
+                            *description: Идентификатор фильма
+                        pageId:
+                            *type: *int
+                            *description: Идентификатор страницы
+                    *platforms:
+                        *android:
+                            *app_versions: *in_progress
+                            *ticket: https://st.yandex-team.ru
+                        *ios:
+                            *app_versions: *in_progress
+                            *ticket: https://st.yandex-team.ru
+                        *web_smart_tv:
+                            *app_versions: *in_progress
+                            *ticket: https://st.yandex-team.ru
+
+        TVShow:
+            # Это событие удовлетворяет только первой версии интерфейса MyInterfaces.Movie
+            # и при генерации события выпадет соответствующее предубпреждание
+            Showed:
+                v1:
+                    *description: Показ экрана магазина
+                    *interface:
+                        - MyInterfaces.Page
+                        - MyInterfaces.Movie
+                    *parameters:
+                        page:
+                            *type: *string
+                            *description: Название страницы
+                        movieName:
+                            *type: *string
+                            *description: Название фильма
+                        pageId:
+                            *type: *int
+                            *description: Идентификатор страницы
+                    *platforms:
+                        *android:
+                            *app_versions: *in_progress
+                            *ticket: https://st.yandex-team.ru
+                        *ios:
+                            *app_versions: *in_progress
+                            *ticket: https://st.yandex-team.ru
+                        *web_smart_tv:
+                            *app_versions: *in_progress
+                            *ticket: https://st.yandex-team.ru
+
+
+*Interfaces:
+    MyInterfaces:
+        Page:
+            # Интерфейсы можно версионировать, тогда проверяется совместимость хотя бы с одной из версии интерфейса
+            v1:
+                *description: Протокол показа страницы
+                *parameters:
+                    page:
+                        *type: *string
+                        *description:  Название страницы
+        Movie:
+            v1:
+                *description: Протокол показа фильма
+                *parameters:
+                    movieName:
+                        *type: *string
+                        *description: Название фильма
+
+            v2:
+                *description: Протокол показа фильма
+                *parameters:
+                    movieId:
+                        *type: *int
+                        *description: Инденитфикатор фильма
+                    movieName:
+                        *type: *string
+                        *description: Название фильма

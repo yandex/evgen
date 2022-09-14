@@ -1,0 +1,6 @@
+.GlobalParams:
+    parameters:
+        globalParam:
+            type: String
+            description: Глобальный параметр, который добавится к каждомоу событию
+    description: Эти параметры добавляются к параметрам каждого события.

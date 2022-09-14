@@ -1,0 +1,34 @@
+code: # конфиг для генерации кода
+  AndroidJava: # Эти названия групп конфигов могут быть произвольными
+    platform: 'Android'
+    output_dir: 'android_java'
+    language: 'java'
+    class_name: 'EvgenAnalytics'
+  AndroidKotlin: # Эти названия групп конфигов могут быть произвольными
+    platform: 'Android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
+    class_name: 'EvgenAnalytics'
+  iOSSwift: # Эти названия групп конфигов могут быть произвольными
+    platform: 'iOS'
+    output_dir: 'ios_swift'
+    language: 'swift'
+    class_name: 'EvgenAnalytics'
+  iOSCSharp: # Эти названия групп конфигов могут быть произвольными
+    platform: 'iOS'
+    output_dir: 'ios_c_sharp'
+    language: 'c_sharp'
+    class_name: 'EvgenAnalytics'
+  WebSmartTV: # Эти названия групп конфигов могут быть произвольными
+    platform: 'WebSmartTV'
+    output_dir: 'web_smart_tv'
+    language: 'type_script'
+    class_name: 'EvgenAnalytics'
+doc: # конфиг для генерации документации
+  Markdown: # Эти названия групп конфигов могут быть произвольными
+    extension: 'md'
+    output_dir: 'md_doc'
+  Txt: # Эти названия групп конфигов могут быть произвольными
+    extension: 'txt'
+    output_dir: 'txt_doc'
+

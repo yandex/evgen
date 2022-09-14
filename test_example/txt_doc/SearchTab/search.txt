@@ -1,0 +1,114 @@
+Search.Showed 
+    
+    V1
+    Показ экрана поиска
+    
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Search.SearchEngine.Started 
+    
+    V1
+    Переход к строке поиска
+    
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Search.SearchEngine.Navigated 
+    
+    V1
+    Переход к другому экрану
+    
+    0. to: Enum(global_search_result, search_list, best_movies_filter) - тип экрана
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Search.SearchEngine.Finished 
+    
+    V1
+    Выход из строки поиска
+    
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Search.SearchEngine.Suggest.Showed 
+    
+    V1
+    Показ саджестов для текущего запроса
+    
+    0. query: String - Запрос в поиске
+    1. no_titles: Bool - Не найден ни один тайтл
+    2. no_persons: Bool - Не найдена ни одна персона
+    3. no_cinemas: Bool - Не найден ни один кинотеатр
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Search.SearchEngine.Suggest.Navigated 
+    
+    V1
+    Переход к другому экрану
+    
+    0. to: Enum(person_card, title_card, cinema_card, global_search_result, search_list) - тип экрана
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Search.SearchEngine.Suggest.Selected 
+    
+    V1
+    Выбор варианта отображения саджеста
+    
+    0. type: Enum(all_results, ott_results) - Типы отображения
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Search.SearchEngine.Suggest.ErrorRaised 
+    
+    V1
+    Возникла ошибка при показе саджеста
+    
+    0. type: Enum(ErrorType: backend_error, parser_error, network_error) - Тип ошибки
+    1. code: Int - Код ошибки
+    2. text: String - Описание ошибки
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+

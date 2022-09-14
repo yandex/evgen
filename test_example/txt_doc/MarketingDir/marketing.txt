@@ -1,0 +1,60 @@
+Marketing.Subscription.Succeed 
+    
+    V1
+    Успешное оформление подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    1. page: Enum(SubscriptionPage: my_movies_screen, shop_screen, profile_screen, payment_widget, onboarding_screen, locked_subscription_screen) - Название экрана, где было предложение о подписке
+    2. extraParams: Dict - Доп параметры
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Marketing.Subscription.Succeed 
+    
+    V2
+    Успешное оформление подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    _meta: {
+        event:  {
+            version: 2
+        },
+    }
+
+
+
+Marketing.Subscription.TrialSubs.Succeed 
+    
+    V1
+    Успешное оформление триальной подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    1. page: Enum(SubscriptionPage: my_movies_screen, shop_screen, profile_screen, payment_widget, onboarding_screen, locked_subscription_screen) - Название экрана, где было предложение о подписке
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+
+Marketing.Subscription.RegularSubs.Succeed 
+    
+    V1
+    Успешное оформление регулярной подписки
+    
+    0. subscriptionType: String - Тип подписки пользователя, пришедший с бэкенда.
+    1. page: Enum(SubscriptionPage: my_movies_screen, shop_screen, profile_screen, payment_widget, onboarding_screen, locked_subscription_screen) - Название экрана, где было предложение о подписке
+    _meta: {
+        event:  {
+            version: 1
+        },
+    }
+
+
+

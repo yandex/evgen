@@ -1,0 +1,13 @@
+.GlobalParams 
+    
+    
+    Эти параметры добавляются к параметрам каждого события.
+    
+    0. testIds: String - id A/B теста пользователя на момент события. Пишется строкой, id разделяются запятой например, '1231, 4, 16'
+    1. childMode: Bool - включен ли детский режим
+    2. experiment: Dict - Параметр для AB экспериментов
+    3. serviceName: PlatformConst(iOS: ott-mobile-ios_swift
+Android: ott-mobile-android
+WebSmartTV: ott-smarttv
+) - Константа для единообразной обработки кросссервисных событий. Название сервиса как в трекингах.
+

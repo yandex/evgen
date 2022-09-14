@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  generation:
+    image: evgen_generation
+    build:
+      dockerfile: docker/generation/Dockerfile
+      context: ..
+
+  compilation:
+    image: evgen_compilation
+    build:
+      dockerfile: docker/compilation/Dockerfile
+      context: ..

@@ -1,0 +1,185 @@
+Constants:
+
+  Events: &Events Events
+  GlobalParameters: &GlobalParameters .GlobalParams
+  parameters: &parameters parameters
+  type: &type type
+  default_value: &default_value default_value
+  description: &description description
+  comment: &comment comment
+  platforms: &platforms platforms
+  app_versions: &app_versions app_versions
+  ticket: &ticket ticket
+  in_progress: &in_progress in_progress
+  not_supported: &not_supported not_supported
+  int: &int Int
+  long_int: &long_int Long Int
+  bool: &bool Bool
+  double: &double Double
+  string: &string String
+  enum: &enum Enum
+  dict: &dict Dict
+  list: &list List
+  element_type: &element_type element_type
+  empty_list: &empty_list empty_list
+  enum_values: &values values
+  enum_name: &name name
+  abstract: &abstract abstract
+  const: &const Const
+  platformConst: &platformConst PlatformConst
+  true: &true True
+  inheritance: &inheritance inheritance
+  documentation_dir: &documentation_dir documentation_dir
+
+*inheritance:
+    android: &android Android
+    ios: &ios iOS
+    web_smart_tv: &web_smart_tv WebSmartTV
+
+*GlobalParameters:
+    *parameters:
+        globalParam:
+            *type: *string
+            *description: Глобальный параметр, который добавится к каждомоу событию
+    *description: Эти параметры добавляются к параметрам каждого события.
+
+*Events:
+    MyNamespace:
+        MyEvent:
+            v1:
+                *description: События со всеми возможными типами параметров
+                *parameters:
+                    stringParam:
+                        *type: *string
+                        *description: Параметр типа String
+                        *default_value: val
+                    intParam:
+                        *type: *int
+                        *description: Параметр типа Int
+                        *default_value: 42
+                    longIntParam:
+                        *type: *long_int
+                        *description: Параметр типа Long Int
+                    boolParam:
+                        *type: *bool
+                        *description: Параметр типа Bool
+                        *default_value: True
+                    doubleParam:
+                        *type: *double
+                        *description: Параметр типа Double
+                    constParam:
+                        *type:
+                            *const: ValueToLog
+                        *description: Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
+                    enumParam:
+                        *type:
+                            *enum:
+                                *values:
+                                    - option1
+                                    - option2
+                                    - option3
+                        *description: |-  # Символ многострочного комментария в yaml
+                            Параметр типа Enum. При логировании можно
+                            выбрать только один вариант. В коде имеет
+                            тип MyNamespaceMyEventEnumparam
+                        *default_value: option1
+                    namedEnumParam:
+                        *type:
+                            *enum:
+                                *name: Pages
+                                *values:
+                                    - screen_1
+                                    - screen_2
+                                    - screen_3
+                        *description: |-   # Символ многострочного комментария в yaml
+                             Параметр типа Enum. В коде имеет тип Pages.
+                             Если какой-то enum используется больше одного раза,
+                             то лучше давать ему явное имя, разботчики смогут
+                             обращаться к нему однообразно
+                    dictParam:
+                        *type: *dict
+                        *description: параметр типа Dict.
+                        # default values for dictionaries are not supported
+
+                    platformConst:
+                        *type:
+                            *platformConst:
+                                *android: AndroidValue
+                                *ios: iOSValue
+                                *web_smart_tv: WebSmartTVValue
+                        *description: Платформозависимая константа
+
+                    listOfInt:
+                        *type: *list
+                        *element_type: *int
+                        *default_value: *empty_list
+                        *description: Список целочисленных параметров
+
+                    listOfDouble:
+                        *type: *list
+                        *element_type: *double
+                        *default_value: *empty_list
+                        *description: Список флотовых параметров
+
+                    listOfString:
+                        *type: *list
+                        *element_type: *string
+                        *default_value: *empty_list
+                        *description: Cписок строк
+
+                *platforms:
+                    *android:
+                        *app_versions: 3.14
+                        *ticket: https://st.yandex-team.ru
+                    *ios:
+                        *app_versions: 4.13
+                        *ticket: https://st.yandex-team.ru
+                    *web_smart_tv:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+
+    AnotherNamespace:
+        # документацию для неймспейсов можно складывать в папки,
+        *documentation_dir: AnotherDir  # AnotherDir/Subdir
+
+
+        # здесь можно определить параметры которые будет переиспользовать внутри одного неймспейса
+        *inheritance:
+            reused_param: &reused_param # первый ключ по факту не используется, второй определаяет как к параметру обращаться в yaml файле
+            # важен отступ
+                reusedParam:  # собственно название параметра, которое будет использоваться при генерации
+                    *type: *string
+                    *description: Параметр, который переиспользуется в нескольких событиях
+
+        Event1:
+            v1:
+                *description: Первое событие с переиспользуемым параметром
+                *parameters:
+                    <<: *reused_param # вставка определенного выше параметра
+                *platforms:
+                    *android:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+                    *ios:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+                    *web_smart_tv:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+        Event2:
+            v1:
+                *description: Второе событие с переиспользуемым параметром
+                *parameters:
+                    <<: *reused_param # вставка определенного выше параметра
+                *platforms:
+                    *android:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+                    *ios:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+                    *web_smart_tv:
+                        *app_versions: *in_progress
+                        *ticket: https://st.yandex-team.ru
+
+

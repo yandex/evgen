@@ -1,0 +1,83 @@
+Constants:
+
+  # Это константы по которым работает Evgen, можно работать без них
+  # но чтобы работал code completion, подсветка в IDE и не было опечаток, можно копировать их к себе в events.yaml
+
+  _GlobalParameters: &GlobalParameters .GlobalParams   # Первый ключ '_GlobalParameters:' по факту не используется,
+  #'&GlobalParameters' определяет как переменная будет называться в yaml файле, и последний '.GlobalParams'
+  # определяет какое значение будет подсатавляться вместо переменной при генерации
+  Events: &Events Events
+  parameters: &parameters parameters
+  type: &type type
+  description: &description description
+  comment: &comment comment
+  platforms: &platforms platforms
+  app_versions: &app_versions app_versions
+  ticket: &ticket ticket
+  in_progress: &in_progress in_progress
+  not_supported: &not_supported not_supported
+  int: &int Int
+  bool: &bool Bool
+  double: &double Double
+  string: &string String
+  enum: &enum Enum
+  dict: &dict Dict
+  enum_values: &values values
+  enum_name: &name name
+  abstract: &abstract abstract
+  const: &const Const
+  true: &true True
+  inheritance: &inheritance inheritance
+  documentation_dir: &documentation_dir documentation_dir
+
+# Здесь определяются переменные, которые будут переиспользоваться между другими событиями
+*inheritance:
+
+    # названия платофм, для которых будет генерироваться код, должно совпадать с полем 'platform' в файле evgen.yaml
+    android: &android Android
+    ios: &ios iOS
+    web_smart_tv: &web_smart_tv WebSmartTV
+
+
+# Здесь опеределяются глобальные параметры
+*GlobalParameters:
+    *parameters:
+    *description: Эти параметры добавляются к параметрам каждого события.
+
+
+# Здесь определяются события. Стуктура имеет древовидную структуру.
+# Все уровни от 'Events' до 'v1' конкатенируются в название события через точку
+*Events:
+    MyEvent:
+        # Название события будет MyEvent
+        v1:
+            *parameters:
+            *description: Event description
+            *platforms:
+                *android:
+                  *app_versions: *in_progress
+                  *ticket: https://st.yandex-team.ru
+                *ios:
+                  *app_versions: *in_progress
+                  *ticket: https://st.yandex-team.ru
+                *web_smart_tv:
+                  *app_versions: *in_progress
+                  *ticket: https://st.yandex-team.ru
+
+    AlsoMyEvent:
+        Logged:
+            # Название события будет AlsoMyEvent.Logged
+            v1:
+                *parameters:
+                *description: Also event description
+                *comment: Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
+                *platforms:
+                    *android:
+                      *app_versions: *in_progress
+                      *ticket: https://st.yandex-team.ru
+                    *ios:
+                      *app_versions: *in_progress
+                      *ticket: https://st.yandex-team.ru
+                    *web_smart_tv:
+                      *app_versions: *in_progress
+                      *ticket: https://st.yandex-team.ru
