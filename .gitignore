@@ -4,8 +4,8 @@
 **/__pycache__
 build
 
-##
-# Poetry
+## 
+# Poetry 
 # https://github.com/python-poetry/poetry/blob/master/.gitignore
 
 *.pyc
