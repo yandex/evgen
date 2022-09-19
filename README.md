@@ -40,7 +40,7 @@ pip install ./dist/evgen-{PACKAGE_VERSION}-py3-none-any.whl
 1.  ```run_evgen.py --events_path events.yaml --evgen_config_path evgen.yaml```
 Examples of evgen.yaml can be found in tutorial/
 
-Структура evgen.yaml
+Structure of evgen.yaml
 
 ```code:
   $SubconfigName1:
@@ -63,11 +63,5 @@ doc:
 
 
 ## Check generated file consistency
-Для CI может быть полезно проверять, что все файлы консистенты между собой (yaml и сгенерированные файлы) и сгенерированные файлы не изменены руками
+It can be useful to check consistency of yaml-file and generated files. It guarantees that generated files were not changed manually:
 ```check_evgen_result.py --events_yaml_path events.yaml --evgen_config_path evgen.yaml```
-
-
-## Authors:
-Dmitry Zhukov, Yuriy Podorozhnyy, Konstantin Kiselev and Ilya Lobanov
-
-With special thanks to Igor Kolodkin and Alexandar Baksheev
