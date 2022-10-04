@@ -16,10 +16,50 @@ public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
     func getPlatformParams() -> EvgenAnalyticsPlatformParams
 }
 
+public enum subService: String {
+    case afisha = "afisha"
+    case drive = "drive"
+    case eats = "eats"
+    case kinopoiskWeb = "kinopoisk_web"
+    case kinopoiskYaserp = "kinopoisk_yaserp"
+    case kinopoiskYaefir = "kinopoisk_yaefir"
+    case kinopoiskYavideo = "kinopoisk_yavideo"
+    case kinopoiskYasport = "kinopoisk_yasport"
+    case kinopoiskApp = "kinopoisk_app"
+    case kinopoiskAndroidtv = "kinopoisk_androidtv"
+    case kinopoiskAppletv = "kinopoisk_appletv"
+    case kinopoiskYandextvLauncher = "kinopoisk_yandextv_launcher"
+    case kinopoiskYandextv = "kinopoisk_yandextv"
+    case kinopoiskSmarttv = "kinopoisk_smarttv"
+    case kinopoiskGift = "kinopoisk_gift"
+    case lavka = "lavka"
+    case market = "market"
+    case musicWeb = "music_web"
+    case musicApp = "music_app"
+    case musicYastation = "music_yastation"
+    case musicMtsru = "music_mtsru"
+    case musicWindows = "music_windows"
+    case musicRadio = "music_radio"
+    case musicNavi = "music_navi"
+    case musicYaauto = "music_yaauto"
+    case musicMusickp = "music_musickp"
+    case musicPp = "music_pp"
+    case musicMtsbw = "music_mtsbw"
+    case navi = "navi"
+    case plus = "plus"
+    case plusGift = "plus_gift"
+    case taxi = "taxi"
+    case zapravki = "zapravki"
+    case device = "device"
+    case fintech = "fintech"
+    case aon = "aon"
+}
+
 public struct EvgenAnalyticsGlobalParams {
     public var testIds: String
     public var childMode: Bool
     public var experiment: [String: Any]
+    public var subService: subService
     
     public func makeOptions() -> [String: Any] {
         var options: [String: Any] = [:]
@@ -30,14 +70,16 @@ public struct EvgenAnalyticsGlobalParams {
             options["childMode"] = "false"
         }
         options["experiment"] = experiment
+        options["subService"] = subService.rawValue
         options["serviceName"] = "ott-mobile-ios_swift"
         return options
     }
     
-    public init(testIds: String, childMode: Bool, experiment: [String: Any]) {
+    public init(testIds: String, childMode: Bool, experiment: [String: Any], subService: subService) {
         self.testIds = testIds
         self.childMode = childMode
         self.experiment = experiment
+        self.subService = subService
     }
 }
 public struct EvgenAnalyticsPlatformParams {

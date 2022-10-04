@@ -16,11 +16,51 @@ interface EvgenAnalyticsPlatformParamsProvider {
     fun getPlatformParams() : EvgenAnalyticsPlatformParams
 }
 
-class EvgenAnalyticsGlobalParams(testIds: String, childMode: Boolean, experiment: Map<String, Any>) {
+enum class subService(val eventValue: String) {
+    Afisha("afisha"),
+    Drive("drive"),
+    Eats("eats"),
+    KinopoiskWeb("kinopoisk_web"),
+    KinopoiskYaserp("kinopoisk_yaserp"),
+    KinopoiskYaefir("kinopoisk_yaefir"),
+    KinopoiskYavideo("kinopoisk_yavideo"),
+    KinopoiskYasport("kinopoisk_yasport"),
+    KinopoiskApp("kinopoisk_app"),
+    KinopoiskAndroidtv("kinopoisk_androidtv"),
+    KinopoiskAppletv("kinopoisk_appletv"),
+    KinopoiskYandextvLauncher("kinopoisk_yandextv_launcher"),
+    KinopoiskYandextv("kinopoisk_yandextv"),
+    KinopoiskSmarttv("kinopoisk_smarttv"),
+    KinopoiskGift("kinopoisk_gift"),
+    Lavka("lavka"),
+    Market("market"),
+    MusicWeb("music_web"),
+    MusicApp("music_app"),
+    MusicYastation("music_yastation"),
+    MusicMtsru("music_mtsru"),
+    MusicWindows("music_windows"),
+    MusicRadio("music_radio"),
+    MusicNavi("music_navi"),
+    MusicYaauto("music_yaauto"),
+    MusicMusickp("music_musickp"),
+    MusicPp("music_pp"),
+    MusicMtsbw("music_mtsbw"),
+    Navi("navi"),
+    Plus("plus"),
+    PlusGift("plus_gift"),
+    Taxi("taxi"),
+    Zapravki("zapravki"),
+    Device("device"),
+    Fintech("fintech"),
+    Aon("aon"),
+}
+
+class EvgenAnalyticsGlobalParams(testIds: String, childMode: Boolean, experiment: Map<String, Any>, subService: subService) {
     val parameters: Map<String, Any> = mapOf (
         "testIds" to testIds,
         "childMode" to childMode,
         "experiment" to experiment,
+        "subService" to subService.eventValue,
         "serviceName" to "ott-mobile-android",
     )
 }

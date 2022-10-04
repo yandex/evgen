@@ -44,10 +44,52 @@ public class EvgenAnalytics {
         PlatformParams getPlatformParams();
     }
     
+    public class subService {
+        private subService(string value) { RawValue = value; }
+        public string RawValue { get; private set; }
+        public static subService AFISHA  { get { return new subService("afisha"); } }
+        public static subService DRIVE  { get { return new subService("drive"); } }
+        public static subService EATS  { get { return new subService("eats"); } }
+        public static subService KINOPOISK_WEB  { get { return new subService("kinopoisk_web"); } }
+        public static subService KINOPOISK_YASERP  { get { return new subService("kinopoisk_yaserp"); } }
+        public static subService KINOPOISK_YAEFIR  { get { return new subService("kinopoisk_yaefir"); } }
+        public static subService KINOPOISK_YAVIDEO  { get { return new subService("kinopoisk_yavideo"); } }
+        public static subService KINOPOISK_YASPORT  { get { return new subService("kinopoisk_yasport"); } }
+        public static subService KINOPOISK_APP  { get { return new subService("kinopoisk_app"); } }
+        public static subService KINOPOISK_ANDROIDTV  { get { return new subService("kinopoisk_androidtv"); } }
+        public static subService KINOPOISK_APPLETV  { get { return new subService("kinopoisk_appletv"); } }
+        public static subService KINOPOISK_YANDEXTV_LAUNCHER  { get { return new subService("kinopoisk_yandextv_launcher"); } }
+        public static subService KINOPOISK_YANDEXTV  { get { return new subService("kinopoisk_yandextv"); } }
+        public static subService KINOPOISK_SMARTTV  { get { return new subService("kinopoisk_smarttv"); } }
+        public static subService KINOPOISK_GIFT  { get { return new subService("kinopoisk_gift"); } }
+        public static subService LAVKA  { get { return new subService("lavka"); } }
+        public static subService MARKET  { get { return new subService("market"); } }
+        public static subService MUSIC_WEB  { get { return new subService("music_web"); } }
+        public static subService MUSIC_APP  { get { return new subService("music_app"); } }
+        public static subService MUSIC_YASTATION  { get { return new subService("music_yastation"); } }
+        public static subService MUSIC_MTSRU  { get { return new subService("music_mtsru"); } }
+        public static subService MUSIC_WINDOWS  { get { return new subService("music_windows"); } }
+        public static subService MUSIC_RADIO  { get { return new subService("music_radio"); } }
+        public static subService MUSIC_NAVI  { get { return new subService("music_navi"); } }
+        public static subService MUSIC_YAAUTO  { get { return new subService("music_yaauto"); } }
+        public static subService MUSIC_MUSICKP  { get { return new subService("music_musickp"); } }
+        public static subService MUSIC_PP  { get { return new subService("music_pp"); } }
+        public static subService MUSIC_MTSBW  { get { return new subService("music_mtsbw"); } }
+        public static subService NAVI  { get { return new subService("navi"); } }
+        public static subService PLUS  { get { return new subService("plus"); } }
+        public static subService PLUS_GIFT  { get { return new subService("plus_gift"); } }
+        public static subService TAXI  { get { return new subService("taxi"); } }
+        public static subService ZAPRAVKI  { get { return new subService("zapravki"); } }
+        public static subService DEVICE  { get { return new subService("device"); } }
+        public static subService FINTECH  { get { return new subService("fintech"); } }
+        public static subService AON  { get { return new subService("aon"); } }
+    }
+    
     public class GlobalParams {
         public string testIds;
         public bool childMode;
         public Dictionary<string, object> experiment;
+        public subService subService;
         
         public Dictionary<string, object> makeParams() {
             var parameters = new Dictionary<string, object>();
@@ -58,14 +100,16 @@ public class EvgenAnalytics {
                 parameters.Add("childMode", "false");
             }
             parameters.Add("experiment", experiment);
+            parameters.Add("subService", subService.RawValue);
             parameters.Add("serviceName", "ott-mobile-ios_swift");
             return parameters;
         }
         
-        public GlobalParams(string testIds, bool childMode, Dictionary<string, object> experiment) {
+        public GlobalParams(string testIds, bool childMode, Dictionary<string, object> experiment, subService subService) {
             this.testIds = testIds;
             this.childMode = childMode;
             this.experiment = experiment;
+            this.subService = subService;
         }
     }
     public class PlatformParams {

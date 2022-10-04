@@ -9,19 +9,65 @@ import java.util.Map;
 import java.util.List;
 
 public final class EvgenAnalytics {
+    public enum subService {
+        AFISHA("afisha"),
+        DRIVE("drive"),
+        EATS("eats"),
+        KINOPOISK_WEB("kinopoisk_web"),
+        KINOPOISK_YASERP("kinopoisk_yaserp"),
+        KINOPOISK_YAEFIR("kinopoisk_yaefir"),
+        KINOPOISK_YAVIDEO("kinopoisk_yavideo"),
+        KINOPOISK_YASPORT("kinopoisk_yasport"),
+        KINOPOISK_APP("kinopoisk_app"),
+        KINOPOISK_ANDROIDTV("kinopoisk_androidtv"),
+        KINOPOISK_APPLETV("kinopoisk_appletv"),
+        KINOPOISK_YANDEXTV_LAUNCHER("kinopoisk_yandextv_launcher"),
+        KINOPOISK_YANDEXTV("kinopoisk_yandextv"),
+        KINOPOISK_SMARTTV("kinopoisk_smarttv"),
+        KINOPOISK_GIFT("kinopoisk_gift"),
+        LAVKA("lavka"),
+        MARKET("market"),
+        MUSIC_WEB("music_web"),
+        MUSIC_APP("music_app"),
+        MUSIC_YASTATION("music_yastation"),
+        MUSIC_MTSRU("music_mtsru"),
+        MUSIC_WINDOWS("music_windows"),
+        MUSIC_RADIO("music_radio"),
+        MUSIC_NAVI("music_navi"),
+        MUSIC_YAAUTO("music_yaauto"),
+        MUSIC_MUSICKP("music_musickp"),
+        MUSIC_PP("music_pp"),
+        MUSIC_MTSBW("music_mtsbw"),
+        NAVI("navi"),
+        PLUS("plus"),
+        PLUS_GIFT("plus_gift"),
+        TAXI("taxi"),
+        ZAPRAVKI("zapravki"),
+        DEVICE("device"),
+        FINTECH("fintech"),
+        AON("aon");
+        public final String eventValue;
+        subService(String eventValue) {
+            this.eventValue = eventValue;
+        }
+    }
+    
     public static final class GlobalParams {
         public String testIds;
         public boolean childMode;
         public Map<String, ?> experiment;
+        public subService subService;
         public Map<String, Object> paramsMap;
-        public GlobalParams(String testIds, boolean childMode, Map<String, ?> experiment) {
+        public GlobalParams(String testIds, boolean childMode, Map<String, ?> experiment, subService subService) {
             this.testIds = testIds;
             this.childMode = childMode;
             this.experiment = experiment;
+            this.subService = subService;
             Map<String, Object> params = new HashMap<>();
             params.put("testIds", testIds);
             params.put("childMode", String.valueOf(childMode));
             params.put("experiment", experiment);
+            params.put("subService", subService.eventValue);
             params.put("serviceName", "ott-mobile-android");
             this.paramsMap = params;
         }

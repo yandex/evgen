@@ -25,12 +25,12 @@ class MarkdownParameterTypeSerialization:
         if isinstance(parameter_type, parameter_types.EnumType):
             string = constants.ENUM_FIELD + "("
             for value in parameter_type.type_values:
-                string += value + ", "
-            string = string[:-2]
+                string += value + ",<br/>"
+            string = string[:-6]
             string += ")"
-            return string
+            return "<code>" + string + "</code>"
 
-        return str(parameter_type)
+        return "<code>" + str(parameter_type) + "</code>"
 
 
 class MarkdownGenerator:
@@ -40,7 +40,7 @@ class MarkdownGenerator:
     def __init__(self, events: parser_types.NamespaceCollection):
         self.event_collection = events
         self.markdown_symbols = {
-            "new_line": "<br>",
+            "new_line": "<br/>",
             "slash": "\\\\",
             "underscore": "_",
             "space": "&nbsp;",
