@@ -1,7 +1,9 @@
 # Code generation for event logging
-EvGen - Event generator.  Useful tools to make contracts between analytics and developers.
+
+EvGen: Event Generator.  Useful tools for making contracts between analysts and developers.
 
 Supported languages
+
    - swift
    - java
    - kotlin
@@ -20,24 +22,27 @@ Supported languages
 poetry install
 ```
 
-Now you can use it from project package
-> scripts to run defined in `pyproject.toml`
+You can now use it from the project package
+
+> Scripts to run are defined in `pyproject.toml`
+
 ```sh
 poetry run run_evgen # and additional arguments
 ```
 
-If you want to install it globally then you have to build project
+If you want to install it globally, you have to build a project
+
 ```sh
 poetry build --format wheel
 pip install ./dist/evgen-{PACKAGE_VERSION}-py3-none-any.whl
 ```
 
-
 ## Run generation
-0. Create folder with:
-    * events.yaml -- File with events specification
+
+0. Create a folder with:
+    * events.yaml -- File with event specifications
     * evgen.yaml -- Evgen config file
-1.  ```run_evgen.py --events_path events.yaml --evgen_config_path evgen.yaml```
+1. ```run_evgen.py --events_path events.yaml --evgen_config_path evgen.yaml```
 Examples of evgen.yaml can be found in tutorial/
 
 Structure of evgen.yaml
@@ -60,8 +65,7 @@ doc:
     output_dir: 'txt_doc'
 ```
 
-
-
 ## Check generated file consistency
-It can be useful to check consistency of yaml-file and generated files. It guarantees that generated files were not changed manually:
+
+We suggest checking the consistency of the yaml and generated files. To see if generated files were changed manually:
 ```check_evgen_result.py --events_yaml_path events.yaml --evgen_config_path evgen.yaml```
