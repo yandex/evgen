@@ -79,6 +79,7 @@ def generate(
     events_path: Union[str, Path],
     evgen_config_path: Union[str, Path],
     ytt: bool = False,
+    include_conflict_warning: bool = False,
 ):
 
     config = evgen_config.EvgenConfig.load(evgen_config_path)
@@ -86,7 +87,10 @@ def generate(
     root_dir = Path(evgen_config_path).parent
 
     events = parser.parse_yaml(
-        events_path, single_param_tracker=config.single_param_tracker, use_ytt=ytt
+        events_path,
+        single_param_tracker=config.single_param_tracker,
+        use_ytt=ytt,
+        include_conflict_warning=include_conflict_warning,
     )
 
     if config.code:
@@ -131,6 +135,12 @@ def get_arg_parser():
     )
     arg_parser.add_argument(
         "--ytt", action="store_true", help="Use YTT to parse yaml files"
+    )
+    arg_parser.add_argument(
+        "--include_conflict_warning",
+        "-i",
+        action="store_true",
+        help="Show warning when included fields conflict with existing",
     )
     return arg_parser
 

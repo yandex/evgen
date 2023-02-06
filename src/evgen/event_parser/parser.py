@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 from subprocess import run
-from typing import Any, Union
+from typing import Any, List, Union
 
 import yaml
 
@@ -11,12 +12,16 @@ from evgen.event_parser import interface_checker as ic
 from evgen.event_parser import types, yaml_loader
 
 
-def substitute_values_instead_special_key(raw_yaml: Any) -> Any:
+def substitute_values_instead_special_key(
+    raw_yaml: Any, stack: List[str], include_conflict_warning: bool
+) -> Any:
     included_dict = {}
     merged_dict = {}
     if isinstance(raw_yaml, dict):
         for key, values in raw_yaml.items():
-            merged_values = substitute_values_instead_special_key(values)
+            merged_values = substitute_values_instead_special_key(
+                values, stack + [key], include_conflict_warning
+            )
             if key[: len(constants.SUBSTITUTE_NAME)] == constants.SUBSTITUTE_NAME:
                 if isinstance(merged_values, dict):
                     included_dict = {**included_dict, **merged_values}
@@ -24,6 +29,16 @@ def substitute_values_instead_special_key(raw_yaml: Any) -> Any:
                     included_dict[key] = merged_values
             else:
                 merged_dict[key] = merged_values
+        if include_conflict_warning:
+            for key in included_dict.keys():
+                if key in merged_dict:
+                    # Printing difference in
+                    # keys in two dictionary
+                    logging.warning(
+                        f'Conflict on field "{key}": value "{merged_dict[key]}") will will be used instead of included "{included_dict[key]}"\nStack:\n'
+                        + "\n\t -> ".join(map(str, stack))
+                    )
+
         return {
             **included_dict,
             **merged_dict,
@@ -33,7 +48,10 @@ def substitute_values_instead_special_key(raw_yaml: Any) -> Any:
 
 
 def parse_yaml(
-    events_path: Union[str, Path], single_param_tracker: bool, use_ytt: bool = False
+    events_path: Union[str, Path],
+    single_param_tracker: bool,
+    use_ytt: bool = False,
+    include_conflict_warning: bool = False,
 ) -> types.NamespaceCollection:
 
     events_path = Path(events_path)
@@ -64,7 +82,7 @@ def parse_yaml(
                             f"In file {yaml_file} error occured: ", error
                         )
                     yaml_with_substituted_keys = substitute_values_instead_special_key(
-                        raw_yaml
+                        raw_yaml, [str(yaml_file)], include_conflict_warning
                     )
                     raw_yaml_list.append(yaml_with_substituted_keys)
         else:
