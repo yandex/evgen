@@ -110,6 +110,7 @@ def check_global_params_intersection(namespace_collection: types.NamespaceCollec
                 for platform in event_version.platforms:
                     virtual_check_results.append(
                         platform.first_version == constants.NOT_SUPPORTED_FIELD
+                        or platform.first_version == constants.DEPRECATED_FIELD
                     )
                 is_virtual = all(virtual_check_results)
                 if len(intersection) > 0 and not is_virtual:

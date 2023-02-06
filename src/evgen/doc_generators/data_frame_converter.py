@@ -12,6 +12,8 @@ def _replace_platform_version(platform: parser_types.Platform) -> str:
         return f"В разработке‍ {platform.ticket}"
     elif platform.first_version is constants.NOT_SUPPORTED_FIELD:
         return "Не поддерживается"
+    elif platform.first_version is constants.DEPRECATED_FIELD:
+        return "Deprecated"
     else:
         if platform.last_version is None:
             return f"{platform.first_version} {platform.ticket}"

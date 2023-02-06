@@ -184,6 +184,9 @@ class Platform:
         elif platform_versions == constants.NOT_SUPPORTED_FIELD:
             first_version = constants.NOT_SUPPORTED_FIELD
             last_version = constants.NOT_SUPPORTED_FIELD
+        elif platform_versions == constants.DEPRECATED_FIELD:
+            first_version = constants.DEPRECATED_FIELD
+            last_version = constants.DEPRECATED_FIELD
         else:
             if not isinstance(platform_versions, str):
                 platform_versions = str(platform_versions)
@@ -196,7 +199,10 @@ class Platform:
                 first_version = first_version.replace(" ", "")
                 last_version = None
 
-        if first_version != constants.NOT_SUPPORTED_FIELD:
+        if (
+            first_version != constants.NOT_SUPPORTED_FIELD
+            and first_version != constants.DEPRECATED_FIELD
+        ):
             ticket = platform_params.get(constants.TICKET_FIELD)
             if ticket is None:
                 raise RuntimeError(f"No ticket attached for platform {platform_name}")
