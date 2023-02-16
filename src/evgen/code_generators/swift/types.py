@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import inflection
 
@@ -39,11 +39,15 @@ class SwiftTimeMilliseconds(evgen_code.SimpleType):
         super().__init__("Double")
 
 
-def serialize_enum_value(value) -> str:
-    serialized_value = value.replace("-", "_").replace(".", "_")
-    serialized_value = inflection.camelize(
-        serialized_value, uppercase_first_letter=False
-    )
+def serialize_enum_value(value: Any, int_prefix: Optional[str] = "int") -> str:
+    if isinstance(value, int):
+        # Название значения enum'а не может быть числом поэтому добавляем префикс
+        serialized_value = int_prefix + str(value)
+    else:
+        serialized_value = value.replace("-", "_").replace(".", "_")
+        serialized_value = inflection.camelize(
+            serialized_value, uppercase_first_letter=False
+        )
 
     if serialized_value == "default":
         serialized_value = "`default`"
@@ -60,6 +64,9 @@ class SwiftEnum(evgen_code.EnumType):
             name = name_prefix + name
             self._named_enum = False
         self._name = name
+        self._values_type = SwiftString.type_name
+        if isinstance(values[0], int):
+            self._values_type = SwiftInt.type_name
 
         self._values = list()
         for val in values:
@@ -71,7 +78,7 @@ class SwiftEnum(evgen_code.EnumType):
 
     @classmethod
     def create(
-        cls, name: str, values: List[str], name_prefix: Optional[str] = None
+        cls, name: str, values: List[Any], name_prefix: Optional[str] = None
     ) -> SwiftEnum:
         return cls(name, values, name_prefix)
 
@@ -97,11 +104,19 @@ class SwiftEnum(evgen_code.EnumType):
 
     def lines(self) -> List[str]:
         statements = list()
+        optional_quote = '"'
+        if self._values_type == SwiftInt.type_name:
+            optional_quote = ""
         for value in self._values:
-            statements.append(st.Line(f'case {value.code_type} = "{value.event_type}"'))
+            statements.append(
+                st.Line(
+                    f"case {value.code_type} = {optional_quote}{value.event_type}{optional_quote}"
+                )
+            )
 
         enum_statement = st.Closure(
-            header=f"public enum {self._name}: String", statements=statements
+            header=f"public enum {self._name}: {self._values_type}",
+            statements=statements,
         )
         return enum_statement.lines()
 

@@ -86,7 +86,7 @@ class EnumType(ParameterType):
 
     @classmethod
     def create(
-        cls, name: str, values: List[str], name_prefix: Optional[str] = None
+        cls, name: str, values: List[Any], name_prefix: Optional[str] = None
     ) -> EnumType:
         ...
 

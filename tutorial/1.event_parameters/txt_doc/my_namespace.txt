@@ -12,18 +12,21 @@ MyNamespace.MyEvent
     6. enumParam: Enum(option1, option2, option3) - Параметр типа Enum. При логировании можно
 выбрать только один вариант. В коде имеет
 тип MyNamespaceMyEventEnumparam
-    7. namedEnumParam: Enum(Pages: screen_1, screen_2, screen_3) - Параметр типа Enum. В коде имеет тип Pages.
+    7. enumParamInt: Enum(1, 2, 3) - Параметр типа Enum Int. При логировании можно
+выбрать только один вариант. В коде имеет
+тип MyNamespaceMyEventEnumparam
+    8. namedEnumParam: Enum(Pages: screen_1, screen_2, screen_3) - Параметр типа Enum. В коде имеет тип Pages.
 Если какой-то enum используется больше одного раза,
 то лучше давать ему явное имя, разботчики смогут
 обращаться к нему однообразно
-    8. dictParam: Dict - параметр типа Dict.
-    9. platformConst: PlatformConst(Android: AndroidValue
+    9. dictParam: Dict - параметр типа Dict.
+    10. platformConst: PlatformConst(Android: AndroidValue
 iOS: iOSValue
 WebSmartTV: WebSmartTVValue
 ) - Платформозависимая константа
-    10. listOfInt: constants.LIST_FIELD[Int] - Список целочисленных параметров
-    11. listOfDouble: constants.LIST_FIELD[Double] - Список флотовых параметров
-    12. listOfString: constants.LIST_FIELD[String] - Cписок строк
+    11. listOfInt: constants.LIST_FIELD[Int] - Список целочисленных параметров
+    12. listOfDouble: constants.LIST_FIELD[Double] - Список флотовых параметров
+    13. listOfString: constants.LIST_FIELD[String] - Cписок строк
     _meta: {
         event:  {
             version: 1

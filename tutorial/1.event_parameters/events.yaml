@@ -83,6 +83,18 @@ Constants:
                             выбрать только один вариант. В коде имеет
                             тип MyNamespaceMyEventEnumparam
                         *default_value: option1
+                    enumParamInt:
+                      *type :
+                        *enum :
+                          *values :
+                            - 1
+                            - 2
+                            - 3
+                      *description : |-  # Символ многострочного комментария в yaml
+                        Параметр типа Enum Int. При логировании можно
+                        выбрать только один вариант. В коде имеет
+                        тип MyNamespaceMyEventEnumparam
+                      *default_value : 1
                     namedEnumParam:
                         *type:
                             *enum:

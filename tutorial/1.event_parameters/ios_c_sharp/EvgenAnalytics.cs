@@ -111,6 +111,14 @@ public class EvgenAnalytics {
         public static MyNamespaceMyEventEnumParam OPTION3  { get { return new MyNamespaceMyEventEnumParam("option3"); } }
     }
     
+    public class MyNamespaceMyEventEnumParamInt {
+        private MyNamespaceMyEventEnumParamInt(int value) { RawValue = value; }
+        public int RawValue { get; private set; }
+        public static MyNamespaceMyEventEnumParamInt INT_1  { get { return new MyNamespaceMyEventEnumParamInt(1); } }
+        public static MyNamespaceMyEventEnumParamInt INT_2  { get { return new MyNamespaceMyEventEnumParamInt(2); } }
+        public static MyNamespaceMyEventEnumParamInt INT_3  { get { return new MyNamespaceMyEventEnumParamInt(3); } }
+    }
+    
     /**
         События со всеми возможными типами параметров
         
@@ -121,14 +129,15 @@ public class EvgenAnalytics {
         4. doubleParam - Параметр типа Double
         5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
         6. enumParam - Параметр типа Enum. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-        7. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
-        8. dictParam - параметр типа Dict.
-        9. platformConst - Платформозависимая константа
-        10. listOfInt - Список целочисленных параметров
-        11. listOfDouble - Список флотовых параметров
-        12. listOfString - Cписок строк
+        7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
+        8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
+        9. dictParam - параметр типа Dict.
+        10. platformConst - Платформозависимая константа
+        11. listOfInt - Список целочисленных параметров
+        12. listOfDouble - Список флотовых параметров
+        13. listOfString - Cписок строк
     */
-    public void myNamespaceMyEvent(long longIntParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, Pages namedEnumParam, Dictionary<string, object> dictParam, List<int> listOfInt, List<double> listOfDouble, List<string> listOfString, string stringParam = "val", int intParam = 42, bool boolParam = true) {
+    public void myNamespaceMyEvent(long longIntParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, Dictionary<string, object> dictParam, List<int> listOfInt, List<double> listOfDouble, List<string> listOfString, string stringParam = "val", int intParam = 42, bool boolParam = true) {
         var parameters = new Dictionary<string, object>();
         parameters.Add("stringParam", stringParam);
         parameters.Add("intParam", intParam);
@@ -141,6 +150,7 @@ public class EvgenAnalytics {
         parameters.Add("doubleParam", doubleParam);
         parameters.Add("constParam", "ValueToLog");
         parameters.Add("enumParam", enumParam.RawValue);
+        parameters.Add("enumParamInt", enumParamInt.RawValue);
         parameters.Add("namedEnumParam", namedEnumParam.RawValue);
         parameters.Add("dictParam", dictParam);
         parameters.Add("platformConst", "iOSValue");

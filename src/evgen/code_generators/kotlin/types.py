@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import inflection
 
@@ -39,14 +39,18 @@ class KotlinAny(evgen_code.SimpleType):
         super().__init__("Any")
 
 
-def serialize_enum_value(value) -> str:
-    serialized_value = value.replace("-", "_").replace(".", "_")
-    serialized_value = inflection.camelize(serialized_value)
+def serialize_enum_value(value: Any, int_prefix: Optional[str] = "Int") -> str:
+    if isinstance(value, int):
+        # Название значения enum'а не может быть числом поэтому добавляем префикс
+        serialized_value = int_prefix + "_" + str(value)
+    else:
+        serialized_value = value.replace("-", "_").replace(".", "_")
+        serialized_value = inflection.camelize(serialized_value)
     return serialized_value
 
 
 class KotlinEnum(evgen_code.EnumType):
-    def __init__(self, name: str, values: List[str], name_prefix: Optional[str] = None):
+    def __init__(self, name: str, values: List[Any], name_prefix: Optional[str] = None):
 
         self._named_enum = True
         if name_prefix:
@@ -56,6 +60,9 @@ class KotlinEnum(evgen_code.EnumType):
             self._named_enum = False
 
         self._name = name
+        self._values_type = KotlinString.type_name
+        if isinstance(values[0], int):
+            self._values_type = KotlinInt.type_name
         self._values = list()
 
         for val in values:
@@ -67,7 +74,7 @@ class KotlinEnum(evgen_code.EnumType):
 
     @classmethod
     def create(
-        cls, name: str, values: List[str], name_prefix: Optional[str] = None
+        cls, name: str, values: List[Any], name_prefix: Optional[str] = None
     ) -> KotlinEnum:
         return cls(name, values, name_prefix)
 
@@ -93,11 +100,18 @@ class KotlinEnum(evgen_code.EnumType):
 
     def lines(self) -> List[str]:
         statements = list()
+        optional_quote = '"'
+        if self._values_type == KotlinInt.type_name:
+            optional_quote = ""
         for value in self._values:
-            statements.append(st.Line(f'{value.code_type}("{value.event_type}"),'))
+            statements.append(
+                st.Line(
+                    f"{value.code_type}({optional_quote}{value.event_type}{optional_quote}),"
+                )
+            )
 
         enum_statement = st.Closure(
-            header=f"enum class {self._name}(val eventValue: String)",
+            header=f"enum class {self._name}(val eventValue: {self._values_type})",
             statements=statements,
         )
         return enum_statement.lines()

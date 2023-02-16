@@ -86,6 +86,12 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         Option3("option3"),
     }
     
+    enum class MyNamespaceMyEventEnumParamInt(val eventValue: Int) {
+        Int_1(1),
+        Int_2(2),
+        Int_3(3),
+    }
+    
     /**
      * События со всеми возможными типами параметров
      * 
@@ -96,14 +102,15 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
      * 4. doubleParam - Параметр типа Double
      * 5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
      * 6. enumParam - Параметр типа Enum. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-     * 7. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
-     * 8. dictParam - параметр типа Dict.
-     * 9. platformConst - Платформозависимая константа
-     * 10. listOfInt - Список целочисленных параметров
-     * 11. listOfDouble - Список флотовых параметров
-     * 12. listOfString - Cписок строк
+     * 7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
+     * 8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
+     * 9. dictParam - параметр типа Dict.
+     * 10. platformConst - Платформозависимая константа
+     * 11. listOfInt - Список целочисленных параметров
+     * 12. listOfDouble - Список флотовых параметров
+     * 13. listOfString - Cписок строк
      */
-    fun myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Long, boolParam: Boolean = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.Option1, namedEnumParam: Pages, dictParam: Map<String, Any>, listOfInt: List<Int> = listOf<Int>(), listOfDouble: List<Double> = listOf<Double>(), listOfString: List<String> = listOf<String>()) {
+    fun myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Long, boolParam: Boolean = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.Option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int_1, namedEnumParam: Pages, dictParam: Map<String, Any>, listOfInt: List<Int> = listOf<Int>(), listOfDouble: List<Double> = listOf<Double>(), listOfString: List<String> = listOf<String>()) {
         val parameters = mutableMapOf<String, Any>()
         parameters["stringParam"] = stringParam
         parameters["intParam"] = intParam.toString()
@@ -112,6 +119,7 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["doubleParam"] = doubleParam.toString()
         parameters["constParam"] = "ValueToLog"
         parameters["enumParam"] = enumParam.eventValue
+        parameters["enumParamInt"] = enumParamInt.eventValue
         parameters["namedEnumParam"] = namedEnumParam.eventValue
         parameters["dictParam"] = dictParam
         parameters["platformConst"] = "AndroidValue"

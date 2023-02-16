@@ -59,19 +59,21 @@ class DoubleType:
 
 
 class EnumType:
-    def __init__(self, name: Optional[str], values: List[str]):
+    def __init__(self, name: Optional[str], values: List[Any]):
         if not (isinstance(name, str) or name is None):
             raise RuntimeError(f"Enum name must be a string, but got {name}")
+
+        values_type = type(values[0])
         for value in values:
-            if not isinstance(value, str):
+            value_type = type(value)
+            if value_type != int and value_type != str:
                 raise RuntimeError(
-                    f"Enum value must be a string, but got {value} in {name}"
+                    f"Enum value must be a string or int, but got {value} in {name}"
                 )
-            try:
-                if int(value[0]):
-                    raise RuntimeError("Enum values could not start with numbers")
-            except ValueError:
-                pass
+            if value_type != values_type:
+                raise RuntimeError(
+                    f"All enum values must have same type as first value ({values[0]}), but got {value} in {name}"
+                )
         self._name = name
         self._values = values
 
@@ -81,7 +83,7 @@ class EnumType:
             string += self._name + ": "
 
         for value in self._values:
-            string += value + ", "
+            string += str(value) + ", "
         string = string[:-2]
         string += ")"
         return string
@@ -91,7 +93,7 @@ class EnumType:
         return self._name
 
     @property
-    def type_values(self) -> List[str]:
+    def type_values(self) -> List[Any]:
         return self._values
 
 

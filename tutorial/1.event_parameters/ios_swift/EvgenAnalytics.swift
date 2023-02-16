@@ -115,6 +115,12 @@ public final class EvgenAnalytics {
         case option3 = "option3"
     }
     
+    public enum MyNamespaceMyEventEnumParamInt: Int {
+        case int1 = 1
+        case int2 = 2
+        case int3 = 3
+    }
+    
     /**
         События со всеми возможными типами параметров
         
@@ -125,14 +131,15 @@ public final class EvgenAnalytics {
         4. doubleParam - Параметр типа Double
         5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
         6. enumParam - Параметр типа Enum. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-        7. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
-        8. dictParam - параметр типа Dict.
-        9. platformConst - Платформозависимая константа
-        10. listOfInt - Список целочисленных параметров
-        11. listOfDouble - Список флотовых параметров
-        12. listOfString - Cписок строк
+        7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
+        8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
+        9. dictParam - параметр типа Dict.
+        10. platformConst - Платформозависимая константа
+        11. listOfInt - Список целочисленных параметров
+        12. listOfDouble - Список флотовых параметров
+        13. listOfString - Cписок строк
     */
-    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = .option1, namedEnumParam: Pages, dictParam: [String: Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = []) {
+    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = .option1, enumParamInt: MyNamespaceMyEventEnumParamInt = .int1, namedEnumParam: Pages, dictParam: [String: Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = []) {
         var options: [String: Any] = [:]
         options["stringParam"] = stringParam
         options["intParam"] = "\(intParam)"
@@ -145,6 +152,7 @@ public final class EvgenAnalytics {
         options["doubleParam"] = "\(doubleParam)"
         options["constParam"] = "ValueToLog"
         options["enumParam"] = enumParam.rawValue
+        options["enumParamInt"] = enumParamInt.rawValue
         options["namedEnumParam"] = namedEnumParam.rawValue
         options["dictParam"] = dictParam
         options["platformConst"] = "iOSValue"

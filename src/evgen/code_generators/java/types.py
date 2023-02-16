@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import inflection
 
@@ -39,14 +39,18 @@ class JavaObject(evgen_code.SimpleType):
         super().__init__("Object")
 
 
-def _serialize_enum_value(value: str) -> str:
-    value = value.upper()
-    value = value.replace("-", "_").replace(".", "_")
+def _serialize_enum_value(value: Any, int_prefix: Optional[str] = "INT_") -> str:
+    if isinstance(value, int):
+        # Название значения enum'а не может быть числом поэтому добавляем префикс
+        value = int_prefix + str(value)
+    else:
+        value = value.upper()
+        value = value.replace("-", "_").replace(".", "_")
     return value
 
 
 class JavaEnum(evgen_code.EnumType):
-    def __init__(self, name: str, values: List[str], name_prefix: Optional[str] = None):
+    def __init__(self, name: str, values: List[Any], name_prefix: Optional[str] = None):
         self._named_enum = True
         if name_prefix:
             name = inflection.camelize(name)
@@ -54,6 +58,9 @@ class JavaEnum(evgen_code.EnumType):
             name = name_prefix + name
             self._named_enum = False
         self._name = name
+        self._values_type = JavaString.type_name
+        if isinstance(values[0], int):
+            self._values_type = JavaInt.type_name
         self._values = [
             evgen_code.EnumTypeValue(
                 event_type=val, code_type=_serialize_enum_value(val)
@@ -63,7 +70,7 @@ class JavaEnum(evgen_code.EnumType):
 
     @classmethod
     def create(
-        cls, name: str, values: List[str], name_prefix: Optional[str] = None
+        cls, name: str, values: List[Any], name_prefix: Optional[str] = None
     ) -> JavaEnum:
         return cls(name, values, name_prefix)
 
@@ -89,18 +96,23 @@ class JavaEnum(evgen_code.EnumType):
 
     def lines(self) -> List[str]:
         statements = list()
+        optional_quote = '"'
+        if self._values_type == JavaInt.type_name:
+            optional_quote = ""
         for index, value in enumerate(self._values):
-            line = f'{value.code_type}("{value.event_type}")'
+            line = (
+                f"{value.code_type}({optional_quote}{value.event_type}{optional_quote})"
+            )
             if index == (len(self._values) - 1):
                 line += ";"
             else:
                 line += ","
             statements.append(st.Line(line))
 
-        statements.append(st.Line("public final String eventValue;"))
+        statements.append(st.Line(f"public final {self._values_type} eventValue;"))
         statements.append(
             st.Closure(
-                header=f"{self._name}(String eventValue)",
+                header=f"{self._name}({self._values_type} eventValue)",
                 statements=[st.Line("this.eventValue = eventValue;")],
             )
         )

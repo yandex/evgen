@@ -25,7 +25,7 @@ class MarkdownParameterTypeSerialization:
         if isinstance(parameter_type, parameter_types.EnumType):
             string = constants.ENUM_FIELD + "("
             for value in parameter_type.type_values:
-                string += value + ",<br/>"
+                string += str(value) + ",<br/>"
             string = string[:-6]
             string += ")"
             return "<code>" + string + "</code>"

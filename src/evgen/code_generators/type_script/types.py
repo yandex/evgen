@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import inflection
 
@@ -34,16 +34,20 @@ class TypeScriptAny(evgen_code.SimpleType):
         super().__init__("any")
 
 
-def serialize_enum_value(value) -> str:
-    serialized_value = value.replace("-", "_").replace(".", "_")
-    serialized_value = inflection.camelize(
-        serialized_value, uppercase_first_letter=True
-    )
+def serialize_enum_value(value: Any, int_prefix: Optional[str] = "int") -> str:
+    if isinstance(value, int):
+        # Название значения enum'а не может быть числом поэтому добавляем префикс
+        serialized_value = int_prefix + str(value)
+    else:
+        serialized_value = value.replace("-", "_").replace(".", "_")
+        serialized_value = inflection.camelize(
+            serialized_value, uppercase_first_letter=True
+        )
     return serialized_value
 
 
 class TypeScriptEnum(evgen_code.EnumType):
-    def __init__(self, name: str, values: List[str], name_prefix: Optional[str] = None):
+    def __init__(self, name: str, values: List[Any], name_prefix: Optional[str] = None):
         self._named_enum = True
         if name_prefix:
             name = inflection.camelize(name)
@@ -51,6 +55,9 @@ class TypeScriptEnum(evgen_code.EnumType):
             name = name_prefix + name
             self._named_enum = False
         self._name = name
+        self._values_type = TypeScriptString.type_name
+        if isinstance(values[0], int):
+            self._values_type = TypeScriptInt.type_name
 
         self._values = list()
         for val in values:
@@ -62,7 +69,7 @@ class TypeScriptEnum(evgen_code.EnumType):
 
     @classmethod
     def create(
-        cls, name: str, values: List[str], name_prefix: Optional[str] = None
+        cls, name: str, values: List[Any], name_prefix: Optional[str] = None
     ) -> TypeScriptEnum:
         return cls(name, values, name_prefix)
 
@@ -88,8 +95,15 @@ class TypeScriptEnum(evgen_code.EnumType):
 
     def lines(self) -> List[str]:
         statements = list()
+        optional_quote = "'"
+        if self._values_type == TypeScriptInt.type_name:
+            optional_quote = ""
         for value in self._values:
-            statements.append(st.Line(f"{value.code_type} = '{value.event_type}',"))
+            statements.append(
+                st.Line(
+                    f"{value.code_type} = {optional_quote}{value.event_type}{optional_quote},"
+                )
+            )
 
         enum_statement = st.Closure(
             header=f"export enum {self._name}", statements=statements
