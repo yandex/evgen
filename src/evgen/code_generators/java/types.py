@@ -58,9 +58,9 @@ class JavaEnum(evgen_code.EnumType):
             name = name_prefix + name
             self._named_enum = False
         self._name = name
-        self._values_type = JavaString.type_name
+        self._values_type = JavaString().type_name
         if isinstance(values[0], int):
-            self._values_type = JavaInt.type_name
+            self._values_type = JavaInt().type_name
         self._values = [
             evgen_code.EnumTypeValue(
                 event_type=val, code_type=_serialize_enum_value(val)
@@ -97,7 +97,7 @@ class JavaEnum(evgen_code.EnumType):
     def lines(self) -> List[str]:
         statements = list()
         optional_quote = '"'
-        if self._values_type == JavaInt.type_name:
+        if self._values_type == JavaInt().type_name:
             optional_quote = ""
         for index, value in enumerate(self._values):
             line = (

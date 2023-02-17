@@ -58,9 +58,9 @@ class CSharpEnum(evgen_code.EnumType):
             name = name_prefix + name
             self._named_enum = False
         self._name = name
-        self._values_type = CSharpString.type_name
+        self._values_type = CSharpString().type_name
         if isinstance(values[0], int):
-            self._values_type = CSharpInt.type_name
+            self._values_type = CSharpInt().type_name
 
         self._values = list()
         for val in values:
@@ -105,7 +105,7 @@ class CSharpEnum(evgen_code.EnumType):
         ]
 
         optional_quote = '"'
-        if self._values_type == CSharpInt.type_name:
+        if self._values_type == CSharpInt().type_name:
             optional_quote = ""
         for value in self._values:
             statements.append(

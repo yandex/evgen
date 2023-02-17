@@ -64,9 +64,9 @@ class SwiftEnum(evgen_code.EnumType):
             name = name_prefix + name
             self._named_enum = False
         self._name = name
-        self._values_type = SwiftString.type_name
+        self._values_type = SwiftString().type_name
         if isinstance(values[0], int):
-            self._values_type = SwiftInt.type_name
+            self._values_type = SwiftInt().type_name
 
         self._values = list()
         for val in values:
@@ -105,7 +105,7 @@ class SwiftEnum(evgen_code.EnumType):
     def lines(self) -> List[str]:
         statements = list()
         optional_quote = '"'
-        if self._values_type == SwiftInt.type_name:
+        if self._values_type == SwiftInt().type_name:
             optional_quote = ""
         for value in self._values:
             statements.append(

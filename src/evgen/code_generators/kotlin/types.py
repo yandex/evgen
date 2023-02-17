@@ -60,9 +60,9 @@ class KotlinEnum(evgen_code.EnumType):
             self._named_enum = False
 
         self._name = name
-        self._values_type = KotlinString.type_name
+        self._values_type = KotlinString().type_name
         if isinstance(values[0], int):
-            self._values_type = KotlinInt.type_name
+            self._values_type = KotlinInt().type_name
         self._values = list()
 
         for val in values:
@@ -101,7 +101,7 @@ class KotlinEnum(evgen_code.EnumType):
     def lines(self) -> List[str]:
         statements = list()
         optional_quote = '"'
-        if self._values_type == KotlinInt.type_name:
+        if self._values_type == KotlinInt().type_name:
             optional_quote = ""
         for value in self._values:
             statements.append(
