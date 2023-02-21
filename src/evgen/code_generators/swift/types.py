@@ -51,6 +51,8 @@ def serialize_enum_value(value: Any, int_prefix: Optional[str] = "int") -> str:
 
     if serialized_value == "default":
         serialized_value = "`default`"
+    elif serialized_value == "switch":
+        serialized_value = "`switch`"
 
     return serialized_value
 
