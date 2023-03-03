@@ -12,6 +12,7 @@ public protocol EvgenAnalyticsTracker {
 public protocol EvgenAnalyticsGlobalParamsProvider: AnyObject {
     func getGlobalParams() -> EvgenAnalyticsGlobalParams
 }
+
 public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
     func getPlatformParams() -> EvgenAnalyticsPlatformParams
 }
@@ -29,6 +30,7 @@ public struct EvgenAnalyticsGlobalParams {
         self.globalParam = globalParam
     }
 }
+
 public struct EvgenAnalyticsPlatformParams {
     
     public func makeOptions() -> [String: Any] {
@@ -66,7 +68,7 @@ public final class EvgenAnalytics {
         eventTracker.trackEvent(event, withOptions: mergedOptions)
     }
     
-    private func makeMeta(_ event_version: Int, interfaces: [String: Any])-> [String: Any] {
+    private func makeMeta(_ event_version: Int, interfaces: [String: Any]) -> [String: Any] {
         var metaDict: [String: Any] = [:]
         var eventDict: [String: Any] = [:]
         eventDict["version"] = event_version
@@ -76,9 +78,9 @@ public final class EvgenAnalytics {
     }
     
     public enum Pages: String {
-        case screen1 = "screen_1"
-        case screen2 = "screen_2"
-        case screen3 = "screen_3"
+        case `screen1` = "screen_1"
+        case `screen2` = "screen_2"
+        case `screen3` = "screen_3"
     }
     
     /**
@@ -110,15 +112,15 @@ public final class EvgenAnalytics {
     }
     
     public enum MyNamespaceMyEventEnumParam: String {
-        case option1 = "option1"
-        case option2 = "option2"
-        case option3 = "option3"
+        case `option1` = "option1"
+        case `option2` = "option2"
+        case `option3` = "option3"
     }
     
     public enum MyNamespaceMyEventEnumParamInt: Int {
-        case int1 = 1
-        case int2 = 2
-        case int3 = 3
+        case `int1` = 1
+        case `int2` = 2
+        case `int3` = 3
     }
     
     /**

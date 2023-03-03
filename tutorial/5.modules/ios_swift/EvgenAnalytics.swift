@@ -12,6 +12,7 @@ public protocol EvgenAnalyticsTracker {
 public protocol EvgenAnalyticsGlobalParamsProvider: AnyObject {
     func getGlobalParams() -> EvgenAnalyticsGlobalParams
 }
+
 public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
     func getPlatformParams() -> EvgenAnalyticsPlatformParams
 }
@@ -29,6 +30,7 @@ public struct EvgenAnalyticsGlobalParams {
         self.globalParam = globalParam
     }
 }
+
 public struct EvgenAnalyticsPlatformParams {
     
     public func makeOptions() -> [String: Any] {
@@ -66,7 +68,7 @@ public final class EvgenAnalytics {
         eventTracker.trackEvent(event, withOptions: mergedOptions)
     }
     
-    private func makeMeta(_ event_version: Int, interfaces: [String: Any])-> [String: Any] {
+    private func makeMeta(_ event_version: Int, interfaces: [String: Any]) -> [String: Any] {
         var metaDict: [String: Any] = [:]
         var eventDict: [String: Any] = [:]
         eventDict["version"] = event_version

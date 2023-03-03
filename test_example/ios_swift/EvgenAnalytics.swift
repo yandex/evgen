@@ -12,47 +12,48 @@ public protocol EvgenAnalyticsTracker {
 public protocol EvgenAnalyticsGlobalParamsProvider: AnyObject {
     func getGlobalParams() -> EvgenAnalyticsGlobalParams
 }
+
 public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
     func getPlatformParams() -> EvgenAnalyticsPlatformParams
 }
 
 public enum subService: String {
-    case afisha = "afisha"
-    case drive = "drive"
-    case eats = "eats"
-    case kinopoiskWeb = "kinopoisk_web"
-    case kinopoiskYaserp = "kinopoisk_yaserp"
-    case kinopoiskYaefir = "kinopoisk_yaefir"
-    case kinopoiskYavideo = "kinopoisk_yavideo"
-    case kinopoiskYasport = "kinopoisk_yasport"
-    case kinopoiskApp = "kinopoisk_app"
-    case kinopoiskAndroidtv = "kinopoisk_androidtv"
-    case kinopoiskAppletv = "kinopoisk_appletv"
-    case kinopoiskYandextvLauncher = "kinopoisk_yandextv_launcher"
-    case kinopoiskYandextv = "kinopoisk_yandextv"
-    case kinopoiskSmarttv = "kinopoisk_smarttv"
-    case kinopoiskGift = "kinopoisk_gift"
-    case lavka = "lavka"
-    case market = "market"
-    case musicWeb = "music_web"
-    case musicApp = "music_app"
-    case musicYastation = "music_yastation"
-    case musicMtsru = "music_mtsru"
-    case musicWindows = "music_windows"
-    case musicRadio = "music_radio"
-    case musicNavi = "music_navi"
-    case musicYaauto = "music_yaauto"
-    case musicMusickp = "music_musickp"
-    case musicPp = "music_pp"
-    case musicMtsbw = "music_mtsbw"
-    case navi = "navi"
-    case plus = "plus"
-    case plusGift = "plus_gift"
-    case taxi = "taxi"
-    case zapravki = "zapravki"
-    case device = "device"
-    case fintech = "fintech"
-    case aon = "aon"
+    case `afisha` = "afisha"
+    case `drive` = "drive"
+    case `eats` = "eats"
+    case `kinopoiskWeb` = "kinopoisk_web"
+    case `kinopoiskYaserp` = "kinopoisk_yaserp"
+    case `kinopoiskYaefir` = "kinopoisk_yaefir"
+    case `kinopoiskYavideo` = "kinopoisk_yavideo"
+    case `kinopoiskYasport` = "kinopoisk_yasport"
+    case `kinopoiskApp` = "kinopoisk_app"
+    case `kinopoiskAndroidtv` = "kinopoisk_androidtv"
+    case `kinopoiskAppletv` = "kinopoisk_appletv"
+    case `kinopoiskYandextvLauncher` = "kinopoisk_yandextv_launcher"
+    case `kinopoiskYandextv` = "kinopoisk_yandextv"
+    case `kinopoiskSmarttv` = "kinopoisk_smarttv"
+    case `kinopoiskGift` = "kinopoisk_gift"
+    case `lavka` = "lavka"
+    case `market` = "market"
+    case `musicWeb` = "music_web"
+    case `musicApp` = "music_app"
+    case `musicYastation` = "music_yastation"
+    case `musicMtsru` = "music_mtsru"
+    case `musicWindows` = "music_windows"
+    case `musicRadio` = "music_radio"
+    case `musicNavi` = "music_navi"
+    case `musicYaauto` = "music_yaauto"
+    case `musicMusickp` = "music_musickp"
+    case `musicPp` = "music_pp"
+    case `musicMtsbw` = "music_mtsbw"
+    case `navi` = "navi"
+    case `plus` = "plus"
+    case `plusGift` = "plus_gift"
+    case `taxi` = "taxi"
+    case `zapravki` = "zapravki"
+    case `device` = "device"
+    case `fintech` = "fintech"
+    case `aon` = "aon"
 }
 
 public struct EvgenAnalyticsGlobalParams {
@@ -82,6 +83,7 @@ public struct EvgenAnalyticsGlobalParams {
         self.subService = subService
     }
 }
+
 public struct EvgenAnalyticsPlatformParams {
     
     public func makeOptions() -> [String: Any] {
@@ -120,7 +122,7 @@ public final class EvgenAnalytics {
         eventTracker.trackEvent(event, withOptions: mergedOptions)
     }
     
-    private func makeMeta(_ event_version: Int, interfaces: [String: Any])-> [String: Any] {
+    private func makeMeta(_ event_version: Int, interfaces: [String: Any]) -> [String: Any] {
         var metaDict: [String: Any] = [:]
         var eventDict: [String: Any] = [:]
         eventDict["version"] = event_version
@@ -130,18 +132,18 @@ public final class EvgenAnalytics {
     }
     
     public enum SubscriptionPage: String {
-        case myMoviesScreen = "my_movies_screen"
-        case shopScreen = "shop_screen"
-        case profileScreen = "profile_screen"
-        case paymentWidget = "payment_widget"
-        case onboardingScreen = "onboarding_screen"
-        case lockedSubscriptionScreen = "locked_subscription_screen"
+        case `myMoviesScreen` = "my_movies_screen"
+        case `shopScreen` = "shop_screen"
+        case `profileScreen` = "profile_screen"
+        case `paymentWidget` = "payment_widget"
+        case `onboardingScreen` = "onboarding_screen"
+        case `lockedSubscriptionScreen` = "locked_subscription_screen"
     }
     
     public enum ErrorType: String {
-        case backendError = "backend_error"
-        case parserError = "parser_error"
-        case networkError = "network_error"
+        case `backendError` = "backend_error"
+        case `parserError` = "parser_error"
+        case `networkError` = "network_error"
     }
     
     /**
@@ -227,8 +229,8 @@ public final class EvgenAnalytics {
     }
     
     public enum PaymentWidgetSubscriptionOfferShowedV2Path: String {
-        case paymentWidget = "payment_widget"
-        case purchaseOption = "purchase_option"
+        case `paymentWidget` = "payment_widget"
+        case `purchaseOption` = "purchase_option"
     }
     
     /**
@@ -288,8 +290,8 @@ public final class EvgenAnalytics {
     }
     
     public enum PaymentWidgetSubscriptionOfferNavigatedV2Path: String {
-        case paymentWidget = "payment_widget"
-        case purchaseOption = "purchase_option"
+        case `paymentWidget` = "payment_widget"
+        case `purchaseOption` = "purchase_option"
     }
     
     /**
@@ -353,9 +355,9 @@ public final class EvgenAnalytics {
     }
     
     public enum SearchSearchEngineNavigatedTo: String {
-        case globalSearchResult = "global_search_result"
-        case searchList = "search_list"
-        case bestMoviesFilter = "best_movies_filter"
+        case `globalSearchResult` = "global_search_result"
+        case `searchList` = "search_list"
+        case `bestMoviesFilter` = "best_movies_filter"
     }
     
     /**
@@ -417,11 +419,11 @@ public final class EvgenAnalytics {
     }
     
     public enum SearchSearchEngineSuggestNavigatedTo: String {
-        case personCard = "person_card"
-        case titleCard = "title_card"
-        case cinemaCard = "cinema_card"
-        case globalSearchResult = "global_search_result"
-        case searchList = "search_list"
+        case `personCard` = "person_card"
+        case `titleCard` = "title_card"
+        case `cinemaCard` = "cinema_card"
+        case `globalSearchResult` = "global_search_result"
+        case `searchList` = "search_list"
     }
     
     /**
@@ -439,8 +441,8 @@ public final class EvgenAnalytics {
     }
     
     public enum SearchSearchEngineSuggestSelectedType: String {
-        case allResults = "all_results"
-        case ottResults = "ott_results"
+        case `allResults` = "all_results"
+        case `ottResults` = "ott_results"
     }
     
     /**

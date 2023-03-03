@@ -112,6 +112,7 @@ class DictTrackerGenerator:
                 f"public protocol {self.class_name}GlobalParamsProvider: AnyObject",
                 [st.Line(f"func getGlobalParams() -> {self.class_name}GlobalParams")],
             ),
+            st.EmptyLine(),
             st.Closure(
                 f"public protocol {self.class_name}PlatformParamsProvider: AnyObject",
                 [
@@ -124,6 +125,7 @@ class DictTrackerGenerator:
         ]
 
         statements.extend(self._get_params_class(code.global_params))
+        statements.append(st.EmptyLine())
         statements.extend(self._get_params_class(code.platform_params))
         statements.append(st.EmptyLine())
 

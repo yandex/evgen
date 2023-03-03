@@ -136,7 +136,7 @@ def log_meta(meta: global_types.Meta) -> List[st.Statement]:
 def get_make_meta_function() -> List[st.Statement]:
     statements = [
         st.Closure(
-            header="private func makeMeta(_ event_version: Int, interfaces: [String: Any])-> "
+            header="private func makeMeta(_ event_version: Int, interfaces: [String: Any]) -> "
             "[String: Any]",
             statements=[
                 st.Line("var metaDict: [String: Any] = [:]"),

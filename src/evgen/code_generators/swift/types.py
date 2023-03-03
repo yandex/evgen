@@ -112,7 +112,7 @@ class SwiftEnum(evgen_code.EnumType):
         for value in self._values:
             statements.append(
                 st.Line(
-                    f"case {value.code_type} = {optional_quote}{value.event_type}{optional_quote}"
+                    f"case `{value.code_type}` = {optional_quote}{value.event_type}{optional_quote}"
                 )
             )
 
