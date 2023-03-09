@@ -53,6 +53,8 @@ def serialize_enum_value(value: Any, int_prefix: Optional[str] = "int") -> str:
         serialized_value = "`default`"
     elif serialized_value == "switch":
         serialized_value = "`switch`"
+    elif serialized_value == "continue":
+        serialized_value = "`continue`"
 
     return serialized_value
 
@@ -112,7 +114,7 @@ class SwiftEnum(evgen_code.EnumType):
         for value in self._values:
             statements.append(
                 st.Line(
-                    f"case `{value.code_type}` = {optional_quote}{value.event_type}{optional_quote}"
+                    f"case {value.code_type} = {optional_quote}{value.event_type}{optional_quote}"
                 )
             )
 

@@ -78,9 +78,9 @@ public final class EvgenAnalytics {
     }
     
     public enum Pages: String {
-        case `screen1` = "screen_1"
-        case `screen2` = "screen_2"
-        case `screen3` = "screen_3"
+        case screen1 = "screen_1"
+        case screen2 = "screen_2"
+        case screen3 = "screen_3"
     }
     
     /**
@@ -112,15 +112,15 @@ public final class EvgenAnalytics {
     }
     
     public enum MyNamespaceMyEventEnumParam: String {
-        case `option1` = "option1"
-        case `option2` = "option2"
-        case `option3` = "option3"
+        case option1 = "option1"
+        case option2 = "option2"
+        case option3 = "option3"
     }
     
     public enum MyNamespaceMyEventEnumParamInt: Int {
-        case `int1` = 1
-        case `int2` = 2
-        case `int3` = 3
+        case int1 = 1
+        case int2 = 2
+        case int3 = 3
     }
     
     /**
