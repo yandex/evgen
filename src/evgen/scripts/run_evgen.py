@@ -97,7 +97,7 @@ def generate(
         for platform, code_config in config.code.items():
 
             output_dir = root_dir / code_config.output_dir
-            output_dir.mkdir(exist_ok=True)
+            output_dir.mkdir(parents=True, exist_ok=True)
             output_path = root_dir / code_config.output_dir
             generate_code(
                 platform=code_config.platform,
@@ -112,6 +112,7 @@ def generate(
     if config.doc:
         for doc, doc_params in config.doc.items():
             doc_dir = root_dir / doc_params.output_dir
+            doc_dir.mkdir(parents=True, exist_ok=True)
             generate_doc(
                 extension=doc_params.extension, events=events, output_dir=doc_dir
             )
