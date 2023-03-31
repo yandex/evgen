@@ -32,7 +32,7 @@ export function paymentWidgetSubscriptionOfferShowed (
     
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters, offerTitle,  _meta}
+    const enhancedParams = {...parameters, offerTitle, _meta}
     evgen_analytics.trackEvent("PaymentWidget.SubscriptionOffer.Showed", enhancedParams);
 }
 
@@ -83,7 +83,7 @@ export function paymentWidgetSubscriptionOfferShowedV2 (
     const page = 'payment_widget';
     
     const _meta = makeMetaParams(2)
-    const enhancedParams = {...parameters, offerTitle, position, path, eventType, offerType, monetizationModel, page,  _meta}
+    const enhancedParams = {...parameters, offerTitle, position, path, eventType, offerType, monetizationModel, page, _meta}
     evgen_analytics.trackEvent("PaymentWidget.SubscriptionOffer.Showed", enhancedParams);
 }
 
@@ -111,7 +111,7 @@ export function paymentWidgetSubscriptionOfferNavigated (
     const eventType = 'offerClick';
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters, offerTitle, eventType,  _meta}
+    const enhancedParams = {...parameters, offerTitle, eventType, _meta}
     evgen_analytics.trackEvent("PaymentWidget.SubscriptionOffer.Navigated", enhancedParams);
 }
 
@@ -162,7 +162,7 @@ export function paymentWidgetSubscriptionOfferNavigatedV2 (
     const page = 'payment_widget';
     
     const _meta = makeMetaParams(2)
-    const enhancedParams = {...parameters, offerTitle, position, path, eventType, offerType, monetizationModel, page,  _meta}
+    const enhancedParams = {...parameters, offerTitle, position, path, eventType, offerType, monetizationModel, page, _meta}
     evgen_analytics.trackEvent("PaymentWidget.SubscriptionOffer.Navigated", enhancedParams);
 }
 

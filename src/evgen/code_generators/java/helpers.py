@@ -184,13 +184,12 @@ def get_params_class(
     class_statements.append(st.Line(f"public {map_type.declaration()} paramsMap;"))
 
     # constructor
-    header = f"public {global_params.code_name}("
+    header_params = []
     for param_index, param in enumerate(global_params.params):
         if not isinstance(param.type, evgen_code.ConstType):
-            if param_index != 0:
-                header += ", "
-            header += f"{param.type.interface()} {param.code_name}"
-    header += ")"
+            header_params.append(f"{param.type.interface()} {param.code_name}")
+
+    header = f"public {global_params.code_name}(" + ", ".join(header_params) + f")"
 
     statements = []
     for param in global_params.params:
@@ -228,12 +227,10 @@ class ClassGeneratorHelper:
         return statements
 
     def get_constructor(self) -> st.Statement:
-        header = f"public {self._class_name}("
+        heade_params = []
         for index, prop in enumerate(self._properties):
-            if index != 0:
-                header += ", "
-            header += f"{prop.type} {prop.name}"
-        header += ")"
+            heade_params.append(f"{prop.type} {prop.name}")
+        header = f"public {self._class_name}(" + ", ".join(heade_params) + ")"
 
         statements = list()
         for prop in self._properties:
@@ -259,14 +256,10 @@ def get_java_headers() -> List[st.Statement]:
 
 
 def get_function_header(function: evgen_code.Function) -> str:
-    header = f"public void {function.code_name}("
-    param_counter = 0
+    header_params = []
     for param in function.params:
         if isinstance(param.type, evgen_code.ConstType):
             continue
-        if param_counter != 0:
-            header += ", "
-        header += f"{param.type.interface()} {param.code_name}"
-        param_counter += 1
-    header += ")"
+        header_params.append(f"{param.type.interface()} {param.code_name}")
+    header = f"public void {function.code_name}(" + ", ".join(header_params) + ")"
     return header

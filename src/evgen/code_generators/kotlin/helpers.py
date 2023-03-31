@@ -178,12 +178,10 @@ def default_value2str(param: evgen_code.Parameter) -> str:
 def get_class_header(
     class_name: str, properties: List[code_helpers.ClassProperty]
 ) -> str:
-    class_header = f"class {class_name}("
+    header_params = []
     for index, prop in enumerate(properties):
-        if index != 0:
-            class_header += ", "
-        class_header += f"private val {prop.name}: {prop.type}"
-    class_header += ")"
+        header_params.append(f"private val {prop.name}: {prop.type}")
+    class_header = f"class {class_name}(" + ", ".join(header_params) + ")"
     return class_header
 
 

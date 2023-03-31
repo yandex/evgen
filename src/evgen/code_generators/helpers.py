@@ -203,8 +203,7 @@ def get_function_header(
     argument_type_order: ArgumentTypeOrder = ArgumentTypeOrder.DIRECT,
     sort_default: bool = False,
 ) -> str:
-    header = f"{function_prefix} {function.code_name}("
-    param_counter = 0
+    header_params = []
     for param in function.params:
         if isinstance(param.type, evgen_code.ConstType):
             continue
@@ -215,20 +214,24 @@ def get_function_header(
         ):
             continue
 
-        if param_counter != 0:
-            header += ", "
+        header_param = ""
         if argument_type_order == ArgumentTypeOrder.DIRECT:
-            header += f"{param.code_name}{type_separator} {param.type.interface()}"
+            header_param += (
+                f"{param.code_name}{type_separator} {param.type.interface()}"
+            )
         elif argument_type_order == ArgumentTypeOrder.REVERSE:
-            header += f"{param.type.interface()}{type_separator} {param.code_name}"
+            header_param += (
+                f"{param.type.interface()}{type_separator} {param.code_name}"
+            )
 
         if (
             not sort_default
             and default_value_to_str_converter
             and param.default_value is not None
         ):
-            header += f" = {default_value_to_str_converter(param)}"
-        param_counter += 1
+            header_param += f" = {default_value_to_str_converter(param)}"
+
+        header_params.append(header_param)
 
     if sort_default:
         for param in function.params:
@@ -238,17 +241,22 @@ def get_function_header(
             if not (default_value_to_str_converter and param.default_value is not None):
                 continue
 
-            if param_counter != 0:
-                header += ", "
+            header_param = ""
             if argument_type_order == ArgumentTypeOrder.DIRECT:
-                header += f"{param.code_name}{type_separator} {param.type.interface()}"
+                header_param += (
+                    f"{param.code_name}{type_separator} {param.type.interface()}"
+                )
             elif argument_type_order == ArgumentTypeOrder.REVERSE:
-                header += f"{param.type.interface()}{type_separator} {param.code_name}"
+                header_param += (
+                    f"{param.type.interface()}{type_separator} {param.code_name}"
+                )
 
             if default_value_to_str_converter and param.default_value is not None:
-                header += f" = {default_value_to_str_converter(param)}"
+                header_param += f" = {default_value_to_str_converter(param)}"
 
-    header += ")"
+            header_params.append(header_param)
+
+    header = f"{function_prefix} {function.code_name}(" + ", ".join(header_params) + ")"
     return header
 
 

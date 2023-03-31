@@ -21,7 +21,7 @@ export function searchShowed (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = { _meta}
+    const enhancedParams = {_meta}
     evgen_analytics.trackEvent("Search.Showed", enhancedParams);
 }
 
@@ -35,7 +35,7 @@ export function searchSearchEngineStarted (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = { _meta}
+    const enhancedParams = {_meta}
     evgen_analytics.trackEvent("Search.SearchEngine.Started", enhancedParams);
 }
 
@@ -59,7 +59,7 @@ export function searchSearchEngineNavigated (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Search.SearchEngine.Navigated", enhancedParams);
 }
 
@@ -73,7 +73,7 @@ export function searchSearchEngineFinished (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = { _meta}
+    const enhancedParams = {_meta}
     evgen_analytics.trackEvent("Search.SearchEngine.Finished", enhancedParams);
 }
 
@@ -97,7 +97,7 @@ export function searchSearchEngineSuggestShowed (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Search.SearchEngine.Suggest.Showed", enhancedParams);
 }
 
@@ -123,7 +123,7 @@ export function searchSearchEngineSuggestNavigated (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Search.SearchEngine.Suggest.Navigated", enhancedParams);
 }
 
@@ -146,7 +146,7 @@ export function searchSearchEngineSuggestSelected (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Search.SearchEngine.Suggest.Selected", enhancedParams);
 }
 
@@ -168,7 +168,7 @@ export function searchSearchEngineSuggestErrorRaised (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Search.SearchEngine.Suggest.ErrorRaised", enhancedParams);
 }
 

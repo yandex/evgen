@@ -20,7 +20,7 @@ export function searchEngineStarted (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = { _meta}
+    const enhancedParams = {_meta}
     evgen_analytics.trackEvent("SearchEngineStarted", enhancedParams);
 }
 
@@ -34,7 +34,7 @@ export function searchEngineFinished (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = { _meta}
+    const enhancedParams = {_meta}
     evgen_analytics.trackEvent("SearchEngineFinished", enhancedParams);
 }
 

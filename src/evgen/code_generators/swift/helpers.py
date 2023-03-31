@@ -162,12 +162,10 @@ class ClassGeneratorHelper:
         return statements
 
     def get_constructor(self) -> st.Statement:
-        header = "public init("
+        header_params = []
         for index, prop in enumerate(self.class_property):
-            if index != 0:
-                header += ", "
-            header += f"{prop.name}: {prop.type}"
-        header += ")"
+            header_params.append(f"{prop.name}: {prop.type}")
+        header = "public init(" + ", ".join(header_params) + ")"
 
         statements = list()
         for prop in self.class_property:

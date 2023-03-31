@@ -29,7 +29,7 @@ export function marketingSubscriptionSucceed (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Marketing.Subscription.Succeed", enhancedParams);
 }
 
@@ -47,7 +47,7 @@ export function marketingSubscriptionSucceedV2 (
 {
     
     const _meta = makeMetaParams(2)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Marketing.Subscription.Succeed", enhancedParams);
 }
 
@@ -67,7 +67,7 @@ export function marketingSubscriptionTrialSubsSucceed (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Marketing.Subscription.TrialSubs.Succeed", enhancedParams);
 }
 
@@ -87,7 +87,7 @@ export function marketingSubscriptionRegularSubsSucceed (
 {
     
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Marketing.Subscription.RegularSubs.Succeed", enhancedParams);
 }
 

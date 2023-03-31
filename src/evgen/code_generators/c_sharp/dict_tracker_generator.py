@@ -191,16 +191,14 @@ class DictTrackerGenerator:
         class_statements.append(st.EmptyLine())
 
         # constructor
-        header = f"public {params_class_name}("
+        header_params = []
         for param_index, param in enumerate(global_params.params):
             if not isinstance(param.type, evgen_code.ConstType):
-                if param_index != 0:
-                    header += ", "
-                header += f"{param.type.interface()} {param.code_name}"
-
+                header_param = f"{param.type.interface()} {param.code_name}"
                 if param.default_value is not None:
-                    header += f" = {c_sharp_helpers.default_value2str(param)}"
-        header += ")"
+                    header_param += f" = {c_sharp_helpers.default_value2str(param)}"
+                header_params.append(header_param)
+        header = f"public {params_class_name}(" + ", ".join(header_params) + ")"
 
         statements = []
         for param in global_params.params:

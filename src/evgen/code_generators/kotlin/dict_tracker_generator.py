@@ -126,12 +126,10 @@ class DictParamTrackerGenerator:
 
         statements.append(st.EmptyLine())
 
-        class_header = f"class {self.class_name}("
+        header_params = []
         for index, prop in enumerate(self.class_property):
-            if index != 0:
-                class_header += ", "
-            class_header += f"private val {prop.name}: {prop.type}"
-        class_header += ")"
+            header_params.append(f"private val {prop.name}: {prop.type}")
+        class_header = f"class {self.class_name}(" + ", ".join(header_params) + ")"
 
         class_statements_list: List[st.Statement] = [st.EmptyLine()]
 
@@ -167,16 +165,19 @@ class DictParamTrackerGenerator:
                 gp_statements.append(param.type)
                 gp_statements.append(st.EmptyLine())
 
-        class_header = f"class {self.class_name}{params.code_name}("
+        header_params = []
         for param_index, param in enumerate(params.params):
             if not isinstance(param.type, evgen_code.ConstType):
-                if param_index != 0:
-                    class_header += ", "
-                class_header += f"{param.code_name}: {param.type.interface()}"
+                header_param = f"{param.code_name}: {param.type.interface()}"
 
                 if param.default_value is not None:
-                    class_header += f" = {kotlin_helpers.default_value2str(param)}"
-        class_header += ")"
+                    header_param += f" = {kotlin_helpers.default_value2str(param)}"
+                header_params.append(header_param)
+        class_header = (
+            f"class {self.class_name}{params.code_name}("
+            + ", ".join(header_params)
+            + ")"
+        )
 
         header = "val parameters: Map<String, Any> = mapOf"
         statements = list()

@@ -65,14 +65,13 @@ def log_params(
 ) -> List[st.Statement]:
     header = "const"
     default_params_sts = []
-    default_params_names = ""
+    parameters = []
     for param in params:
         if param.default_value is not None:
             default_params_sts.extend(
                 [st.Line(f"{param.event_name} = {default_value2str(param)},")]
             )
-            default_params_names += param.event_name
-            default_params_names += ", "
+            parameters.append(param.event_name)
 
     statements = []
 
@@ -82,35 +81,29 @@ def log_params(
         )
         statements.append(st.EmptyLine())
 
-    const_params_names = ""
     const_params_counter = 0
     for param in params:
         if isinstance(param.type, evgen_code.ConstType):
             statements.extend(
                 [st.Line(f"const {param.event_name} = '{param.type.type_value}';")]
             )
-            const_params_names += param.event_name
+            parameters.append(param.event_name)
         else:
             continue
 
-        const_params_names += ", "
         const_params_counter += 1
 
     statements.append(st.EmptyLine())
 
-    parameters = ""
     if len(params) > const_params_counter:
-        parameters = "...parameters, "
+        parameters.insert(0, "...parameters")
     if meta is None:
         raise RuntimeError("Meta is not defined")
 
+    parameters.append("_meta")
+
     statements.extend(log_meta(meta))
-    statements.append(
-        st.Line(
-            f"const enhancedParams = "
-            f"{{{parameters}{default_params_names}{const_params_names} _meta}}"
-        )
-    )
+    statements.append(st.Line("const enhancedParams = {" + ", ".join(parameters) + "}"))
     return statements
 
 
@@ -212,12 +205,10 @@ class ClassGeneratorHelper:
         return statements
 
     def get_constructor(self) -> st.Statement:
-        header = "constructor("
+        header_params = []
         for index, prop in enumerate(self.properties):
-            if index != 0:
-                header += ", "
-            header += f"{prop.name}: {prop.type}"
-        header += ")"
+            header_params.append(f"{prop.name}: {prop.type}")
+        header = "constructor(" + ", ".join(header_params) + ")"
 
         statements = list()
         for prop in self.properties:
