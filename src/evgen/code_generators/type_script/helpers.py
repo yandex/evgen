@@ -224,15 +224,18 @@ def import_named_enums(functions: List[evgen_code.Function]) -> List[st.Statemen
                 isinstance(param.type, evgen_code.EnumType)
                 and param.type.is_named_enum()
             ):
-                enum_set.add(param.type)
+                enum_set.add(param.type.type_name)
 
     enum_list = list(enum_set)
-    enum_list = sorted(enum_list, key=lambda x: x.type_name)
-    statements = list()
-    for enum in enum_list:
-        statements.append(st.Line(f'import {{{enum.type_name}}} from "./named_enums"'))
+    enum_list = sorted(enum_list)
 
+    statements = list()
+    if len(enum_list) > 0:
+        statements.append(
+            st.Line("import {" + ", ".join(enum_list) + '} from "./named_enums"')
+        )
     statements.append(st.EmptyLine())
+
     return statements
 
 
