@@ -58,7 +58,7 @@ class TypeScriptEventFunctionSerializer(st.EventFunctionSerializer):
         statements = ts_helpers.log_params(function.params, meta=function.meta)
         statements.append(
             st.Line(
-                f'evgen_analytics.trackEvent("{function.event_name}", enhancedParams);'
+                f'{inflection.underscore(self._class_name)}.trackEvent("{function.event_name}", enhancedParams);'
             )
         )
         return statements
