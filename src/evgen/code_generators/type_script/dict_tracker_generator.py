@@ -182,25 +182,25 @@ class DictParamTrackerGenerator:
 
         class_statement = st.Closure(
             f"export interface {self.class_name}",
-            statements=[ts_helpers.get_track_event_function()],
+            statements=[ts_helpers.get_track_event_function(self.class_name)],
         )
         statements.append(class_statement)
 
         constructor_header = f"export function create{self.class_name}"
         constructor_interface = [
-            st.Line("eventTracker: EvgenAnalyticsTracker,"),
-            st.Line("globalParamsProvider: EvgenAnalyticsGlobalParamsProvider,"),
-            st.Line("platformParamsProvider: EvgenAnalyticsPlatformParamsProvider"),
+            st.Line(f"eventTracker: {self.class_name}Tracker,"),
+            st.Line(f"globalParamsProvider: {self.class_name}GlobalParamsProvider,"),
+            st.Line(f"platformParamsProvider: {self.class_name}PlatformParamsProvider"),
         ]
         constructor_signature_statements = st.Closure(
             header=constructor_header,
             statements=constructor_interface,
             closure_symbol=st.RoundBracket(),
-            postfix=": EvgenAnalytics",
+            postfix=f": {self.class_name}",
         )
         constructor_body = [
             st.Closure(
-                header="const trackEvent: EvgenAnalyticsTracker['trackEvent'] = (event, parameters) => ",
+                header=f"const trackEvent: {self.class_name}Tracker['trackEvent'] = (event, parameters) => ",
                 statements=[
                     st.Closure(
                         header="const mergedParameters = ",

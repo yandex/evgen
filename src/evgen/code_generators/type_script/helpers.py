@@ -56,8 +56,8 @@ def convert_param_type(
     return param_type
 
 
-def get_track_event_function() -> st.Statement:
-    return st.Line("trackEvent: EvgenAnalyticsTracker['trackEvent']")
+def get_track_event_function(class_name: str) -> st.Statement:
+    return st.Line(f"trackEvent: {class_name}Tracker['trackEvent']")
 
 
 def log_params(
