@@ -19,8 +19,9 @@ RESERVED_FILENAMES = [NAMED_ENUMS_FILENAME, HELPERS_FILENAME]
 
 
 class TypeScriptEventFunctionSerializer(st.EventFunctionSerializer):
-    def __init__(self, class_name: str):
+    def __init__(self, class_name: str, param_name_case: str):
         self._class_name = class_name
+        self.param_name_case = param_name_case
 
     def get_event_function_enums(
         self, function: evgen_code.Function
@@ -37,7 +38,9 @@ class TypeScriptEventFunctionSerializer(st.EventFunctionSerializer):
         tracker_interface = st.Line(
             f"{inflection.underscore(self._class_name)}: {self._class_name},"
         )
-        param_interface = ts_helpers.get_function_params_interface(function.params)
+        param_interface = ts_helpers.get_function_params_interface(
+            function.params, self.param_name_case
+        )
         if param_interface is None:
             function_header = st.Closure(
                 function_header_start,
@@ -70,8 +73,9 @@ class TypeScriptEventFunctionSerializer(st.EventFunctionSerializer):
 
 
 class DictParamTrackerGenerator:
-    def __init__(self, dir_path: Path, class_name: str):
+    def __init__(self, dir_path: Path, class_name: str, param_name_case: str):
         self.root_path = dir_path / class_name
+        self.param_name_case = param_name_case
         if self.root_path.exists():
             rmtree(self.root_path)
         self.root_path.mkdir()
@@ -242,7 +246,9 @@ class DictParamTrackerGenerator:
             statements.append(
                 st.EventFunction(
                     function,
-                    TypeScriptEventFunctionSerializer(class_name=self.class_name),
+                    TypeScriptEventFunctionSerializer(
+                        class_name=self.class_name, param_name_case=self.param_name_case
+                    ),
                 )
             )
 

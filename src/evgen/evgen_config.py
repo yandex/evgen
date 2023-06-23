@@ -27,6 +27,7 @@ class CodeConfig:
     language: str
     output_dir: str
     class_name: str
+    param_name_case: str
     only_last_version: bool = False
 
     @classmethod
@@ -56,12 +57,16 @@ class CodeConfig:
         if isinstance(only_last_version, str) and only_last_version.lower() == "false":
             only_last_version = False
 
+        default_case = "camel_case" if language == "type_script" else "snake_case"
+        param_name_case = raw_dict.get("param_name_case", default_case)
+
         return CodeConfig(
             platform=platform_name,
             language=language,
             output_dir=output_sub_dir,
             class_name=class_name,
             only_last_version=only_last_version,
+            param_name_case=param_name_case,
         )
 
 

@@ -49,6 +49,7 @@ def generate_code(
     class_name: str,
     single_param_tracker: bool,
     only_last_version: bool,
+    param_name_case: str,
 ):
     """
 
@@ -67,10 +68,12 @@ def generate_code(
     if single_param_tracker:
         evgen_helpers.check_single_param(filtered_events)
     meta_code = evgen_meta_code.generate_meta_code(filtered_events, only_last_version)
+
     code_generator = CODE_GENERATORS[language].create(
         dir_path=output_path,
         class_name=class_name,
         single_param_tracker=single_param_tracker,
+        param_name_case=param_name_case,
     )
     code_generator.generate(meta_code=meta_code)
 
@@ -107,6 +110,7 @@ def generate(
                 class_name=code_config.class_name,
                 single_param_tracker=config.single_param_tracker,
                 only_last_version=code_config.only_last_version,
+                param_name_case=code_config.param_name_case,
             )
 
     if config.doc:

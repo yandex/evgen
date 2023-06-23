@@ -137,7 +137,7 @@ def log_meta(meta: global_types.Meta) -> List[st.Statement]:
 
 
 def get_function_params_interface(
-    params: List[evgen_code.Parameter],
+    params: List[evgen_code.Parameter], param_name_case: str
 ) -> Optional[st.Statement]:
     interface_lines = []
     param_counter = 0
@@ -146,12 +146,16 @@ def get_function_params_interface(
     for param in params:
         if isinstance(param.type, evgen_code.ConstType):
             continue
+
+        param_name = (
+            param.code_name if param_name_case == "camel_case" else param.event_name
+        )
         if param_counter != 0:
             interface_single_str += "; "
             interface_lines.append(st.Line(interface_single_str))
             interface_single_str = ""
         interface_single_str += (
-            f"{param.code_name}"
+            f"{param_name}"
             f'{"?" if param.default_value is not None else ""}: {param.type.interface()}'
         )
         param_counter += 1
