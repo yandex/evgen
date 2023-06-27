@@ -179,9 +179,13 @@ class DictParamTrackerGenerator:
             )
         ]
 
-        statements.extend(self._get_params_class(code.global_params))
+        statements.extend(
+            self._get_params_class(code.global_params, self.param_name_case)
+        )
         statements.append(st.EmptyLine())
-        statements.extend(self._get_params_class(code.platform_params))
+        statements.extend(
+            self._get_params_class(code.platform_params, self.param_name_case)
+        )
         statements.append(st.EmptyLine())
 
         class_statement = st.Closure(
@@ -261,7 +265,9 @@ class DictParamTrackerGenerator:
             helpers.write_statements(statements, fp)
 
     def _get_params_class(
-        self, global_params: Union[evgen_code.GlobalParams, evgen_code.PlatformParams]
+        self,
+        global_params: Union[evgen_code.GlobalParams, evgen_code.PlatformParams],
+        param_name_case: str,
     ) -> List[st.Statement]:
         gp_statements = list()
 
@@ -276,13 +282,16 @@ class DictParamTrackerGenerator:
         class_statements = list()
         # public parameters
         for param in global_params.params:
+            param_name = (
+                param.code_name if param_name_case == "camel_case" else param.event_name
+            )
             if not isinstance(param.type, evgen_code.ConstType):
                 class_statements.append(
-                    st.Line(f"{param.code_name}: {param.type.declaration()}")
+                    st.Line(f"{param_name}: {param.type.declaration()}")
                 )
             else:
                 class_statements.append(
-                    st.Line(f'{param.code_name}: "{param.type.type_value}"')
+                    st.Line(f'{param_name}: "{param.type.type_value}"')
                 )
 
         gp_statements.append(
