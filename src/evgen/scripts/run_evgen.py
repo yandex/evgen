@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 from argparse import ArgumentParser
 from copy import deepcopy
 from pathlib import Path
@@ -151,6 +152,9 @@ def get_arg_parser():
 
 
 def main():
+    logging.warn("\nЭТА ВЕРСИЯ ЕВГЕН УСТАРЕЛА!!!\n\n" +
+                 "Нужно мигрировать на новую версию: https://nda.ya.ru/t/hgHI6D7u6oLTZL"+"\n" +
+                 "За помощью можно сходить к https://nda.ya.ru/t/2BHRUAnb6oLTvW или в https://nda.ya.ru/t/4zT69Lo96oLUN8" + "\n")
     args = get_arg_parser().parse_args()
     generate(**vars(args))
 
