@@ -1,6 +1,8 @@
-# Code generation for event logging
+# DEPRECATED! Code generation for event logging
+## New EvGen is here: https://nda.ya.ru/t/hgHI6D7u6oLTZL
+### Docs: https://nda.ya.ru/t/lsnpED386pEUKo
 
-EvGen: Event Generator.  Useful tools for making contracts between analysts and developers.
+### EvGen: Event Generator.  Useful tools for making contracts between analysts and developers.
 
 Supported languages
 
