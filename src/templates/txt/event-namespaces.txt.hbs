@@ -1,0 +1,18 @@
+{{#each eventNamespacesByDocDir}}
+{{#each this}}
+#start-file:{{#if this.documentationDir}}{{this.documentationDir}}/{{/if}}{{snakecase this.name}}.txt
+{{#each allVersions}}
+
+{{this.event}}
+
+    V{{this.version}}
+    {{this.description}}
+
+    {{#each this.parameters}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}} - {{this.description}}
+    {{/each}}
+{{/each}}
+{{/each}}
+
+#end-file
+{{/each}}

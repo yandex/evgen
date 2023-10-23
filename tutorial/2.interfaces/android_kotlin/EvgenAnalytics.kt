@@ -47,7 +47,7 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
     
     /**
      * Показ экрана магазина
-     * 
+     *
      * 0. page - Название страницы
      * 1. pageId - Идентификатор страницы
      */
@@ -63,10 +63,10 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("Shop.Showed", parameters)
     }
-    
+
     /**
      * Показ экрана магазина
-     * 
+     *
      * 0. page - Название страницы
      * 1. movieName - Название фильма
      * 2. movieId - Идентификатор фильма
@@ -89,10 +89,10 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("Showcase.Movie.Showed", parameters)
     }
-    
+
     /**
      * Показ экрана магазина
-     * 
+     *
      * 0. page - Название страницы
      * 1. movieName - Название фильма
      * 2. pageId - Идентификатор страницы
@@ -113,5 +113,5 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("Showcase.TVShow.Showed", parameters)
     }
-    
+
 }

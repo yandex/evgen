@@ -1,0 +1,7 @@
+.GlobalParams
+
+    Эти параметры добавляются к параметрам каждого события.
+
+    0. appVersion: String - Версия приложения
+    1. userId: Long Int - ID пользователя
+    2. deviceId: String - ID устройства

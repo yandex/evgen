@@ -1,13 +1,5 @@
-AlsoMyEvent.Logged 
-    
+AlsoMyEvent.Logged
+
     V1
     Also event description
-    
-    _meta: {
-        event:  {
-            version: 1
-        },
-    }
-
-
 

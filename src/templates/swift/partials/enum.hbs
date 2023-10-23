@@ -1,0 +1,16 @@
+{{#if (isEnum parameter.type)}}
+public enum {{typeFormat parameter}}: String {
+    {{#each parameter.type.Enum.values}}
+    {{#if (isNumber this)}}
+    int{{this}} = {{this}},
+    {{else}}
+    {{#if (isSpecialWord (camelcase this))}}
+    case `{{camelcase this}}` = "{{this}}"
+    {{else}}
+    case {{camelcase this}} = "{{this}}"
+    {{/if}}
+    {{/if}}
+    {{/each}}
+}
+
+{{/if}}

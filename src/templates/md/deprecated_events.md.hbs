@@ -1,0 +1,35 @@
+{{#each eventNamespacesByDocDir}}
+{{#each this}}
+{{#unless (isEmpty deprecatedVersions)}}
+## {{this.name}}
+| | Название события | Версия события | Параметры | Описание | Комментарий | {{join this.allPlatforms ' | '}} |
+|---:|:---|:---|:---|:---|:---|{{#each this.allPlatforms}}:---|{{/each}}
+{{#each deprecatedVersions}}
+|
+{{~@index~}}
+|
+{{~this.event~}}
+|
+{{~this.version~}}
+|
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>
+{{~/each~}}
+|
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
+{{~/each~}}
+{{~#escape newLine="<br>" space="&nbsp;"~}}
+{{~/escape~}}
+|
+{{~#escape newLine="<br>"}}{{../description}}{{/escape~}}
+{{~#each ../allPlatforms~}}
+    |
+    {{~>platformSupport (lookup ../platforms this)~}}
+{{~/each}}
+|
+{{/each}}
+
+{{/unless}}
+{{/each}}
+{{/each}}

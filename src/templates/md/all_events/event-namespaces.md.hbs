@@ -1,0 +1,31 @@
+{{#each eventNamespacesByDocDir}}
+{{#each this}}
+#start-file:{{#if this.documentationDir}}{{this.documentationDir}}/{{/if}}{{snakecase this.name}}.md
+| | Название события | Версия события | Параметры | Описание | Комментарий | {{join this.allPlatforms ' | '}} |
+|---:|:---|:---|:---|:---|:---|{{#each this.allPlatforms}}:---|{{/each}}
+{{#each allVersions}}
+|
+{{~@index~}}
+|
+{{~this.event~}}
+|
+{{~this.version~}}
+|
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>
+{{~/each~}}
+|
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
+{{~/each~}}
+|
+{{~#escape newLine="<br>"}}{{this.description}}{{/escape~}}
+{{~#each ../allPlatforms~}}
+    |
+    {{~>platformSupport (lookup ../platforms this)~}}
+{{~/each~}}
+|
+{{/each}}
+{{/each}}
+#end-file
+{{/each}}

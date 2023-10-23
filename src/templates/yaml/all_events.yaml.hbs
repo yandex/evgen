@@ -1,0 +1,49 @@
+.GlobalParams:
+  parameters:
+    {{#each (sortBy globalParameters.parameters 'name')}}
+    {{>parameterFormat parameter=this}}
+    {{/each}}
+{{#unless (isEmpty platformParameters)}}
+.PlatformParams:
+  {{#each (sortBy (entries platformParameters) 'key')}}
+  {{key}}:
+    parameters:
+      {{#each (sortBy value.parameters 'name')}}
+      {{>parameterFormat parameter=this}}
+      {{/each}}
+  {{/each}}
+{{/unless}}
+Events:
+  {{#each (sortBy eventNamespaces 'name')}}
+  {{#each (sortBy events 'versions.0.event')}}
+  {{#unless (isEmpty versions)}}
+  {{versions.[0].event}}:
+    {{#each versions}}
+    v{{version}}:
+      {{#unless (isEmpty interfaces)}}
+      interface:
+      {{#each interfaces}}
+      - {{@key}}
+      {{/each}}
+      {{/unless}}
+      parameters:{{#if (isEmpty parameters)}} {}{{/if}}
+        {{#each (sortBy parameters 'name')}}
+        {{>parameterFormat parameter=this}}
+        {{/each}}
+    {{/each}}
+  {{/unless}}
+  {{/each}}
+  {{/each}}
+Interfaces:{{#if (isEmpty interfaceNamespaces)}} {}{{/if}}
+  {{#each (sortBy (entries interfaceNamespaces) 'key')}}
+  {{#each (sortBy (entries (groupBy value 'name')) 'key')}}
+  {{../key}}.{{key}}:
+    {{#each value}}
+    v{{version}}:
+      parameters:
+        {{#each (sortBy parameters 'name')}}
+        {{>parameterFormat parameter=this}}
+        {{/each}}
+    {{/each}}
+  {{/each}}
+  {{/each}}

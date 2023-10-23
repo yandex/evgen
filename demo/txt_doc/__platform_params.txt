@@ -1,0 +1,14 @@
+.PlatformParams
+
+
+web_smart_tv
+Эти параметры добавляются ко всем событиям Web Smart TV
+
+    0. tvModel: String - Модель ТВ
+    1. firmwareVersion: String - Версия прошивки
+
+ios
+Эти параметры добавляются ко всем событиям Web
+
+    0. browserName: String - Имя браузера
+    1. browserVersion: String - Версия браузера

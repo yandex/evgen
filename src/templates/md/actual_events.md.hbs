@@ -1,0 +1,73 @@
+## .GlobalParams
+
+|| Название события | Параметры | Описание | Комментарий |                    
+|---:|:---|:---|:---|:---|
+|0|.GlobalParams|
+{{~#each globalParameters.parameters~}}
+    {{@index}}. {{this.name}}: <code>{{>typeFormat parameter=this}}</code><br/>
+{{~/each~}}
+|
+{{~#each globalParameters.parameters~}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}
+{{~/each~}}
+|
+{{~#escape newLine="<br>"}}{{@root.globalParameters.description}}{{/escape~}}
+|
+
+{{#unless (isEmpty platformParameters)}}
+## .PlatformParams
+
+| | Платформа | Параметры | Описание |
+|---:|:---|:---|:---|
+{{#each platformParameters~}}
+    |
+    {{~@index~}}
+    |
+    {{~@key~}}
+    |
+    {{~#each this.parameters~}}
+        {{@index}}. {{this.name}}: <code>{{>typeFormat parameter=this}}</code><br/>
+    {{~/each~}}
+    |
+    {{~#each this.parameters~}}
+        {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br/>
+    {{~/each~}}
+    |
+{{/each}}
+{{/unless}}
+
+{{#each eventNamespacesByDocDir}}
+{{#each this}}
+{{#unless (isEmpty actualVersions)}}
+## {{this.name}}
+| | Название события | Версия события | Параметры | Описание | Комментарий | {{join this.allPlatforms ' | '}} |
+|---:|:---|:---|:---|:---|:---|{{#each this.allPlatforms}}:---|{{/each}}
+{{#each actualVersions}}
+|
+{{~@index~}}
+|
+{{~this.event~}}
+|
+{{~this.version~}}
+|
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>
+{{~/each~}}
+|
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
+{{~/each~}}
+{{~#escape newLine="<br>" space="&nbsp;"~}}
+{{~/escape~}}
+|
+{{~#escape newLine="<br>"}}{{../description}}{{/escape~}}
+{{~#each ../allPlatforms~}}
+    |
+    {{~>platformSupport (lookup ../platforms this)~}}
+{{~/each}}
+|
+{{/each}}
+
+{{/unless}}
+{{/each}}
+{{/each}}

@@ -1,45 +1,18 @@
-Showcase.Movie.Showed 
-    
+Showcase.Movie.Showed
+
     V1
     Показ экрана магазина
-    
+
     0. page: String - Название страницы
     1. movieName: String - Название фильма
     2. movieId: Int - Идентификатор фильма
     3. pageId: Int - Идентификатор страницы
-    _meta: {
-        event:  {
-            version: 1
-        },
-        MyInterfaces.Page:  {
-            version: 1
-        },
-        MyInterfaces.Movie:  {
-            version: 2
-        },
-    }
 
+Showcase.TVShow.Showed
 
-
-Showcase.TVShow.Showed 
-    
     V1
     Показ экрана магазина
-    
+
     0. page: String - Название страницы
     1. movieName: String - Название фильма
     2. pageId: Int - Идентификатор страницы
-    _meta: {
-        event:  {
-            version: 1
-        },
-        MyInterfaces.Page:  {
-            version: 1
-        },
-        MyInterfaces.Movie:  {
-            version: 1
-        },
-    }
-
-
-

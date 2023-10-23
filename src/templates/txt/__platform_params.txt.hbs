@@ -1,0 +1,11 @@
+{{#unless (isEmpty platformParameters)}}.PlatformParams{{/unless}}
+
+{{#each platformParameters}}
+
+{{@key}}
+{{this.description}}
+
+{{#each this.parameters}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}} - {{this.description}}
+{{/each}}
+{{/each}}

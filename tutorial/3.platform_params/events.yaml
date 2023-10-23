@@ -27,64 +27,64 @@ Constants:
   inheritance: &inheritance inheritance
   documentation_dir: &documentation_dir documentation_dir
 
-*inheritance:
+*inheritance :
     android: &android Android
     ios: &ios iOS
     web_smart_tv: &web_smart_tv WebSmartTV
 
 
-*GlobalParameters:
-    *parameters:
-    *description: Эти параметры добавляются к параметрам каждого события.
+*GlobalParameters :
+    *parameters :
+    *description : Эти параметры добавляются к параметрам каждого события.
 
 
 # Платформозависимые параметры
-*PlatformParameters:
-    *android:  # Должно совпадать с названием платформы, указанной в событиях
-        *description: Эти параметры добавляются к параметрам, отправленных с Android
-        *parameters:
+*PlatformParameters :
+    *android :  # Должно совпадать с названием платформы, указанной в событиях
+        *description : Эти параметры добавляются к параметрам, отправленных с Android
+        *parameters :
             appVersion:
-                *type: *string
-                *description: Версия приложения
+                *type : *string
+                *description : Версия приложения
 
-    *ios:
-        *description: Эти параметры добавляются к параметрам, отправленных с iOS
-        *parameters:
+    *ios :
+        *description : Эти параметры добавляются к параметрам, отправленных с iOS
+        *parameters :
             hasSubscription:
-                *type: *bool
-                *description: Есть ли у пользователя подписка
+                *type : *bool
+                *description : Есть ли у пользователя подписка
 
 
-*Events:
+*Events :
     MyEvent:
         v1:
-            *parameters:
-            *description: Event description
-            *platforms:
-                *android:
-                  *app_versions: *in_progress
-                  *ticket: https://st.yandex-team.ru
-                *ios:
-                  *app_versions: *in_progress
-                  *ticket: https://st.yandex-team.ru
-                *web_smart_tv:
-                    *app_versions: *in_progress
-                    *ticket: https://st.yandex-team.ru
+            *parameters :
+            *description : Event description
+            *platforms :
+                *android :
+                  *app_versions : *in_progress
+                  *ticket : https://your-tracker.com
+                *ios :
+                  *app_versions : *in_progress
+                  *ticket : https://your-tracker.com
+                *web_smart_tv :
+                    *app_versions : *in_progress
+                    *ticket : https://your-tracker.com
 
     AlsoMyEvent:
         Logged:
             v1:
-                *parameters:
-                *description: Also event description
-                *comment: Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
-                *platforms:
-                    *android:
-                      *app_versions: *in_progress
-                      *ticket: https://st.yandex-team.ru
-                    *ios:
-                      *app_versions: *in_progress
-                      *ticket: https://st.yandex-team.ru
-                    *web_smart_tv:
-                        *app_versions: *in_progress
-                        *ticket: https://st.yandex-team.ru
+                *parameters :
+                *description : Also event description
+                *comment : Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
+                *platforms :
+                    *android :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *ios :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *web_smart_tv :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
 

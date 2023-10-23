@@ -25,7 +25,7 @@ export enum MyNamespaceMyEventEnumParamInt {
 
 /**
     События со всеми возможными типами параметров
-    
+
     0. stringParam - Параметр типа String
     1. intParam - Параметр типа Int
     2. longIntParam - Параметр типа Long Int
@@ -44,17 +44,17 @@ export enum MyNamespaceMyEventEnumParamInt {
 export function myNamespaceMyEvent (
     evgen_analytics: EvgenAnalytics,
     parameters:  {
-        stringParam?: string; 
-        intParam?: number; 
-        longIntParam: number; 
-        boolParam?: boolean; 
-        doubleParam: number; 
-        enumParam?: MyNamespaceMyEventEnumParam; 
-        enumParamInt?: MyNamespaceMyEventEnumParamInt; 
-        namedEnumParam: Pages; 
-        dictParam: Record<string, any>; 
-        listOfInt?: number[]; 
-        listOfDouble?: number[]; 
+        stringParam?: string;
+        intParam?: number;
+        longIntParam: number;
+        boolParam?: boolean;
+        doubleParam: number;
+        enumParam?: MyNamespaceMyEventEnumParam;
+        enumParamInt?: MyNamespaceMyEventEnumParamInt;
+        namedEnumParam: Pages;
+        dictParam: Record<string, any>;
+        listOfInt?: number[];
+        listOfDouble?: number[];
         listOfString?: string[]
     }
 )
@@ -69,12 +69,12 @@ export function myNamespaceMyEvent (
         listOfDouble = [],
         listOfString = [],
     } = parameters;
-    
+
     const constParam = 'ValueToLog';
     const platformConst = 'WebSmartTVValue';
-    
+
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters, stringParam, intParam, boolParam, enumParam, enumParamInt, listOfInt, listOfDouble, listOfString, constParam, platformConst,  _meta}
+    const enhancedParams = {...parameters, stringParam, intParam, boolParam, enumParam, enumParamInt, listOfInt, listOfDouble, listOfString, constParam, platformConst, _meta}
     evgen_analytics.trackEvent("MyNamespace.MyEvent", enhancedParams);
 }
 

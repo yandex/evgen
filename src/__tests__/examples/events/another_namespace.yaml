@@ -1,0 +1,46 @@
+Events:
+    AnotherNamespace:
+        # документацию для неймспейсов можно складывать в папки,
+        documentation_dir: AnotherDir  # AnotherDir/Subdir
+
+
+        # здесь можно определить параметры которые будет переиспользовать внутри одного неймспейса
+        inheritance:
+            reused_param: &reused_param # первый ключ по факту не используется, второй определаяет как к параметру обращаться в yaml файле
+            # важен отступ
+                reusedParam:  # собственно название параметра, которое будет использоваться при генерации
+                    type: String
+                    description: Параметр, который переиспользуется в нескольких событиях
+
+        Event1:
+            v1:
+                description: Первое событие с переиспользуемым параметром
+                parameters:
+                    <<: *reused_param # вставка определенного выше параметра
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    iOS:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+        Event2:
+            v1:
+                description: Второе событие с переиспользуемым параметром
+                parameters:
+                    <<: *reused_param # вставка определенного выше параметра
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    iOS:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+
+

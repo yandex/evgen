@@ -1,0 +1,5 @@
+rating:
+  description: Рейтинг контента
+  type: Double
+
+

@@ -1,0 +1,15 @@
+## .GlobalParams
+
+|| Название события | Параметры | Описание | Комментарий |                    
+|---:|:---|:---|:---|:---|
+|0|.GlobalParams|
+{{~#each globalParameters.parameters~}}
+    {{@index}}. {{this.name}}: <code>{{>typeFormat parameter=this}}</code><br/>
+{{~/each~}}
+|
+{{~#each globalParameters.parameters~}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br/>
+{{~/each~}}
+|
+{{~#escape newLine="<br>"}}{{@root.globalParameters.description}}{{/escape~}}
+|

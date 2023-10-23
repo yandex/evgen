@@ -1,0 +1,23 @@
+{{~#eq parameter.defaultValue 'empty_list'~}}
+listOf<
+    {{~#if parameter.elementType~}}
+        {{~primitiveTypeFormat parameter.elementType~}}
+    {{~else~}}
+        String
+    {{~/if~}}
+>()
+{{~else~}}
+    {{~#if (isEnum parameter.type)~}}
+        {{~#if (isNumber parameter.defaultValue)~}}
+            {{pascalcase (typeFormat parameter)}}.Int{{parameter.defaultValue}}
+        {{~else~}}
+            {{pascalcase (typeFormat parameter)}}.{{pascalcase parameter.defaultValue}}
+        {{~/if~}}
+    {{~else~}}
+        {{~#eq parameter.type 'String'~}}
+            "{{parameter.defaultValue}}"
+        {{~else~}}
+            {{parameter.defaultValue}}
+        {{~/eq~}}
+    {{~/if~}}
+{{~/eq~}}

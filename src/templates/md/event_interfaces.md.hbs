@@ -1,0 +1,25 @@
+{{#each interfaceNamespaces}}
+
+## {{@key}}
+| | Название события | Версия события | Параметры | Описание |
+|---:|:---|:---|:---|:---|
+{{#each this}}
+|
+{{~@index~}}
+|
+{{~this.namespace}}.{{this.name~}}
+|
+{{~this.version~}}
+|
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>
+{{~/each~}}
+|
+{{~#escape newLine="<br>"}}{{../description}}{{/escape~}}<br><br>
+{{~#each this.parameters~}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
+{{~/each}}
+
+{{/each}}
+
+{{/each}}

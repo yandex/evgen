@@ -1,0 +1,8 @@
+.gitignore
+.npmignore
+.npmrc
+.nvmrc
+.prettierignore
+.prettierrc
+node_modules/
+tsconfig.json

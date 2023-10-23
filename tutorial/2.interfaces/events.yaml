@@ -29,129 +29,129 @@ Constants:
   inheritance: &inheritance inheritance
   documentation_dir: &documentation_dir documentation_dir
 
-*inheritance:
+*inheritance :
     android: &android Android
     ios: &ios iOS
     web_smart_tv: &web_smart_tv WebSmartTV
 
 
-*GlobalParameters:
-    *parameters:
-    *description: Эти параметры добавляются к параметрам каждого события.
+*GlobalParameters :
+    *parameters :
+    *description : Эти параметры добавляются к параметрам каждого события.
 
 
-*Events:
+*Events :
     Shop:
         Showed:
             v1:
-                *description: Показ экрана магазина
-                *interface: MyInterfaces.Page
-                *parameters:
+                *description : Показ экрана магазина
+                *interface : MyInterfaces.Page
+                *parameters :
                     page: # Попробуйте изменить название параметра. Код не сгенирируется, так как событие больше не будет удовлетворять интерфейсу
-                        *type: *string
-                        *description: Название страницы
+                        *type : *string
+                        *description : Название страницы
                     pageId:
-                        *type: *int
-                        *description: Идентификатор страницы
-                *platforms:
-                    *android:
-                        *app_versions: *in_progress
-                        *ticket: https://st.yandex-team.ru
-                    *ios:
-                        *app_versions: *in_progress
-                        *ticket: https://st.yandex-team.ru
-                    *web_smart_tv:
-                        *app_versions: *in_progress
-                        *ticket: https://st.yandex-team.ru
+                        *type : *int
+                        *description : Идентификатор страницы
+                *platforms :
+                    *android :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
+                    *ios :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
+                    *web_smart_tv :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
 
 
     Showcase:
         Movie:
             Showed:
                 v1:
-                    *description: Показ экрана магазина
-                    *interface:
+                    *description : Показ экрана магазина
+                    *interface :
                         - MyInterfaces.Page
                         - MyInterfaces.Movie
-                    *parameters:
+                    *parameters :
                         page:
-                            *type: *string
-                            *description: Название страницы
+                            *type : *string
+                            *description : Название страницы
                         movieName:
-                            *type: *string
-                            *description: Название фильма
+                            *type : *string
+                            *description : Название фильма
                         movieId:
-                            *type: *int
-                            *description: Идентификатор фильма
+                            *type : *int
+                            *description : Идентификатор фильма
                         pageId:
-                            *type: *int
-                            *description: Идентификатор страницы
-                    *platforms:
-                        *android:
-                            *app_versions: *in_progress
-                            *ticket: https://st.yandex-team.ru
-                        *ios:
-                            *app_versions: *in_progress
-                            *ticket: https://st.yandex-team.ru
-                        *web_smart_tv:
-                            *app_versions: *in_progress
-                            *ticket: https://st.yandex-team.ru
+                            *type : *int
+                            *description : Идентификатор страницы
+                    *platforms :
+                        *android :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
 
         TVShow:
             # Это событие удовлетворяет только первой версии интерфейса MyInterfaces.Movie
             # и при генерации события выпадет соответствующее предубпреждание
             Showed:
                 v1:
-                    *description: Показ экрана магазина
-                    *interface:
+                    *description : Показ экрана магазина
+                    *interface :
                         - MyInterfaces.Page
                         - MyInterfaces.Movie
-                    *parameters:
+                    *parameters :
                         page:
-                            *type: *string
-                            *description: Название страницы
+                            *type : *string
+                            *description : Название страницы
                         movieName:
-                            *type: *string
-                            *description: Название фильма
+                            *type : *string
+                            *description : Название фильма
                         pageId:
-                            *type: *int
-                            *description: Идентификатор страницы
-                    *platforms:
-                        *android:
-                            *app_versions: *in_progress
-                            *ticket: https://st.yandex-team.ru
-                        *ios:
-                            *app_versions: *in_progress
-                            *ticket: https://st.yandex-team.ru
-                        *web_smart_tv:
-                            *app_versions: *in_progress
-                            *ticket: https://st.yandex-team.ru
+                            *type : *int
+                            *description : Идентификатор страницы
+                    *platforms :
+                        *android :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
 
 
-*Interfaces:
+*Interfaces :
     MyInterfaces:
         Page:
             # Интерфейсы можно версионировать, тогда проверяется совместимость хотя бы с одной из версии интерфейса
             v1:
-                *description: Протокол показа страницы
-                *parameters:
+                *description : Протокол показа страницы
+                *parameters :
                     page:
-                        *type: *string
-                        *description:  Название страницы
+                        *type : *string
+                        *description :  Название страницы
         Movie:
             v1:
-                *description: Протокол показа фильма
-                *parameters:
+                *description : Протокол показа фильма
+                *parameters :
                     movieName:
-                        *type: *string
-                        *description: Название фильма
+                        *type : *string
+                        *description : Название фильма
 
             v2:
-                *description: Протокол показа фильма
-                *parameters:
+                *description : Протокол показа фильма
+                *parameters :
                     movieId:
-                        *type: *int
-                        *description: Инденитфикатор фильма
+                        *type : *int
+                        *description : Инденитфикатор фильма
                     movieName:
-                        *type: *string
-                        *description: Название фильма
+                        *type : *string
+                        *description : Название фильма

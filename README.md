@@ -1,8 +1,8 @@
-# DEPRECATED! Code generation for event logging
-## New EvGen is here: https://nda.ya.ru/t/hgHI6D7u6oLTZL
-### Docs: https://nda.ya.ru/t/lsnpED386pEUKo
+# Code generation for event logging
 
-### EvGen: Event Generator.  Useful tools for making contracts between analysts and developers.
+[![npm version](https://badger.yandex-team.ru/npm/@kinopoisk-int/evgen/version.svg)](https://npm.yandex-team.ru/-/ui/package/@kinopoisk-int/evgen) [![oko health](https://badger.yandex-team.ru/oko/pkg/@kinopoisk-int/evgen/health.svg)](https://npm.yandex-team.ru/-/ui/package/@kinopoisk-int/evgen) [![oko health](https://oko.yandex-team.ru/badges/repoSecurity.svg?repoName=kinopoisk/frontend/packages/evgen&vcs=arc)](https://oko.yandex-team.ru/arc/kinopoisk/frontend/packages/evgen) [![owners](https://badger.yandex-team.ru/custom/[ABC]/[Kinopoisk%20Frontend%20Infrastructure][green]/badge.svg)](https://abc.yandex-team.ru/services/kpott_infrafront/)
+
+EvGen: Event Generator.  Useful tools for making contracts between analysts and developers.
 
 Supported languages
 
@@ -10,47 +10,33 @@ Supported languages
    - java
    - kotlin
    - type_script
-   - java_script
-   - с_sharp
 
-## Prerequisites
+## Table of Contents
 
-- [python >= 3.8](https://www.python.org/downloads/)
-- [poetry](https://python-poetry.org/docs/#installation)
+-   [Install](#install)
+-   [Usage](#usage)
 
-## Installation
+## Install
 
-```sh
-poetry install
+```bash
+npm install -g evgen
 ```
 
-You can now use it from the project package
-
-> Scripts to run are defined in `pyproject.toml`
-
-```sh
-poetry run run_evgen # and additional arguments
-```
-
-If you want to install it globally, you have to build a project
-
-```sh
-poetry build --format wheel
-pip install ./dist/evgen-{PACKAGE_VERSION}-py3-none-any.whl
-```
-
-## Run generation
+## Usage
 
 0. Create a folder with:
     * events.yaml -- File with event specifications
     * evgen.yaml -- Evgen config file
-1. ```run_evgen.py --events_path events.yaml --evgen_config_path evgen.yaml```
+1. ```evgen --events_path events.yaml --evgen_config_path evgen.yaml``` or ```evgen -e events.yaml -c evgen.yaml```
+2. Without installing: ```npx evgen -e events.yaml -c evgen.yaml```
+
 Examples of evgen.yaml can be found in tutorial/
 
 Structure of evgen.yaml
 
-```code:
-  $SubconfigName1:
+```
+code:
+  configName1:
     platform: 'Android'
     output_dir: 'android'
     language: 'java'
@@ -67,7 +53,28 @@ doc:
     output_dir: 'txt_doc'
 ```
 
-## Check generated file consistency
+### Templates
+To customize generated files you can create your own generation templates and specify it in evgen.yaml:
+```
+code:
+  configName1:
+    platform: 'Android'
+    output_dir: 'android'
+    language: 'java'
+    class_name: 'EvgenAppAnalytics'
+    template_dir: relative/path/to/your/java-templates
 
-We suggest checking the consistency of the yaml and generated files. To see if generated files were changed manually:
-```check_evgen_result.py --events_yaml_path events.yaml --evgen_config_path evgen.yaml```
+  ...
+
+doc:
+  Markdown:
+    extension: 'md'
+    output_dir: 'md_doc'
+    template_dir: relative/path/to/your/md-templates
+  Txt:
+    extension: 'txt'
+    output_dir: 'txt_doc'
+    template_dir: relative/path/to/your/txt-templates
+```
+
+You can see default templates in `src/templates` directory. It is [Handlebars](https://handlebarsjs.com/) format extended by additional [handlebars-helpers](https://github.com/helpers/handlebars-helpers) and local helpers from `src/helpers` directory.

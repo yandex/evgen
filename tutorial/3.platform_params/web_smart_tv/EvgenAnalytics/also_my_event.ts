@@ -12,15 +12,15 @@ import {makeMetaParams} from "./evgen_analytics"
 
 /**
     Also event description
-    
+
 */
 export function alsoMyEventLogged (
     evgen_analytics: EvgenAnalytics,
 )
 {
-    
+
     const _meta = makeMetaParams(1)
-    const enhancedParams = { _meta}
+    const enhancedParams = {_meta}
     evgen_analytics.trackEvent("AlsoMyEvent.Logged", enhancedParams);
 }
 

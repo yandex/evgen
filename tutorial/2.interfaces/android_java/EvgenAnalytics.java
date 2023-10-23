@@ -37,7 +37,7 @@ public final class EvgenAnalytics {
         void trackEvent(final String eventName, final Map<String, ?> parameters);
     }
     
-    public EvgenAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
+    public EvgenAppAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
         this.tracker = tracker;
         this.globalParamsProvider = globalParamsProvider;
         this.platformParamsProvider = platformParamsProvider;
@@ -65,10 +65,10 @@ public final class EvgenAnalytics {
     
     /**
         Показ экрана магазина
-        
+    
         0. page - Название страницы
         1. pageId - Идентификатор страницы
-    */
+     */
     public void shopShowed(String page, int pageId) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
@@ -81,15 +81,15 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("Shop.Showed", params);
     }
-    
+
     /**
         Показ экрана магазина
-        
+    
         0. page - Название страницы
         1. movieName - Название фильма
         2. movieId - Идентификатор фильма
         3. pageId - Идентификатор страницы
-    */
+     */
     public void showcaseMovieShowed(String page, String movieName, int movieId, int pageId) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
@@ -107,14 +107,14 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("Showcase.Movie.Showed", params);
     }
-    
+
     /**
         Показ экрана магазина
-        
+    
         0. page - Название страницы
         1. movieName - Название фильма
         2. pageId - Идентификатор страницы
-    */
+     */
     public void showcaseTVShowShowed(String page, String movieName, int pageId) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
@@ -131,5 +131,5 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("Showcase.TVShow.Showed", params);
     }
-    
+
 }

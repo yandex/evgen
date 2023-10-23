@@ -1,0 +1,1162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse event yaml file parse simple yaml 1`] = `
+Object {
+  ".GlobalParams": Object {
+    "description": "Эти параметры добавляются к параметрам каждого события.",
+    "parameters": Object {
+      "childMode": Object {
+        "description": "включен ли детский режим",
+        "type": "Bool",
+      },
+      "experiment": Object {
+        "description": "Параметр для экспериментов",
+        "type": "Dict",
+      },
+      "serviceName": Object {
+        "description": "Константа для единообразной обработки кросссервисных событий. Название сервиса как в трекингах.",
+        "type": Object {
+          "PlatformConst": Object {
+            "Android": "mobile-android",
+            "WebSmartTV": "smarttv",
+            "iOS": "mobile-ios_swift",
+          },
+        },
+      },
+      "subService": Object {
+        "description": "Детализация сервиса",
+        "type": Object {
+          "Enum": Object {
+            "name": "subService",
+            "values": Array [
+              "subservice1",
+              "subservice2",
+              "subservice3",
+            ],
+          },
+        },
+      },
+      "testIds": Object {
+        "description": "id A/B теста пользователя на момент события. Пишется строкой, id разделяются запятой например, '1231, 4, 16'",
+        "type": "String",
+      },
+    },
+    "platforms": Object {
+      "Android": Object {
+        "app_versions": "in_progress",
+        "ticket": "https://tracker.com",
+      },
+      "iOS": Object {
+        "app_versions": 5.12,
+        "ticket": "https://tracker.com",
+      },
+      "tvOS": Object {
+        "app_versions": "not_supported",
+        "ticket": "https://tracker.com",
+      },
+    },
+  },
+  ".PlatformParams": Object {
+    "Android": Object {
+      "description": "Параметры, которые добавляются к событиям, отправленных с Android",
+      "parameters": Object {
+        "androidParam": Object {
+          "description": "Параметр для Android",
+          "type": Object {
+            "Const": "android",
+          },
+        },
+      },
+    },
+    "WebSmartTV": Object {
+      "description": "Параметры, которые добавляются к событиям, отправленных с Web SmartTV",
+      "parameters": Object {
+        "webSmartTVParam": Object {
+          "description": "Параметр для Web Smart TV",
+          "type": Object {
+            "Const": "web_smart_tv",
+          },
+        },
+      },
+    },
+    "iOS": Object {
+      "description": "Параметры, которые добавляются к событиям, отправленных с iOS",
+      "parameters": Object {
+        "iosParam": Object {
+          "description": "Параметр для iOS",
+          "type": Object {
+            "Const": "ios_swift",
+          },
+        },
+      },
+    },
+  },
+  "Constants": Object {
+    "Events": "Events",
+    "GlobalParameters": ".GlobalParams",
+    "PlatformParameters": ".PlatformParams",
+    "abstract": "abstract",
+    "app_versions": "app_versions",
+    "bool": "Bool",
+    "comment": "comment",
+    "const": "Const",
+    "default_value": "default_value",
+    "description": "description",
+    "dict": "Dict",
+    "documentation_dir": "documentation_dir",
+    "double": "Double",
+    "enum": "Enum",
+    "enum_name": "name",
+    "enum_values": "values",
+    "in_progress": "in_progress",
+    "inheritance": "inheritance",
+    "int": "Int",
+    "not_supported": "not_supported",
+    "parameters": "parameters",
+    "platformConst": "PlatformConst",
+    "platforms": "platforms",
+    "string": "String",
+    "ticket": "ticket",
+    "true": true,
+    "type": "type",
+  },
+  "Events": Object {
+    "Marketing": Object {
+      "Subscription": Object {
+        "RegularSubs": Object {
+          "Succeed": Object {
+            "v1": Object {
+              "comment": "Отдельное событие об оформлении
+подписки для push back. Отправляется
+вместе с *.SubscriptionOffer.Succeed",
+              "description": "Успешное оформление регулярной подписки",
+              "parameters": Object {
+                "page": Object {
+                  "description": "Название экрана, где было предложение о подписке",
+                  "type": Object {
+                    "Enum": Object {
+                      "name": "SubscriptionPage",
+                      "values": Array [
+                        "my_movies_screen",
+                        "shop_screen",
+                        "profile_screen",
+                        "payment_widget",
+                        "onboarding_screen",
+                        "locked_subscription_screen",
+                      ],
+                    },
+                  },
+                },
+                "subscriptionType": Object {
+                  "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                  "type": "String",
+                },
+              },
+              "platforms": Object {
+                "Android": Object {
+                  "app_versions": "5.6.0",
+                  "ticket": "https://tracker.com",
+                },
+                "WebSmartTV": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "iOS": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "tvOS": Object {
+                  "app_versions": "not_supported",
+                },
+              },
+            },
+          },
+        },
+        "Succeed": Object {
+          "v1": Object {
+            "comment": "Отдельное событие об оформлении
+подписки для push back. Отправляется
+вместе с *.SubscriptionOffer.Succeed",
+            "description": "Успешное оформление подписки",
+            "parameters": Object {
+              "extraParams": Object {
+                "description": "Доп параметры",
+                "type": "Dict",
+              },
+              "page": Object {
+                "description": "Название экрана, где было предложение о подписке",
+                "type": Object {
+                  "Enum": Object {
+                    "name": "SubscriptionPage",
+                    "values": Array [
+                      "my_movies_screen",
+                      "shop_screen",
+                      "profile_screen",
+                      "payment_widget",
+                      "onboarding_screen",
+                      "locked_subscription_screen",
+                    ],
+                  },
+                },
+              },
+              "subscriptionType": Object {
+                "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                "type": "String",
+              },
+            },
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+              },
+            },
+          },
+          "v2": Object {
+            "comment": "Отдельное событие об оформлении
+подписки для push back. Отправляется
+вместе с *.SubscriptionOffer.Succeed",
+            "description": "Успешное оформление подписки",
+            "parameters": Object {
+              "subscriptionType": Object {
+                "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                "type": "String",
+              },
+            },
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+              },
+            },
+          },
+        },
+        "TrialSubs": Object {
+          "Succeed": Object {
+            "v1": Object {
+              "comment": "Отдельное событие об оформлении
+подписки для push back. Отправляется
+вместе с *.SubscriptionOffer.Succeed",
+              "description": "Успешное оформление триальной подписки",
+              "parameters": Object {
+                "page": Object {
+                  "description": "Название экрана, где было предложение о подписке",
+                  "type": Object {
+                    "Enum": Object {
+                      "name": "SubscriptionPage",
+                      "values": Array [
+                        "my_movies_screen",
+                        "shop_screen",
+                        "profile_screen",
+                        "payment_widget",
+                        "onboarding_screen",
+                        "locked_subscription_screen",
+                      ],
+                    },
+                  },
+                },
+                "subscriptionType": Object {
+                  "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                  "type": "String",
+                },
+              },
+              "platforms": Object {
+                "Android": Object {
+                  "app_versions": "5.6.0",
+                  "ticket": "https://tracker.com",
+                },
+                "WebSmartTV": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "iOS": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "tvOS": Object {
+                  "app_versions": "not_supported",
+                },
+              },
+            },
+          },
+        },
+      },
+      "documentation_dir": "MarketingDir",
+      "inheritance": Object {
+        "_page_param": Object {
+          "page": Object {
+            "description": "Название экрана, где было предложение о подписке",
+            "type": Object {
+              "Enum": Object {
+                "name": "SubscriptionPage",
+                "values": Array [
+                  "my_movies_screen",
+                  "shop_screen",
+                  "profile_screen",
+                  "payment_widget",
+                  "onboarding_screen",
+                  "locked_subscription_screen",
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
+    "PaymentWidget": Object {
+      "SubscriptionOffer": Object {
+        "Navigated": Object {
+          "v1": Object {
+            "description": "Переход на оплату подписки",
+            "parameters": Object {
+              "eventType": Object {
+                "description": "Константа для единообразной обработки кросссервисных событий.",
+                "type": Object {
+                  "Const": "offerClick",
+                },
+              },
+              "offerText": Object {
+                "description": "Текст оффера",
+                "type": "String",
+              },
+              "offerTitle": Object {
+                "default_value": "Offer Title",
+                "description": "Текст кнопки",
+                "type": "String",
+              },
+              "subscriptionType": Object {
+                "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                "type": "String",
+              },
+            },
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+              },
+            },
+          },
+          "v2": Object {
+            "description": "Переход на оплату подписки",
+            "parameters": Object {
+              "billingProductId": Object {
+                "description": "id продукта в биллинге",
+                "type": "Int",
+              },
+              "eventType": Object {
+                "description": "Константа для единообразной обработки кросссервисных событий.",
+                "type": Object {
+                  "Const": "offerClick",
+                },
+              },
+              "monetizationModel": Object {
+                "description": "Константа для единообразной обработки кросссервисных событий.",
+                "type": Object {
+                  "Const": "SVOD",
+                },
+              },
+              "offerText": Object {
+                "description": "Текст оффера",
+                "type": "String",
+              },
+              "offerTitle": Object {
+                "default_value": "Offer Title",
+                "description": "Текст кнопки",
+                "type": "String",
+              },
+              "offerType": Object {
+                "description": "Константа для единообразной обработки кросс платформенных логов.",
+                "type": Object {
+                  "Const": "subscription",
+                },
+              },
+              "page": Object {
+                "description": "название экрана, где находится оффер",
+                "type": Object {
+                  "Const": "payment_widget",
+                },
+              },
+              "path": Object {
+                "default_value": "payment_widget",
+                "description": "Путь до оффера.",
+                "type": Object {
+                  "Enum": Object {
+                    "values": Array [
+                      "payment_widget",
+                      "purchase_option",
+                    ],
+                  },
+                },
+              },
+              "position": Object {
+                "default_value": -1,
+                "description": "Порядковый номер оффера одного типа. Считаются
+свехру вниз, слева направо. Например, если это
+баннеры (upsale) на витрине Магазина, то
+считаются сверху вниз от экрана.",
+                "type": "Int",
+              },
+              "subscriptionType": Object {
+                "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                "type": "String",
+              },
+              "title": Object {
+                "description": "Название контента, для которого вызван виджет оплаты,
+если виджет вызван для контретного контента. Иначе пустая строка",
+                "type": "String",
+              },
+              "uuid": Object {
+                "description": "Universally unique identifier контента, для которого вызван виджет оплаты, если виджет вызван для контретного контента. Иначе -1",
+                "type": "String",
+              },
+            },
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+              },
+            },
+          },
+        },
+        "Showed": Object {
+          "v1": Object {
+            "comment": "Логируется один раз, пока пользователь находится на одном экране",
+            "description": "Показ предложения оформления подписки",
+            "parameters": Object {
+              "offerText": Object {
+                "description": "Текст оффера",
+                "type": "String",
+              },
+              "offerTitle": Object {
+                "default_value": "Offer Title",
+                "description": "Текст кнопки",
+                "type": "String",
+              },
+              "subscriptionType": Object {
+                "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                "type": "String",
+              },
+            },
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "5.12 - 5.13",
+                "ticket": "https://tracker.com",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": 4.8,
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+            },
+          },
+          "v2": Object {
+            "comment": "Логируется один раз, пока пользователь находится на одном экране",
+            "description": "Показ предложения оформления подписки",
+            "parameters": Object {
+              "billingProductId": Object {
+                "description": "id продукта в биллинге",
+                "type": "Int",
+              },
+              "eventType": Object {
+                "description": "Константа для единообразной обработки кросссервисных событий.",
+                "type": Object {
+                  "Const": "offerShow",
+                },
+              },
+              "monetizationModel": Object {
+                "description": "Константа для единообразной обработки кросссервисных событий.",
+                "type": Object {
+                  "Const": "SVOD",
+                },
+              },
+              "offerText": Object {
+                "description": "Текст оффера",
+                "type": "String",
+              },
+              "offerTitle": Object {
+                "default_value": "Offer Title",
+                "description": "Текст кнопки",
+                "type": "String",
+              },
+              "offerType": Object {
+                "description": "Константа для единообразной обработки кросс платформенных логов.",
+                "type": Object {
+                  "Const": "subscription",
+                },
+              },
+              "page": Object {
+                "description": "название экрана, где находится оффер",
+                "type": Object {
+                  "Const": "payment_widget",
+                },
+              },
+              "path": Object {
+                "default_value": "payment_widget",
+                "description": "Путь до оффера.",
+                "type": Object {
+                  "Enum": Object {
+                    "values": Array [
+                      "payment_widget",
+                      "purchase_option",
+                    ],
+                  },
+                },
+              },
+              "position": Object {
+                "default_value": -1,
+                "description": "Порядковый номер оффера одного типа. Считаются
+свехру вниз, слева направо. Например, если это
+баннеры (upsale) на витрине Магазина, то
+считаются сверху вниз от экрана.",
+                "type": "Int",
+              },
+              "subscriptionType": Object {
+                "description": "Тип подписки пользователя, пришедший с бэкенда.",
+                "type": "String",
+              },
+              "title": Object {
+                "description": "Название контента, для которого вызван виджет оплаты,
+если виджет вызван для контретного контента. Иначе пустая строка",
+                "type": "String",
+              },
+              "uuid": Object {
+                "description": "Universally unique identifier контента, для которого вызван виджет оплаты, если виджет вызван для контретного контента. Иначе -1",
+                "type": "String",
+              },
+            },
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": 5.13,
+                "ticket": "https://tracker.com",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+                "ticket": "https://tracker.com",
+              },
+            },
+          },
+        },
+        "inheritance": Object {
+          "_offer_title": Object {
+            "title": Object {
+              "description": "Название контента, для которого вызван виджет оплаты,
+если виджет вызван для контретного контента. Иначе пустая строка",
+              "type": "String",
+            },
+          },
+          "_offer_uuid": Object {
+            "uuid": Object {
+              "description": "Universally unique identifier контента, для которого вызван виджет оплаты, если виджет вызван для контретного контента. Иначе -1",
+              "type": "String",
+            },
+          },
+        },
+      },
+      "inheritance": Object {
+        "_page_parameter": Object {
+          "page": Object {
+            "description": "название экрана, где находится оффер",
+            "type": Object {
+              "Const": "payment_widget",
+            },
+          },
+        },
+        "_purchase_option_path_parameter": Object {
+          "path": Object {
+            "default_value": "payment_widget",
+            "description": "Путь до оффера.",
+            "type": Object {
+              "Enum": Object {
+                "values": Array [
+                  "payment_widget",
+                  "purchase_option",
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
+    "Search": Object {
+      "SearchEngine": Object {
+        "Finished": Object {
+          "v1": Object {
+            "description": "Выход из строки поиска",
+            "parameters": null,
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "not_supported",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+              },
+            },
+          },
+        },
+        "Navigated": Object {
+          "v1": Object {
+            "description": "Переход к другому экрану",
+            "parameters": Object {
+              "to": Object {
+                "description": "тип экрана",
+                "type": Object {
+                  "Enum": Object {
+                    "values": Array [
+                      "global_search_result",
+                      "search_list",
+                      "best_movies_filter",
+                    ],
+                  },
+                },
+              },
+            },
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "not_supported",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+              },
+            },
+          },
+        },
+        "Started": Object {
+          "v1": Object {
+            "description": "Переход к строке поиска",
+            "parameters": null,
+            "platforms": Object {
+              "Android": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "WebSmartTV": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "iOS": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
+              "tvOS": Object {
+                "app_versions": "not_supported",
+              },
+            },
+          },
+        },
+        "Suggest": Object {
+          "ErrorRaised": Object {
+            "v1": Object {
+              "description": "Возникла ошибка при показе саджеста",
+              "parameters": Object {
+                "code": Object {
+                  "description": "Код ошибки",
+                  "type": "Int",
+                },
+                "text": Object {
+                  "description": "Описание ошибки",
+                  "type": "String",
+                },
+                "type": Object {
+                  "description": "Тип ошибки",
+                  "type": Object {
+                    "Enum": Object {
+                      "name": "ErrorType",
+                      "values": Array [
+                        "backend_error",
+                        "parser_error",
+                        "network_error",
+                      ],
+                    },
+                  },
+                },
+              },
+              "platforms": Object {
+                "Android": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "WebSmartTV": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "iOS": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "tvOS": Object {
+                  "app_versions": "not_supported",
+                },
+              },
+            },
+          },
+          "Navigated": Object {
+            "v1": Object {
+              "description": "Переход к другому экрану",
+              "parameters": Object {
+                "to": Object {
+                  "description": "тип экрана",
+                  "type": Object {
+                    "Enum": Object {
+                      "values": Array [
+                        "person_card",
+                        "title_card",
+                        "cinema_card",
+                        "global_search_result",
+                        "search_list",
+                      ],
+                    },
+                  },
+                },
+              },
+              "platforms": Object {
+                "Android": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "WebSmartTV": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "iOS": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "tvOS": Object {
+                  "app_versions": "not_supported",
+                },
+              },
+            },
+          },
+          "Selected": Object {
+            "v1": Object {
+              "description": "Выбор варианта отображения саджеста",
+              "parameters": Object {
+                "type": Object {
+                  "description": "Типы отображения",
+                  "type": Object {
+                    "Enum": Object {
+                      "values": Array [
+                        "all_results",
+                        "ott_results",
+                      ],
+                    },
+                  },
+                },
+              },
+              "platforms": Object {
+                "Android": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "WebSmartTV": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "iOS": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "tvOS": Object {
+                  "app_versions": "not_supported",
+                },
+              },
+            },
+          },
+          "Showed": Object {
+            "v1": Object {
+              "comment": "'Требования по логированию: показывается после прихода ответа от бэкенда.
+Если возникла ошибка, то событие не логируется'",
+              "description": "Показ саджестов для текущего запроса",
+              "parameters": Object {
+                "no_cinemas": Object {
+                  "description": "Не найден ни один кинотеатр",
+                  "type": "Bool",
+                },
+                "no_persons": Object {
+                  "description": "Не найдена ни одна персона",
+                  "type": "Bool",
+                },
+                "no_titles": Object {
+                  "description": "Не найден ни один тайтл",
+                  "type": "Bool",
+                },
+                "query": Object {
+                  "description": "Запрос в поиске",
+                  "type": "String",
+                },
+              },
+              "platforms": Object {
+                "Android": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "WebSmartTV": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "iOS": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
+                "tvOS": Object {
+                  "app_versions": "not_supported",
+                },
+              },
+            },
+          },
+        },
+      },
+      "Showed": Object {
+        "v1": Object {
+          "description": "Показ экрана поиска",
+          "parameters": null,
+          "platforms": Object {
+            "Android": Object {
+              "app_versions": "not_supported",
+            },
+            "WebSmartTV": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://tracker.com",
+            },
+            "iOS": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://tracker.com",
+            },
+            "tvOS": Object {
+              "app_versions": "not_supported",
+            },
+          },
+        },
+      },
+      "documentation_dir": "SearchTab",
+      "inheritance": Object {
+        "_error_default_parameters": Object {
+          "code": Object {
+            "description": "Код ошибки",
+            "type": "Int",
+          },
+          "text": Object {
+            "description": "Описание ошибки",
+            "type": "String",
+          },
+          "type": Object {
+            "description": "Тип ошибки",
+            "type": Object {
+              "Enum": Object {
+                "name": "ErrorType",
+                "values": Array [
+                  "backend_error",
+                  "parser_error",
+                  "network_error",
+                ],
+              },
+            },
+          },
+        },
+        "_global_search_result": "global_search_result",
+        "_search_default_parameters": Object {
+          "no_cinemas": Object {
+            "description": "Не найден ни один кинотеатр",
+            "type": "Bool",
+          },
+          "no_persons": Object {
+            "description": "Не найдена ни одна персона",
+            "type": "Bool",
+          },
+          "no_titles": Object {
+            "description": "Не найден ни один тайтл",
+            "type": "Bool",
+          },
+          "query": Object {
+            "description": "Запрос в поиске",
+            "type": "String",
+          },
+        },
+        "_search_list": "search_list",
+      },
+    },
+    "SearchEngineFinished": Object {
+      "v1": Object {
+        "description": "Переход к строке поиска",
+        "parameters": null,
+        "platforms": Object {
+          "Android": Object {
+            "app_versions": "3.12 - 3.15",
+            "ticket": "https://tracker.com",
+          },
+          "WebSmartTV": Object {
+            "app_versions": "in_progress",
+            "ticket": "https://tracker.com",
+          },
+          "iOS": Object {
+            "app_versions": "4.1 - 4.2",
+            "ticket": "https://tracker.com",
+          },
+          "tvOS": Object {
+            "app_versions": "not_supported",
+          },
+        },
+      },
+    },
+    "SearchEngineStarted": Object {
+      "v1": Object {
+        "description": "Переход к строке поиска",
+        "parameters": null,
+        "platforms": Object {
+          "Android": Object {
+            "app_versions": "3.12 - 3.15",
+            "ticket": "https://tracker.com",
+          },
+          "WebSmartTV": Object {
+            "app_versions": "in_progress",
+            "ticket": "https://tracker.com",
+          },
+          "iOS": Object {
+            "app_versions": "4.1 - 4.2",
+            "ticket": "https://tracker.com",
+          },
+          "tvOS": Object {
+            "app_versions": "not_supported",
+          },
+        },
+      },
+    },
+  },
+  "inheritance": Object {
+    "ErrorRaised": "ErrorRaised",
+    "Navigated": "Navigated",
+    "Selected": "Selected",
+    "Showed": "Showed",
+    "Succeed": "Succeed",
+    "_basic_parameters": Object {
+      "offerText": Object {
+        "description": "Текст оффера",
+        "type": "String",
+      },
+      "offerTitle": Object {
+        "default_value": "Offer Title",
+        "description": "Текст кнопки",
+        "type": "String",
+      },
+      "subscriptionType": Object {
+        "description": "Тип подписки пользователя, пришедший с бэкенда.",
+        "type": "String",
+      },
+    },
+    "_child_mode_parameter": Object {
+      "childMode": Object {
+        "description": "включен ли детский режим",
+        "type": "Bool",
+      },
+    },
+    "_offer_click": Object {
+      "eventType": Object {
+        "description": "Константа для единообразной обработки кросссервисных событий.",
+        "type": Object {
+          "Const": "offerClick",
+        },
+      },
+    },
+    "_offer_comment": Object {
+      "comment": "Логируется один раз, пока пользователь находится на одном экране",
+    },
+    "_offer_show": Object {
+      "eventType": Object {
+        "description": "Константа для единообразной обработки кросссервисных событий.",
+        "type": Object {
+          "Const": "offerShow",
+        },
+      },
+    },
+    "_offer_succeed": Object {
+      "eventType": Object {
+        "description": "Константа для единообразной обработки кросссервисных событий.",
+        "type": Object {
+          "Const": "offerSuceed",
+        },
+      },
+    },
+    "_position_parameters": Object {
+      "position": Object {
+        "default_value": -1,
+        "description": "Порядковый номер оффера одного типа. Считаются
+свехру вниз, слева направо. Например, если это
+баннеры (upsale) на витрине Магазина, то
+считаются сверху вниз от экрана.",
+        "type": "Int",
+      },
+    },
+    "_subscription_parameters": Object {
+      "billingProductId": Object {
+        "description": "id продукта в биллинге",
+        "type": "Int",
+      },
+      "monetizationModel": Object {
+        "description": "Константа для единообразной обработки кросссервисных событий.",
+        "type": Object {
+          "Const": "SVOD",
+        },
+      },
+      "offerType": Object {
+        "description": "Константа для единообразной обработки кросс платформенных логов.",
+        "type": Object {
+          "Const": "subscription",
+        },
+      },
+    },
+    "_subscription_type": Object {
+      "subscriptionType": Object {
+        "description": "Тип подписки пользователя, пришедший с бэкенда.",
+        "type": "String",
+      },
+    },
+    "_test_ids_parameter": Object {
+      "testIds": Object {
+        "description": "id A/B теста пользователя на момент события. Пишется строкой, id разделяются запятой например, '1231, 4, 16'",
+        "type": "String",
+      },
+    },
+    "_transaction_parameters": Object {
+      "cardPosition": Object {
+        "default_value": -1,
+        "description": "Позиция карточки в подборке",
+        "type": "Int",
+      },
+      "discountMasterCard": Object {
+        "description": "Cкидка по МастерКард",
+        "type": "Double",
+      },
+      "discountSubscription": Object {
+        "description": "Cкидка для подписчиков, например, 0.1",
+        "type": "Double",
+      },
+      "monetizationModel": Object {
+        "description": "Модель монетизации TVOD - покупка контента EST - аренда контента",
+        "type": Object {
+          "Enum": Object {
+            "name": "TransactionMonetization",
+            "values": Array [
+              "TVOD",
+              "EST",
+            ],
+          },
+        },
+      },
+      "offerType": Object {
+        "description": "Константа для единообразной обработки кросс платформенных логов.",
+        "type": Object {
+          "Const": "transaction",
+        },
+      },
+      "price": Object {
+        "description": "Цена транзации",
+        "type": "Double",
+      },
+      "priceWithDiscount": Object {
+        "description": "Цена c учетом скидки",
+        "type": "Double",
+      },
+      "selectionId": Object {
+        "description": "id подборки",
+        "type": "Int",
+      },
+      "selectionName": Object {
+        "default_value": "Name",
+        "description": "Название подборки",
+        "type": "String",
+      },
+      "selectionPosition": Object {
+        "description": "Позиция подборки на витрине",
+        "type": "String",
+      },
+    },
+    "android": "Android",
+    "cinema_card": "cinema_card",
+    "ios": "iOS",
+    "locked_subscription_screen": "locked_subscription_screen",
+    "my_movies_screen": "my_movies_screen",
+    "onboarding_screen": "onboarding_screen",
+    "payment_widget": "payment_widget",
+    "person_card": "person_card",
+    "profile_screen": "profile_screen",
+    "shop_screen": "shop_screen",
+    "title_card": "title_card",
+    "tvos": "tvOS",
+    "web_smart_tv": "WebSmartTV",
+  },
+}
+`;

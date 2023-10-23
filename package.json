@@ -1,0 +1,66 @@
+{
+    "name": "@kinopoisk-int/evgen",
+    "version": "1.14.0",
+    "license": "Yandex",
+    "author": "Kinopoisk Frontend Team <kinopoisk-dev@yandex-team.ru>",
+    "repository": {
+        "type": "arc",
+        "url": "https://a.yandex-team.ru/arcadia/kinopoisk/frontend/packages/evgen"
+    },
+    "engines": {
+        "pnpm": "7.14.2",
+        "node": "18.5.0"
+    },
+    "packageManager": "pnpm@7.14.2",
+    "bin": {
+        "evgen": "./dist/cli.js"
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "README.md"
+    ],
+    "pkg": {
+        "scripts": "dist/**/*.js",
+        "assets": "dist/templates/**/*",
+        "outputPath": "dist"
+    },
+    "scripts": {
+        "clean:dist": "rm -rf dist",
+        "clean:modules": "rm -rf node_modules",
+        "clean": "npm run clean:dist && npm run clean:modules",
+        "build": "npm run clean:dist && tsc --project . && cp -r src/templates dist",
+        "lint": "eslint . --ext=js,ts",
+        "prepublishOnly": "npm run build",
+        "test": "jest --ci --passWithNoTests",
+        "evgen": "ts-node src/cli.ts"
+    },
+    "dependencies": {
+        "commander": "10.0.1",
+        "fast-glob": "3.2.12",
+        "handlebars": "4.7.7",
+        "handlebars-helpers": "0.10.0",
+        "lodash": "4.17.21",
+        "yaml": "2.3.1"
+    },
+    "devDependencies": {
+        "@babel/core": "7.21.4",
+        "@babel/preset-env": "7.21.4",
+        "@babel/preset-typescript": "7.21.4",
+        "@jest/types": "29.6.3",
+        "@tsconfig/node18": "1.0.1",
+        "@types/handlebars-helpers": "0.5.3",
+        "@types/lodash": "4.14.195",
+        "@types/node": "18.14.0",
+        "@typescript-eslint/eslint-plugin": "6.7.4",
+        "@typescript-eslint/parser": "6.7.4",
+        "eslint": "8.32.0",
+        "eslint-config-prettier": "8.6.0",
+        "eslint-plugin-prettier": "5.0.0",
+        "jest": "26.6.3",
+        "jest-html-reporters": "3.0.6",
+        "prettier": "3.0.3",
+        "ts-node": "10.9.1",
+        "typescript": "4.9.5"
+    }
+}

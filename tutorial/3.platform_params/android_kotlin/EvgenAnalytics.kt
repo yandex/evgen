@@ -48,7 +48,7 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
     
     /**
      * Also event description
-     * 
+     *
      */
     fun alsoMyEventLogged() {
         val parameters = mutableMapOf<String, Any>()
@@ -57,10 +57,10 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("AlsoMyEvent.Logged", parameters)
     }
-    
+
     /**
      * Event description
-     * 
+     *
      */
     fun myEvent() {
         val parameters = mutableMapOf<String, Any>()
@@ -69,5 +69,5 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("MyEvent", parameters)
     }
-    
+
 }

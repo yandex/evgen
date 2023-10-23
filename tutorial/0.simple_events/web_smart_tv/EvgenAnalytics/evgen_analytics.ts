@@ -22,7 +22,7 @@ export interface MetaParams<I extends Record<string, any>> {
     event:  {
         version: number
     }
-    interfaces: I
+    interfaces: I    
 }
 export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParams<typeof interfaces>  {
     return {

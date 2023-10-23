@@ -54,7 +54,7 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
     
     /**
      * Первое событие с переиспользуемым параметром
-     * 
+     *
      * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     fun anotherNamespaceEvent1(reusedParam: String) {
@@ -65,10 +65,10 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("AnotherNamespace.Event1", parameters)
     }
-    
+
     /**
      * Второе событие с переиспользуемым параметром
-     * 
+     *
      * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     fun anotherNamespaceEvent2(reusedParam: String) {
@@ -79,22 +79,22 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("AnotherNamespace.Event2", parameters)
     }
-    
+
     enum class MyNamespaceMyEventEnumParam(val eventValue: String) {
         Option1("option1"),
         Option2("option2"),
         Option3("option3"),
     }
     
-    enum class MyNamespaceMyEventEnumParamInt(val eventValue: Int) {
-        Int_1(1),
-        Int_2(2),
-        Int_3(3),
+    enum class MyNamespaceMyEventEnumParamInt(val eventValue: String) {
+        Int1("1"),
+        Int2("2"),
+        Int3("3"),
     }
     
     /**
      * События со всеми возможными типами параметров
-     * 
+     *
      * 0. stringParam - Параметр типа String
      * 1. intParam - Параметр типа Int
      * 2. longIntParam - Параметр типа Long Int
@@ -110,7 +110,7 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
      * 12. listOfDouble - Список флотовых параметров
      * 13. listOfString - Cписок строк
      */
-    fun myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Long, boolParam: Boolean = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.Option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int_1, namedEnumParam: Pages, dictParam: Map<String, Any>, listOfInt: List<Int> = listOf<Int>(), listOfDouble: List<Double> = listOf<Double>(), listOfString: List<String> = listOf<String>()) {
+    fun myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Long, boolParam: Boolean = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.Option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int1, namedEnumParam: Pages, dictParam: Map<String, Any>, listOfInt: List<Int> = listOf<Int>(), listOfDouble: List<Double> = listOf<Double>(), listOfString: List<String> = listOf<String>()) {
         val parameters = mutableMapOf<String, Any>()
         parameters["stringParam"] = stringParam
         parameters["intParam"] = intParam.toString()
@@ -131,5 +131,5 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["_meta"] = _meta
         trackEvent("MyNamespace.MyEvent", parameters)
     }
-    
+
 }

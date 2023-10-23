@@ -40,7 +40,7 @@ public final class EvgenAnalytics {
         void trackEvent(final String eventName, final Map<String, ?> parameters);
     }
     
-    public EvgenAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
+    public EvgenAppAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
         this.tracker = tracker;
         this.globalParamsProvider = globalParamsProvider;
         this.platformParamsProvider = platformParamsProvider;
@@ -68,8 +68,8 @@ public final class EvgenAnalytics {
     
     /**
         Also event description
-        
-    */
+    
+     */
     public void alsoMyEventLogged() {
         Map<String, Object> params = new HashMap<>();
         Map<String, Object> interfacesDict = new HashMap<>();
@@ -77,11 +77,11 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("AlsoMyEvent.Logged", params);
     }
-    
+
     /**
         Event description
-        
-    */
+    
+     */
     public void myEvent() {
         Map<String, Object> params = new HashMap<>();
         Map<String, Object> interfacesDict = new HashMap<>();
@@ -89,5 +89,5 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("MyEvent", params);
     }
-    
+
 }

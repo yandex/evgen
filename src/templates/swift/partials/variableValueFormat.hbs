@@ -1,0 +1,13 @@
+{{~#contains (toArray 'Int' 'Double') (typeFormat parameter)~}}
+    "\({{~camelcase parameter.name~}})"
+{{~else~}}
+    {{~#if (isEnum parameter.type)~}}
+        {{~camelcase parameter.name~}}.rawValue
+    {{~else~}}
+        {{~#if (isConst parameter.type)~}}
+            "{{~parameter.type.Const~}}"
+        {{~else~}}
+            {{~camelcase parameter.name~}}
+        {{~/if~}}
+    {{~/if~}}
+{{~/contains~}}

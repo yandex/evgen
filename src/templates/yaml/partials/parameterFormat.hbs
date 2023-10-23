@@ -1,0 +1,19 @@
+{{parameter.name}}:
+  {{#if parameter.defaultValue}}
+  default_value: {{parameter.defaultValue}}
+  {{/if}}
+  type: {{#contains (toArray 'Int' 'Long Int' 'Double' 'Bool' 'String' 'Dict' 'List' 'TimeMilliseconds') parameter.type~}}
+    {{parameter.type}}
+  {{else~}}
+    {{#or (isConst parameter.type) (isPlatformConst parameter.type)~}}
+      String
+    {{else}}
+      {{#if (isEnum parameter.type)}}
+        {{~#if (isNumber parameter.type.Enum.values.[0])~}}
+          Int
+        {{else~}}
+          String
+        {{/if}}
+    {{/if}}
+  {{/or}}
+  {{/contains}}

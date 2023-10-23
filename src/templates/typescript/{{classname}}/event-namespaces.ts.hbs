@@ -1,0 +1,96 @@
+{{#each eventNamespaces}}
+#start-file:{{snakecase this.name}}.ts
+/**
+    AUTO-GENERATED FILE. DO NOT MODIFY
+    This class was automatically generated.
+*/
+/**
+    eslint-disable
+*/
+
+import { {{~@root.classname~}} } from "./{{snakecase @root.classname}}"
+import {makeMetaParams} from "./{{snakecase @root.classname}}"
+
+{{#filterTruthy this.namedEnums "type.Enum.name" }}
+{{#if this}}
+import { {{~join (sort (pluck this "type.Enum.name"))~}} } from "./named_enums"
+{{/if}}
+
+{{/filterTruthy}}
+{{#each allVersions}}
+{{#filterFalsy this.parameters "type.Enum.name"}}
+{{#each this}}
+{{>enum parameter=this}}
+{{/each}}
+{{/filterFalsy}}
+/**
+    {{this.description}}
+
+    {{#each this.parameters}}
+    {{@index}}. {{this.name}} - {{this.description}}
+    {{/each}}
+*/
+export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} (
+    {{snakecase @root.classname}}: {{@root.classname}},
+    {{#unless (isEmpty (filterFalsy this.parameters 'type.Const'))}}
+    parameters:  {
+        {{#filterFalsy this.parameters "type.Const"}}
+        {{#each this}}
+        {{camelcase this.name}}{{#if (isDefined this.defaultValue)}}?{{/if}}: {{typeFormat this}}{{#unless @last}};{{/unless}}
+        {{/each}}
+        {{/filterFalsy}}
+    }
+    {{/unless}}
+)
+{
+    {{#if this.parameters}}
+    {{#filterDefined this.parameters 'defaultValue'}}
+    {{#if this}}
+    const {
+        {{#each this}}
+        {{camelcase this.name}} = {{>defaultValueFormat parameter=this }},
+        {{/each}}
+    } = parameters;
+
+    {{/if}}
+    {{/filterDefined}}
+    {{#filterTruthy this.parameters 'type.Const'}}
+    {{#each this}}
+    const {{this.name}} = '{{this.type.Const}}';
+    {{/each}}
+    {{/filterTruthy}}
+    {{/if}}
+
+    {{#unless (isEmpty this.interfaces)}}
+    const interfaces =  {
+        {{#each this.interfaces}}
+        {{camelcase @key}}:  {
+            version: {{this}}
+        },
+        {{/each}}
+    }
+    {{/unless}}
+    const _meta = makeMetaParams(
+        {{~this.version~}}
+        {{~#unless (isEmpty this.interfaces)~}}
+        , interfaces
+        {{~/unless~}}
+    )
+    const enhancedParams = { 
+        {{~#if this.parameters~}}
+        {{~#unless (isEmpty (filterFalsy this.parameters 'type.Const'))~}}...parameters, {{/unless~}}
+        {{~#filterDefined this.parameters 'defaultValue'~}}
+        {{~#each this}}{{this.name}}, {{/each}}
+        {{~/filterDefined~}}
+        {{~#filterTruthy this.parameters 'type.Const'~}}
+        {{~#each this}}{{this.name}}, {{/each}}
+        {{~/filterTruthy~}}
+        {{~/if~}}
+        _meta}
+    {{snakecase @root.classname}}.trackEvent("{{this.event}}", enhancedParams);
+}
+
+{{/each}}
+
+#end-file
+{{/each}}

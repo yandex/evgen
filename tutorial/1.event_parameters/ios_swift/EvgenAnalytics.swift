@@ -19,13 +19,13 @@ public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
 
 public struct EvgenAnalyticsGlobalParams {
     public var globalParam: String
-    
+
     public func makeOptions() -> [String: Any] {
         var options: [String: Any] = [:]
         options["globalParam"] = globalParam
         return options
     }
-    
+
     public init(globalParam: String) {
         self.globalParam = globalParam
     }
@@ -85,7 +85,7 @@ public final class EvgenAnalytics {
     
     /**
         Первое событие с переиспользуемым параметром
-        
+
         0. reusedParam - Параметр, который переиспользуется в нескольких событиях
     */
     public func anotherNamespaceEvent1(reusedParam: String) {
@@ -96,10 +96,10 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("AnotherNamespace.Event1", withOptions: options)
     }
-    
+
     /**
         Второе событие с переиспользуемым параметром
-        
+
         0. reusedParam - Параметр, который переиспользуется в нескольких событиях
     */
     public func anotherNamespaceEvent2(reusedParam: String) {
@@ -110,22 +110,22 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("AnotherNamespace.Event2", withOptions: options)
     }
-    
+
     public enum MyNamespaceMyEventEnumParam: String {
         case option1 = "option1"
         case option2 = "option2"
         case option3 = "option3"
     }
     
-    public enum MyNamespaceMyEventEnumParamInt: Int {
-        case int1 = 1
-        case int2 = 2
-        case int3 = 3
+    public enum MyNamespaceMyEventEnumParamInt: String {
+        int1 = 1,
+        int2 = 2,
+        int3 = 3,
     }
     
     /**
         События со всеми возможными типами параметров
-        
+
         0. stringParam - Параметр типа String
         1. intParam - Параметр типа Int
         2. longIntParam - Параметр типа Long Int
@@ -141,7 +141,7 @@ public final class EvgenAnalytics {
         12. listOfDouble - Список флотовых параметров
         13. listOfString - Cписок строк
     */
-    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = .option1, enumParamInt: MyNamespaceMyEventEnumParamInt = .int1, namedEnumParam: Pages, dictParam: [String: Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = []) {
+    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, dictParam: [String: Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = []) {
         var options: [String: Any] = [:]
         options["stringParam"] = stringParam
         options["intParam"] = "\(intParam)"
@@ -166,5 +166,5 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("MyNamespace.MyEvent", withOptions: options)
     }
-    
+
 }

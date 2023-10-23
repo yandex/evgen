@@ -1,0 +1,17 @@
+code:
+  iOS:
+    platform: 'ios'
+    output_dir: 'ios'
+    language: 'swift'
+  SmartTV:
+    platform: 'web_smart_tv'
+    output_dir: 'web_smart_tv'
+    language: 'type_script'
+doc:
+  Txt:
+    extension: 'txt'
+    output_dir: 'txt_doc'
+  Md:
+    extension: 'md'
+    output_dir: 'md_doc'
+

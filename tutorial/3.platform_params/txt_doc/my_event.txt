@@ -1,0 +1,5 @@
+MyEvent
+
+    V1
+    Event description
+

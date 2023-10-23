@@ -1,0 +1,76 @@
+.GlobalParams:
+  description: Эти параметры добавляются к параметрам каждого события.
+  parameters:
+    appVersion:
+      description: Версия приложения
+      type: String
+    userId:
+      description: ID пользователя
+      type: Long Int
+    deviceId:
+      description: ID устройства
+      type: String
+    
+.PlatformParams:
+  web_smart_tv:
+    description: Эти параметры добавляются ко всем событиям Web Smart TV
+    parameters:
+      tvModel:
+        description: Модель ТВ
+        type: String
+      firmwareVersion:
+        description: Версия прошивки
+        type: String
+  ios:
+    description: Эти параметры добавляются ко всем событиям Web
+    parameters:
+      browserName:
+        description: Имя браузера
+        type: String
+      browserVersion:
+        description: Версия браузера
+        type: String
+
+Events:
+  MyMovies:
+    SelectionItem:
+      Navigated:
+        v1: 
+          description: Переход по карточке контента
+          parameters: 
+            from:
+              description: Страница, с которой произошел переход
+              type:
+                Const: MyMoviesScreen
+            to:
+              description: Страница, на которою произошел переход
+              type:
+                Enum:
+                  values:
+                    - MovieScreen
+                    - SelectionScreen
+            cardPosition:
+              description: Позиция карточки в подборке
+              type: Int
+            contentId:
+              description: ID контента, по карточке которого произошел переход
+              type: String
+          platforms:
+              ios:
+                app_versions: in_progress
+                ticket: https://link.to/ticket-123
+              web_smart_tv:
+                app_versions: 1.0-2.0
+                ticket: https://link.to/ticket-124
+          interface:
+            - SelectionItem.General
+            - General.Navigated
+        v2: 
+          <<: *MyMovies.SelectionItem.Navigated.v1
+          parameters:
+            <<: *MyMovies.SelectionItem.Navigated.v1.parameters
+            rating: !include shared_parameters:rating
+          platforms:
+            web_smart_tv:
+              app_versions: in_progress
+              ticket: https://link.to/ticket-125

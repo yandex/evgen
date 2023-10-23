@@ -1,0 +1,20 @@
+MyMovies.SelectionItem.Navigated
+
+    V1
+    Переход по карточке контента
+
+    0. from: "MyMoviesScreen" - Страница, с которой произошел переход
+    1. to: Enum(MovieScreen, SelectionScreen) - Страница, на которою произошел переход
+    2. cardPosition: Int - Позиция карточки в подборке
+    3. contentId: String - ID контента, по карточке которого произошел переход
+
+MyMovies.SelectionItem.Navigated
+
+    V2
+    Переход по карточке контента
+
+    0. from: "MyMoviesScreen" - Страница, с которой произошел переход
+    1. to: Enum(MovieScreen, SelectionScreen) - Страница, на которою произошел переход
+    2. cardPosition: Int - Позиция карточки в подборке
+    3. contentId: String - ID контента, по карточке которого произошел переход
+    4. rating: Double - Рейтинг контента

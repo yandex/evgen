@@ -1,8 +1,6 @@
-
-
 ## .PlatformParams
 
-|    | Параметры&nbsp;   | Параметры&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   | Описание&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |
-|---:|:------------------|:------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|  0 | Android           | 0. appVersion: String<br>                                                                                                                 | 0. appVersion - Версия&nbsp;приложения<br>                                                                                                                                                                                               |
-|  1 | iOS               | 0. hasSubscription: Bool<br>                                                                                                              | 0. hasSubscription - Есть&nbsp;ли&nbsp;у&nbsp;пользователя&nbsp;подписка<br>                                                                                                                                                             |
+| | Платформа | Параметры | Описание |
+|---:|:---|:---|:---|
+|0|Android|0. appVersion: <code>String</code><br/>|0. appVersion - Версия приложения<br/>|
+|1|iOS|0. hasSubscription: <code>Bool</code><br/>|0. hasSubscription - Есть ли у пользователя подписка<br/>|

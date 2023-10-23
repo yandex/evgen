@@ -1,0 +1,11 @@
+MyNamespace.MyEvent
+
+    V1
+    События со всеми возможными типами параметров
+
+    0. paramFromAnotherFile: String - Параметр, описанный в отдельным файле.
+    1. batchParam1: String - Параметр, описанный в отдельным файле.
+    2. batchParam2: String - Параметр, описанный в отдельным файле.
+    3. stringParam: String - Парамтер типа String
+    4. intParam: Int - Параметр типа Int
+    5. сonstParam: "shop_page" - Constant parameter

@@ -1,0 +1,10 @@
+{
+    "extends": "@tsconfig/node18/tsconfig.json",
+    "esModuleInterop": true,
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist"
+    },
+    "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+    "exclude": ["node_modules", "**/__tests__/**/*.ts", "**/__tests__/**/*.tsx"]
+}

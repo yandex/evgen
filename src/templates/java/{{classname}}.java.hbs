@@ -1,0 +1,164 @@
+/**
+    AUTO-GENERATED FILE. DO NOT MODIFY
+    This class was automatically generated.
+*/
+
+package ru.yandex.kinopoisk;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
+public final class {{classname}} {
+    {{#each globalParameters.parameters}}
+    {{>enum parameter=this}}
+    {{/each}}
+    public static final class GlobalParams {
+        {{#each globalParameters.parameters}}
+        {{#unless (isConst type)}}
+        public {{typeFormat this}} {{camelcase name}};
+        {{/unless}}
+        {{/each}}
+        public Map<String, Object> paramsMap;
+        public GlobalParams(
+            {{~#each globalParameters.parameters~}}
+            {{~#unless (isConst type)~}}
+            {{typeFormat this}} {{camelcase name}}
+            {{~#unless @last}}, {{/unless~}}
+            {{~/unless~}}
+            {{~/each~}}
+        ) {
+            {{#each globalParameters.parameters}}
+            {{#unless (isConst type)}}
+            this.{{camelcase name}} = {{camelcase name}};
+            {{/unless}}
+            {{/each}}
+            Map<String, Object> params = new HashMap<>();
+            {{#each globalParameters.parameters}}
+            params.put("{{name}}", {{camelcase name}});
+            {{/each}}
+            this.paramsMap = params;
+        }
+    }
+    
+    {{#each platformParameters.parameters}}
+    {{>enum parameter=this}}
+    {{/each}}
+    public static final class PlatformParams {
+        {{#each platformParameters.parameters}}
+        {{#unless (isConst type)}}
+        public {{typeFormat this}} {{camelcase name}};
+        {{/unless}}
+        {{/each}}
+        public Map<String, Object> paramsMap;
+        public PlatformParams(
+            {{~#each platformParameters.parameters~}}
+            {{~#unless (isConst type)~}}
+            {{typeFormat this}} {{camelcase name}}
+            {{~#unless @last}}, {{/unless~}}
+            {{~/unless~}}
+            {{~/each~}}
+        ) {
+            {{#each platformParameters.parameters}}
+            {{#unless (isConst type)}}
+            this.{{camelcase name}} = {{camelcase name}};
+            {{/unless}}
+            {{/each}}
+            Map<String, Object> params = new HashMap<>();
+            {{#each platformParameters.parameters}}
+            params.put("{{name}}", {{camelcase name}});
+            {{/each}}
+            this.paramsMap = params;
+        }
+    }
+    
+    public interface GlobalParamsProvider {
+        GlobalParams getGlobalParams();
+    }
+    
+    public interface PlatformParamsProvider {
+        PlatformParams getPlatformParams();
+    }
+    
+    public interface Tracker {
+        void trackEvent(final String eventName, final Map<String, ?> parameters);
+    }
+    
+    public EvgenAppAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
+        this.tracker = tracker;
+        this.globalParamsProvider = globalParamsProvider;
+        this.platformParamsProvider = platformParamsProvider;
+    }
+    
+    private void trackEvent(String eventName, Map<String, ?> parameters) {
+        Map<String, Object> mergedParams = new HashMap<>(parameters);
+        mergedParams.putAll(this.globalParamsProvider.getGlobalParams().paramsMap);
+        mergedParams.putAll(this.platformParamsProvider.getPlatformParams().paramsMap);
+        this.tracker.trackEvent(eventName, mergedParams);
+    }
+    
+    private Map<String, Object>  makeMeta(int event_version, Map<String, ?> interfaces ) {
+        Map<String, Object> metaDict = new HashMap<>();
+        Map<String, Object> eventDict = new HashMap<>();
+        eventDict.put("version", event_version);
+        metaDict.put("event", eventDict);
+        metaDict.put("interfaces", interfaces);
+        return metaDict;
+    }
+    
+    private Tracker tracker;
+    private GlobalParamsProvider globalParamsProvider;
+    private PlatformParamsProvider platformParamsProvider;
+    
+    {{#filterTruthy namedEnums "type.Enum.name"}}
+    {{#each this}}
+    {{>enum parameter=this}}
+    {{/each}}
+    {{/filterTruthy}}
+    {{#each eventNamespaces}}
+    {{#each allVersions}}
+    {{#filterFalsy parameters "type.Enum.name"}}
+    {{#each this}}
+    {{>enum parameter=this}}
+    {{/each}}
+    {{/filterFalsy}}
+    /**
+        {{#each (splitByNewLine description)}}
+        {{this}}
+        {{/each}}
+    
+        {{#each parameters}}
+        {{@index}}. {{name}} - {{description}}
+        {{/each}}
+     */
+    public void {{lowerFirstLetter name}}{{#gt version 1}}V{{version}}{{/gt}}(
+        {{~#filterUndefined parameters 'type.Const'~}}
+            {{~#each this~}}
+                {{~typeFormat this}} {{camelcase name~}}
+                {{~#unless @last}}, {{/unless~}}
+            {{~/each~}}
+        {{~/filterUndefined~}}
+    ) {
+        Map<String, Object> params = new HashMap<>();
+        {{#each parameters}}
+        params.put("{{name}}"
+        {{~#contains (toArray 'int' 'long' 'double' 'boolean') (typeFormat this)~}}
+            , String.valueOf({{>variableValueFormat parameter=this}})
+        {{~else~}}
+            , {{>variableValueFormat parameter=this}}
+        {{~/contains~}}
+        );
+        {{/each}}
+        Map<String, Object> interfacesDict = new HashMap<>();
+        {{#each interfaces}}
+        Map<String, Object> {{camelcase @key}} = new HashMap<>();
+        {{camelcase @key}}.put("version", {{this}});
+        interfacesDict.put("{{@key}}", {{camelcase @key}});
+        {{/each}}
+        Map<String, Object> _meta = makeMeta({{version}}, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("{{event}}", params);
+    }
+
+    {{/each}}
+    {{/each}}
+}

@@ -1,0 +1,691 @@
+Constants:
+  Events: &Events Events
+  GlobalParameters: &GlobalParameters .GlobalParams
+  PlatformParameters: &PlatformParameters .PlatformParams
+  parameters: &parameters parameters
+  type: &type type
+  description: &description description
+  default_value: &default_value default_value
+  comment: &comment comment
+  platforms: &platforms platforms
+  app_versions: &app_versions app_versions
+  ticket: &ticket ticket
+  in_progress: &in_progress in_progress
+  not_supported: &not_supported not_supported
+  int: &int Int
+  bool: &bool Bool
+  double: &double Double
+  string: &string String
+  enum: &enum Enum
+  dict: &dict Dict
+  enum_values: &values values
+  enum_name: &name name
+  abstract: &abstract abstract
+  const: &const Const
+  platformConst: &platformConst PlatformConst
+  true: &true True
+  inheritance: &inheritance inheritance
+  documentation_dir: &documentation_dir documentation_dir
+
+inheritance:
+    android: &android Android
+    ios: &ios iOS
+    tvos: &tvos tvOS
+    web_smart_tv: &web_smart_tv WebSmartTV
+    person_card: &person_card person_card
+    title_card: &title_card title_card
+    cinema_card: &cinema_card cinema_card
+    Selected: &Selected Selected
+    Navigated: &Navigated Navigated
+    Showed: &Showed Showed
+    ErrorRaised: &ErrorRaised ErrorRaised
+    Succeed: &Succeed Succeed
+    my_movies_screen: &my_movies_screen my_movies_screen
+    shop_screen: &shop_screen shop_screen
+    profile_screen: &profile_screen profile_screen
+    payment_widget: &payment_widget payment_widget
+    onboarding_screen: &onboarding_screen onboarding_screen
+    locked_subscription_screen: &locked_subscription_screen locked_subscription_screen
+
+
+    _test_ids_parameter: &_test_ids_parameter
+        testIds:
+            *type : *string
+            *description : id A/B теста пользователя на момент события.
+                Пишется строкой, id разделяются запятой например, '1231, 4, 16'
+
+    _child_mode_parameter: &_child_mode_parameter
+        childMode:
+            *type : *bool
+            *description : включен ли детский режим
+
+    _offer_show: &_offer_show_parameter
+        eventType:
+            *type :
+                *const : offerShow
+            *description : Константа для единообразной обработки кросссервисных событий.
+
+    _offer_click: &_offer_click_parameter
+        eventType:
+            *type :
+                *const : offerClick
+            *description : Константа для единообразной обработки кросссервисных событий.
+
+    _offer_succeed: &_offer_succeed_parameter
+        eventType:
+            *type :
+                *const : offerSuceed
+            *description : Константа для единообразной обработки кросссервисных событий.
+
+    _subscription_type: &_offer_subscription_type_parameter
+        subscriptionType:
+            *type : String
+            *description : Тип подписки пользователя, пришедший с бэкенда.
+
+    _basic_parameters: &_offer_default_parameters
+        <<: *_offer_subscription_type_parameter
+        offerTitle:
+            *type : String
+            *description : Текст кнопки
+            *default_value : Offer Title
+        offerText:
+            *type : String
+            *description : Текст оффера
+
+    _subscription_parameters: &_offer_subscription_parameters
+        offerType:
+            *type :
+                *const : subscription
+            *description : Константа для единообразной обработки кросс платформенных логов.
+        monetizationModel:
+            *type :
+                *const : SVOD
+            *description : Константа для единообразной обработки кросссервисных событий.
+        billingProductId:
+            *type : *int
+            *description : id продукта в биллинге
+
+    _transaction_parameters: &_offer_transaction_parameters
+        offerType:
+            *type :
+                *const : transaction
+            *description : Константа для единообразной обработки кросс платформенных логов.
+        monetizationModel:
+            *type :
+                *enum :
+                    *name : TransactionMonetization
+                    *values :
+                        - TVOD
+                        - EST
+            *description : Модель монетизации
+                TVOD - покупка контента
+                EST - аренда контента
+        price:
+            *type : *double
+            *description :  Цена транзации
+        priceWithDiscount:
+            *type : *double
+            *description : Цена c учетом скидки
+        discountSubscription:
+            *type : *double
+            *description : Cкидка для подписчиков, например, 0.1
+        discountMasterCard:
+            *type : *double
+            *description : Cкидка по МастерКард
+
+        cardPosition:
+            *type : *int
+            *description : Позиция карточки в подборке
+            *default_value : -1
+        selectionId:
+            *type : *int
+            *description : id подборки
+        selectionName:
+            *type : *string
+            *description : Название подборки
+            *default_value : Name
+        selectionPosition:
+            *type : *string
+            *description : Позиция подборки на витрине
+
+    _position_parameters: &_offer_position_parameter
+        position:
+            *type : *int
+            *description : |-
+                Порядковый номер оффера одного типа. Считаются
+                свехру вниз, слева направо. Например, если это
+                баннеры (upsale) на витрине Магазина, то
+                считаются сверху вниз от экрана.
+            *default_value : -1
+
+    _offer_comment: &offer_comment
+        *comment : Логируется один раз, пока пользователь находится на одном экране
+
+*GlobalParameters :
+    parameters:
+        <<: *_test_ids_parameter
+        <<: *_child_mode_parameter
+        experiment:
+            *type : *dict
+            *description : Параметр для экспериментов
+        subService:
+            *type :
+              *enum :
+                *name : subService
+                *values :
+                  - subservice1
+                  - subservice2
+                  - subservice3
+            *description : |-
+                Детализация сервиса
+        serviceName:
+            *type :
+                *platformConst :
+                    *ios : mobile-ios_swift
+                    *android : mobile-android
+                    *web_smart_tv : smarttv
+            *description : Константа для единообразной обработки кросссервисных событий.
+                Название сервиса как в трекингах.
+    *description : Эти параметры добавляются к параметрам каждого события.
+    *platforms :
+        *android :
+          *app_versions : *in_progress
+          *ticket : https://tracker.com
+        *ios :
+          *app_versions : 5.12
+          *ticket : https://tracker.com
+        *tvos :
+          *app_versions : *not_supported
+          *ticket : https://tracker.com
+
+*PlatformParameters :
+    *android :
+        *description : Параметры, которые добавляются к событиям, отправленных с Android
+        *parameters :
+            androidParam:
+                *type :
+                    *const : android
+                *description : Параметр для Android
+    *ios :
+        *description : Параметры, которые добавляются к событиям, отправленных с iOS
+        *parameters :
+            iosParam:
+                *type :
+                    *const : ios_swift
+                *description : Параметр для iOS
+    *web_smart_tv :
+        *description : Параметры, которые добавляются к событиям, отправленных с Web SmartTV
+        *parameters :
+            webSmartTVParam:
+                *type :
+                    *const : web_smart_tv
+                *description : Параметр для Web Smart TV
+
+*Events :
+    PaymentWidget:
+
+        *inheritance :
+            _page_parameter: &_payment_widget_offer_page_parameter
+                page:
+                    *type :
+                        *const : *payment_widget
+                    *description : название экрана, где находится оффер
+            _purchase_option_path_parameter: &_payment_widget_purchase_option_path_parameter
+                path:
+                    *type :
+                        *enum :
+                            *values :
+                                - payment_widget
+                                - purchase_option
+                    *description : Путь до оффера.
+                    *default_value : payment_widget
+
+        SubscriptionOffer:
+            *inheritance :
+                _offer_title: &_offer_payment_widget_subscription_title_parameter
+                    title:
+                        *type : *string
+                        *description : |-
+                            Название контента, для которого вызван виджет оплаты,
+                            если виджет вызван для контретного контента. Иначе пустая строка
+
+                _offer_uuid: &_offer_payment_widget_subscription_uuid_parameter
+                    uuid:
+                        *type : *string
+                        *description : Universally unique identifier контента, для которого вызван виджет оплаты,
+                            если виджет вызван для контретного контента. Иначе -1
+
+            *Showed :
+                v1:
+                    *parameters :
+                        <<: *_offer_default_parameters
+                    *description : Показ предложения оформления подписки
+                    <<: *offer_comment
+                    *platforms :
+                        *android :
+                            *app_versions : 5.12 - 5.13
+                            *ticket : https://tracker.com
+                        *ios :
+                            *app_versions : 4.8
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+
+                v2:
+                    *parameters :
+                        <<: *_offer_default_parameters
+                        <<: *_offer_show_parameter
+                        <<: *_offer_subscription_parameters
+                        <<: *_offer_position_parameter
+                        <<: *_payment_widget_offer_page_parameter
+                        <<: *_payment_widget_purchase_option_path_parameter
+                        <<: *_offer_payment_widget_subscription_title_parameter
+                        <<: *_offer_payment_widget_subscription_uuid_parameter
+                    *description : Показ предложения оформления подписки
+                    <<: *offer_comment
+                    *platforms :
+                        *android :
+                            *app_versions : 5.13
+                            *ticket : https://tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                            *ticket : https://tracker.com
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+            *Navigated :
+                v1:
+                    *parameters :
+                        <<: *_offer_default_parameters
+                        <<: *_offer_click_parameter
+                    *description : Переход на оплату подписки
+                    *platforms :
+                        *android :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                v2:
+                    *parameters :
+                        <<: *_offer_default_parameters
+                        <<: *_offer_click_parameter
+                        <<: *_offer_subscription_parameters
+                        <<: *_offer_position_parameter
+                        <<: *_payment_widget_offer_page_parameter
+                        <<: *_payment_widget_purchase_option_path_parameter
+                        <<: *_offer_payment_widget_subscription_title_parameter
+                        <<: *_offer_payment_widget_subscription_uuid_parameter
+                    *description : Переход на оплату подписки
+                    *platforms :
+                        *android :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+
+    Search:
+        *documentation_dir : SearchTab
+
+        *inheritance :
+            _search_list: &_search_single_search_categories_constant search_list
+            _global_search_result: &_search_global_search_result_constant global_search_result
+            _search_default_parameters: &_search_default_parameters
+                query:
+                    *type : String
+                    *description : Запрос в поиске
+                no_titles:
+                    *type : *bool
+                    *description : Не найден ни один тайтл
+                no_persons:
+                    *type : *bool
+                    *description : Не найдена ни одна персона
+                no_cinemas:
+                    *type : *bool
+                    *description : Не найден ни один кинотеатр
+            _error_default_parameters: &_search_error_default_parameters
+                type:
+                    *type :
+                        *enum :
+                            *name : ErrorType
+                            *values :
+                                - backend_error
+                                - parser_error
+                                - network_error
+                    *description : Тип ошибки
+                code:
+                    *type : *int
+                    *description : Код ошибки
+                text:
+                    *type : *string
+                    *description : Описание ошибки
+
+
+        *Showed :
+            v1:
+                *parameters :
+                *description : Показ экрана поиска
+                *platforms :
+                    *android :
+                        *app_versions : *not_supported
+                    *ios :
+                        *app_versions : *in_progress
+                        *ticket : https://tracker.com
+                    *tvos :
+                        *app_versions : *not_supported
+                    *web_smart_tv :
+                        *app_versions : *in_progress
+                        *ticket : https://tracker.com
+
+        SearchEngine:
+            Started:
+                v1:
+                    *parameters :
+                    *description : Переход к строке поиска
+                    *platforms :
+                        *android :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+
+            *Navigated :
+                v1:
+                    *description : Переход к другому экрану
+                    *parameters :
+                        to:
+                            *type :
+                                *enum :
+                                    *values :
+                                        - *_search_global_search_result_constant
+                                        - *_search_single_search_categories_constant
+                                        - best_movies_filter
+                            *description : тип экрана
+                    *platforms :
+                        *android :
+                            *app_versions : *not_supported
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+            Finished:
+                v1:
+                    *parameters :
+                    *description : Выход из строки поиска
+                    *platforms :
+                        *android :
+                            *app_versions : *not_supported
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+
+            Suggest:
+                *Showed :
+                    v1:
+                        *parameters :
+                            <<: *_search_default_parameters
+                        *description : Показ саджестов для текущего запроса
+                        *comment : |-
+                            'Требования по логированию: показывается после прихода ответа от бэкенда.
+                            Если возникла ошибка, то событие не логируется'
+                        *platforms :
+                            *android :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *tvos :
+                                *app_versions : *not_supported
+                            *web_smart_tv :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+
+                *Navigated :
+                    v1:
+                        *description : Переход к другому экрану
+                        *parameters :
+                            to:
+                                *type :
+                                    *enum :
+                                        *values :
+                                            - *person_card
+                                            - *title_card
+                                            - *cinema_card
+                                            - *_search_global_search_result_constant
+                                            - *_search_single_search_categories_constant
+                                *description : тип экрана
+                        *platforms :
+                            *android :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *tvos :
+                                *app_versions : *not_supported
+                            *web_smart_tv :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+
+                *Selected :
+                    v1:
+                        *description : Выбор варианта отображения саджеста
+                        *parameters :
+                            type:
+                                *type :
+                                    *enum :
+                                        *values :
+                                            - all_results
+                                            - ott_results
+                                *description : Типы отображения
+                        *platforms :
+                            *android :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *tvos :
+                                *app_versions : *not_supported
+                            *web_smart_tv :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+
+                *ErrorRaised :
+                    v1:
+                        *description : Возникла ошибка при показе саджеста
+                        *parameters :
+                            <<: *_search_error_default_parameters
+                        *platforms :
+                            *android :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *tvos :
+                                *app_versions : *not_supported
+                            *web_smart_tv :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+
+    SearchEngineStarted:
+        v1:
+            *parameters :
+            *description : Переход к строке поиска
+            *platforms :
+                *android :
+                    *app_versions : 3.12 - 3.15
+                    *ticket : https://tracker.com
+                *ios :
+                    *app_versions : 4.1 - 4.2
+                    *ticket : https://tracker.com
+                *tvos :
+                    *app_versions : *not_supported
+                *web_smart_tv :
+                    *app_versions : *in_progress
+                    *ticket : https://tracker.com
+
+    SearchEngineFinished:
+        v1:
+            *parameters :
+            *description : Переход к строке поиска
+            *platforms :
+                *android :
+                    *app_versions : 3.12 - 3.15
+                    *ticket : https://tracker.com
+                *ios :
+                    *app_versions : 4.1 - 4.2
+                    *ticket : https://tracker.com
+                *tvos :
+                    *app_versions : *not_supported
+                *web_smart_tv :
+                    *app_versions : *in_progress
+                    *ticket : https://tracker.com
+
+    Marketing:
+        *documentation_dir : MarketingDir
+
+        *inheritance :
+            _page_param: &_marketing_page_param
+                page:
+                    *type :
+                        *enum :
+                            *name : SubscriptionPage
+                            *values :
+                                - *my_movies_screen
+                                - *shop_screen
+                                - *profile_screen
+                                - *payment_widget
+                                - *onboarding_screen
+                                - *locked_subscription_screen
+                    *description : Название экрана, где было предложение о подписке
+
+        Subscription:
+            *Succeed :
+                v1:
+                    *parameters :
+                        <<: *_offer_subscription_type_parameter
+                        <<: *_marketing_page_param
+                        extraParams:
+                            *type : *dict
+                            *description : Доп параметры
+                    *description : Успешное оформление подписки
+                    *comment : |-
+                        Отдельное событие об оформлении
+                        подписки для push back. Отправляется
+                        вместе с *.SubscriptionOffer.Succeed
+                    *platforms :
+                        *android :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                v2:
+                    *parameters :
+                        <<: *_offer_subscription_type_parameter
+                    *description : Успешное оформление подписки
+                    *comment : |-
+                        Отдельное событие об оформлении
+                        подписки для push back. Отправляется
+                        вместе с *.SubscriptionOffer.Succeed
+                    *platforms :
+                        *android :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *tvos :
+                            *app_versions : *not_supported
+                        *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+
+            TrialSubs:
+                *Succeed :
+                    v1:
+                        *parameters :
+                            <<: *_offer_subscription_type_parameter
+                            <<: *_marketing_page_param
+                        *description : Успешное оформление триальной подписки
+                        *comment : |-
+                            Отдельное событие об оформлении
+                            подписки для push back. Отправляется
+                            вместе с *.SubscriptionOffer.Succeed
+                        *platforms :
+                            *android :
+                                *app_versions : 5.6.0
+                                *ticket : https://tracker.com
+                            *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *tvos :
+                                *app_versions : *not_supported
+                            *web_smart_tv :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+
+            RegularSubs:
+                *Succeed :
+                    v1:
+                        *parameters :
+                            <<: *_offer_subscription_type_parameter
+                            <<: *_marketing_page_param
+                        *description : Успешное оформление регулярной подписки
+                        *comment : |-
+                            Отдельное событие об оформлении
+                            подписки для push back. Отправляется
+                            вместе с *.SubscriptionOffer.Succeed
+                        *platforms :
+                            *android :
+                                *app_versions : 5.6.0
+                                *ticket : https://tracker.com
+                            *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *tvos :
+                                *app_versions : *not_supported
+                            *web_smart_tv :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com

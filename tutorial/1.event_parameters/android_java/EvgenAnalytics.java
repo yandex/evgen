@@ -40,7 +40,7 @@ public final class EvgenAnalytics {
         void trackEvent(final String eventName, final Map<String, ?> parameters);
     }
     
-    public EvgenAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
+    public EvgenAppAnalytics(Tracker tracker, GlobalParamsProvider globalParamsProvider, PlatformParamsProvider platformParamsProvider) {
         this.tracker = tracker;
         this.globalParamsProvider = globalParamsProvider;
         this.platformParamsProvider = platformParamsProvider;
@@ -78,9 +78,9 @@ public final class EvgenAnalytics {
     
     /**
         Первое событие с переиспользуемым параметром
-        
+    
         0. reusedParam - Параметр, который переиспользуется в нескольких событиях
-    */
+     */
     public void anotherNamespaceEvent1(String reusedParam) {
         Map<String, Object> params = new HashMap<>();
         params.put("reusedParam", reusedParam);
@@ -89,12 +89,12 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("AnotherNamespace.Event1", params);
     }
-    
+
     /**
         Второе событие с переиспользуемым параметром
-        
+    
         0. reusedParam - Параметр, который переиспользуется в нескольких событиях
-    */
+     */
     public void anotherNamespaceEvent2(String reusedParam) {
         Map<String, Object> params = new HashMap<>();
         params.put("reusedParam", reusedParam);
@@ -103,7 +103,7 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("AnotherNamespace.Event2", params);
     }
-    
+
     public enum MyNamespaceMyEventEnumParam {
         OPTION1("option1"),
         OPTION2("option2"),
@@ -115,18 +115,18 @@ public final class EvgenAnalytics {
     }
     
     public enum MyNamespaceMyEventEnumParamInt {
-        INT_1(1),
-        INT_2(2),
-        INT_3(3);
-        public final int eventValue;
-        MyNamespaceMyEventEnumParamInt(int eventValue) {
+        INT_1("1"),
+        INT_2("2"),
+        INT_3("3"),
+        public final String eventValue;
+        MyNamespaceMyEventEnumParamInt(String eventValue) {
             this.eventValue = eventValue;
         }
     }
     
     /**
         События со всеми возможными типами параметров
-        
+    
         0. stringParam - Параметр типа String
         1. intParam - Параметр типа Int
         2. longIntParam - Параметр типа Long Int
@@ -141,8 +141,8 @@ public final class EvgenAnalytics {
         11. listOfInt - Список целочисленных параметров
         12. listOfDouble - Список флотовых параметров
         13. listOfString - Cписок строк
-    */
-    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, Map<String, ?> dictParam, List<Integer> listOfInt, List<Double> listOfDouble, List<String> listOfString) {
+     */
+    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, Map<String, ?> dictParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString) {
         Map<String, Object> params = new HashMap<>();
         params.put("stringParam", stringParam);
         params.put("intParam", String.valueOf(intParam));
@@ -163,5 +163,5 @@ public final class EvgenAnalytics {
         params.put("_meta", _meta);
         trackEvent("MyNamespace.MyEvent", params);
     }
-    
+
 }

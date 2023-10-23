@@ -1,0 +1,12 @@
+{{#if (isEnum parameter.type)}}
+enum class {{typeFormat parameter}}(val eventValue: String) {
+    {{#each parameter.type.Enum.values}}
+    {{#if (isNumber this)}}
+    Int{{this}}("{{this}}"),
+    {{else}}
+    {{pascalcase this}}("{{this}}"),
+    {{/if}}
+    {{/each}}
+}
+
+{{/if}}

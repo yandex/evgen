@@ -1,0 +1,24 @@
+Interfaces:
+  SelectionItem:
+    General:
+      v1:
+        description: Интерфейс элемента подборки
+        parameters:
+          cardPosition:
+            description: Позиция карточки в подборке
+            type: Int
+
+  General:
+    Navigated:
+      v1:
+        description: Интерфейс навигации между страницами
+        parameters:
+          from:
+            description: Страница, с которой произошел переход
+            type: String
+          to:
+            description: Страница, на которою произошел переход
+            type: String
+
+
+

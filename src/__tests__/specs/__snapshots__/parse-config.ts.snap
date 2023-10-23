@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse config simple parse yaml config 1`] = `
+Object {
+  "code": Object {
+    "AndroidJava": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "java",
+      "only_last_version": false,
+      "output_dir": "android_java",
+      "platform": "Android",
+    },
+    "AndroidKotlin": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "kotlin",
+      "only_last_version": false,
+      "output_dir": "android_kotlin",
+      "platform": "Android",
+    },
+    "WebSmartTV": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "type_script",
+      "only_last_version": false,
+      "output_dir": "web_smart_tv",
+      "platform": "WebSmartTV",
+    },
+    "WebSmartTVLastVersion": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "type_script",
+      "only_last_version": true,
+      "output_dir": "web_smart_tv_last_version",
+      "platform": "WebSmartTV",
+    },
+    "iOSCSharp": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "c_sharp",
+      "only_last_version": false,
+      "output_dir": "ios_c_sharp",
+      "platform": "iOS",
+    },
+    "iOSSwift": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "swift",
+      "only_last_version": false,
+      "output_dir": "ios_swift",
+      "platform": "iOS",
+    },
+  },
+  "doc": Object {
+    "Markdown": Object {
+      "extension": "md",
+      "output_dir": "md_doc",
+    },
+    "Txt": Object {
+      "extension": "txt",
+      "output_dir": "txt_doc",
+    },
+  },
+}
+`;

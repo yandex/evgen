@@ -18,12 +18,12 @@ public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
 }
 
 public struct EvgenAnalyticsGlobalParams {
-    
+
     public func makeOptions() -> [String: Any] {
         let options: [String: Any] = [:]
         return options
     }
-    
+
     public init() {
     }
 }
@@ -76,7 +76,7 @@ public final class EvgenAnalytics {
     
     /**
         Показ экрана магазина
-        
+
         0. page - Название страницы
         1. pageId - Идентификатор страницы
     */
@@ -92,10 +92,10 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("Shop.Showed", withOptions: options)
     }
-    
+
     /**
         Показ экрана магазина
-        
+
         0. page - Название страницы
         1. movieName - Название фильма
         2. movieId - Идентификатор фильма
@@ -118,10 +118,10 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("Showcase.Movie.Showed", withOptions: options)
     }
-    
+
     /**
         Показ экрана магазина
-        
+
         0. page - Название страницы
         1. movieName - Название фильма
         2. pageId - Идентификатор страницы
@@ -142,5 +142,5 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("Showcase.TVShow.Showed", withOptions: options)
     }
-    
+
 }

@@ -12,7 +12,7 @@ import {makeMetaParams} from "./evgen_analytics"
 
 /**
     Показ экрана магазина
-    
+
     0. page - Название страницы
     1. movieName - Название фильма
     2. movieId - Идентификатор фильма
@@ -21,14 +21,14 @@ import {makeMetaParams} from "./evgen_analytics"
 export function showcaseMovieShowed (
     evgen_analytics: EvgenAnalytics,
     parameters:  {
-        page: string; 
-        movieName: string; 
-        movieId: number; 
+        page: string;
+        movieName: string;
+        movieId: number;
         pageId: number
     }
 )
 {
-    
+
     const interfaces =  {
         myInterfacesPage:  {
             version: 1
@@ -38,13 +38,13 @@ export function showcaseMovieShowed (
         },
     }
     const _meta = makeMetaParams(1, interfaces)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Showcase.Movie.Showed", enhancedParams);
 }
 
 /**
     Показ экрана магазина
-    
+
     0. page - Название страницы
     1. movieName - Название фильма
     2. pageId - Идентификатор страницы
@@ -52,13 +52,13 @@ export function showcaseMovieShowed (
 export function showcaseTVShowShowed (
     evgen_analytics: EvgenAnalytics,
     parameters:  {
-        page: string; 
-        movieName: string; 
+        page: string;
+        movieName: string;
         pageId: number
     }
 )
 {
-    
+
     const interfaces =  {
         myInterfacesPage:  {
             version: 1
@@ -68,7 +68,7 @@ export function showcaseTVShowShowed (
         },
     }
     const _meta = makeMetaParams(1, interfaces)
-    const enhancedParams = {...parameters,  _meta}
+    const enhancedParams = {...parameters, _meta}
     evgen_analytics.trackEvent("Showcase.TVShow.Showed", enhancedParams);
 }
 

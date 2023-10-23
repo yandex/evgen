@@ -1,0 +1,7 @@
+.GlobalParams
+
+    {{globalParameters.description}}
+
+{{#each globalParameters.parameters}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}} - {{this.description}}
+{{/each}}

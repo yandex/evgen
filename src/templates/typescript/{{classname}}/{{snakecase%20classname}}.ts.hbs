@@ -1,0 +1,75 @@
+/**
+    AUTO-GENERATED FILE. DO NOT MODIFY
+    This class was automatically generated.
+*/
+/**
+    eslint-disable
+*/
+
+export interface {{classname}}Tracker {
+    trackEvent<Event extends string, Params extends Record<string, any>>(event: Event, parameters: Params): void
+}
+
+export interface {{classname}}GlobalParamsProvider {
+    getGlobalParams(): GlobalParams;
+}
+
+export interface {{classname}}PlatformParamsProvider {
+    getPlatformParams(): PlatformParams;
+}
+
+export interface MetaParams<I extends Record<string, any>> {
+    event:  {
+        version: number
+    }
+    interfaces: I    
+}
+export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParams<typeof interfaces>  {
+    return {
+        event: {
+            version: eventVersion
+        },
+        interfaces,
+    }
+}
+{{#each globalParameters.parameters}}
+{{>enum parameter=this}}
+{{/each}}
+interface GlobalParams {
+    {{#each globalParameters.parameters}}
+    {{camelcase this.name}}: {{typeFormat this}}
+    {{/each}}
+}
+
+{{#if platformParameters}}
+{{#each platformParameters.parameters}}
+{{>enum parameter=this}}
+{{/each}}
+{{/if}}
+interface PlatformParams {
+    {{#if platformParameters}}
+    {{#each platformParameters.parameters}}
+    {{this.name}}: {{typeFormat this}}
+    {{/each}}
+    {{/if}}
+}
+
+export interface {{classname}} {
+    trackEvent: {{classname}}Tracker['trackEvent']
+}
+export function create{{classname}} (
+    eventTracker: {{classname}}Tracker,
+    globalParamsProvider: {{classname}}GlobalParamsProvider,
+    platformParamsProvider: {{classname}}PlatformParamsProvider
+): {{classname}}
+{
+    const trackEvent: {{classname}}Tracker['trackEvent'] = (event, parameters) =>  {
+        const mergedParameters =  {
+            ...parameters,
+            ...globalParamsProvider.getGlobalParams(),
+            ...platformParamsProvider.getPlatformParams(),
+        }
+        eventTracker.trackEvent(event, mergedParameters)
+    }
+    return {trackEvent,}
+}

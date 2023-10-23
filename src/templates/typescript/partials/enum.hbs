@@ -1,0 +1,12 @@
+{{#if (isEnum parameter.type)}}
+export enum {{typeFormat parameter}} {
+    {{#each parameter.type.Enum.values}}
+    {{#if (isNumber this)}}
+    int{{this}} = {{this}},
+    {{else}}
+    {{pascalcase this}} = '{{this}}',
+    {{/if}}
+    {{/each}}
+}
+
+{{/if}}

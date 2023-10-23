@@ -1,0 +1,18 @@
+{{~#eq firstVersion 'in_progress'~}}
+    В разработке
+{{~else~}}
+    {{~#eq firstVersion 'not_supported'~}}
+        Не поддерживается
+    {{~else~}}
+        {{~#eq firstVersion 'deprecated'~}}
+            Deprecated
+        {{~else~}}
+            {{~#if lastVersion~}}
+                {{firstVersion}} - {{lastVersion}}
+            {{~else~}}
+                {{firstVersion}}
+            {{~/if~}}
+        {{~/eq~}}
+    {{~/eq~}}
+{{~/eq~}}
+{{~#if ticket}} {{ticket}}{{/if}}

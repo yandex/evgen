@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse event yaml directory parse events directory yaml with includes 1`] = `
+Object {
+  ".GlobalParams": Object {
+    "description": "Эти параметры добавляются к параметрам каждого события.",
+    "parameters": Object {
+      "globalParam": Object {
+        "description": "Глобальный параметр, который добавится к каждомоу событию",
+        "type": "String",
+      },
+    },
+  },
+  "Events": Object {
+    "AnotherNamespace": Object {
+      "Event1": Object {
+        "v1": Object {
+          "description": "Первое событие с переиспользуемым параметром",
+          "parameters": Object {
+            "reusedParam": Object {
+              "description": "Параметр, который переиспользуется в нескольких событиях",
+              "type": "String",
+            },
+          },
+          "platforms": Object {
+            "Android": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+            "WebSmartTV": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+            "iOS": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+          },
+        },
+      },
+      "Event2": Object {
+        "v1": Object {
+          "description": "Второе событие с переиспользуемым параметром",
+          "parameters": Object {
+            "reusedParam": Object {
+              "description": "Параметр, который переиспользуется в нескольких событиях",
+              "type": "String",
+            },
+          },
+          "platforms": Object {
+            "Android": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+            "WebSmartTV": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+            "iOS": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+          },
+        },
+      },
+      "documentation_dir": "AnotherDir",
+      "inheritance": Object {
+        "reused_param": Object {
+          "reusedParam": Object {
+            "description": "Параметр, который переиспользуется в нескольких событиях",
+            "type": "String",
+          },
+        },
+      },
+    },
+    "MyNamespace": Object {
+      "MyEvent": Object {
+        "v1": Object {
+          "description": "События со всеми возможными типами параметров",
+          "parameters": Object {
+            "batchParam1": Object {
+              "description": "Параметр, описанный в отдельным файле.",
+              "type": "String",
+            },
+            "batchParam2": Object {
+              "description": "Параметр, описанный в отдельным файле.",
+              "type": "String",
+            },
+            "intParam": Object {
+              "default_value": 42,
+              "description": "Параметр типа Int",
+              "type": "Int",
+            },
+            "paramFromAnotherFile": Object {
+              "description": "Параметр, описанный в отдельным файле.",
+              "type": "String",
+            },
+            "stringParam": Object {
+              "default_value": "val1",
+              "description": "Парамтер типа String",
+              "type": "String",
+            },
+            "сonstParam": Object {
+              "description": "Constant parameter",
+              "type": Object {
+                "Const": "shop_page",
+              },
+            },
+          },
+          "platforms": Object {
+            "Android": Object {
+              "app_versions": 3.14,
+              "ticket": "https://your-tracker.com",
+            },
+            "WebSmartTV": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+            "iOS": Object {
+              "app_versions": 4.13,
+              "ticket": "https://your-tracker.com",
+            },
+          },
+        },
+      },
+    },
+  },
+  "reused_params": Object {
+    "several_params": Object {
+      "batchParam1": Object {
+        "description": "Параметр, описанный в отдельным файле.",
+        "type": "String",
+      },
+      "batchParam2": Object {
+        "description": "Параметр, описанный в отдельным файле.",
+        "type": "String",
+      },
+    },
+    "single_param": Object {
+      "paramFromAnotherFile": Object {
+        "description": "Параметр, описанный в отдельным файле.",
+        "type": "String",
+      },
+    },
+  },
+  "reused_scalar_values": Object {
+    "shop_page": "shop_page",
+  },
+}
+`;

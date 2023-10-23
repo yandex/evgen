@@ -18,12 +18,12 @@ public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
 }
 
 public struct EvgenAnalyticsGlobalParams {
-    
+
     public func makeOptions() -> [String: Any] {
         let options: [String: Any] = [:]
         return options
     }
-    
+
     public init() {
     }
 }
@@ -76,7 +76,7 @@ public final class EvgenAnalytics {
     
     /**
         Also event description
-        
+
     */
     public func alsoMyEventLogged() {
         var options: [String: Any] = [:]
@@ -85,10 +85,10 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("AlsoMyEvent.Logged", withOptions: options)
     }
-    
+
     /**
         Event description
-        
+
     */
     public func myEvent() {
         var options: [String: Any] = [:]
@@ -97,5 +97,5 @@ public final class EvgenAnalytics {
         options["_meta"] = _meta
         trackEvent("MyEvent", withOptions: options)
     }
-    
+
 }
