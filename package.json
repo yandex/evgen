@@ -3,10 +3,6 @@
     "version": "1.14.0",
     "license": "Yandex",
     "author": "Kinopoisk Frontend Team <kinopoisk-dev@yandex-team.ru>",
-    "repository": {
-        "type": "arc",
-        "url": "https://a.yandex-team.ru/arcadia/kinopoisk/frontend/packages/evgen"
-    },
     "engines": {
         "pnpm": "7.14.2",
         "node": "18.5.0"
