@@ -25,8 +25,19 @@ const DEFAULT_TEMPLATES_DIRS: Record<CodeLanguage | DocsType, string> = {
 };
 
 program
-    .requiredOption('-e, --events_path <path>', 'pass events file path')
-    .requiredOption('-c, --evgen_config_path <path>', 'pass evgen config file')
+    .name('evgen')
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    .version(require('../package.json').version, '-v, --version')
+    .description('Code-generation tool for event logging')
+    .requiredOption(
+        '-e, --events_path <file|dir>',
+        'events YAML-definitions file or directory path'
+    )
+    .option(
+        '-c, --evgen_config_path <file>',
+        'evgen generation config in YAML format',
+        'evgen.yaml'
+    )
     .action(async (options) => {
         try {
             const events = await parseEventsFile(options.events_path);
