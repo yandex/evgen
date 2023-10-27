@@ -5,6 +5,7 @@
   ".npmignore":"kinopoisk/frontend/packages/evgen/.npmignore",
   ".nvmrc":"kinopoisk/frontend/packages/evgen/.nvmrc",
   ".prettierrc.js":"kinopoisk/frontend/packages/evgen/.prettierrc.js",
+  "AUTHORS":"kinopoisk/frontend/packages/evgen/AUTHORS",
   "CONTRIBUTING.md":"kinopoisk/frontend/packages/evgen/CONTRIBUTING.md",
   "LICENSE":"kinopoisk/frontend/packages/evgen/LICENSE",
   "README.md":"kinopoisk/frontend/packages/evgen/README.md",
