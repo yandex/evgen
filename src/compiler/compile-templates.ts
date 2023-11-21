@@ -1,5 +1,4 @@
 import { join } from 'path';
-
 import fg from 'fast-glob';
 
 import { CodeLanguage } from '../types/evgen-config';

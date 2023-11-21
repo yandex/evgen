@@ -7,6 +7,10 @@ code:
     platform: 'web_smart_tv'
     output_dir: 'web_smart_tv'
     language: 'type_script'
+  AndroidKotlin:
+    platform: 'android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
 doc:
   Txt:
     extension: 'txt'
@@ -14,4 +18,3 @@ doc:
   Md:
     extension: 'md'
     output_dir: 'md_doc'
-

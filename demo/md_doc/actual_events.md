@@ -12,8 +12,8 @@
 |1|ios|0. browserName: <code>String</code><br/>1. browserVersion: <code>String</code><br/>|0. browserName - Имя браузера<br/>1. browserVersion - Версия браузера<br/>|
 
 ## MyMovies
-| | Название события | Версия события | Параметры | Описание | Комментарий | ios | web_smart_tv |
-|---:|:---|:---|:---|:---|:---|:---|:---|
-|0|MyMovies.SelectionItem.Navigated|1|0. from: "MyMoviesScreen"<br>1. to: Enum(MovieScreen, SelectionScreen)<br>2. cardPosition: Int<br>3. contentId: String<br>|0. from - Страница, с которой произошел переход<br>1. to - Страница, на которою произошел переход<br>2. cardPosition - Позиция карточки в подборке<br>3. contentId - ID контента, по карточке которого произошел переход<br>|Переход по карточке контента|В разработке https://link.to/ticket-123|1.0 - 2.0 https://link.to/ticket-124|
-|1|MyMovies.SelectionItem.Navigated|2|0. from: "MyMoviesScreen"<br>1. to: Enum(MovieScreen, SelectionScreen)<br>2. cardPosition: Int<br>3. contentId: String<br>4. rating: Double<br>|0. from - Страница, с которой произошел переход<br>1. to - Страница, на которою произошел переход<br>2. cardPosition - Позиция карточки в подборке<br>3. contentId - ID контента, по карточке которого произошел переход<br>4. rating - Рейтинг контента<br>|Переход по карточке контента||В разработке https://link.to/ticket-125|
+| | Название события | Версия события | Параметры | Описание | Комментарий | ios | web_smart_tv | android |
+|---:|:---|:---|:---|:---|:---|:---|:---|:---|
+|0|MyMovies.SelectionItem.Navigated|1|0. from: "MyMoviesScreen"<br>1. to: Enum(MovieScreen, SelectionScreen)<br>2. cardPosition: Int<br>3. contentId: String<br>|0. from - Страница, с которой произошел переход<br>1. to - Страница, на которою произошел переход<br>2. cardPosition - Позиция карточки в подборке<br>3. contentId - ID контента, по карточке которого произошел переход<br>|Переход по карточке контента|В разработке https://link.to/ticket-123|1.0 - 2.0 https://link.to/ticket-124|В разработке https://link.to/ticket-127|
+|1|MyMovies.SelectionItem.Navigated|2|0. from: "MyMoviesScreen"<br>1. to: Enum(MovieScreen, SelectionScreen)<br>2. cardPosition: Int<br>3. contentId: String<br>4. rating: Double<br>|0. from - Страница, с которой произошел переход<br>1. to - Страница, на которою произошел переход<br>2. cardPosition - Позиция карточки в подборке<br>3. contentId - ID контента, по карточке которого произошел переход<br>4. rating - Рейтинг контента<br>|Переход по карточке контента||В разработке https://link.to/ticket-125|В разработке https://link.to/ticket-127|
 

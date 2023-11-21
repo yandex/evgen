@@ -9,26 +9,25 @@ interface {{classname}}Tracker {
 }
 
 interface {{classname}}GlobalParamsProvider {
-    fun getGlobalParams() : {{classname}}GlobalParams
+    fun getGlobalParams(): {{classname}}GlobalParams
 }
 
 interface {{classname}}PlatformParamsProvider {
-    fun getPlatformParams() : {{classname}}PlatformParams
+    fun getPlatformParams(): {{classname}}PlatformParams
 }
 
 {{#each globalParameters.parameters}}
 {{>enum parameter=this}}
 {{/each}}
 class {{classname}}GlobalParams(
-        {{~#each globalParameters.parameters~}}
-        {{#unless (isConst this.type)}}
-        {{~camelcase this.name}}: {{typeFormat this~}}
-        {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
-        {{~#unless @last}}, {{/unless~}}
-        {{/unless}}
-        {{~/each~}}
-    ) {
-    val parameters: Map<String, Any> = mapOf (
+    {{#each globalParameters.parameters}}
+    {{#unless (isConst this.type)}}
+    {{camelcase this.name}}: {{typeFormat this~}}
+        {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+    {{/unless}}
+    {{/each}}
+) {
+    val parameters: Map<String, Any> = mapOf(
         {{#each globalParameters.parameters}}
         "{{this.name}}" to {{>variableValueFormat parameter=this}},
         {{/each}}
@@ -41,23 +40,25 @@ class {{classname}}GlobalParams(
 {{/each}}
 {{/if}}
 class {{classname}}PlatformParams(
-    {{~#each platformParameters.parameters~}}
+    {{#each platformParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{~camelcase this.name}}: {{typeFormat this~}}
-    {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
-    {{~#unless @last}}, {{/unless~}}
+    {{camelcase this.name}}: {{typeFormat this~}}
+        {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
     {{/unless}}
-    {{~/each~}}
+    {{/each}}
 ) {
-    val parameters: Map<String, Any> = mapOf (
+    val parameters: Map<String, Any> = mapOf(
         {{#each platformParameters.parameters}}
         "{{this.name}}" to {{>variableValueFormat parameter=this}},
         {{/each}}
     )
 }
 
-class {{classname}}(private val eventTracker: {{classname}}Tracker, private val globalParamsProvider: {{classname}}GlobalParamsProvider, private val platformParamsProvider: {{classname}}PlatformParamsProvider) {
-    
+class {{classname}}(
+    private val eventTracker: {{classname}}Tracker,
+    private val globalParamsProvider: {{classname}}GlobalParamsProvider,
+    private val platformParamsProvider: {{classname}}PlatformParamsProviderm,
+) {
     private fun trackEvent(event: String, parameters: MutableMap<String, Any>) {
         val mergedParameters: HashMap<String, Any> = HashMap<String, Any>()
         mergedParameters.putAll(parameters)
@@ -65,16 +66,16 @@ class {{classname}}(private val eventTracker: {{classname}}Tracker, private val 
         mergedParameters.putAll(platformParamsProvider.getPlatformParams().parameters)
         eventTracker.trackEvent(event, mergedParameters)
     }
-    
+
     private fun makeMeta(event_version: Int, interfaces: Map<String, Any>): Map<String, Any> {
-        val metaDict = HashMap<String, Any>();
-        val eventDict = HashMap<String, Any>();
-        eventDict["version"] = event_version;
-        metaDict["event"] = eventDict;
-        metaDict["interfaces"] = interfaces;
-        return metaDict;
+        val metaDict = HashMap<String, Any>()
+        val eventDict = HashMap<String, Any>()
+        eventDict["version"] = event_version
+        metaDict["event"] = eventDict
+        metaDict["interfaces"] = interfaces
+        return metaDict
     }
-    
+
     {{#filterTruthy this.namedEnums "type.Enum.name"}}
     {{#each this}}
     {{>enum parameter=this}}
@@ -87,6 +88,7 @@ class {{classname}}(private val eventTracker: {{classname}}Tracker, private val 
     {{>enum parameter=this}}
     {{/each}}
     {{/filterFalsy}}
+
     /**
     {{#each (splitByNewLine this.description)}}
      * {{this}}
@@ -97,13 +99,12 @@ class {{classname}}(private val eventTracker: {{classname}}Tracker, private val 
     {{/each}}
      */
     fun {{lowerFirstLetter this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
-        {{~#filterUndefined this.parameters 'type.Const'~}}
-            {{~#each this~}}
-                {{~camelcase this.name}}: {{typeFormat this~}}
-                {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
-                {{~#unless @last}}, {{/unless~}}
-            {{~/each~}}
-        {{~/filterUndefined~}}
+        {{#filterUndefined this.parameters 'type.Const'}}
+        {{#each this}}
+        {{camelcase this.name}}: {{typeFormat this~}}
+        {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+        {{/each}}
+        {{/filterUndefined}}
     ) {
         val parameters = mutableMapOf<String, Any>()
         {{#each this.parameters}}
@@ -113,13 +114,13 @@ class {{classname}}(private val eventTracker: {{classname}}Tracker, private val 
         {{~/contains}}
 
         {{/each}}
-        val interfacesDict = HashMap<String, Any>();
+        val interfacesDict = HashMap<String, Any>()
         {{#each this.interfaces}}
-        val {{camelcase @key}} = HashMap<String, Any>();
-        {{camelcase @key}}["version"] = {{this}};
-        interfacesDict["{{@key}}"] = {{camelcase @key}};
+        val {{camelcase @key}} = HashMap<String, Any>()
+        {{camelcase @key}}["version"] = {{this}}
+        interfacesDict["{{@key}}"] = {{camelcase @key}}
         {{/each}}
-        val _meta = makeMeta({{this.version}}, interfacesDict);
+        val _meta = makeMeta({{this.version}}, interfacesDict)
         parameters["_meta"] = _meta
         trackEvent("{{this.event}}", parameters)
     }

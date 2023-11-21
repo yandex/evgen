@@ -26,6 +26,7 @@
         "clean:modules": "rm -rf node_modules",
         "clean": "npm run clean:dist && npm run clean:modules",
         "build": "npm run clean:dist && tsc --project . && cp -r src/templates dist",
+        "demo": "ts-node src/cli.ts --events_path demo/events --evgen_config_path demo/evgen.yaml",
         "lint": "eslint . --ext=js,ts",
         "prepublishOnly": "npm run build",
         "test": "jest --ci --passWithNoTests",

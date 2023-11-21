@@ -10,6 +10,7 @@
   "LICENSE":"kinopoisk/frontend/packages/evgen/LICENSE",
   "README.md":"kinopoisk/frontend/packages/evgen/README.md",
   "babel.config.js":"kinopoisk/frontend/packages/evgen/babel.config.js",
+  "demo/android_kotlin/EvgenAnalytics.kt":"kinopoisk/frontend/packages/evgen/demo/android_kotlin/EvgenAnalytics.kt",
   "demo/events/interfaces.yaml":"kinopoisk/frontend/packages/evgen/demo/events/interfaces.yaml",
   "demo/events/my_movies.yaml":"kinopoisk/frontend/packages/evgen/demo/events/my_movies.yaml",
   "demo/events/shared_parameters.yaml":"kinopoisk/frontend/packages/evgen/demo/events/shared_parameters.yaml",
