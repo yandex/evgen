@@ -57,7 +57,7 @@ class {{classname}}PlatformParams(
 class {{classname}}(
     private val eventTracker: {{classname}}Tracker,
     private val globalParamsProvider: {{classname}}GlobalParamsProvider,
-    private val platformParamsProvider: {{classname}}PlatformParamsProviderm,
+    private val platformParamsProvider: {{classname}}PlatformParamsProvider,
 ) {
     private fun trackEvent(event: String, parameters: MutableMap<String, Any>) {
         val mergedParameters: HashMap<String, Any> = HashMap<String, Any>()
