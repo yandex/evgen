@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 package ru.yandex.kinopoisk;
 import java.util.HashMap;
@@ -123,11 +123,11 @@ public final class {{classname}} {
     {{/filterFalsy}}
     /**
         {{#each (splitByNewLine description)}}
-        {{this}}
+     *  {{this}}
         {{/each}}
-    
+     *
         {{#each parameters}}
-        {{@index}}. {{name}} - {{description}}
+     *  {{@index}}. {{name}} - {{description}}
         {{/each}}
      */
     public void {{lowerFirstLetter name}}{{#gt version 1}}V{{version}}{{/gt}}(

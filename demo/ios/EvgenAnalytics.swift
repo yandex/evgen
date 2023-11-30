@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 import Foundation
 
@@ -95,13 +95,13 @@ public final class EvgenAnalytics {
     }
     
     /**
-        Переход по карточке контента
-
-        0. from - Страница, с которой произошел переход
-        1. to - Страница, на которою произошел переход
-        2. cardPosition - Позиция карточки в подборке
-        3. contentId - ID контента, по карточке которого произошел переход
-    */
+     *  Переход по карточке контента
+     *
+     *  0. from - Страница, с которой произошел переход
+     *  1. to - Страница, на которою произошел переход
+     *  2. cardPosition - Позиция карточки в подборке
+     *  3. contentId - ID контента, по карточке которого произошел переход
+     */
     public func myMoviesSelectionItemNavigated(to: MyMoviesSelectionItemNavigatedTo, cardPosition: Int, contentId: String) {
         var options: [String: Any] = [:]
         options["from"] = "MyMoviesScreen"

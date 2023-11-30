@@ -37,7 +37,7 @@ class EvgenAnalyticsPlatformParams(
 class EvgenAnalytics(
     private val eventTracker: EvgenAnalyticsTracker,
     private val globalParamsProvider: EvgenAnalyticsGlobalParamsProvider,
-    private val platformParamsProvider: EvgenAnalyticsPlatformParamsProviderm,
+    private val platformParamsProvider: EvgenAnalyticsPlatformParamsProvider,
 ) {
     private fun trackEvent(event: String, parameters: MutableMap<String, Any>) {
         val mergedParameters: HashMap<String, Any> = HashMap<String, Any>()

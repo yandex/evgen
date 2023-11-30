@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 import Foundation
 
@@ -153,12 +153,12 @@ public final class {{classname}} {
     {{/each}}
     {{/filterFalsy}}
     /**
-        {{this.description}}
-
+     *  {{this.description}}
+     *
         {{#each this.parameters}}
-        {{@index}}. {{this.name}} - {{this.description}}
+     *  {{@index}}. {{this.name}} - {{this.description}}
         {{/each}}
-    */
+     */
     public func {{lowerFirstLetter this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
         {{~#filterUndefined this.parameters 'type.Const'~}}
             {{~#each this~}}

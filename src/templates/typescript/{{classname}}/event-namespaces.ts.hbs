@@ -1,12 +1,10 @@
 {{#each eventNamespaces}}
 #start-file:{{snakecase this.name}}.ts
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
-/**
-    eslint-disable
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
+// eslint-disable
 
 import { {{~@root.classname~}} } from "./{{snakecase @root.classname}}"
 import {makeMetaParams} from "./{{snakecase @root.classname}}"
@@ -24,25 +22,25 @@ import { {{~join (sort (pluck this "type.Enum.name"))~}} } from "./named_enums"
 {{/each}}
 {{/filterFalsy}}
 /**
-    {{this.description}}
-
+ * {{this.description}}
+ *
     {{#each this.parameters}}
-    {{@index}}. {{this.name}} - {{this.description}}
+ *  {{@index}}. {{this.name}} {{#if (isConst this.type)}}[const] {{/if}}- {{this.description}}
     {{/each}}
-*/
+ */
+export type {{pascalcase this.name}}Parameters{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} = {
+    {{#filterFalsy this.parameters "type.Const"}}
+    {{#each this}}
+    {{camelcase this.name}}{{#if (isDefined this.defaultValue)}}?{{/if}}: {{typeFormat this}};
+    {{/each}}
+    {{/filterFalsy}}
+};
 export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} (
     {{snakecase @root.classname}}: {{@root.classname}},
     {{#unless (isEmpty (filterFalsy this.parameters 'type.Const'))}}
-    parameters:  {
-        {{#filterFalsy this.parameters "type.Const"}}
-        {{#each this}}
-        {{camelcase this.name}}{{#if (isDefined this.defaultValue)}}?{{/if}}: {{typeFormat this}}{{#unless @last}};{{/unless}}
-        {{/each}}
-        {{/filterFalsy}}
-    }
+    parameters: {{pascalcase this.name}}Parameters{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}
     {{/unless}}
-)
-{
+) {
     {{#if this.parameters}}
     {{#filterDefined this.parameters 'defaultValue'}}
     {{#if this}}
@@ -62,9 +60,9 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
     {{/if}}
 
     {{#unless (isEmpty this.interfaces)}}
-    const interfaces =  {
+    const interfaces = {
         {{#each this.interfaces}}
-        {{camelcase @key}}:  {
+        {{camelcase @key}}: {
             version: {{this}}
         },
         {{/each}}
