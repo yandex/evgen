@@ -54,7 +54,7 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
     {{/filterDefined}}
     {{#filterTruthy this.parameters 'type.Const'}}
     {{#each this}}
-    const {{this.name}} = '{{this.type.Const}}';
+    const {{camelcase this.name}} = '{{this.type.Const}}';
     {{/each}}
     {{/filterTruthy}}
     {{/if}}
@@ -78,10 +78,10 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
         {{~#if this.parameters~}}
         {{~#unless (isEmpty (filterFalsy this.parameters 'type.Const'))~}}...parameters, {{/unless~}}
         {{~#filterDefined this.parameters 'defaultValue'~}}
-        {{~#each this}}{{this.name}}, {{/each}}
+        {{~#each this}}{{camelcase this.name}}, {{/each}}
         {{~/filterDefined~}}
         {{~#filterTruthy this.parameters 'type.Const'~}}
-        {{~#each this}}{{this.name}}, {{/each}}
+        {{~#each this}}{{camelcase this.name}}, {{/each}}
         {{~/filterTruthy~}}
         {{~/if~}}
         _meta}
