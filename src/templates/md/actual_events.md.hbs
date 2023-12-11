@@ -4,11 +4,11 @@
 |---:|:---|:---|:---|:---|
 |0|.GlobalParams|
 {{~#each globalParameters.parameters~}}
-    {{@index}}. {{this.name}}: <code>{{>typeFormat parameter=this}}</code><br/>
+    {{@index}}. {{this.name}}: <em>{{>typeFormat parameter=this}}</em><br>
 {{~/each~}}
 |
 {{~#each globalParameters.parameters~}}
-    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
 {{~/each~}}
 |
 {{~#escape newLine="<br>"}}{{@root.globalParameters.description}}{{/escape~}}
@@ -26,11 +26,11 @@
     {{~@key~}}
     |
     {{~#each this.parameters~}}
-        {{@index}}. {{this.name}}: <code>{{>typeFormat parameter=this}}</code><br/>
+        {{@index}}. {{this.name}}: <em>{{>typeFormat parameter=this}}</em><br>
     {{~/each~}}
     |
     {{~#each this.parameters~}}
-        {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br/>
+        {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
     {{~/each~}}
     |
 {{/each}}

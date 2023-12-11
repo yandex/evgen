@@ -2,14 +2,14 @@
 
 || Название события | Параметры | Описание | Комментарий |                    
 |---:|:---|:---|:---|:---|
-|0|.GlobalParams|0. appVersion: <code>String</code><br/>1. userId: <code>Long Int</code><br/>2. deviceId: <code>String</code><br/>|0. appVersion - Версия приложения<br/>1. userId - ID пользователя<br/>2. deviceId - ID устройства<br/>|Эти параметры добавляются к параметрам каждого события.|
+|0|.GlobalParams|0. appVersion: <em>String</em><br>1. userId: <em>Long Int</em><br>2. deviceId: <em>String</em><br>|0. appVersion - Версия приложения<br>1. userId - ID пользователя<br>2. deviceId - ID устройства<br>|Эти параметры добавляются к параметрам каждого события.|
 
 ## .PlatformParams
 
 | | Платформа | Параметры | Описание |
 |---:|:---|:---|:---|
-|0|web_smart_tv|0. tvModel: <code>String</code><br/>1. firmwareVersion: <code>String</code><br/>|0. tvModel - Модель ТВ<br/>1. firmwareVersion - Версия прошивки<br/>|
-|1|ios|0. browserName: <code>String</code><br/>1. browserVersion: <code>String</code><br/>|0. browserName - Имя браузера<br/>1. browserVersion - Версия браузера<br/>|
+|0|web_smart_tv|0. tvModel: <em>String</em><br>1. firmwareVersion: <em>String</em><br>|0. tvModel - Модель ТВ<br>1. firmwareVersion - Версия прошивки<br>|
+|1|ios|0. browserName: <em>String</em><br>1. browserVersion: <em>String</em><br>|0. browserName - Имя браузера<br>1. browserVersion - Версия браузера<br>|
 
 ## MyMovies
 | | Название события | Версия события | Параметры | Описание | Комментарий | ios | web_smart_tv | android |

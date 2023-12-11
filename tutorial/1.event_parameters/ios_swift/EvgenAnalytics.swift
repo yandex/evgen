@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 import Foundation
 
@@ -84,10 +84,10 @@ public final class EvgenAnalytics {
     }
     
     /**
-        Первое событие с переиспользуемым параметром
-
-        0. reusedParam - Параметр, который переиспользуется в нескольких событиях
-    */
+     *  Первое событие с переиспользуемым параметром
+     *
+     *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     */
     public func anotherNamespaceEvent1(reusedParam: String) {
         var options: [String: Any] = [:]
         options["reusedParam"] = reusedParam
@@ -98,10 +98,10 @@ public final class EvgenAnalytics {
     }
 
     /**
-        Второе событие с переиспользуемым параметром
-
-        0. reusedParam - Параметр, который переиспользуется в нескольких событиях
-    */
+     *  Второе событие с переиспользуемым параметром
+     *
+     *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     */
     public func anotherNamespaceEvent2(reusedParam: String) {
         var options: [String: Any] = [:]
         options["reusedParam"] = reusedParam
@@ -124,23 +124,23 @@ public final class EvgenAnalytics {
     }
     
     /**
-        События со всеми возможными типами параметров
-
-        0. stringParam - Параметр типа String
-        1. intParam - Параметр типа Int
-        2. longIntParam - Параметр типа Long Int
-        3. boolParam - Параметр типа Bool
-        4. doubleParam - Параметр типа Double
-        5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
-        6. enumParam - Параметр типа Enum. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-        7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-        8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
-        9. dictParam - параметр типа Dict.
-        10. platformConst - Платформозависимая константа
-        11. listOfInt - Список целочисленных параметров
-        12. listOfDouble - Список флотовых параметров
-        13. listOfString - Cписок строк
-    */
+     *  События со всеми возможными типами параметров
+     *
+     *  0. stringParam - Параметр типа String
+     *  1. intParam - Параметр типа Int
+     *  2. longIntParam - Параметр типа Long Int
+     *  3. boolParam - Параметр типа Bool
+     *  4. doubleParam - Параметр типа Double
+     *  5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
+     *  6. enumParam - Параметр типа Enum. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
+     *  7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
+     *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
+     *  9. dictParam - параметр типа Dict.
+     *  10. platformConst - Платформозависимая константа
+     *  11. listOfInt - Список целочисленных параметров
+     *  12. listOfDouble - Список флотовых параметров
+     *  13. listOfString - Cписок строк
+     */
     public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, dictParam: [String: Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = []) {
         var options: [String: Any] = [:]
         options["stringParam"] = stringParam

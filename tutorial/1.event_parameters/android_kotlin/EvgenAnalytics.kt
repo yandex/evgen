@@ -9,26 +9,32 @@ interface EvgenAnalyticsTracker {
 }
 
 interface EvgenAnalyticsGlobalParamsProvider {
-    fun getGlobalParams() : EvgenAnalyticsGlobalParams
+    fun getGlobalParams(): EvgenAnalyticsGlobalParams
 }
 
 interface EvgenAnalyticsPlatformParamsProvider {
-    fun getPlatformParams() : EvgenAnalyticsPlatformParams
+    fun getPlatformParams(): EvgenAnalyticsPlatformParams
 }
 
-class EvgenAnalyticsGlobalParams(globalParam: String) {
-    val parameters: Map<String, Any> = mapOf (
+class EvgenAnalyticsGlobalParams(
+    globalParam: String,
+) {
+    val parameters: Map<String, Any> = mapOf(
         "globalParam" to globalParam,
     )
 }
 
-class EvgenAnalyticsPlatformParams() {
-    val parameters: Map<String, Any> = mapOf (
+class EvgenAnalyticsPlatformParams(
+) {
+    val parameters: Map<String, Any> = mapOf(
     )
 }
 
-class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private val globalParamsProvider: EvgenAnalyticsGlobalParamsProvider, private val platformParamsProvider: EvgenAnalyticsPlatformParamsProvider) {
-    
+class EvgenAnalytics(
+    private val eventTracker: EvgenAnalyticsTracker,
+    private val globalParamsProvider: EvgenAnalyticsGlobalParamsProvider,
+    private val platformParamsProvider: EvgenAnalyticsPlatformParamsProvider,
+) {
     private fun trackEvent(event: String, parameters: MutableMap<String, Any>) {
         val mergedParameters: HashMap<String, Any> = HashMap<String, Any>()
         mergedParameters.putAll(parameters)
@@ -36,46 +42,51 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         mergedParameters.putAll(platformParamsProvider.getPlatformParams().parameters)
         eventTracker.trackEvent(event, mergedParameters)
     }
-    
+
     private fun makeMeta(event_version: Int, interfaces: Map<String, Any>): Map<String, Any> {
-        val metaDict = HashMap<String, Any>();
-        val eventDict = HashMap<String, Any>();
-        eventDict["version"] = event_version;
-        metaDict["event"] = eventDict;
-        metaDict["interfaces"] = interfaces;
-        return metaDict;
+        val metaDict = HashMap<String, Any>()
+        val eventDict = HashMap<String, Any>()
+        eventDict["version"] = event_version
+        metaDict["event"] = eventDict
+        metaDict["interfaces"] = interfaces
+        return metaDict
     }
-    
+
     enum class Pages(val eventValue: String) {
         Screen1("screen_1"),
         Screen2("screen_2"),
         Screen3("screen_3"),
     }
-    
+
     /**
      * Первое событие с переиспользуемым параметром
      *
      * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
-    fun anotherNamespaceEvent1(reusedParam: String) {
+    fun anotherNamespaceEvent1(
+        reusedParam: String,
+    ) {
         val parameters = mutableMapOf<String, Any>()
         parameters["reusedParam"] = reusedParam
-        val interfacesDict = HashMap<String, Any>();
-        val _meta = makeMeta(1, interfacesDict);
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
         trackEvent("AnotherNamespace.Event1", parameters)
     }
+
 
     /**
      * Второе событие с переиспользуемым параметром
      *
      * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
-    fun anotherNamespaceEvent2(reusedParam: String) {
+    fun anotherNamespaceEvent2(
+        reusedParam: String,
+    ) {
         val parameters = mutableMapOf<String, Any>()
         parameters["reusedParam"] = reusedParam
-        val interfacesDict = HashMap<String, Any>();
-        val _meta = makeMeta(1, interfacesDict);
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
         trackEvent("AnotherNamespace.Event2", parameters)
     }
@@ -85,13 +96,12 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         Option2("option2"),
         Option3("option3"),
     }
-    
     enum class MyNamespaceMyEventEnumParamInt(val eventValue: String) {
         Int1("1"),
         Int2("2"),
         Int3("3"),
     }
-    
+
     /**
      * События со всеми возможными типами параметров
      *
@@ -110,7 +120,20 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
      * 12. listOfDouble - Список флотовых параметров
      * 13. listOfString - Cписок строк
      */
-    fun myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Long, boolParam: Boolean = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.Option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int1, namedEnumParam: Pages, dictParam: Map<String, Any>, listOfInt: List<Int> = listOf<Int>(), listOfDouble: List<Double> = listOf<Double>(), listOfString: List<String> = listOf<String>()) {
+    fun myNamespaceMyEvent(
+        stringParam: String = "val",
+        intParam: Int = 42,
+        longIntParam: Long,
+        boolParam: Boolean = true,
+        doubleParam: Double,
+        enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.Option1,
+        enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int1,
+        namedEnumParam: Pages,
+        dictParam: Map<String, Any>,
+        listOfInt: List<Int> = listOf<Int>(),
+        listOfDouble: List<Double> = listOf<Double>(),
+        listOfString: List<String> = listOf<String>(),
+    ) {
         val parameters = mutableMapOf<String, Any>()
         parameters["stringParam"] = stringParam
         parameters["intParam"] = intParam.toString()
@@ -126,8 +149,8 @@ class EvgenAnalytics(private val eventTracker: EvgenAnalyticsTracker, private va
         parameters["listOfInt"] = listOfInt
         parameters["listOfDouble"] = listOfDouble
         parameters["listOfString"] = listOfString
-        val interfacesDict = HashMap<String, Any>();
-        val _meta = makeMeta(1, interfacesDict);
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
         trackEvent("MyNamespace.MyEvent", parameters)
     }

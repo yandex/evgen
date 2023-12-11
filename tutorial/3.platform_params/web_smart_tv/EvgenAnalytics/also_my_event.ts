@@ -1,23 +1,22 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
-/**
-    eslint-disable
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
+// eslint-disable
 
 import {EvgenAnalytics} from "./evgen_analytics"
 import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
-    Also event description
-
-*/
+ * Also event description
+ *
+ */
+export type AlsoMyEventLoggedParameters = {
+};
 export function alsoMyEventLogged (
     evgen_analytics: EvgenAnalytics,
-)
-{
+) {
 
     const _meta = makeMetaParams(1)
     const enhancedParams = {_meta}

@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 package ru.yandex.kinopoisk;
 import java.util.HashMap;
@@ -67,8 +67,8 @@ public final class EvgenAnalytics {
     private PlatformParamsProvider platformParamsProvider;
     
     /**
-        Also event description
-    
+     *  Also event description
+     *
      */
     public void alsoMyEventLogged() {
         Map<String, Object> params = new HashMap<>();
@@ -79,8 +79,8 @@ public final class EvgenAnalytics {
     }
 
     /**
-        Event description
-    
+     *  Event description
+     *
      */
     public void myEvent() {
         Map<String, Object> params = new HashMap<>();

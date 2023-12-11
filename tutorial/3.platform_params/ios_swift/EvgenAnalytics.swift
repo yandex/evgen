@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 import Foundation
 
@@ -78,9 +78,9 @@ public final class EvgenAnalytics {
     }
     
     /**
-        Also event description
-
-    */
+     *  Also event description
+     *
+     */
     public func alsoMyEventLogged() {
         var options: [String: Any] = [:]
         let interfacesDict: [String: Any] = [:]
@@ -90,9 +90,9 @@ public final class EvgenAnalytics {
     }
 
     /**
-        Event description
-
-    */
+     *  Event description
+     *
+     */
     public func myEvent() {
         var options: [String: Any] = [:]
         let interfacesDict: [String: Any] = [:]

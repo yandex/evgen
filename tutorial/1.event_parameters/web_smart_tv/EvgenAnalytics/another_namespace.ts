@@ -1,27 +1,25 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
-/**
-    eslint-disable
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
+// eslint-disable
 
 import {EvgenAnalytics} from "./evgen_analytics"
 import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
-    Первое событие с переиспользуемым параметром
-
-    0. reusedParam - Параметр, который переиспользуется в нескольких событиях
-*/
+ * Первое событие с переиспользуемым параметром
+ *
+ *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+ */
+export type AnotherNamespaceEvent1Parameters = {
+    reusedParam: string;
+};
 export function anotherNamespaceEvent1 (
     evgen_analytics: EvgenAnalytics,
-    parameters:  {
-        reusedParam: string
-    }
-)
-{
+    parameters: AnotherNamespaceEvent1Parameters
+) {
 
     const _meta = makeMetaParams(1)
     const enhancedParams = {...parameters, _meta}
@@ -29,17 +27,17 @@ export function anotherNamespaceEvent1 (
 }
 
 /**
-    Второе событие с переиспользуемым параметром
-
-    0. reusedParam - Параметр, который переиспользуется в нескольких событиях
-*/
+ * Второе событие с переиспользуемым параметром
+ *
+ *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+ */
+export type AnotherNamespaceEvent2Parameters = {
+    reusedParam: string;
+};
 export function anotherNamespaceEvent2 (
     evgen_analytics: EvgenAnalytics,
-    parameters:  {
-        reusedParam: string
-    }
-)
-{
+    parameters: AnotherNamespaceEvent2Parameters
+) {
 
     const _meta = makeMetaParams(1)
     const enhancedParams = {...parameters, _meta}

@@ -15,11 +15,12 @@
     {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>
 {{~/each~}}
 |
+{{~#escape newLine="<br>"}}{{../description}}{{/escape~}}<br>
 {{~#each this.parameters~}}
     {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
 {{~/each~}}
 |
-{{~#escape newLine="<br>"}}{{this.description}}{{/escape~}}
+{{~#escape newLine="<br>"}}{{../comment}}{{/escape~}}
 {{~#each ../allPlatforms~}}
     |
     {{~>platformSupport (lookup ../platforms this)~}}
