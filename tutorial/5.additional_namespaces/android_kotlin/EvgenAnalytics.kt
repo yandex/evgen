@@ -51,31 +51,27 @@ class EvgenAnalytics(
     }
 
 
-    /**
-     * Also event description
-     *
-     */
-    fun alsoMyEventLogged(
-    ) {
-        val parameters = mutableMapOf<String, Any>()
-        val interfacesDict = HashMap<String, Any>()
-        val _meta = makeMeta(1, interfacesDict)
-        parameters["_meta"] = _meta
-        trackEvent("AlsoMyEvent.Logged", parameters)
+    enum class MyEventNamespaces(val eventValue: String) {
+        MyNamespace("MyNamespace"),
+        NestedNamespace("Nested.Namespace"),
+        MyAnotherNamespace("MyAnotherNamespace"),
     }
-
 
     /**
      * Event description
      *
+     * 0. stringParam - Параметр типа String
      */
     fun myEvent(
+        namespace: MyEventNamespaces,
+        stringParam: String,
     ) {
         val parameters = mutableMapOf<String, Any>()
+        parameters["stringParam"] = stringParam
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
-        trackEvent("MyEvent", parameters)
+        trackEvent(namespace + "." + "MyEvent", parameters)
     }
 
 }

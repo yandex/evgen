@@ -152,6 +152,18 @@ public final class {{classname}} {
     {{>enum parameter=this}}
     {{/each}}
     {{/filterFalsy}}
+    {{#unless (isEmpty additionalNamespaces)}}
+    public enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}: String {
+    {{#each additionalNamespaces}}
+        {{#if (isSpecialWord (camelcase this))}}
+        case `{{camelcase this}}` = "{{this}}"
+        {{else}}
+        case {{camelcase this}} = "{{this}}"
+        {{/if}}
+    {{/each}}
+    }
+
+    {{/unless}}
     /**
      *  {{this.description}}
      *
@@ -160,6 +172,7 @@ public final class {{classname}} {
         {{/each}}
      */
     public func {{lowerFirstLetter this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
+        {{~#unless (isEmpty additionalNamespaces)}}namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}}, {{/unless~}}
         {{~#filterUndefined this.parameters 'type.Const'~}}
             {{~#each this~}}
                 {{~camelcase this.name}}: {{typeFormat this~}}
@@ -188,7 +201,7 @@ public final class {{classname}} {
         {{/each}}
         let _meta = makeMeta({{this.version}}, interfaces: interfacesDict)
         options["_meta"] = _meta
-        trackEvent("{{this.event}}", withOptions: options)
+        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace + "." + {{/unless}}"{{this.event}}", withOptions: options)
     }
 
     {{/each}}

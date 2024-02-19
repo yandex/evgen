@@ -81,6 +81,18 @@ const parseEventVersions = (
 
             const version = parseInt(versionKeyMatch[1], 10);
 
+            if (value.namespaces) {
+                value.namespaces.forEach((namespace) => {
+                    if (typeof namespace !== 'string') {
+                        throw new Error(
+                            `Failed to parse namespace ${JSON.stringify(
+                                namespace
+                            )}: namespace must be string!`
+                        );
+                    }
+                });
+            }
+
             return [
                 {
                     name,
@@ -93,6 +105,7 @@ const parseEventVersions = (
                     platforms: value.platforms ? parsePlatforms(value.platforms) : undefined,
                     interfaceNames: getInterfaceNames(value.interface),
                     interfaces: {},
+                    additionalNamespaces: value.namespaces || [],
                 },
             ];
         }

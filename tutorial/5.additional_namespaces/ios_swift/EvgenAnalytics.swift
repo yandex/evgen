@@ -74,28 +74,24 @@ public final class EvgenAnalytics {
         return metaDict
     }
     
-    /**
-     *  Also event description
-     *
-     */
-    public func alsoMyEventLogged() {
-        var options: [String: Any] = [:]
-        let interfacesDict: [String: Any] = [:]
-        let _meta = makeMeta(1, interfaces: interfacesDict)
-        options["_meta"] = _meta
-        trackEvent("AlsoMyEvent.Logged", withOptions: options)
+    public enum MyEventNamespaces: String {
+        case myNamespace = "MyNamespace"
+        case nestedNamespace = "Nested.Namespace"
+        case myAnotherNamespace = "MyAnotherNamespace"
     }
 
     /**
      *  Event description
      *
+     *  0. stringParam - Параметр типа String
      */
-    public func myEvent() {
+    public func myEvent(namespace: MyEventNamespaces, stringParam: String) {
         var options: [String: Any] = [:]
+        options["stringParam"] = stringParam
         let interfacesDict: [String: Any] = [:]
         let _meta = makeMeta(1, interfaces: interfacesDict)
         options["_meta"] = _meta
-        trackEvent("MyEvent", withOptions: options)
+        trackEvent(namespace + "." + "MyEvent", withOptions: options)
     }
 
 }

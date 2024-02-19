@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 package ru.yandex.kinopoisk;
 import java.util.HashMap;
@@ -64,10 +64,10 @@ public final class EvgenAnalytics {
     private PlatformParamsProvider platformParamsProvider;
     
     /**
-        Показ экрана магазина
-    
-        0. page - Название страницы
-        1. pageId - Идентификатор страницы
+     *  Показ экрана магазина
+     *
+     *  0. page - Название страницы
+     *  1. pageId - Идентификатор страницы
      */
     public void shopShowed(String page, int pageId) {
         Map<String, Object> params = new HashMap<>();
@@ -83,12 +83,12 @@ public final class EvgenAnalytics {
     }
 
     /**
-        Показ экрана магазина
-    
-        0. page - Название страницы
-        1. movieName - Название фильма
-        2. movieId - Идентификатор фильма
-        3. pageId - Идентификатор страницы
+     *  Показ экрана магазина
+     *
+     *  0. page - Название страницы
+     *  1. movieName - Название фильма
+     *  2. movieId - Идентификатор фильма
+     *  3. pageId - Идентификатор страницы
      */
     public void showcaseMovieShowed(String page, String movieName, int movieId, int pageId) {
         Map<String, Object> params = new HashMap<>();
@@ -109,11 +109,11 @@ public final class EvgenAnalytics {
     }
 
     /**
-        Показ экрана магазина
-    
-        0. page - Название страницы
-        1. movieName - Название фильма
-        2. pageId - Идентификатор страницы
+     *  Показ экрана магазина
+     *
+     *  0. page - Название страницы
+     *  1. movieName - Название фильма
+     *  2. pageId - Идентификатор страницы
      */
     public void showcaseTVShowShowed(String page, String movieName, int pageId) {
         Map<String, Object> params = new HashMap<>();

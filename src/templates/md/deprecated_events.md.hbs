@@ -8,7 +8,13 @@
 |
 {{~@index~}}
 |
-{{~this.event~}}
+{{~#unless (isEmpty additionalNamespaces)~}}
+{{~#each additionalNamespaces~}}
+{{~this}}.{{../event}}<br>
+{{~/each~}}
+{{~else~}}
+{{~event~}}
+{{~/unless~}}
 |
 {{~this.version~}}
 |

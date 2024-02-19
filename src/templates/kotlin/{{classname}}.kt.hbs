@@ -89,6 +89,14 @@ class {{classname}}(
     {{/each}}
     {{/filterFalsy}}
 
+    {{#unless (isEmpty additionalNamespaces)}}
+    enum class {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}(val eventValue: String) {
+    {{#each additionalNamespaces}}
+        {{pascalcase this}}("{{this}}"),
+    {{/each}}
+    }
+
+    {{/unless}}
     /**
     {{#each (splitByNewLine this.description)}}
      * {{this}}
@@ -98,7 +106,8 @@ class {{classname}}(
      * {{@index}}. {{this.name}} - {{this.description}}
     {{/each}}
      */
-    fun {{lowerFirstLetter this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
+    fun {{lowerFirstLetter this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({{#unless (isEmpty additionalNamespaces)}}
+        namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}},{{/unless}}
         {{#filterUndefined this.parameters 'type.Const'}}
         {{#each this}}
         {{camelcase this.name}}: {{typeFormat this~}}
@@ -122,7 +131,7 @@ class {{classname}}(
         {{/each}}
         val _meta = makeMeta({{this.version}}, interfacesDict)
         parameters["_meta"] = _meta
-        trackEvent("{{this.event}}", parameters)
+        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace + "." + {{/unless}}"{{this.event}}", parameters)
     }
 
     {{/each}}

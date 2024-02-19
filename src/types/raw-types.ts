@@ -27,6 +27,7 @@ export interface RawEvent {
     platforms?: Record<string, RawPlatform>;
     comment?: string;
     interface?: string | string[];
+    namespaces?: string[];
 }
 
 export interface RawGlobalParameters {

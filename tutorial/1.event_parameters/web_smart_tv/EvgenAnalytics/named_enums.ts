@@ -3,7 +3,6 @@
  *  This class was automatically generated.
  */
 // eslint-disable
-
 export enum Pages {
     Screen1 = 'screen_1',
     Screen2 = 'screen_2',

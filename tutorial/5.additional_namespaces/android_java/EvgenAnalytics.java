@@ -63,28 +63,28 @@ public final class EvgenAnalytics {
     private GlobalParamsProvider globalParamsProvider;
     private PlatformParamsProvider platformParamsProvider;
     
-    /**
-     *  Also event description
-     *
-     */
-    public void alsoMyEventLogged() {
-        Map<String, Object> params = new HashMap<>();
-        Map<String, Object> interfacesDict = new HashMap<>();
-        Map<String, Object> _meta = makeMeta(1, interfacesDict);
-        params.put("_meta", _meta);
-        trackEvent("AlsoMyEvent.Logged", params);
+    public enum MyEventNamespaces {
+        MYNAMESPACE("MyNamespace"),
+        NESTED.NAMESPACE("Nested.Namespace"),
+        MYANOTHERNAMESPACE("MyAnotherNamespace");
+        public final String eventValue;
+        MyEventNamespaces(String eventValue) {
+            this.eventValue = eventValue;
+        }
     }
 
     /**
      *  Event description
      *
+     *  0. stringParam - Параметр типа String
      */
-    public void myEvent() {
+    public void myEvent(MyEventNamespaces namespace, String stringParam) {
         Map<String, Object> params = new HashMap<>();
+        params.put("stringParam", stringParam);
         Map<String, Object> interfacesDict = new HashMap<>();
         Map<String, Object> _meta = makeMeta(1, interfacesDict);
         params.put("_meta", _meta);
-        trackEvent("MyEvent", params);
+        trackEvent(namespace + "." + "MyEvent", params);
     }
 
 }

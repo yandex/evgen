@@ -1,7 +1,7 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
 
 import Foundation
 
@@ -75,11 +75,11 @@ public final class EvgenAnalytics {
     }
     
     /**
-        Показ экрана магазина
-
-        0. page - Название страницы
-        1. pageId - Идентификатор страницы
-    */
+     *  Показ экрана магазина
+     *
+     *  0. page - Название страницы
+     *  1. pageId - Идентификатор страницы
+     */
     public func shopShowed(page: String, pageId: Int) {
         var options: [String: Any] = [:]
         options["page"] = page
@@ -94,13 +94,13 @@ public final class EvgenAnalytics {
     }
 
     /**
-        Показ экрана магазина
-
-        0. page - Название страницы
-        1. movieName - Название фильма
-        2. movieId - Идентификатор фильма
-        3. pageId - Идентификатор страницы
-    */
+     *  Показ экрана магазина
+     *
+     *  0. page - Название страницы
+     *  1. movieName - Название фильма
+     *  2. movieId - Идентификатор фильма
+     *  3. pageId - Идентификатор страницы
+     */
     public func showcaseMovieShowed(page: String, movieName: String, movieId: Int, pageId: Int) {
         var options: [String: Any] = [:]
         options["page"] = page
@@ -120,12 +120,12 @@ public final class EvgenAnalytics {
     }
 
     /**
-        Показ экрана магазина
-
-        0. page - Название страницы
-        1. movieName - Название фильма
-        2. pageId - Идентификатор страницы
-    */
+     *  Показ экрана магазина
+     *
+     *  0. page - Название страницы
+     *  1. movieName - Название фильма
+     *  2. pageId - Идентификатор страницы
+     */
     public func showcaseTVShowShowed(page: String, movieName: String, pageId: Int) {
         var options: [String: Any] = [:]
         options["page"] = page

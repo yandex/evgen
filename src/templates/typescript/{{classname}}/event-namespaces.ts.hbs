@@ -21,6 +21,14 @@ import { {{~join (sort (pluck this "type.Enum.name"))~}} } from "./named_enums"
 {{>enum parameter=this}}
 {{/each}}
 {{/filterFalsy}}
+{{#unless (isEmpty additionalNamespaces)}}
+export enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} {
+    {{#each additionalNamespaces}}
+    {{pascalcase this}} = '{{this}}',
+    {{/each}}
+}
+
+{{/unless}}
 /**
  * {{this.description}}
  *
@@ -36,7 +44,8 @@ export type {{pascalcase this.name}}Parameters{{#unless @root.onlyLastVersion}}{
     {{/filterFalsy}}
 };
 export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} (
-    {{snakecase @root.classname}}: {{@root.classname}},
+    {{snakecase @root.classname}}: {{@root.classname}},{{#unless (isEmpty additionalNamespaces)}}
+    namespace: {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}},{{/unless}}
     {{#unless (isEmpty (filterFalsy this.parameters 'type.Const'))}}
     parameters: {{pascalcase this.name}}Parameters{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}
     {{/unless}}
@@ -85,7 +94,7 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
         {{~/filterTruthy~}}
         {{~/if~}}
         _meta}
-    {{snakecase @root.classname}}.trackEvent("{{this.event}}", enhancedParams);
+    {{snakecase @root.classname}}.trackEvent({{#unless (isEmpty additionalNamespaces)}}`${namespace}.{{this.event}}`{{else}}"{{this.event}}"{{/unless}}, enhancedParams);
 }
 
 {{/each}}

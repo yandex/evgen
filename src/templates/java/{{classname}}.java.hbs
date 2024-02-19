@@ -121,6 +121,18 @@ public final class {{classname}} {
     {{>enum parameter=this}}
     {{/each}}
     {{/filterFalsy}}
+    {{#unless (isEmpty additionalNamespaces)}}
+    public enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} {
+        {{#each additionalNamespaces}}
+        {{upperCase this}}("{{this}}"){{#if @last}};{{else}},{{/if}}
+        {{/each}}
+        public final String eventValue;
+        {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}(String eventValue) {
+            this.eventValue = eventValue;
+        }
+    }
+
+    {{/unless}}
     /**
         {{#each (splitByNewLine description)}}
      *  {{this}}
@@ -131,6 +143,7 @@ public final class {{classname}} {
         {{/each}}
      */
     public void {{lowerFirstLetter name}}{{#gt version 1}}V{{version}}{{/gt}}(
+        {{~#unless (isEmpty additionalNamespaces)}}{{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}} namespace, {{/unless~}}
         {{~#filterUndefined parameters 'type.Const'~}}
             {{~#each this~}}
                 {{~typeFormat this}} {{camelcase name~}}
@@ -156,7 +169,7 @@ public final class {{classname}} {
         {{/each}}
         Map<String, Object> _meta = makeMeta({{version}}, interfacesDict);
         params.put("_meta", _meta);
-        trackEvent("{{event}}", params);
+        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace + "." + {{/unless}}"{{event}}", params);
     }
 
     {{/each}}

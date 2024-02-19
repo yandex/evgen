@@ -1,0 +1,49 @@
+Constants:
+
+  # Это константы по которым работает Evgen, можно работать без них
+  # но чтобы работал code completion, подсветка в IDE и не было опечаток, можно копировать их к себе в events.yaml
+  Events: &Events Events
+  parameters: &parameters parameters
+  description: &description description
+  platforms: &platforms platforms
+  app_versions: &app_versions app_versions
+  ticket: &ticket ticket
+  in_progress: &in_progress in_progress
+  type: &type type
+  namespaces: &namespaces namespaces
+  string: &string String
+  inheritance: &inheritance inheritance
+
+# Здесь определяются переменные, которые будут переиспользоваться между другими событиями
+*inheritance :
+
+    # названия платофм, для которых будет генерироваться код, должно совпадать с полем 'platform' в файле evgen.yaml
+    android: &android Android
+    ios: &ios iOS
+    web_smart_tv: &web_smart_tv WebSmartTV
+
+*Events :
+    MyEvent:
+        # Название события будет namespace + . + MyEvent, namespace будет передаваться клиентом при вызове события
+        v1:
+            *namespaces :
+                # В качестве неймспейсов можно передавать только строки
+                - MyNamespace
+                # Можно делать вложенные неймспейсы через точку
+                - Nested.Namespace
+                - MyAnotherNamespace
+            *parameters :
+                stringParam:
+                    *type : *string
+                    *description : Параметр типа String
+            *description : Event description
+            *platforms :
+                *android :
+                  *app_versions : *in_progress
+                  *ticket : https://your-tracker.com
+                *ios :
+                  *app_versions : *in_progress
+                  *ticket : https://your-tracker.com
+                *web_smart_tv :
+                  *app_versions : *in_progress
+                  *ticket : https://your-tracker.com

@@ -1,32 +1,30 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
-/**
-    eslint-disable
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
+// eslint-disable
 
 import {EvgenAnalytics} from "./evgen_analytics"
 import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
-    Показ экрана магазина
-
-    0. page - Название страницы
-    1. pageId - Идентификатор страницы
-*/
+ * Показ экрана магазина
+ *
+ *  0. page - Название страницы
+ *  1. pageId - Идентификатор страницы
+ */
+export type ShopShowedParameters = {
+    page: string;
+    pageId: number;
+};
 export function shopShowed (
     evgen_analytics: EvgenAnalytics,
-    parameters:  {
-        page: string;
-        pageId: number
-    }
-)
-{
+    parameters: ShopShowedParameters
+) {
 
-    const interfaces =  {
-        myInterfacesPage:  {
+    const interfaces = {
+        myInterfacesPage: {
             version: 1
         },
     }

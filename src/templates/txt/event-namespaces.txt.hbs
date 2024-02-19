@@ -3,7 +3,13 @@
 #start-file:{{#if this.documentationDir}}{{this.documentationDir}}/{{/if}}{{snakecase this.name}}.txt
 {{#each allVersions}}
 
-{{this.event}}
+{{#unless (isEmpty additionalNamespaces)}}
+{{#each additionalNamespaces}}
+{{this}}.{{../event}}
+{{/each}}
+{{else}}
+{{event}}
+{{/unless}}
 
     V{{this.version}}
     {{this.description}}

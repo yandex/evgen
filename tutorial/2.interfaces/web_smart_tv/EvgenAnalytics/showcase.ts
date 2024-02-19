@@ -1,39 +1,37 @@
 /**
-    AUTO-GENERATED FILE. DO NOT MODIFY
-    This class was automatically generated.
-*/
-/**
-    eslint-disable
-*/
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
+// eslint-disable
 
 import {EvgenAnalytics} from "./evgen_analytics"
 import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
-    Показ экрана магазина
-
-    0. page - Название страницы
-    1. movieName - Название фильма
-    2. movieId - Идентификатор фильма
-    3. pageId - Идентификатор страницы
-*/
+ * Показ экрана магазина
+ *
+ *  0. page - Название страницы
+ *  1. movieName - Название фильма
+ *  2. movieId - Идентификатор фильма
+ *  3. pageId - Идентификатор страницы
+ */
+export type ShowcaseMovieShowedParameters = {
+    page: string;
+    movieName: string;
+    movieId: number;
+    pageId: number;
+};
 export function showcaseMovieShowed (
     evgen_analytics: EvgenAnalytics,
-    parameters:  {
-        page: string;
-        movieName: string;
-        movieId: number;
-        pageId: number
-    }
-)
-{
+    parameters: ShowcaseMovieShowedParameters
+) {
 
-    const interfaces =  {
-        myInterfacesPage:  {
+    const interfaces = {
+        myInterfacesPage: {
             version: 1
         },
-        myInterfacesMovie:  {
+        myInterfacesMovie: {
             version: 2
         },
     }
@@ -43,27 +41,27 @@ export function showcaseMovieShowed (
 }
 
 /**
-    Показ экрана магазина
-
-    0. page - Название страницы
-    1. movieName - Название фильма
-    2. pageId - Идентификатор страницы
-*/
+ * Показ экрана магазина
+ *
+ *  0. page - Название страницы
+ *  1. movieName - Название фильма
+ *  2. pageId - Идентификатор страницы
+ */
+export type ShowcaseTVShowShowedParameters = {
+    page: string;
+    movieName: string;
+    pageId: number;
+};
 export function showcaseTVShowShowed (
     evgen_analytics: EvgenAnalytics,
-    parameters:  {
-        page: string;
-        movieName: string;
-        pageId: number
-    }
-)
-{
+    parameters: ShowcaseTVShowShowedParameters
+) {
 
-    const interfaces =  {
-        myInterfacesPage:  {
+    const interfaces = {
+        myInterfacesPage: {
             version: 1
         },
-        myInterfacesMovie:  {
+        myInterfacesMovie: {
             version: 1
         },
     }
