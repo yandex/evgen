@@ -111,11 +111,12 @@ class {{classname}}(
         {{#filterUndefined this.parameters 'type.Const'}}
         {{#each this}}
         {{camelcase this.name}}: {{typeFormat this~}}
+        {{~#or (isDefined defaultValue) optional~}}?{{~/or~}}
         {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
         {{/each}}
         {{/filterUndefined}}
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         {{#each this.parameters}}
         parameters["{{this.name}}"] = {{>variableValueFormat parameter=this}}
         {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}

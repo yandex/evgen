@@ -121,18 +121,18 @@ class EvgenAnalytics(
      * 13. listOfString - Cписок строк
      */
     fun myNamespaceMyEvent(
-        stringParam: String = "val",
-        intParam: Int = 42,
+        stringParam: String? = "val",
+        intParam: Int? = 42,
         longIntParam: Long,
-        boolParam: Boolean = true,
+        boolParam: Boolean? = true,
         doubleParam: Double,
-        enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.Option1,
-        enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int1,
+        enumParam: MyNamespaceMyEventEnumParam? = MyNamespaceMyEventEnumParam.Option1,
+        enumParamInt: MyNamespaceMyEventEnumParamInt? = MyNamespaceMyEventEnumParamInt.Int1,
         namedEnumParam: Pages,
         dictParam: Map<String, Any>,
-        listOfInt: List<Int> = listOf<Int>(),
-        listOfDouble: List<Double> = listOf<Double>(),
-        listOfString: List<String> = listOf<String>(),
+        listOfInt: List<Int>? = listOf<Int>(),
+        listOfDouble: List<Double>? = listOf<Double>(),
+        listOfString: List<String>? = listOf<String>(),
     ) {
         val parameters = mutableMapOf<String, Any>()
         parameters["stringParam"] = stringParam

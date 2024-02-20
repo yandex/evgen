@@ -176,7 +176,8 @@ public final class {{classname}} {
         {{~#filterUndefined this.parameters 'type.Const'~}}
             {{~#each this~}}
                 {{~camelcase this.name}}: {{typeFormat this~}}
-                {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+                {{~#or (isDefined defaultValue) optional~}}?{{~/or~}}
+                {{~#if (isDefined defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
                 {{~#unless @last}}, {{/unless~}}
             {{~/each~}}
         {{~/filterUndefined~}}

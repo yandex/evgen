@@ -66,7 +66,7 @@ class EvgenAnalytics(
         namespace: MyEventNamespaces,
         stringParam: String,
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         parameters["stringParam"] = stringParam
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)

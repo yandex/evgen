@@ -61,7 +61,7 @@ class EvgenAnalytics(
     fun anotherNamespaceEvent1(
         reusedParam: String,
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         parameters["reusedParam"] = reusedParam
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
@@ -78,7 +78,7 @@ class EvgenAnalytics(
     fun anotherNamespaceEvent2(
         reusedParam: String,
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         parameters["reusedParam"] = reusedParam
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
@@ -101,10 +101,10 @@ class EvgenAnalytics(
         paramFromAnotherFile: String,
         batchParam1: String,
         batchParam2: String,
-        stringParam: String = "val1",
-        intParam: Int = 42,
+        stringParam: String? = "val1",
+        intParam: Int? = 42,
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         parameters["paramFromAnotherFile"] = paramFromAnotherFile
         parameters["batchParam1"] = batchParam1
         parameters["batchParam2"] = batchParam2

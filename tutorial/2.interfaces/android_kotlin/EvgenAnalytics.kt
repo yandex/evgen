@@ -61,7 +61,7 @@ class EvgenAnalytics(
         page: String,
         pageId: Int,
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         parameters["page"] = page
         parameters["pageId"] = pageId.toString()
         val interfacesDict = HashMap<String, Any>()
@@ -88,7 +88,7 @@ class EvgenAnalytics(
         movieId: Int,
         pageId: Int,
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         parameters["page"] = page
         parameters["movieName"] = movieName
         parameters["movieId"] = movieId.toString()
@@ -118,7 +118,7 @@ class EvgenAnalytics(
         movieName: String,
         pageId: Int,
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         parameters["page"] = page
         parameters["movieName"] = movieName
         parameters["pageId"] = pageId.toString()

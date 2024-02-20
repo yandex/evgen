@@ -59,7 +59,7 @@ class EvgenAnalytics(
      */
     fun alsoMyEventLogged(
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
@@ -73,7 +73,7 @@ class EvgenAnalytics(
      */
     fun myEvent(
     ) {
-        val parameters = mutableMapOf<String, Any>()
+        val parameters = mutableMapOf<String, Any?>()
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
