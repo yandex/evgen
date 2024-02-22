@@ -4,10 +4,9 @@
     "license": "Yandex",
     "author": "Kinopoisk Frontend Team <kinopoisk-dev@yandex-team.ru>",
     "engines": {
-        "pnpm": "7.14.2",
-        "node": "18.5.0"
+        "node": ">=20"
     },
-    "packageManager": "pnpm@7.14.2",
+    "packageManager": "pnpm@7.33.6",
     "bin": {
         "evgen": "./dist/cli.js"
     },
@@ -48,7 +47,7 @@
         "@tsconfig/node18": "1.0.1",
         "@types/handlebars-helpers": "0.5.3",
         "@types/lodash": "4.14.195",
-        "@types/node": "18.14.0",
+        "@types/node": "20.11.16",
         "@typescript-eslint/eslint-plugin": "6.7.4",
         "@typescript-eslint/parser": "6.7.4",
         "eslint": "8.32.0",
