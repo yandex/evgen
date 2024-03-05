@@ -141,7 +141,7 @@ public final class EvgenAnalytics {
      *  12. listOfDouble - Список флотовых параметров
      *  13. listOfString - Cписок строк
      */
-    public func myNamespaceMyEvent(stringParam: String? = "val", intParam: Int? = 42, longIntParam: Int, boolParam: Bool? = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam? = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt? = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, dictParam: [String: Any], listOfInt: [Int]? = [], listOfDouble: [Double]? = [], listOfString: [String]? = []) {
+    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, dictParam: [String: Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = []) {
         var options: [String: Any] = [:]
         options["stringParam"] = stringParam
         options["intParam"] = "\(intParam)"

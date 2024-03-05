@@ -115,7 +115,7 @@ public final class EvgenAnalytics {
      *  4. intParam - Параметр типа Int
      *  5. сonstParam - Constant parameter
      */
-    public func myNamespaceMyEvent(paramFromAnotherFile: String, batchParam1: String, batchParam2: String, stringParam: String? = "val1", intParam: Int? = 42) {
+    public func myNamespaceMyEvent(paramFromAnotherFile: String, batchParam1: String, batchParam2: String, stringParam: String = "val1", intParam: Int = 42) {
         var options: [String: Any] = [:]
         options["paramFromAnotherFile"] = paramFromAnotherFile
         options["batchParam1"] = batchParam1

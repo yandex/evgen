@@ -39,7 +39,7 @@ export enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{
 export type {{pascalcase this.name}}Parameters{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} = {
     {{#filterFalsy this.parameters "type.Const"}}
     {{#each this}}
-    {{camelcase this.name}}{{#or (isDefined defaultValue) optional}}?{{/or}}: {{typeFormat this}};
+    {{camelcase this.name}}{{#if (isDefined this.defaultValue)}}?{{/if}}: {{typeFormat this}};
     {{/each}}
     {{/filterFalsy}}
 };
