@@ -1,8 +1,7 @@
-MyNamespace.MyEvent
-Nested.Namespace.MyEvent
-MyAnotherNamespace.MyEvent
+MyEvent
 
     V1
+    Неймспейсы: MyNamespace, Nested.Namespace, MyAnotherNamespace
     Event description
 
     0. stringParam: String - Параметр типа String

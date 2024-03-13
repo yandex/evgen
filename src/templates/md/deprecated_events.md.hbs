@@ -2,21 +2,17 @@
 {{#each this}}
 {{#unless (isEmpty deprecatedVersions)}}
 ## {{this.name}}
-| | Название события | Версия события | Параметры | Описание | Комментарий | {{join this.allPlatforms ' | '}} |
-|---:|:---|:---|:---|:---|:---|{{#each this.allPlatforms}}:---|{{/each}}
+| | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | {{join this.allPlatforms ' | '}} |
+|---:|:---|:---|:---|:---|:---|:---|{{#each this.allPlatforms}}:---|{{/each}}
 {{#each deprecatedVersions}}
 |
 {{~@index~}}
 |
-{{~#unless (isEmpty additionalNamespaces)~}}
-{{~#each additionalNamespaces~}}
-{{~this}}.{{../event}}<br>
-{{~/each~}}
-{{~else~}}
 {{~event~}}
-{{~/unless~}}
 |
 {{~this.version~}}
+|
+{{~join additionalNamespaces '<br>'~}}
 |
 {{~#each this.parameters~}}
     {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>

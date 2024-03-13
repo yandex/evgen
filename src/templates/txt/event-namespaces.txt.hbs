@@ -1,21 +1,16 @@
 {{#each eventNamespacesByDocDir}}
 {{#each this}}
-#start-file:{{#if this.documentationDir}}{{this.documentationDir}}/{{/if}}{{snakecase this.name}}.txt
+#start-file:{{#if documentationDir}}{{documentationDir}}/{{/if}}{{snakecase name}}.txt
 {{#each allVersions}}
 
-{{#unless (isEmpty additionalNamespaces)}}
-{{#each additionalNamespaces}}
-{{this}}.{{../event}}
-{{/each}}
-{{else}}
 {{event}}
-{{/unless}}
 
-    V{{this.version}}
-    {{this.description}}
+    V{{version}}
+    Неймспейсы: {{join additionalNamespaces ', '}}
+    {{description}}
 
-    {{#each this.parameters}}
-    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}} - {{this.description}}
+    {{#each parameters}}
+    {{@index}}. {{name}}: {{>typeFormat parameter=this}} - {{description}}
     {{/each}}
 {{/each}}
 {{/each}}
