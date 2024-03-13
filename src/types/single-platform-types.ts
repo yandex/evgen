@@ -12,6 +12,7 @@ export interface SinglePlatformNamespaceCollection {
     globalParameters: SinglePlatformGlobalParameters;
     platformParameters: SinglePlatformParameters;
     eventNamespaces: EventNamespace<SinglePlatformEvent>[];
+    shared: unknown;
 }
 
 export interface SinglePlatformGlobalParameters extends GlobalParameters {

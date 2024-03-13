@@ -1,3 +1,8 @@
+# Объекты, объявленные в блоке Shared в разных документах, мержатся через lodash.merge в контексте handlebars и могут использоваться в кастомных шаблонах через @root.shared
+Shared:
+    MySharedData:
+        default_description: &defaultDescription Параметр, который переиспользуется в нескольких событиях
+
 Events:
     AnotherNamespace:
         # документацию для неймспейсов можно складывать в папки,
@@ -10,7 +15,7 @@ Events:
             # важен отступ
                 reusedParam:  # собственно название параметра, которое будет использоваться при генерации
                     type: String
-                    description: Параметр, который переиспользуется в нескольких событиях
+                    description: *defaultDescription
 
         Event1:
             v1:

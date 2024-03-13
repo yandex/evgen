@@ -1,3 +1,13 @@
+# Этот shared блок смержится с таким же блоком из another_namespace.yaml и в итоге в контексте handlebars будет следующий объект:
+#
+# MySharedData:
+#   default_description: Параметр, который переиспользуется в нескольких событиях
+#   default_int: 42
+#
+Shared:
+    MySharedData:
+        default_int: &default_int 42
+
 Events:
     MyNamespace:
         MyEvent:
@@ -11,7 +21,7 @@ Events:
                     intParam:
                         type: Int
                         description: Параметр типа Int
-                        default_value: 42
+                        default_value: *default_int
                     сonstParam:
                         type:
                             # to include scalar value from another file you need to specify tag "!include"

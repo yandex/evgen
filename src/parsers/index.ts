@@ -6,6 +6,7 @@ import { RawEvents } from '../types/raw-types';
 import {
     EVENTS_FIELD,
     GLOBAL_PARAMETERS_FIELD,
+    SHARED_FIELD,
     INTERFACES_FIELD,
     PLATFORM_PARAMETERS_FIELD,
 } from './constants';
@@ -75,5 +76,6 @@ export const parseEvents = (rawEvents: RawEvents): NamespaceCollection => {
         platformParameters,
         eventNamespaces,
         interfaceNamespaces,
+        shared: rawEvents[SHARED_FIELD],
     };
 };

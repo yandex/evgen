@@ -1,6 +1,7 @@
 import {
     EVENTS_FIELD,
     GLOBAL_PARAMETERS_FIELD,
+    SHARED_FIELD,
     INTERFACES_FIELD,
     PLATFORM_PARAMETERS_FIELD,
 } from '../parsers/constants';
@@ -55,4 +56,5 @@ export interface RawEvents {
     [PLATFORM_PARAMETERS_FIELD]?: Record<string, RawPlatformParameters>;
     [EVENTS_FIELD]: Record<string, NestedRecord<NestedRecord<RawEvent>>>;
     [INTERFACES_FIELD]?: Record<string, NestedRecord<NestedRecord<RawInterface>>>;
+    [SHARED_FIELD]?: unknown;
 }

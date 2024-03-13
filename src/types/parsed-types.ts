@@ -5,6 +5,7 @@ export interface NamespaceCollection {
     platformParameters: Record<string, PlatformParameters>;
     eventNamespaces: EventNamespace<Event>[];
     interfaceNamespaces: Record<string, InterfaceVersion[]>;
+    shared: unknown;
 }
 
 export interface GlobalParameters {

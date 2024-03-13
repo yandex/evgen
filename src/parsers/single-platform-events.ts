@@ -51,6 +51,7 @@ export const singlePlatformEvents = (
                 };
             })
             .filter((namespace) => namespace.events.length),
+        shared: events.shared,
     };
 };
 
