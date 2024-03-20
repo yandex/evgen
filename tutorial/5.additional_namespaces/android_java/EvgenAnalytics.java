@@ -65,7 +65,7 @@ public final class EvgenAnalytics {
     
     public enum MyEventNamespaces {
         MYNAMESPACE("MyNamespace"),
-        NESTED.NAMESPACE("Nested.Namespace"),
+        NESTED_NAMESPACE("Nested.Namespace"),
         MYANOTHERNAMESPACE("MyAnotherNamespace");
         public final String eventValue;
         MyEventNamespaces(String eventValue) {

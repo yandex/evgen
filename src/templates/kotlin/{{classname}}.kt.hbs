@@ -131,7 +131,7 @@ class {{classname}}(
         {{/each}}
         val _meta = makeMeta({{this.version}}, interfacesDict)
         parameters["_meta"] = _meta
-        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace + "." + {{/unless}}"{{this.event}}", parameters)
+        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + "." + {{/unless}}"{{this.event}}", parameters)
     }
 
     {{/each}}

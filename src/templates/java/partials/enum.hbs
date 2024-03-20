@@ -2,9 +2,9 @@
 public enum {{typeFormat parameter}} {
     {{#each parameter.type.Enum.values}}
     {{#if (isNumber this)}}
-    INT_{{upperCase this}}("{{this}}"),
+    INT_{{upperCase (replace this '.' '_')}}("{{this}}"),
     {{else}}
-    {{upperCase this}}("{{this}}"){{#if @last}};{{else}},{{/if}}
+    {{upperCase (replace this '.' '_')}}("{{this}}"){{#if @last}};{{else}},{{/if}}
     {{/if}}
     {{/each}}
     public final String eventValue;

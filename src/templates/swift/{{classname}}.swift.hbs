@@ -201,7 +201,7 @@ public final class {{classname}} {
         {{/each}}
         let _meta = makeMeta({{this.version}}, interfaces: interfacesDict)
         options["_meta"] = _meta
-        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace + "." + {{/unless}}"{{this.event}}", withOptions: options)
+        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.rawValue + "." + {{/unless}}"{{this.event}}", withOptions: options)
     }
 
     {{/each}}

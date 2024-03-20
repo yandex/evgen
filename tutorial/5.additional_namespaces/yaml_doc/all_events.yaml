@@ -1,0 +1,19 @@
+.GlobalParams:
+  parameters:
+Events:
+  MyNamespace.MyEvent:
+    v1:
+      parameters:
+        stringParam:
+          type: String
+  Nested.Namespace.MyEvent:
+    v1:
+      parameters:
+        stringParam:
+          type: String
+  MyAnotherNamespace.MyEvent:
+    v1:
+      parameters:
+        stringParam:
+          type: String
+Interfaces: {}

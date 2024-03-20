@@ -71,7 +71,7 @@ class EvgenAnalytics(
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
-        trackEvent(namespace + "." + "MyEvent", parameters)
+        trackEvent(namespace.toString() + "." + "MyEvent", parameters)
     }
 
 }

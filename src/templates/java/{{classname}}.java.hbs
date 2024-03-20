@@ -124,7 +124,7 @@ public final class {{classname}} {
     {{#unless (isEmpty additionalNamespaces)}}
     public enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} {
         {{#each additionalNamespaces}}
-        {{upperCase this}}("{{this}}"){{#if @last}};{{else}},{{/if}}
+        {{upperCase (replace this '.' '_')}}("{{this}}"){{#if @last}};{{else}},{{/if}}
         {{/each}}
         public final String eventValue;
         {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}(String eventValue) {

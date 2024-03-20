@@ -91,7 +91,7 @@ public final class EvgenAnalytics {
         let interfacesDict: [String: Any] = [:]
         let _meta = makeMeta(1, interfaces: interfacesDict)
         options["_meta"] = _meta
-        trackEvent(namespace + "." + "MyEvent", withOptions: options)
+        trackEvent(namespace.rawValue + "." + "MyEvent", withOptions: options)
     }
 
 }

@@ -212,5 +212,6 @@
   "tutorial/5.additional_namespaces/txt_doc/__global_params.txt":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/txt_doc/__global_params.txt",
   "tutorial/5.additional_namespaces/txt_doc/my_event.txt":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/txt_doc/my_event.txt",
   "tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/evgen_analytics.ts":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/evgen_analytics.ts",
-  "tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/my_event.ts":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/my_event.ts"
+  "tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/my_event.ts":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/my_event.ts",
+  "tutorial/5.additional_namespaces/yaml_doc/all_events.yaml":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/yaml_doc/all_events.yaml"
 }
