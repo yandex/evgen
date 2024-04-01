@@ -66,6 +66,20 @@ class EvgenAnalytics(
 
 
     /**
+     * Forced Event Name
+     *
+     */
+    fun forcedNamesMyCustomEvent(
+    ) {
+        val parameters = mutableMapOf<String, Any>()
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(1, interfacesDict)
+        parameters["_meta"] = _meta
+        trackEvent("my-custom-event-name", parameters)
+    }
+
+
+    /**
      * Event description
      *
      */

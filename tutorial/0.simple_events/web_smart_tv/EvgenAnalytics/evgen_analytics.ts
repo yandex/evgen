@@ -22,6 +22,7 @@ export interface MetaParams<I extends Record<string, any>> {
     }
     interfaces: I    
 }
+
 export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParams<typeof interfaces>  {
     return {
         event: {
@@ -30,6 +31,7 @@ export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParam
         interfaces,
     }
 }
+
 interface GlobalParams {
 }
 
@@ -39,6 +41,7 @@ interface PlatformParams {
 export interface EvgenAnalytics {
     trackEvent: EvgenAnalyticsTracker['trackEvent']
 }
+
 export function createEvgenAnalytics (
     eventTracker: EvgenAnalyticsTracker,
     globalParamsProvider: EvgenAnalyticsGlobalParamsProvider,
@@ -50,8 +53,8 @@ export function createEvgenAnalytics (
             ...parameters,
             ...globalParamsProvider.getGlobalParams(),
             ...platformParamsProvider.getPlatformParams(),
-        }
-        eventTracker.trackEvent(event, mergedParameters)
+        };
+        eventTracker.trackEvent(event, mergedParameters);
     }
-    return {trackEvent,}
+    return { trackEvent };
 }

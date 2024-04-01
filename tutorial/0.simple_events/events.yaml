@@ -81,3 +81,21 @@ Constants:
                     *web_smart_tv :
                       *app_versions : *in_progress
                       *ticket : https://your-tracker.com
+
+    ForcedNames:
+        MyCustomEvent:
+            v1:
+                force_event_name: my-custom-event-name
+                *parameters :
+                *description : Forced Event Name
+                *comment : Если нужно, чтобы в качестве имени события вместо конкатенированных через точку неймспесов было какое-то кастомное значение, то можно использовать поле "force_event_name"
+                *platforms :
+                    *android :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *ios :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *web_smart_tv :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com

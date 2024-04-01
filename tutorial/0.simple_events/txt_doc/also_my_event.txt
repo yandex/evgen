@@ -1,5 +1,5 @@
 AlsoMyEvent.Logged
 
     V1
+    Неймспейсы: 
     Also event description
-

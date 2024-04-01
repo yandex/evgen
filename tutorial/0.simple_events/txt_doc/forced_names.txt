@@ -1,0 +1,6 @@
+my-custom-event-name
+
+    V1
+    Неймспейсы: 
+    Forced Event Name
+

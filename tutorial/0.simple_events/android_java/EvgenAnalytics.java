@@ -76,6 +76,18 @@ public final class EvgenAnalytics {
     }
 
     /**
+     *  Forced Event Name
+     *
+     */
+    public void forcedNamesMyCustomEvent() {
+        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(1, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("my-custom-event-name", params);
+    }
+
+    /**
      *  Event description
      *
      */

@@ -97,7 +97,7 @@ const parseEventVersions = (
                 {
                     name,
                     namespace,
-                    event: namespaceParts.join('.'),
+                    event: value.force_event_name || namespaceParts.join('.'),
                     version,
                     parameters: parseParameters(value.parameters, name, version),
                     description: value.description || '',

@@ -87,6 +87,18 @@ public final class EvgenAnalytics {
     }
 
     /**
+     *  Forced Event Name
+     *
+     */
+    public func forcedNamesMyCustomEvent() {
+        var options: [String: Any] = [:]
+        let interfacesDict: [String: Any] = [:]
+        let _meta = makeMeta(1, interfaces: interfacesDict)
+        options["_meta"] = _meta
+        trackEvent("my-custom-event-name", withOptions: options)
+    }
+
+    /**
      *  Event description
      *
      */
