@@ -12,6 +12,13 @@ public final class {{classname}} {
     {{#each globalParameters.parameters}}
     {{>enum parameter=this}}
     {{/each}}
+    {{#unless (isEmpty globalParameters.parameters)}}
+    /**
+    {{#each globalParameters.parameters}}
+     * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+    {{/each}}
+     */
+    {{/unless}}
     public static final class GlobalParams {
         {{#each globalParameters.parameters}}
         {{#unless (isConst type)}}
@@ -40,9 +47,18 @@ public final class {{classname}} {
         }
     }
     
+    {{#if platformParameters}}
     {{#each platformParameters.parameters}}
     {{>enum parameter=this}}
     {{/each}}
+    {{#unless (isEmpty platformParameters.parameters)}}
+    /**
+    {{#each platformParameters.parameters}}
+     * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+    {{/each}}
+     */
+    {{/unless}}
+    {{/if}}
     public static final class PlatformParams {
         {{#each platformParameters.parameters}}
         {{#unless (isConst type)}}

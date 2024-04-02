@@ -19,6 +19,13 @@ interface {{classname}}PlatformParamsProvider {
 {{#each globalParameters.parameters}}
 {{>enum parameter=this}}
 {{/each}}
+{{#unless (isEmpty globalParameters.parameters)}}
+/**
+{{#each globalParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
 class {{classname}}GlobalParams(
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
@@ -38,6 +45,13 @@ class {{classname}}GlobalParams(
 {{#each platformParameters.parameters}}
 {{>enum parameter=this}}
 {{/each}}
+{{#unless (isEmpty platformParameters.parameters)}}
+/**
+{{#each platformParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
 {{/if}}
 class {{classname}}PlatformParams(
     {{#each platformParameters.parameters}}

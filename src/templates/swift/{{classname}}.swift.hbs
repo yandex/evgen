@@ -20,6 +20,13 @@ public protocol {{classname}}PlatformParamsProvider: AnyObject {
 {{#each globalParameters.parameters}}
 {{>enum parameter=this}}
 {{/each}}
+{{#unless (isEmpty globalParameters.parameters)}}
+/**
+{{#each globalParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
 public struct {{classname}}GlobalParams {
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
@@ -64,6 +71,13 @@ public struct {{classname}}GlobalParams {
 {{#each platformParameters.parameters}}
 {{>enum parameter=this}}
 {{/each}}
+{{#unless (isEmpty platformParameters.parameters)}}
+/**
+{{#each platformParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
 {{/if}}
 public struct {{classname}}PlatformParams {
     {{#if platformParameters}}

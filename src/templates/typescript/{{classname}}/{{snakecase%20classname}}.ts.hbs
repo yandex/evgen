@@ -22,6 +22,7 @@ export interface MetaParams<I extends Record<string, any>> {
     }
     interfaces: I    
 }
+
 export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParams<typeof interfaces>  {
     return {
         event: {
@@ -30,9 +31,17 @@ export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParam
         interfaces,
     }
 }
+
 {{#each globalParameters.parameters}}
 {{>enum parameter=this}}
 {{/each}}
+{{#unless (isEmpty globalParameters.parameters)}}
+/**
+{{#each globalParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
 interface GlobalParams {
     {{#each globalParameters.parameters}}
     {{camelcase this.name}}: {{typeFormat this}}
@@ -43,6 +52,13 @@ interface GlobalParams {
 {{#each platformParameters.parameters}}
 {{>enum parameter=this}}
 {{/each}}
+{{#unless (isEmpty platformParameters.parameters)}}
+/**
+{{#each platformParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
 {{/if}}
 interface PlatformParams {
     {{#if platformParameters}}
@@ -55,6 +71,7 @@ interface PlatformParams {
 export interface {{classname}} {
     trackEvent: {{classname}}Tracker['trackEvent']
 }
+
 export function create{{classname}} (
     eventTracker: {{classname}}Tracker,
     globalParamsProvider: {{classname}}GlobalParamsProvider,
@@ -66,8 +83,8 @@ export function create{{classname}} (
             ...parameters,
             ...globalParamsProvider.getGlobalParams(),
             ...platformParamsProvider.getPlatformParams(),
-        }
-        eventTracker.trackEvent(event, mergedParameters)
+        };
+        eventTracker.trackEvent(event, mergedParameters);
     }
-    return {trackEvent,}
+    return { trackEvent };
 }

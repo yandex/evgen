@@ -16,6 +16,9 @@ interface EvgenAnalyticsPlatformParamsProvider {
     fun getPlatformParams(): EvgenAnalyticsPlatformParams
 }
 
+/**
+ * 0. globalParam - Глобальный параметр, который добавится к каждому событию
+ */
 class EvgenAnalyticsGlobalParams(
     globalParam: String,
 ) {

@@ -17,6 +17,9 @@ public final class EvgenAnalytics {
         }
     }
     
+    /**
+     * 0. appVersion - Версия приложения
+     */
     public static final class PlatformParams {
         public String appVersion;
         public Map<String, Object> paramsMap;

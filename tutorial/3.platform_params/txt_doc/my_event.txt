@@ -1,5 +1,6 @@
 MyEvent
 
     V1
+    Неймспейсы: 
     Event description
 

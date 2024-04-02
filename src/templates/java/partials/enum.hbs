@@ -2,7 +2,7 @@
 public enum {{typeFormat parameter}} {
     {{#each parameter.type.Enum.values}}
     {{#if (isNumber this)}}
-    INT_{{upperCase (replace this '.' '_')}}("{{this}}"),
+    INT_{{this}}("{{this}}"),
     {{else}}
     {{upperCase (replace this '.' '_')}}("{{this}}"){{#if @last}};{{else}},{{/if}}
     {{/if}}

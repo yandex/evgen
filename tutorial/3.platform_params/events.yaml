@@ -54,6 +54,12 @@ Constants:
                 *type : *bool
                 *description : Есть ли у пользователя подписка
 
+    *web_smart_tv :
+        *description : Эти параметры добавляются к параметрам, отправленных со смарт-ТВ
+        *parameters :
+            tvModel:
+                *type : *string
+                *description : Модель ТВ
 
 *Events :
     MyEvent:

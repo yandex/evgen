@@ -28,6 +28,9 @@ public struct EvgenAnalyticsGlobalParams {
     }
 }
 
+/**
+ * 0. hasSubscription - Есть ли у пользователя подписка
+ */
 public struct EvgenAnalyticsPlatformParams {
     public var hasSubscription: Bool
     

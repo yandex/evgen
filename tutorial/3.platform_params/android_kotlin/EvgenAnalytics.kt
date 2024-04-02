@@ -22,6 +22,9 @@ class EvgenAnalyticsGlobalParams(
     )
 }
 
+/**
+ * 0. appVersion - Версия приложения
+ */
 class EvgenAnalyticsPlatformParams(
     appVersion: String,
 ) {

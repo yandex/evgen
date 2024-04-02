@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.List;
 
 public final class EvgenAnalytics {
+    /**
+     * 0. globalParam - Глобальный параметр, который добавится к каждому событию
+     */
     public static final class GlobalParams {
         public String globalParam;
         public Map<String, Object> paramsMap;
