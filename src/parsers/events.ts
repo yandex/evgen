@@ -74,7 +74,7 @@ const parseEventVersions = (
     node: NestedRecord<NestedRecord<RawEvent>>
 ): EventVersion[] => {
     const namespace = namespaceParts.length > 0 ? namespaceParts[0] : DEFAULT_NAMESPACE_NAME;
-    return Object.entries(node).flatMap(([key, value]) => {
+    return Object.entries(node).flatMap(([key, value]: [string, NestedRecord<RawEvent>]) => {
         const versionKeyMatch = key.match(VERSION_PATTERN);
         if (versionKeyMatch && versionKeyMatch[1] && isEventNode(value)) {
             const name = namespaceParts.join('');

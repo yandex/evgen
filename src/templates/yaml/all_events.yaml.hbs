@@ -14,12 +14,10 @@
   {{/each}}
 {{/unless}}
 Events:
-  {{#each (sortBy eventNamespaces 'name')}}
-  {{#each (sortBy events 'versions.0.event')}}
-  {{#unless (isEmpty versions)}}
-  {{#each versions}}
-  {{#if (isEmpty additionalNamespaces)}}
-  {{event}}:
+  {{#each allVersionsByEvent}}
+  {{#unless (isEmpty this)}}
+  {{@key}}:
+    {{#each this}}
     v{{version}}:
       {{#unless (isEmpty interfaces)}}
       interface:
@@ -31,25 +29,8 @@ Events:
         {{#each (sortBy parameters 'name')}}
         {{>parameterFormat parameter=this}}
         {{/each}}
-  {{else}}
-  {{#each additionalNamespaces}}
-  {{this}}.{{../event}}:
-    v{{../version}}:
-      {{#unless (isEmpty ../interfaces)}}
-      interface:
-      {{#each ../interfaces}}
-      - {{@key}}
-      {{/each}}
-      {{/unless}}
-      parameters:{{#if (isEmpty ../parameters)}} {}{{/if}}
-        {{#each (sortBy ../parameters 'name')}}
-        {{>parameterFormat parameter=this}}
-        {{/each}}
-  {{/each}}
-  {{/if}}
-  {{/each}}
+    {{/each}}
   {{/unless}}
-  {{/each}}
   {{/each}}
 Interfaces:{{#if (isEmpty interfaceNamespaces)}} {}{{/if}}
   {{#each (sortBy (entries interfaceNamespaces) 'key')}}

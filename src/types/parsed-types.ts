@@ -43,6 +43,7 @@ export interface EventData {
     event: string;
     name: string;
     namespace: string;
+    additionalNamespaces: string[];
     version: number;
     description: string;
     interfaces: Record<string, number>;

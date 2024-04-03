@@ -5,7 +5,7 @@ import { groupBy, sortBy, uniq, uniqBy } from 'lodash';
 
 import { compileTemplates } from './compiler';
 import { CodeLanguage } from './types/evgen-config';
-import { EventNamespace, Event, NamespaceCollection } from './types/parsed-types';
+import { EventNamespace, Event, NamespaceCollection, EventVersion } from './types/parsed-types';
 import { SinglePlatformNamespaceCollection } from './types/single-platform-types';
 
 const DEFAULT_CLASS_NAME = 'EvgenAnalytics';
@@ -56,8 +56,28 @@ export const generateEventsDocs = async (events: NamespaceCollection, options: G
         sortBy(events.eventNamespaces.map(extendNamespaceData), 'documentationDir'),
         'documentationDir'
     );
+
+    const allVersionsByEvent: Record<string, EventVersion[]> = {};
+    sortBy(events.eventNamespaces, 'name').forEach((namespace) => {
+        namespace.events.forEach((namespaceEvents) => {
+            namespaceEvents.versions.forEach((version) => {
+                const eventNames = version.additionalNamespaces.length
+                    ? version.additionalNamespaces.map(
+                          (namespace) => `${namespace}.${version.event}`
+                      )
+                    : [version.event];
+                eventNames.forEach((eventName) => {
+                    allVersionsByEvent[eventName] = allVersionsByEvent[eventName]
+                        ? [...allVersionsByEvent[eventName], version]
+                        : [version];
+                });
+            });
+        });
+    });
+
     const ctx = {
         ...events,
+        allVersionsByEvent,
         eventNamespacesByDocDir,
     };
 
