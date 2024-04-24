@@ -3,10 +3,14 @@
     "version": "1.33.0",
     "license": "Yandex",
     "author": "Kinopoisk Frontend Team <kinopoisk-dev@yandex-team.ru>",
+    "repository": {
+        "type": "arc",
+        "url": "https://a.yandex-team.ru/arcadia/kinopoisk/frontend/packages/evgen"
+    },
     "engines": {
         "node": ">=20"
     },
-    "packageManager": "pnpm@7.33.6",
+    "packageManager": "pnpm@8.15.6",
     "bin": {
         "evgen": "./dist/cli.js"
     },
