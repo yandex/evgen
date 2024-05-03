@@ -1,5 +1,9 @@
 import { HelperOptions } from 'handlebars';
-import { get } from 'lodash';
+import { get, isObject } from 'lodash';
+import { ParameterType, TypedList } from '../types/data-types';
+
+export const isTypedList = (type: ParameterType): type is TypedList =>
+    isObject((type as TypedList).List);
 
 export const filterTruthy = (array: [], prop: string, options: HelperOptions) => {
     const filteredArray = array.filter((val) => (prop ? get(val, prop) : val));

@@ -1,6 +1,6 @@
 import { PrimitiveType, SinglePlatformParameterType } from '../../types/data-types';
 import { EventParameter } from '../../types/parsed-types';
-import { pascalCase, isEnum, isConst } from '../../helpers';
+import { pascalCase, isEnum, isConst, isTypedDict, isTypedList } from '../../helpers';
 
 export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType>): string => {
     const { type, elementType, namespace, version, name } = parameter;
@@ -26,6 +26,30 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
             if (isConst(type)) {
                 return `"${type.Const}"`;
             }
+            if (isTypedList(type)) {
+                return `{ ${Object.entries(type.List)
+                    .map(
+                        ([key, value]) =>
+                            `${key}: ${typeFormat({
+                                ...parameter,
+                                elementType: undefined,
+                                type: value,
+                            })};`
+                    )
+                    .join(' ')} }[]`;
+            }
+            if (isTypedDict(type)) {
+                return `{ ${Object.entries(type.Dict)
+                    .map(
+                        ([key, value]) =>
+                            `${key}: ${typeFormat({
+                                ...parameter,
+                                elementType: undefined,
+                                type: value,
+                            })};`
+                    )
+                    .join(' ')} }`;
+            }
             throw new Error(`Unknown type: ${JSON.stringify(type)}`);
     }
 };
@@ -47,9 +71,6 @@ const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
         case 'List':
             return '[]';
         default:
-            if (isEnum(primitiveType)) {
-                return primitiveType.Enum.name || '';
-            }
             throw new Error(`Unknown type: ${JSON.stringify(primitiveType)}`);
     }
 };

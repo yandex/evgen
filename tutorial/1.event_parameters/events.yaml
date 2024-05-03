@@ -112,6 +112,25 @@ Constants:
                         *type : *dict
                         *description : параметр типа Dict.
                         # default values for dictionaries are not supported
+                    typedDictParam:
+                        *description : типизированный Dict.
+                        *type :
+                            *dict :
+                                stringParam: *string
+                                typedListParam:
+                                    *list :
+                                        intParam: *int
+                                        boolParam: *bool
+
+                    typedListParam:
+                        *description : типизированный List.
+                        *type :
+                            *list :
+                                stringParam: *string
+                                typedDictParam:
+                                    *dict :
+                                        intParam: *int
+                                        boolParam: *bool
 
                     platformConst:
                         *type :

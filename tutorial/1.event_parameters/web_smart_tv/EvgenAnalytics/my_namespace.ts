@@ -34,10 +34,12 @@ export enum MyNamespaceMyEventEnumParamInt {
  *  7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
  *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
  *  9. dictParam - параметр типа Dict.
- *  10. platformConst [const] - Платформозависимая константа
- *  11. listOfInt - Список целочисленных параметров
- *  12. listOfDouble - Список флотовых параметров
- *  13. listOfString - Cписок строк
+ *  10. typedDictParam - типизированный Dict.
+ *  11. typedListParam - типизированный List.
+ *  12. platformConst [const] - Платформозависимая константа
+ *  13. listOfInt - Список целочисленных параметров
+ *  14. listOfDouble - Список флотовых параметров
+ *  15. listOfString - Cписок строк
  */
 export type MyNamespaceMyEventParameters = {
     stringParam?: string;
@@ -49,6 +51,8 @@ export type MyNamespaceMyEventParameters = {
     enumParamInt?: MyNamespaceMyEventEnumParamInt;
     namedEnumParam: Pages;
     dictParam: Record<string, any>;
+    typedDictParam: { stringParam: string; typedListParam: { intParam: number; boolParam: boolean; }[]; };
+    typedListParam: { stringParam: string; typedDictParam: { intParam: number; boolParam: boolean; }; }[];
     listOfInt?: number[];
     listOfDouble?: number[];
     listOfString?: string[];

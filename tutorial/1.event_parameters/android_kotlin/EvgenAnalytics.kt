@@ -118,10 +118,12 @@ class EvgenAnalytics(
      * 7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
      * 8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
      * 9. dictParam - параметр типа Dict.
-     * 10. platformConst - Платформозависимая константа
-     * 11. listOfInt - Список целочисленных параметров
-     * 12. listOfDouble - Список флотовых параметров
-     * 13. listOfString - Cписок строк
+     * 10. typedDictParam - типизированный Dict.
+     * 11. typedListParam - типизированный List.
+     * 12. platformConst - Платформозависимая константа
+     * 13. listOfInt - Список целочисленных параметров
+     * 14. listOfDouble - Список флотовых параметров
+     * 15. listOfString - Cписок строк
      */
     fun myNamespaceMyEvent(
         stringParam: String = "val",
@@ -133,6 +135,8 @@ class EvgenAnalytics(
         enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int1,
         namedEnumParam: Pages,
         dictParam: Map<String, Any>,
+        typedDictParam: Map<String, Any>,
+        typedListParam: List<Any>,
         listOfInt: List<Int> = listOf<Int>(),
         listOfDouble: List<Double> = listOf<Double>(),
         listOfString: List<String> = listOf<String>(),
@@ -148,6 +152,8 @@ class EvgenAnalytics(
         parameters["enumParamInt"] = enumParamInt.eventValue
         parameters["namedEnumParam"] = namedEnumParam.eventValue
         parameters["dictParam"] = dictParam
+        parameters["typedDictParam"] = typedDictParam
+        parameters["typedListParam"] = typedListParam
         parameters["platformConst"] = "AndroidValue"
         parameters["listOfInt"] = listOfInt
         parameters["listOfDouble"] = listOfDouble

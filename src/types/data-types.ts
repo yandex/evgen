@@ -9,6 +9,14 @@ export type EnumType = {
     };
 };
 
+export type TypedDict = {
+    Dict: { [k: string]: PrimitiveType };
+};
+
+export type TypedList = {
+    List: { [k: string]: PrimitiveType };
+};
+
 export type PrimitiveType =
     | 'String'
     | 'Int'
@@ -17,9 +25,13 @@ export type PrimitiveType =
     | 'Double'
     | 'TimeMilliseconds'
     | 'Dict'
-    | 'List'
-    | EnumType;
+    | 'List';
 
-export type SinglePlatformParameterType = PrimitiveType | ConstType;
+export type SinglePlatformParameterType =
+    | PrimitiveType
+    | ConstType
+    | TypedDict
+    | TypedList
+    | EnumType;
 
 export type ParameterType = SinglePlatformParameterType | PlatformConstType;
