@@ -6,6 +6,7 @@ import { NestedRecord, RawEvent } from '../types/raw-types';
 import { parseParameters } from './event-parameters';
 import { parsePlatforms } from './platforms';
 import { VERSION_PATTERN } from './constants';
+import { upperFirstLetter } from '../helpers';
 
 const DEFAULT_NAMESPACE_NAME = 'Singletons';
 
@@ -77,7 +78,7 @@ const parseEventVersions = (
     return Object.entries(node).flatMap(([key, value]: [string, NestedRecord<RawEvent>]) => {
         const versionKeyMatch = key.match(VERSION_PATTERN);
         if (versionKeyMatch && versionKeyMatch[1] && isEventNode(value)) {
-            const name = namespaceParts.join('');
+            const name = namespaceParts.map(upperFirstLetter).join('');
 
             const version = parseInt(versionKeyMatch[1], 10);
 
