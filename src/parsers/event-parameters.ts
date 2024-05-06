@@ -17,7 +17,7 @@ export const parseParameters = (
             namespace,
             version,
             type: parameter.type,
-            description: (parameter.description || '').replaceAll('\n', ''),
+            description: (parameter.description || '').replaceAll('\n', ' '),
             defaultValue: parameter.default_value,
             abstract: parameter.abstract || false,
             optional: parameter.optional || false,
