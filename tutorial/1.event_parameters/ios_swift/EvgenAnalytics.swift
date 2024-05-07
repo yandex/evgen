@@ -80,6 +80,12 @@ public final class EvgenAnalytics {
         return metaDict
     }
     
+    public enum MyNamespaceMyEventEnumParam: String {
+        case option1 = "option1"
+        case option2 = "option2"
+        case option3 = "option3"
+    }
+    
     public enum Pages: String {
         case screen1 = "screen_1"
         case screen2 = "screen_2"
@@ -114,12 +120,6 @@ public final class EvgenAnalytics {
         trackEvent("AnotherNamespace.Event2", withOptions: options)
     }
 
-    public enum MyNamespaceMyEventEnumParam: String {
-        case option1 = "option1"
-        case option2 = "option2"
-        case option3 = "option3"
-    }
-    
     public enum MyNamespaceMyEventEnumParamInt: String {
         int1 = 1,
         int2 = 2,
@@ -135,18 +135,20 @@ public final class EvgenAnalytics {
      *  3. boolParam - Параметр типа Bool
      *  4. doubleParam - Параметр типа Double
      *  5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
-     *  6. enumParam - Параметр типа Enum. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-     *  7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-     *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
+     *  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+     *  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+     *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
      *  9. dictParam - параметр типа Dict.
-     *  10. typedDictParam - типизированный Dict.
-     *  11. typedListParam - типизированный List.
-     *  12. platformConst - Платформозависимая константа
-     *  13. listOfInt - Список целочисленных параметров
-     *  14. listOfDouble - Список флотовых параметров
-     *  15. listOfString - Cписок строк
+     *  10. dictElementType - параметр типа Dict енумов.
+     *  11. typedDictParam - типизированный Dict.
+     *  12. typedListParam - типизированный List.
+     *  13. platformConst - Платформозависимая константа
+     *  14. listOfInt - Список целочисленных параметров
+     *  15. listOfDouble - Список флотовых параметров
+     *  16. listOfString - Cписок строк
+     *  17. listOfEnum - Cписок енумов
      */
-    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, dictParam: [String: Any], typedDictParam: [String: Any], typedListParam: [Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = []) {
+    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, dictParam: [String: Any], dictElementType: [String: MyNamespaceMyEventEnumParam], typedDictParam: [String: Any], typedListParam: [Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = [], listOfEnum: [MyNamespaceMyEventEnumParam] = []) {
         var options: [String: Any] = [:]
         options["stringParam"] = stringParam
         options["intParam"] = "\(intParam)"
@@ -162,12 +164,14 @@ public final class EvgenAnalytics {
         options["enumParamInt"] = enumParamInt.rawValue
         options["namedEnumParam"] = namedEnumParam.rawValue
         options["dictParam"] = dictParam
+        options["dictElementType"] = dictElementType
         options["typedDictParam"] = typedDictParam
         options["typedListParam"] = typedListParam
         options["platformConst"] = "iOSValue"
         options["listOfInt"] = listOfInt
         options["listOfDouble"] = listOfDouble
         options["listOfString"] = listOfString
+        options["listOfEnum"] = listOfEnum
         let interfacesDict: [String: Any] = [:]
         let _meta = makeMeta(1, interfaces: interfacesDict)
         options["_meta"] = _meta

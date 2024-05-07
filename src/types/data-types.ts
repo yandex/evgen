@@ -25,13 +25,9 @@ export type PrimitiveType =
     | 'Double'
     | 'TimeMilliseconds'
     | 'Dict'
-    | 'List';
-
-export type SinglePlatformParameterType =
-    | PrimitiveType
-    | ConstType
-    | TypedDict
-    | TypedList
+    | 'List'
     | EnumType;
+
+export type SinglePlatformParameterType = PrimitiveType | ConstType | TypedDict | TypedList;
 
 export type ParameterType = SinglePlatformParameterType | PlatformConstType;

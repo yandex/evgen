@@ -37,6 +37,9 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
 };
 
 export const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
+    if (isEnum(primitiveType)) {
+        return primitiveType.Enum.name || '?';
+    }
     switch (primitiveType) {
         case 'String':
             return 'String';

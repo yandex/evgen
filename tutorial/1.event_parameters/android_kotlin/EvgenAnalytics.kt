@@ -55,6 +55,11 @@ class EvgenAnalytics(
         return metaDict
     }
 
+    enum class MyNamespaceMyEventEnumParam(val eventValue: String) {
+        Option1("option1"),
+        Option2("option2"),
+        Option3("option3"),
+    }
     enum class Pages(val eventValue: String) {
         Screen1("screen_1"),
         Screen2("screen_2"),
@@ -94,11 +99,6 @@ class EvgenAnalytics(
         trackEvent("AnotherNamespace.Event2", parameters)
     }
 
-    enum class MyNamespaceMyEventEnumParam(val eventValue: String) {
-        Option1("option1"),
-        Option2("option2"),
-        Option3("option3"),
-    }
     enum class MyNamespaceMyEventEnumParamInt(val eventValue: String) {
         Int1("1"),
         Int2("2"),
@@ -114,16 +114,18 @@ class EvgenAnalytics(
      * 3. boolParam - Параметр типа Bool
      * 4. doubleParam - Параметр типа Double
      * 5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
-     * 6. enumParam - Параметр типа Enum. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-     * 7. enumParamInt - Параметр типа Enum Int. При логировании можновыбрать только один вариант. В коде имееттип MyNamespaceMyEventEnumparam
-     * 8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages.Если какой-то enum используется больше одного раза,то лучше давать ему явное имя, разботчики смогутобращаться к нему однообразно
+     * 6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+     * 7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+     * 8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
      * 9. dictParam - параметр типа Dict.
-     * 10. typedDictParam - типизированный Dict.
-     * 11. typedListParam - типизированный List.
-     * 12. platformConst - Платформозависимая константа
-     * 13. listOfInt - Список целочисленных параметров
-     * 14. listOfDouble - Список флотовых параметров
-     * 15. listOfString - Cписок строк
+     * 10. dictElementType - параметр типа Dict енумов.
+     * 11. typedDictParam - типизированный Dict.
+     * 12. typedListParam - типизированный List.
+     * 13. platformConst - Платформозависимая константа
+     * 14. listOfInt - Список целочисленных параметров
+     * 15. listOfDouble - Список флотовых параметров
+     * 16. listOfString - Cписок строк
+     * 17. listOfEnum - Cписок енумов
      */
     fun myNamespaceMyEvent(
         stringParam: String = "val",
@@ -135,11 +137,13 @@ class EvgenAnalytics(
         enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.Int1,
         namedEnumParam: Pages,
         dictParam: Map<String, Any>,
+        dictElementType: Map<String, MyNamespaceMyEventEnumParam>,
         typedDictParam: Map<String, Any>,
         typedListParam: List<Any>,
         listOfInt: List<Int> = listOf<Int>(),
         listOfDouble: List<Double> = listOf<Double>(),
         listOfString: List<String> = listOf<String>(),
+        listOfEnum: List<MyNamespaceMyEventEnumParam> = listOf<MyNamespaceMyEventEnumParam>(),
     ) {
         val parameters = mutableMapOf<String, Any>()
         parameters["stringParam"] = stringParam
@@ -152,12 +156,14 @@ class EvgenAnalytics(
         parameters["enumParamInt"] = enumParamInt.eventValue
         parameters["namedEnumParam"] = namedEnumParam.eventValue
         parameters["dictParam"] = dictParam
+        parameters["dictElementType"] = dictElementType
         parameters["typedDictParam"] = typedDictParam
         parameters["typedListParam"] = typedListParam
         parameters["platformConst"] = "AndroidValue"
         parameters["listOfInt"] = listOfInt
         parameters["listOfDouble"] = listOfDouble
         parameters["listOfString"] = listOfString
+        parameters["listOfEnum"] = listOfEnum
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta

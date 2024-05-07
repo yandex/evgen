@@ -72,8 +72,9 @@ Constants:
                             *const : ValueToLog
                         *description : Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
                     enumParam:
-                        *type :
+                        *type : &simpleEnumType
                             *enum :
+                                *name : MyNamespaceMyEventEnumParam
                                 *values :
                                     - option1
                                     - option2
@@ -112,6 +113,10 @@ Constants:
                         *type : *dict
                         *description : параметр типа Dict.
                         # default values for dictionaries are not supported
+                    dictElementType:
+                        *type : *dict
+                        *description : параметр типа Dict енумов.
+                        *element_type : *simpleEnumType
                     typedDictParam:
                         *description : типизированный Dict.
                         *type :
@@ -157,6 +162,12 @@ Constants:
                         *element_type : *string
                         *default_value : *empty_list
                         *description : Cписок строк
+                    
+                    listOfEnum:
+                        *type : *list
+                        *element_type : *simpleEnumType
+                        *default_value : *empty_list
+                        *description : Cписок енумов
 
                 *platforms :
                     *android :
