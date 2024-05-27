@@ -185,7 +185,7 @@ public final class {{classname}} {
      *  {{@index}}. {{this.name}} - {{this.description}}
         {{/each}}
      */
-    public func {{lowerFirstLetter this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
+    public func {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
         {{~#unless (isEmpty additionalNamespaces)}}namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}}, {{/unless~}}
         {{~#filterUndefined this.parameters 'type.Const'~}}
             {{~#each this~}}

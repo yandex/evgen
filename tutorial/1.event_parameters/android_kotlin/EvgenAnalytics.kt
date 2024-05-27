@@ -88,7 +88,7 @@ class EvgenAnalytics(
      *
      * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
-    fun anotherNamespaceEvent2(
+    fun anotherNamespaceKebabCaseEvent2(
         reusedParam: String,
     ) {
         val parameters = mutableMapOf<String, Any>()
@@ -96,7 +96,7 @@ class EvgenAnalytics(
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
-        trackEvent("AnotherNamespace.Event2", parameters)
+        trackEvent("AnotherNamespace.kebab-case-event-2", parameters)
     }
 
     enum class MyNamespaceMyEventEnumParamInt(val eventValue: String) {

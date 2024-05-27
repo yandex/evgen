@@ -158,7 +158,7 @@ public final class {{classname}} {
      *  {{@index}}. {{name}} - {{description}}
         {{/each}}
      */
-    public void {{lowerFirstLetter name}}{{#gt version 1}}V{{version}}{{/gt}}(
+    public void {{camelcase name}}{{#gt version 1}}V{{version}}{{/gt}}(
         {{~#unless (isEmpty additionalNamespaces)}}{{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}} namespace, {{/unless~}}
         {{~#filterUndefined parameters 'type.Const'~}}
             {{~#each this~}}

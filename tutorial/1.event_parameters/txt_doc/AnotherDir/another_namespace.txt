@@ -6,7 +6,7 @@ AnotherNamespace.Event1
 
     0. reusedParam: String - Параметр, который переиспользуется в нескольких событиях
 
-AnotherNamespace.Event2
+AnotherNamespace.kebab-case-event-2
 
     V1
     Неймспейсы: 

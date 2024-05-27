@@ -31,16 +31,16 @@ export function anotherNamespaceEvent1 (
  *
  *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
  */
-export type AnotherNamespaceEvent2Parameters = {
+export type AnotherNamespaceKebabCaseEvent2Parameters = {
     reusedParam: string;
 };
-export function anotherNamespaceEvent2 (
+export function anotherNamespaceKebabCaseEvent2 (
     evgen_analytics: EvgenAnalytics,
-    parameters: AnotherNamespaceEvent2Parameters
+    parameters: AnotherNamespaceKebabCaseEvent2Parameters
 ) {
 
     const _meta = makeMetaParams(1)
     const enhancedParams = {...parameters, _meta}
-    evgen_analytics.trackEvent("AnotherNamespace.Event2", enhancedParams);
+    evgen_analytics.trackEvent("AnotherNamespace.kebab-case-event-2", enhancedParams);
 }
 

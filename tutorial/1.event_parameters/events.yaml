@@ -208,7 +208,7 @@ Constants:
                     *web_smart_tv :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
-        Event2:
+        kebab-case-event-2:
             v1:
                 *description : Второе событие с переиспользуемым параметром
                 *parameters :

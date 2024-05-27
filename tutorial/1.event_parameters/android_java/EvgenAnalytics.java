@@ -108,13 +108,13 @@ public final class EvgenAnalytics {
      *
      *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
-    public void anotherNamespaceEvent2(String reusedParam) {
+    public void anotherNamespaceKebabCaseEvent2(String reusedParam) {
         Map<String, Object> params = new HashMap<>();
         params.put("reusedParam", reusedParam);
         Map<String, Object> interfacesDict = new HashMap<>();
         Map<String, Object> _meta = makeMeta(1, interfacesDict);
         params.put("_meta", _meta);
-        trackEvent("AnotherNamespace.Event2", params);
+        trackEvent("AnotherNamespace.kebab-case-event-2", params);
     }
 
     public enum MyNamespaceMyEventEnumParamInt {

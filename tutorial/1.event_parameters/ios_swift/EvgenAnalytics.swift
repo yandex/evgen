@@ -111,13 +111,13 @@ public final class EvgenAnalytics {
      *
      *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
-    public func anotherNamespaceEvent2(reusedParam: String) {
+    public func anotherNamespaceKebabCaseEvent2(reusedParam: String) {
         var options: [String: Any] = [:]
         options["reusedParam"] = reusedParam
         let interfacesDict: [String: Any] = [:]
         let _meta = makeMeta(1, interfaces: interfacesDict)
         options["_meta"] = _meta
-        trackEvent("AnotherNamespace.Event2", withOptions: options)
+        trackEvent("AnotherNamespace.kebab-case-event-2", withOptions: options)
     }
 
     public enum MyNamespaceMyEventEnumParamInt: String {
