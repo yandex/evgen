@@ -6,3 +6,4 @@
 .prettierrc
 node_modules/
 tsconfig.json
+a.yaml

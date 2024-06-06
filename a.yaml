@@ -40,6 +40,7 @@ ci:
       cleanup:
         reasons:
           - cancel
+      auto: true
       branches:
         pattern: releases/kinopoisk-frontend/package/evgen/v${major}.${minor}
       versions:
@@ -202,6 +203,10 @@ ci:
               secret_environment_variables_map:
                 NPM_AUTH_TOKEN:
                   key: npm_authToken
+                AWS_ACCESS_KEY_ID:
+                  key: KP_AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY:
+                  key: KP_AWS_SECRET_ACCESS_KEY
               result_badges:
                 - path: badges
               cmd_line: |
@@ -567,6 +572,10 @@ ci:
               secret_environment_variables_map:
                 NPM_AUTH_TOKEN:
                   key: npm_authToken
+                AWS_ACCESS_KEY_ID:
+                  key: KP_AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY:
+                  key: KP_AWS_SECRET_ACCESS_KEY
               result_badges:
                 - path: badges
               cmd_line: |
