@@ -1,3 +1,3 @@
-| | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | Android | iOS | WebSmartTV | Unity |
-|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
-|0|AlsoMyEvent.Logged|1|||Also event description<br>|Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|
+| | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | Android | iOS | Flutter | WebSmartTV | Unity |
+|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+|0|AlsoMyEvent.Logged|1|||Also event description<br>|Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|

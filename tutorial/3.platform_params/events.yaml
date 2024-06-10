@@ -30,6 +30,7 @@ Constants:
 *inheritance :
     android: &android Android
     ios: &ios iOS
+    flutter: &flutter Flutter
     web_smart_tv: &web_smart_tv WebSmartTV
     unity: &unity Unity
 
@@ -49,6 +50,13 @@ Constants:
 
     *ios :
         *description : Эти параметры добавляются к параметрам, отправленных с iOS
+        *parameters :
+            hasSubscription:
+                *type : *bool
+                *description : Есть ли у пользователя подписка
+
+    *flutter :
+        *description : Эти параметры добавляются к параметрам, отправленным с Flutter
         *parameters :
             hasSubscription:
                 *type : *bool
@@ -80,6 +88,9 @@ Constants:
                 *ios :
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com
+                *flutter :
+                    *app_versions : *in_progress
+                    *ticket : https://your-tracker.com
                 *web_smart_tv :
                     *app_versions : *in_progress
                     *ticket : https://your-tracker.com
@@ -100,6 +111,9 @@ Constants:
                     *ios :
                       *app_versions : *in_progress
                       *ticket : https://your-tracker.com
+                    *flutter :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
                     *web_smart_tv :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com

@@ -32,6 +32,7 @@ Constants:
 *inheritance :
     android: &android Android
     ios: &ios iOS
+    flutter: &flutter Flutter
     web_smart_tv: &web_smart_tv WebSmartTV
     unity: &unity Unity
 
@@ -58,6 +59,9 @@ Constants:
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
                     *ios :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
+                    *flutter :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
                     *web_smart_tv :
@@ -95,6 +99,9 @@ Constants:
                         *ios :
                             *app_versions : *in_progress
                             *ticket : https://your-tracker.com
+                        *flutter :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
                         *web_smart_tv :
                             *app_versions : *in_progress
                             *ticket : https://your-tracker.com
@@ -126,6 +133,9 @@ Constants:
                             *app_versions : *in_progress
                             *ticket : https://your-tracker.com
                         *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
+                        *flutter :
                             *app_versions : *in_progress
                             *ticket : https://your-tracker.com
                         *web_smart_tv :

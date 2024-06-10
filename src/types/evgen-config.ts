@@ -3,7 +3,7 @@ export interface Config {
     doc: Record<string, DocConfig>;
 }
 
-export type CodeLanguage = 'kotlin' | 'swift' | 'type_script' | 'java' | 'c_sharp';
+export type CodeLanguage = 'kotlin' | 'swift' | 'type_script' | 'java' | 'dart' | 'c_sharp';
 
 export type DocsType = 'txt' | 'md' | 'yaml';
 

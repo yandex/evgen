@@ -1,0 +1,206 @@
+// ignore_for_file: lines_longer_than_80_chars
+
+/**
+ * AUTO-GENERATED FILE. DO NOT MODIFY
+ * This class was automatically generated.
+ */
+
+abstract interface class {{classname}}Tracker {
+  void trackEvent(String event, Map<String, dynamic> parameters);
+}
+
+abstract interface class {{classname}}GlobalParamsProvider {
+  {{classname}}GlobalParams getGlobalParams();
+}
+
+abstract interface class {{classname}}PlatformParamsProvider {
+  {{classname}}PlatformParams getPlatformParams();
+}
+
+{{#each globalParameters.parameters}}
+{{>enum parameter=this}}
+{{/each}}
+{{#unless (isEmpty globalParameters.parameters)}}
+/**
+{{#each globalParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
+class {{classname}}GlobalParams {
+  final Map<String, dynamic> parameters;
+
+  {{#if (isEmpty globalParameters.parameters)}}
+  {{classname}}GlobalParams() : parameters = const {};
+  {{else}}
+  {{classname}}GlobalParams(
+    {{#each globalParameters.parameters}}
+    {{#unless (isConst this.type)}}
+    {{typeFormat this}} {{camelcase this.name}},
+    {{/unless}}
+    {{/each}}
+  ) : parameters = {
+          {{#each globalParameters.parameters}}
+          '{{this.name}}': {{camelcase this.name}},
+          {{/each}}
+        };
+  {{/if}}
+}
+
+{{#if platformParameters}}
+{{#each platformParameters.parameters}}
+{{>enum parameter=this}}
+{{/each}}
+{{#unless (isEmpty platformParameters.parameters)}}
+/**
+{{#each platformParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+{{/each}}
+ */
+{{/unless}}
+{{/if}}
+class {{classname}}PlatformParams {
+  final Map<String, dynamic> parameters;
+
+  {{#if (isEmpty platformParameters.parameters)}}
+  {{classname}}PlatformParams() : parameters = const {};
+  {{else}}
+  {{classname}}PlatformParams(
+    {{#each platformParameters.parameters}}
+    {{#unless (isConst this.type)}}
+    {{typeFormat this}} {{camelcase this.name}},
+    {{/unless}}
+    {{/each}}
+  ) : parameters = {
+          {{#each platformParameters.parameters}}
+          '{{this.name}}': {{camelcase name}},
+          {{/each}}
+        };
+  {{/if}}
+}
+
+class {{classname}} {
+  final {{classname}}Tracker eventTracker;
+  final {{classname}}GlobalParamsProvider globalParamsProvider;
+  final {{classname}}PlatformParamsProvider platformParamsProvider;
+
+  {{classname}}(
+    this.eventTracker,
+    this.globalParamsProvider,
+    this.platformParamsProvider,
+  );
+
+  void trackEvent(String event, Map<String, dynamic> parameters) =>
+      eventTracker.trackEvent(
+        event,
+        {
+          ...parameters,
+          ...globalParamsProvider.getGlobalParams().parameters,
+          ...platformParamsProvider.getPlatformParams().parameters,
+        },
+      );
+
+  Map<String, dynamic> makeMeta(
+    int eventVersion,
+    Map<String, dynamic> interfaces,
+  ) =>
+      {
+        'event': <String, dynamic> { 'version': eventVersion },
+        'interfaces': interfaces,
+      };
+  {{#each eventNamespaces}}
+  {{#each allVersions}}
+
+  /**
+  {{#each (splitByNewLine this.description)}}
+   * {{this}}
+  {{/each}}
+   *
+  {{#each this.parameters}}
+   * {{@index}}. {{this.name}} - {{this.description}}
+  {{/each}}
+   */
+  {{#unless (isEmpty this.parameters)}}
+  void {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({
+    {{#unless (isEmpty additionalNamespaces)}}
+    required {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}} namespace,
+    {{/unless}}
+    {{#filterUndefined this.parameters 'type.Const'}}
+    {{#each this}}
+    {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
+    {{typeFormat this}} {{camelcase this.name}}
+    {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+    {{/each}}
+    {{/filterUndefined}}
+  }) {
+  {{else}}
+  {{#if (isEmpty additionalNamespaces)}}
+  void {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}() {
+  {{else}}
+  void {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({
+    {{#unless (isEmpty additionalNamespaces)}}
+    required {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}} namespace,
+    {{/unless}}
+    {{#filterUndefined this.parameters 'type.Const'}}
+    {{#each this}}
+    {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
+    {{typeFormat this}} {{camelcase this.name}}
+    {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+    {{/each}}
+    {{/filterUndefined}}
+  }) {
+  {{/if}}
+  {{/unless}}
+    {{#if (isEmpty this.parameters)}}
+    final parameters = const <String, dynamic>{};
+    {{else}}
+    final parameters = <String, dynamic>{
+      {{#each this.parameters}}
+      '{{this.name}}': {{>variableValueFormat parameter=this}},
+      {{/each}}
+    };
+    {{/if}}
+
+    {{#if (isEmpty this.interfaces)}}
+    final interfacesDict = const <String, dynamic>{};
+    {{else}}
+    final interfacesDict = <String, dynamic>{
+      {{#each this.interfaces}}
+      '{{@key}}': <String, dynamic>{ 'version': {{this}} },
+      {{/each}}
+    };
+    {{/if}}
+
+    parameters['_meta'] = makeMeta({{this.version}}, interfacesDict);
+    trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + '.' + {{/unless}}'{{this.event}}', parameters);
+  }
+  {{/each}}
+  {{/each}}
+}
+{{#filterTruthy this.namedEnums "type.Enum.name"}}
+{{#each this}}
+
+{{>enum parameter=this}}
+{{/each}}
+
+{{/filterTruthy}}
+{{#each eventNamespaces}}
+{{#each allVersions}}
+{{#filterFalsy this.parameters "type.Enum.name"}}
+{{#each this}}
+{{>enum parameter=this}}
+{{/each}}
+{{/filterFalsy}}
+{{#unless (isEmpty additionalNamespaces)}}
+enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} {
+  {{#each additionalNamespaces}}
+  {{camelcase this}}('{{this}}'){{#if @last}};{{else}},{{/if}}
+  {{/each}}
+
+  final String value;
+
+  const {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}(this.value);
+}
+{{/unless}}
+{{/each}}
+{{/each}}

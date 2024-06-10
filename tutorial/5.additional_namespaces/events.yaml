@@ -20,6 +20,7 @@ Constants:
     # названия платофм, для которых будет генерироваться код, должно совпадать с полем 'platform' в файле evgen.yaml
     android: &android Android
     ios: &ios iOS
+    flutter: &flutter Flutter
     web_smart_tv: &web_smart_tv WebSmartTV
     unity: &unity Unity
 
@@ -45,6 +46,9 @@ Constants:
                 *ios :
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com
+                *flutter :
+                    *app_versions : *in_progress
+                    *ticket : https://your-tracker.com
                 *web_smart_tv :
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com

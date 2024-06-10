@@ -45,6 +45,13 @@ Object {
       "output_dir": "ios_swift",
       "platform": "iOS",
     },
+    "Flutter": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "dart",
+      "only_last_version": false,
+      "output_dir": "flutter",
+      "platform": "Flutter",
+    },
   },
   "doc": Object {
     "Markdown": Object {

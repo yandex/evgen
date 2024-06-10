@@ -30,6 +30,7 @@ Constants:
 inheritance:
     android: &android Android
     ios: &ios iOS
+    flutter: &flutter Flutter
     tvos: &tvos tvOS
     web_smart_tv: &web_smart_tv WebSmartTV
     person_card: &person_card person_card
@@ -183,6 +184,7 @@ inheritance:
                 *platformConst :
                     *ios : mobile-ios_swift
                     *android : mobile-android
+                    *flutter : flutter
                     *web_smart_tv : smarttv
             *description : Константа для единообразной обработки кросссервисных событий.
                 Название сервиса как в трекингах.
@@ -193,6 +195,9 @@ inheritance:
           *ticket : https://tracker.com
         *ios :
           *app_versions : 5.12
+          *ticket : https://tracker.com
+        *flutter :
+          *app_versions : *in_progress
           *ticket : https://tracker.com
         *tvos :
           *app_versions : *not_supported
@@ -213,6 +218,13 @@ inheritance:
                 *type :
                     *const : ios_swift
                 *description : Параметр для iOS
+    *flutter :
+        *description : Параметры, которые добавляются к событиям, отправленным с Flutter
+        *parameters :
+            flutterParam:
+                *type :
+                    *const : flutter
+                *description : Параметр для Flutter
     *web_smart_tv :
         *description : Параметры, которые добавляются к событиям, отправленных с Web SmartTV
         *parameters :
@@ -268,6 +280,9 @@ inheritance:
                         *ios :
                             *app_versions : 4.8
                             *ticket : https://tracker.com
+                        *flutter :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
                         *tvos :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
@@ -294,6 +309,9 @@ inheritance:
                         *ios :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
+                        *flutter :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
                         *tvos :
                             *app_versions : *not_supported
                             *ticket : https://tracker.com
@@ -311,6 +329,9 @@ inheritance:
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *flutter :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *tvos :
@@ -334,6 +355,9 @@ inheritance:
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *flutter :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *tvos :
@@ -389,6 +413,9 @@ inheritance:
                     *ios :
                         *app_versions : *in_progress
                         *ticket : https://tracker.com
+                    *flutter :
+                        *app_versions : *in_progress
+                        *ticket : https://tracker.com
                     *tvos :
                         *app_versions : *not_supported
                     *web_smart_tv :
@@ -405,6 +432,9 @@ inheritance:
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *flutter :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *tvos :
@@ -431,6 +461,9 @@ inheritance:
                         *ios :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
+                        *flutter :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
                         *tvos :
                             *app_versions : *not_supported
                         *web_smart_tv :
@@ -444,6 +477,9 @@ inheritance:
                         *android :
                             *app_versions : *not_supported
                         *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *flutter :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *tvos :
@@ -466,6 +502,9 @@ inheritance:
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
                             *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *flutter :
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
                             *tvos :
@@ -495,6 +534,9 @@ inheritance:
                             *ios :
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
+                            *flutter :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
                             *tvos :
                                 *app_versions : *not_supported
                             *web_smart_tv :
@@ -519,6 +561,9 @@ inheritance:
                             *ios :
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
+                            *flutter :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
                             *tvos :
                                 *app_versions : *not_supported
                             *web_smart_tv :
@@ -535,6 +580,9 @@ inheritance:
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
                             *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *flutter :
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
                             *tvos :
@@ -554,6 +602,9 @@ inheritance:
                 *ios :
                     *app_versions : 4.1 - 4.2
                     *ticket : https://tracker.com
+                *flutter :
+                    *app_versions : *in_progress
+                    *ticket : https://tracker.com
                 *tvos :
                     *app_versions : *not_supported
                 *web_smart_tv :
@@ -570,6 +621,9 @@ inheritance:
                     *ticket : https://tracker.com
                 *ios :
                     *app_versions : 4.1 - 4.2
+                    *ticket : https://tracker.com
+                *flutter :
+                    *app_versions : *in_progress
                     *ticket : https://tracker.com
                 *tvos :
                     *app_versions : *not_supported
@@ -616,6 +670,9 @@ inheritance:
                         *ios :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
+                        *flutter :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
                         *tvos :
                             *app_versions : *not_supported
                         *web_smart_tv :
@@ -634,6 +691,9 @@ inheritance:
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *ios :
+                            *app_versions : *in_progress
+                            *ticket : https://tracker.com
+                        *flutter :
                             *app_versions : *in_progress
                             *ticket : https://tracker.com
                         *tvos :
@@ -660,6 +720,9 @@ inheritance:
                             *ios :
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
+                            *flutter :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
                             *tvos :
                                 *app_versions : *not_supported
                             *web_smart_tv :
@@ -682,6 +745,9 @@ inheritance:
                                 *app_versions : 5.6.0
                                 *ticket : https://tracker.com
                             *ios :
+                                *app_versions : *in_progress
+                                *ticket : https://tracker.com
+                            *flutter :
                                 *app_versions : *in_progress
                                 *ticket : https://tracker.com
                             *tvos :

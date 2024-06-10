@@ -34,6 +34,7 @@ Constants:
 *inheritance :
     android: &android Android
     ios: &ios iOS
+    flutter: &flutter Flutter
     web_smart_tv: &web_smart_tv WebSmartTV
     unity: &unity Unity
 
@@ -143,6 +144,7 @@ Constants:
                             *platformConst :
                                 *android : AndroidValue
                                 *ios : iOSValue
+                                *flutter : FlutterValue
                                 *web_smart_tv : WebSmartTVValue
                                 *unity : UnityValue
                         *description : Платформозависимая константа
@@ -164,7 +166,7 @@ Constants:
                         *element_type : *string
                         *default_value : *empty_list
                         *description : Cписок строк
-                    
+
                     listOfEnum:
                         *type : *list
                         *element_type : *simpleEnumType
@@ -177,6 +179,9 @@ Constants:
                         *ticket : https://your-tracker.com
                     *ios :
                         *app_versions : 4.13
+                        *ticket : https://your-tracker.com
+                    *flutter :
+                        *app_versions : *in_progress
                         *ticket : https://your-tracker.com
                     *web_smart_tv :
                         *app_versions : *in_progress
@@ -210,6 +215,9 @@ Constants:
                     *ios :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
+                    *flutter :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
                     *web_smart_tv :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
@@ -226,6 +234,9 @@ Constants:
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
                     *ios :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
+                    *flutter :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
                     *web_smart_tv :

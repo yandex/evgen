@@ -35,6 +35,10 @@ Object {
               "app_versions": "in_progress",
               "ticket": "https://your-tracker.com",
             },
+            "Flutter": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
           },
         },
       },
@@ -57,6 +61,10 @@ Object {
               "ticket": "https://your-tracker.com",
             },
             "iOS": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://your-tracker.com",
+            },
+            "Flutter": Object {
               "app_versions": "in_progress",
               "ticket": "https://your-tracker.com",
             },
@@ -118,6 +126,10 @@ Object {
             },
             "iOS": Object {
               "app_versions": 4.13,
+              "ticket": "https://your-tracker.com",
+            },
+            "Flutter": Object {
+              "app_versions": "in_progress",
               "ticket": "https://your-tracker.com",
             },
           },

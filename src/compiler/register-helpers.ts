@@ -35,6 +35,11 @@ import {
     primitiveTypeFormat as kotlinPrimitiveTypeFormat,
 } from '../languages/kotlin/types';
 import {
+    typeFormat as dartTypeformat,
+    primitiveTypeFormat as dartPrimitiveTypeFormat,
+} from '../languages/dart/types';
+import { specialWords as dartSpecialWords } from '../languages/dart/special-words';
+import {
     typeFormat as csharpTypeformat,
     primitiveTypeFormat as csharpPrimitiveTypeFormat,
 } from '../languages/csharp/types';
@@ -85,6 +90,11 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
             case 'java':
                 hbs.registerHelper('typeFormat', javaTypeformat);
                 hbs.registerHelper('primitiveTypeFormat', javaPrimitiveTypeFormat);
+                break;
+            case 'dart':
+                hbs.registerHelper('typeFormat', dartTypeformat);
+                hbs.registerHelper('primitiveTypeFormat', dartPrimitiveTypeFormat);
+                hbs.registerHelper('isSpecialWord', (str) => dartSpecialWords.includes(str));
                 break;
             case 'c_sharp':
                 hbs.registerHelper('typeFormat', csharpTypeformat);

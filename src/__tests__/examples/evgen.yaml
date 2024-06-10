@@ -23,6 +23,12 @@ code:
     language: 'c_sharp'
     class_name: 'EvgenAnalytics'
     only_last_version: false
+  Flutter: # Эти названия групп конфигов могут быть произвольными
+    platform: 'Flutter'
+    output_dir: 'flutter'
+    language: 'dart'
+    class_name: 'EvgenAnalytics'
+    only_last_version: false
   WebSmartTV:
     platform: 'WebSmartTV'
     output_dir: 'web_smart_tv'

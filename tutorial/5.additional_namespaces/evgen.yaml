@@ -14,6 +14,11 @@ code: # конфиг для генерации кода
     output_dir: 'ios_swift'
     language: 'swift'
     class_name: 'EvgenAnalytics'
+  Flutter: # Эти названия групп конфигов могут быть произвольными
+    platform: 'Flutter'
+    output_dir: 'flutter'
+    language: 'dart'
+    class_name: 'EvgenAnalytics'
   WebSmartTV: # Эти названия групп конфигов могут быть произвольными
     platform: 'WebSmartTV'
     output_dir: 'web_smart_tv'

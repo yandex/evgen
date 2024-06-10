@@ -1,0 +1,15 @@
+{{#if (isEnum parameter.type)}}
+enum {{pascalcase (typeFormat parameter)}} {
+  {{#each parameter.type.Enum.values}}
+  {{#if (isString this)}}
+  {{#if (isSpecialWord (camelcase this))}}${{/if}}{{camelcase this}}('{{this}}'){{#if @last}};{{else}},{{/if}}
+  {{else}}
+  num{{this}}({{this}}){{#if @last}};{{else}},{{/if}}
+  {{/if}}
+  {{/each}}
+
+  final dynamic value;
+
+  const {{pascalcase (typeFormat parameter)}}(this.value);
+}
+{{/if}}

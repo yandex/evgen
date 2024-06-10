@@ -38,6 +38,9 @@ Events:
                     iOS:
                         app_versions: 4.13
                         ticket: https://your-tracker.com
+                    Flutter:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
                     WebSmartTV:
                         app_versions: in_progress
                         ticket: https://your-tracker.com

@@ -1,0 +1,18 @@
+{{~#eq parameter.defaultValue 'empty_list'~}}
+    const []
+{{~else~}}
+    {{~#if (isEnum parameter.type)~}}
+        {{~#if (isNumber parameter.defaultValue)~}}
+            {{pascalcase (typeFormat parameter)}}.num{{parameter.defaultValue}}
+        {{~else~}}
+            {{~#if (isSpecialWord parameter.defaultValue)~}}${{~/if~}}
+            {{pascalcase (typeFormat parameter)}}.{{camelcase parameter.defaultValue}}
+        {{~/if~}}
+    {{~else~}}
+        {{~#eq parameter.type 'String'~}}
+            '{{parameter.defaultValue}}'
+        {{~else~}}
+            {{parameter.defaultValue}}
+        {{~/eq~}}
+    {{~/if~}}
+{{~/eq~}}
