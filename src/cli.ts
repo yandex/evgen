@@ -19,6 +19,7 @@ const DEFAULT_TEMPLATES_DIRS: Record<CodeLanguage | DocsType, string> = {
     kotlin: 'kotlin',
     swift: 'swift',
     java: 'java',
+    c_sharp: 'csharp',
     md: 'md',
     txt: 'txt',
     yaml: 'yaml',

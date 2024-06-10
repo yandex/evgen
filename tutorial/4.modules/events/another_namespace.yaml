@@ -32,6 +32,9 @@ Events:
                     WebSmartTV:
                         app_versions: in_progress
                         ticket: https://your-tracker.com
+                    Unity:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
         Event2:
             v1:
                 description: Второе событие с переиспользуемым параметром
@@ -45,6 +48,9 @@ Events:
                         app_versions: in_progress
                         ticket: https://your-tracker.com
                     WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Unity:
                         app_versions: in_progress
                         ticket: https://your-tracker.com
 

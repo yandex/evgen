@@ -37,13 +37,12 @@ Constants:
     android: &android Android
     ios: &ios iOS
     web_smart_tv: &web_smart_tv WebSmartTV
-
+    unity: &unity Unity
 
 # Здесь опеределяются глобальные параметры
 *GlobalParameters :
     *parameters :
     *description : Эти параметры добавляются к параметрам каждого события.
-
 
 # Здесь определяются события. Стуктура имеет древовидную структуру.
 # Все уровни от 'Events' до 'v1' конкатенируются в название события через точку
@@ -61,6 +60,9 @@ Constants:
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com
                 *web_smart_tv :
+                  *app_versions : *in_progress
+                  *ticket : https://your-tracker.com
+                *unity :
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com
 
@@ -81,6 +83,9 @@ Constants:
                     *web_smart_tv :
                       *app_versions : *in_progress
                       *ticket : https://your-tracker.com
+                    *unity :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
 
     ForcedNames:
         MyCustomEvent:
@@ -97,5 +102,8 @@ Constants:
                       *app_versions : *in_progress
                       *ticket : https://your-tracker.com
                     *web_smart_tv :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *unity :
                       *app_versions : *in_progress
                       *ticket : https://your-tracker.com

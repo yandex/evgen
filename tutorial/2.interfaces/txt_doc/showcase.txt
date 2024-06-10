@@ -1,6 +1,7 @@
 Showcase.Movie.Showed
 
     V1
+    Неймспейсы: 
     Показ экрана магазина
 
     0. page: String - Название страницы
@@ -11,6 +12,7 @@ Showcase.Movie.Showed
 Showcase.TVShow.Showed
 
     V1
+    Неймспейсы: 
     Показ экрана магазина
 
     0. page: String - Название страницы

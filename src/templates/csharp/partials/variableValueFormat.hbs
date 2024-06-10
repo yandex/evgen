@@ -1,0 +1,9 @@
+{{~#if (isEnum parameter.type)~}}
+    {{~camelcase parameter.name~}}.RawValue
+{{~else~}}
+    {{~#if (isConst parameter.type)~}}
+        "{{~parameter.type.Const~}}"
+    {{~else~}}
+        {{~camelcase parameter.name~}}
+    {{~/if~}}
+{{~/if~}}

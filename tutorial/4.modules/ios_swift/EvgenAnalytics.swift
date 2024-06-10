@@ -17,6 +17,9 @@ public protocol EvgenAnalyticsPlatformParamsProvider: AnyObject {
     func getPlatformParams() -> EvgenAnalyticsPlatformParams
 }
 
+/**
+ * 0. globalParam - Глобальный параметр, который добавится к каждомоу событию
+ */
 public struct EvgenAnalyticsGlobalParams {
     public var globalParam: String
 

@@ -21,6 +21,7 @@ import {
     escape,
     repeat,
     entries,
+    upperSnakeCase,
 } from '../helpers';
 import { typeFormat as typescriptTypeformat } from '../languages/typescript/types';
 import { typeFormat as swiftTypeformat } from '../languages/swift/types';
@@ -33,6 +34,10 @@ import {
     typeFormat as kotlinTypeformat,
     primitiveTypeFormat as kotlinPrimitiveTypeFormat,
 } from '../languages/kotlin/types';
+import {
+    typeFormat as csharpTypeformat,
+    primitiveTypeFormat as csharpPrimitiveTypeFormat,
+} from '../languages/csharp/types';
 import { CodeLanguage } from '../types/evgen-config';
 
 import { Handlebars } from './types';
@@ -42,6 +47,7 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
     hbs.registerHelper('camelcase', camelCase);
     hbs.registerHelper('snakecase', snakeCase);
     hbs.registerHelper('pascalcase', pascalCase);
+    hbs.registerHelper('uppersnakecase', upperSnakeCase);
     hbs.registerHelper('isNumber', (val) => typeof val === 'number');
     hbs.registerHelper('isString', (val) => typeof val === 'string');
     hbs.registerHelper('isEnum', isEnum);
@@ -80,6 +86,9 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
                 hbs.registerHelper('typeFormat', javaTypeformat);
                 hbs.registerHelper('primitiveTypeFormat', javaPrimitiveTypeFormat);
                 break;
+            case 'c_sharp':
+                hbs.registerHelper('typeFormat', csharpTypeformat);
+                hbs.registerHelper('primitiveTypeFormat', csharpPrimitiveTypeFormat);
             default:
                 break;
         }

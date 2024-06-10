@@ -33,7 +33,7 @@ Constants:
     android: &android Android
     ios: &ios iOS
     web_smart_tv: &web_smart_tv WebSmartTV
-
+    unity: &unity Unity
 
 *GlobalParameters :
     *parameters :
@@ -63,7 +63,9 @@ Constants:
                     *web_smart_tv :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
-
+                    *unity :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
 
     Showcase:
         Movie:
@@ -96,6 +98,9 @@ Constants:
                         *web_smart_tv :
                             *app_versions : *in_progress
                             *ticket : https://your-tracker.com
+                        *unity :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
 
         TVShow:
             # Это событие удовлетворяет только первой версии интерфейса MyInterfaces.Movie
@@ -124,6 +129,9 @@ Constants:
                             *app_versions : *in_progress
                             *ticket : https://your-tracker.com
                         *web_smart_tv :
+                            *app_versions : *in_progress
+                            *ticket : https://your-tracker.com
+                        *unity :
                             *app_versions : *in_progress
                             *ticket : https://your-tracker.com
 

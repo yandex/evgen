@@ -1,3 +1,3 @@
-| | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | Android | iOS | WebSmartTV |
-|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|
-|0|MyEvent|1|MyNamespace<br>Nested.Namespace<br>MyAnotherNamespace|0. stringParam: String<br>|Event description<br>0. stringParam - Параметр типа String<br>||В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|
+| | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | Android | iOS | WebSmartTV | Unity |
+|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+|0|MyEvent|1|MyNamespace<br>Nested.Namespace<br>MyAnotherNamespace|0. stringParam: String<br>|Event description<br>0. stringParam - Параметр типа String<br>||В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|

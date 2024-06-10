@@ -21,6 +21,7 @@ Constants:
     android: &android Android
     ios: &ios iOS
     web_smart_tv: &web_smart_tv WebSmartTV
+    unity: &unity Unity
 
 *Events :
     MyEvent:
@@ -45,5 +46,8 @@ Constants:
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com
                 *web_smart_tv :
+                  *app_versions : *in_progress
+                  *ticket : https://your-tracker.com
+                *unity :
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com

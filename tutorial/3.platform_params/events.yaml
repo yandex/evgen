@@ -31,7 +31,7 @@ Constants:
     android: &android Android
     ios: &ios iOS
     web_smart_tv: &web_smart_tv WebSmartTV
-
+    unity: &unity Unity
 
 *GlobalParameters :
     *parameters :
@@ -61,6 +61,13 @@ Constants:
                 *type : *string
                 *description : Модель ТВ
 
+    *unity :
+        *description : Эти параметры добавляются к параметрам, отправленных с Unity
+        *parameters :
+            unityVersion:
+                *type : *string
+                *description : Версия Unity
+
 *Events :
     MyEvent:
         v1:
@@ -74,6 +81,9 @@ Constants:
                   *app_versions : *in_progress
                   *ticket : https://your-tracker.com
                 *web_smart_tv :
+                    *app_versions : *in_progress
+                    *ticket : https://your-tracker.com
+                *unity :
                     *app_versions : *in_progress
                     *ticket : https://your-tracker.com
 
@@ -91,6 +101,9 @@ Constants:
                       *app_versions : *in_progress
                       *ticket : https://your-tracker.com
                     *web_smart_tv :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
+                    *unity :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
 

@@ -19,6 +19,11 @@ code: # конфиг для генерации кода
     output_dir: 'web_smart_tv'
     language: 'type_script'
     class_name: 'EvgenAnalytics'
+  Unity:
+    platform: 'Unity'
+    output_dir: 'unity'
+    language: 'c_sharp'
+    class_name: 'EvgenAnalytics'
 doc: # конфиг для генерации документации
   Markdown: # Эти названия групп конфигов могут быть произвольными
     extension: 'md'

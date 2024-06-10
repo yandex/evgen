@@ -1,0 +1,223 @@
+/**
+    AUTO-GENERATED FILE. DO NOT MODIFY
+    This class was automatically generated.
+*/
+
+using System.Collections.Generic;
+
+class {{classname}} {
+    public {{classname}}(
+        ITracker eventTracker,
+        IGlobalParamsProvider globalParamsProvider,
+        IPlatformParamsProvider platformParamsProvider
+    ) {
+        _eventTracker = eventTracker;
+        _globalParamsProvider = globalParamsProvider;
+        _platformParamsProvider = platformParamsProvider;
+    }
+
+    private readonly ITracker _eventTracker;
+    private readonly IGlobalParamsProvider _globalParamsProvider;
+    private readonly IPlatformParamsProvider _platformParamsProvider;
+
+    private void TrackEvent(string eventName, Dictionary<string, object> parameters) {
+        var mergedParams = new Dictionary<string, object>(parameters);
+        mergedParams.PutAll(_globalParamsProvider.GetGlobalParams().MakeParams());
+        mergedParams.PutAll(_platformParamsProvider.GetPlatformParams().MakeParams());
+        _eventTracker.TrackEvent(eventName, mergedParams);
+    }
+
+    private Dictionary<string, object> MakeMeta(int event_version, Dictionary<string, object> interfaces) {
+        Dictionary<string, object>  metaDict = new Dictionary<string, object>();
+        Dictionary<string, object> eventDict = new Dictionary<string, object>();
+        eventDict.Add("version", event_version);
+        metaDict.Add("event", eventDict);
+        metaDict.Add("interfaces", interfaces);
+        return metaDict;
+    }
+
+    public interface ITracker {
+        void TrackEvent(string eventName, Dictionary<string, object> parameters);
+    }
+
+    public interface IGlobalParamsProvider {
+        GlobalParams GetGlobalParams();
+    }
+
+    public interface IPlatformParamsProvider {
+        PlatformParams GetPlatformParams();
+    }
+
+    {{#each globalParameters.parameters}}
+    {{>enum parameter=this}}
+    {{/each}}
+    {{#unless (isEmpty globalParameters.parameters)}}
+    /**
+    {{#each globalParameters.parameters}}
+        {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+    {{/each}}
+    */
+    {{/unless}}
+    public class GlobalParams {
+        {{#each globalParameters.parameters}}
+        {{#unless (isConst this.type)}}
+        public {{typeFormat this}} {{camelcase this.name}};
+        {{/unless}}
+        {{/each}}
+
+        public Dictionary<string, object> MakeParams() {
+            var parameters = new Dictionary<string, object>();
+            {{#each globalParameters.parameters}}
+            {{#eq this.type 'Bool'}}
+            if {{this.name}} {
+                parameters.Add("{{this.name}}", "true");
+            } else {
+                parameters.Add("{{this.name}}", "false");
+            }
+            {{else}}
+            options["{{this.name}}"] = {{>variableValueFormat parameter=this}}
+            {{/eq}}
+            parameters.Add("{{this.name}}", {{>variableValueFormat parameter=this}})
+            {{/each}}
+            return parameters;
+        }
+
+        public GlobalParams(
+            {{~#each globalParameters.parameters~}}
+            {{#unless (isConst this.type)}}
+            {{~camelcase this.name}}: {{typeFormat this~}}
+            {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+            {{~#unless @last}}, {{/unless~}}
+            {{/unless}}
+            {{~/each~}}
+        ) {
+            {{#each globalParameters.parameters}}
+            {{#unless (isConst this.type)}}
+            this.{{camelcase this.name}} = {{camelcase this.name}}
+            {{/unless}}
+            {{/each}}
+        }
+    }
+
+    {{#if platformParameters}}
+    {{#each platformParameters.parameters}}
+    {{>enum parameter=this}}
+    {{/each}}
+    {{#unless (isEmpty platformParameters.parameters)}}
+    /**
+    {{#each platformParameters.parameters}}
+        {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+    {{/each}}
+    */
+    {{/unless}}
+    {{/if}}
+    public class PlatformParams {
+        {{#if platformParameters}}
+        {{#each platformParameters.parameters}}
+        {{#unless (isConst this.type)}}
+        public {{typeFormat this}} {{camelcase this.name}};
+        {{/unless}}
+        {{/each}}
+        {{/if}}
+        
+        public Dictionary<string, object> MakeParams() {
+            var parameters = new Dictionary<string, object>();
+            {{#if platformParameters}}
+            {{#each platformParameters.parameters}}
+            {{#eq this.type 'Bool'}}
+            if {{this.name}} {
+                parameters.Add("{{this.name}}", "true");
+            } else {
+                parameters.Add("{{this.name}}", "false");
+            }
+            {{else}}
+            parameters.Add("{{this.name}}", {{>variableValueFormat parameter=this}})
+            {{/eq}}
+            {{/each}}
+            {{/if}}
+            return parameters;
+        }
+        
+        public PlatformParams(
+            {{~#if platformParameters~}}
+            {{~#each platformParameters.parameters~}}
+            {{~#unless (isConst this.type)~}}
+            {{~camelcase this.name}}: {{typeFormat this~}}
+            {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+            {{~#unless @last}}, {{/unless~}}
+            {{~/unless~}}
+            {{~/each~}}
+            {{~/if~}}
+        ) {
+            {{#if platformParameters}}
+            {{#each platformParameters.parameters}}
+            {{#unless (isConst this.type)}}
+            this.{{camelcase this.name}} = {{camelcase this.name}}
+            {{/unless}}
+            {{/each}}
+            {{/if}}
+        }
+    }
+
+    {{#filterTruthy this.namedEnums "type.Enum.name"}}
+    {{#each this}}
+    {{>enum parameter=this}}
+    {{/each}}
+    {{/filterTruthy}}
+    {{#each eventNamespaces}}
+    {{#each allVersions}}
+    {{#filterFalsy this.parameters "type.Enum.name"}}
+    {{#each this}}
+    {{>enum parameter=this}}
+    {{/each}}
+    {{/filterFalsy}}
+    {{#unless (isEmpty additionalNamespaces)}}
+    public class {{pascalcase name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt version 1}}V{{version}}{{/gt}}{{/unless}} {
+        private {{pascalcase name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt version 1}}V{{version}}{{/gt}}{{/unless}}(string value) { RawValue = value; }
+        public string RawValue { get; private set; }
+    {{#each additionalNamespaces}}
+        public static {{pascalcase ../name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt ../version 1}}V{{../version}}{{/gt}}{{/unless}} {{uppersnakecase (replace this '.' '_')}} { get { return new {{pascalcase ../name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt version 1}}V{{version}}{{/gt}}{{/unless}}("{{this}}"); } }
+    {{/each}}
+    }
+
+    {{/unless}}
+    /**
+    {{#each (splitByNewLine this.description)}}
+        {{this}}
+    {{/each}}
+    
+    {{#each parameters}}
+        {{@index}}. {{name}} - {{description}}
+    {{/each}}
+    */
+    public void {{upperFirstLetter (camelcase name)}}{{#gt version 1}}V{{version}}{{/gt}}({{#unless (isEmpty additionalNamespaces)}}
+        namespace: {{pascalcase name}}Namespaces{{#gt version 1}}V{{version}}{{/gt}},{{/unless}}
+        {{#filterUndefined parameters 'type.Const'}}
+        {{#each this}}
+        {{typeFormat this}} {{camelcase name}}
+        {{~#if (isDefined defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if}}{{#unless @last}},{{/unless}}
+        {{/each}}
+        {{/filterUndefined}}
+    ) {
+        var parameters = new Dictionary<string, object>();
+        {{#each parameters}}
+        parameters.Add("{{name}}", {{>variableValueFormat parameter=this}});
+        {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}
+            .ToString()
+        {{~/contains}}
+
+        {{/each}}
+        Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
+        {{#each this.interfaces}}
+        Dictionary<string, object> {{camelcase @key}} = new Dictionary<string, object>();
+        {{camelcase @key}}.Add("version", {{this}});
+        interfacesDict.Add("{{@key}}", {{camelcase @key}});
+        {{/each}}
+        var _meta = MakeMeta({{version}}, interfacesDict);
+        parameters.Add("_meta", _meta);
+        TrackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.ToString() + "." + {{/unless}}"{{event}}", parameters);
+    }
+
+    {{/each}}
+    {{/each}}
+}

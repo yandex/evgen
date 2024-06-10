@@ -1,0 +1,10 @@
+{{#if (isEnum parameter.type)}}
+public class {{typeFormat parameter}} {
+    private {{typeFormat parameter}}(string value) { RawValue = value; }
+    public string RawValue { get; private set; }
+{{#each parameter.type.Enum.values}}
+    public static {{typeFormat ../parameter}} {{#if (isNumber this)}}Int{{this}}{{else}}{{uppersnakecase (replace this '.' '_')}}{{/if}} { get { return new {{typeFormat ../parameter}}("{{this}}"); } }
+{{/each}}
+}
+
+{{/if}}

@@ -17,7 +17,7 @@ MyNamespace.MyEvent
     10. dictElementType: Dict - параметр типа Dict енумов.
     11. typedDictParam:  - типизированный Dict.
     12. typedListParam:  - типизированный List.
-    13. platformConst: PlatformConst(Android: AndroidValueiOS: iOSValueWebSmartTV: WebSmartTVValue) - Платформозависимая константа
+    13. platformConst: PlatformConst(Android: AndroidValueiOS: iOSValueWebSmartTV: WebSmartTVValueUnity: UnityValue) - Платформозависимая константа
     14. listOfInt: List - Список целочисленных параметров
     15. listOfDouble: List - Список флотовых параметров
     16. listOfString: List - Cписок строк

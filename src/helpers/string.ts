@@ -1,5 +1,5 @@
 import { HelperOptions } from 'handlebars';
-import { toUpper, isString, toLower } from 'lodash';
+import { toUpper, isString, toLower, snakeCase } from 'lodash';
 
 const wordSeparator = /_|\.|-/;
 
@@ -37,3 +37,5 @@ export const camelCase = (str: string) =>
 export const pascalCase = (str: string) => str.split(wordSeparator).map(upperFirstLetter).join('');
 
 export const upperCase = (str: string) => toUpper(str).replaceAll('-', '_');
+
+export const upperSnakeCase = (str: string) => toUpper(snakeCase(str));

@@ -1,4 +1,4 @@
-| | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | Android | iOS | WebSmartTV |
-|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|
-|0|AnotherNamespace.Event1|1||0. reusedParam: String<br>|Первое событие с переиспользуемым параметром<br>0. reusedParam - Параметр, который переиспользуется в нескольких событиях<br>||В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|
-|1|AnotherNamespace.kebab-case-event-2|1||0. reusedParam: String<br>|Второе событие с переиспользуемым параметром<br>0. reusedParam - Параметр, который переиспользуется в нескольких событиях<br>||В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|
+| | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | Android | iOS | WebSmartTV | Unity |
+|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+|0|AnotherNamespace.Event1|1||0. reusedParam: String<br>|Первое событие с переиспользуемым параметром<br>0. reusedParam - Параметр, который переиспользуется в нескольких событиях<br>||В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|
+|1|AnotherNamespace.kebab-case-event-2|1||0. reusedParam: String<br>|Второе событие с переиспользуемым параметром<br>0. reusedParam - Параметр, который переиспользуется в нескольких событиях<br>||В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|В разработке https://your-tracker.com|

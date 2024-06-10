@@ -35,6 +35,7 @@ Constants:
     android: &android Android
     ios: &ios iOS
     web_smart_tv: &web_smart_tv WebSmartTV
+    unity: &unity Unity
 
 *GlobalParameters :
     *parameters :
@@ -143,6 +144,7 @@ Constants:
                                 *android : AndroidValue
                                 *ios : iOSValue
                                 *web_smart_tv : WebSmartTVValue
+                                *unity : UnityValue
                         *description : Платформозависимая константа
 
                     listOfInt:
@@ -179,6 +181,9 @@ Constants:
                     *web_smart_tv :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
+                    *unity :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
 
     AnotherNamespace:
         # документацию для неймспейсов можно складывать в папки,
@@ -208,6 +213,9 @@ Constants:
                     *web_smart_tv :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
+                    *unity :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
         kebab-case-event-2:
             v1:
                 *description : Второе событие с переиспользуемым параметром
@@ -223,5 +231,7 @@ Constants:
                     *web_smart_tv :
                         *app_versions : *in_progress
                         *ticket : https://your-tracker.com
-
+                    *unity :
+                        *app_versions : *in_progress
+                        *ticket : https://your-tracker.com
 

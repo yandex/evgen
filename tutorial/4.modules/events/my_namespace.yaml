@@ -41,3 +41,6 @@ Events:
                     WebSmartTV:
                         app_versions: in_progress
                         ticket: https://your-tracker.com
+                    Unity:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
