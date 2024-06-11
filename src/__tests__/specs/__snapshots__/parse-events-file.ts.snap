@@ -18,9 +18,9 @@ Object {
         "type": Object {
           "PlatformConst": Object {
             "Android": "mobile-android",
+            "Flutter": "flutter",
             "WebSmartTV": "smarttv",
             "iOS": "mobile-ios_swift",
-            "Flutter": "flutter",
           },
         },
       },
@@ -47,12 +47,12 @@ Object {
         "app_versions": "in_progress",
         "ticket": "https://tracker.com",
       },
-      "iOS": Object {
-        "app_versions": 5.12,
+      "Flutter": Object {
+        "app_versions": "in_progress",
         "ticket": "https://tracker.com",
       },
       "iOS": Object {
-        "app_versions": "in_progress",
+        "app_versions": 5.12,
         "ticket": "https://tracker.com",
       },
       "tvOS": Object {
@@ -69,6 +69,17 @@ Object {
           "description": "Параметр для Android",
           "type": Object {
             "Const": "android",
+          },
+        },
+      },
+    },
+    "Flutter": Object {
+      "description": "Параметры, которые добавляются к событиям, отправленным с Flutter",
+      "parameters": Object {
+        "flutterParam": Object {
+          "description": "Параметр для Flutter",
+          "type": Object {
+            "Const": "flutter",
           },
         },
       },
@@ -91,17 +102,6 @@ Object {
           "description": "Параметр для iOS",
           "type": Object {
             "Const": "ios_swift",
-          },
-        },
-      },
-    },
-    "Flutter": Object {
-      "description": "Параметры, которые добавляются к событиям, отправленным с Flutter",
-      "parameters": Object {
-        "flutterParam": Object {
-          "description": "Параметр для Flutter",
-          "type": Object {
-            "Const": "flutter",
           },
         },
       },
@@ -173,15 +173,15 @@ Object {
                   "app_versions": "5.6.0",
                   "ticket": "https://tracker.com",
                 },
+                "Flutter": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
                 "WebSmartTV": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
                 "iOS": Object {
-                  "app_versions": "in_progress",
-                  "ticket": "https://tracker.com",
-                },
-                "Flutter": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
@@ -229,15 +229,15 @@ Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -262,15 +262,15 @@ Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -314,15 +314,15 @@ Object {
                   "app_versions": "5.6.0",
                   "ticket": "https://tracker.com",
                 },
+                "Flutter": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
                 "WebSmartTV": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
                 "iOS": Object {
-                  "app_versions": "in_progress",
-                  "ticket": "https://tracker.com",
-                },
-                "Flutter": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
@@ -387,15 +387,15 @@ Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -483,15 +483,15 @@ Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -525,16 +525,16 @@ Object {
                 "app_versions": "5.12 - 5.13",
                 "ticket": "https://tracker.com",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
                 "app_versions": 4.8,
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
-                "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "tvOS": Object {
@@ -623,15 +623,15 @@ Object {
                 "app_versions": 5.13,
                 "ticket": "https://tracker.com",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -693,15 +693,15 @@ Object {
               "Android": Object {
                 "app_versions": "not_supported",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -732,15 +732,15 @@ Object {
               "Android": Object {
                 "app_versions": "not_supported",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -759,15 +759,15 @@ Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
+              "Flutter": Object {
+                "app_versions": "in_progress",
+                "ticket": "https://tracker.com",
+              },
               "WebSmartTV": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
               "iOS": Object {
-                "app_versions": "in_progress",
-                "ticket": "https://tracker.com",
-              },
-              "Flutter": Object {
                 "app_versions": "in_progress",
                 "ticket": "https://tracker.com",
               },
@@ -809,15 +809,15 @@ Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
+                "Flutter": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
                 "WebSmartTV": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
                 "iOS": Object {
-                  "app_versions": "in_progress",
-                  "ticket": "https://tracker.com",
-                },
-                "Flutter": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
@@ -851,15 +851,15 @@ Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
+                "Flutter": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
                 "WebSmartTV": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
                 "iOS": Object {
-                  "app_versions": "in_progress",
-                  "ticket": "https://tracker.com",
-                },
-                "Flutter": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
@@ -890,15 +890,15 @@ Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
+                "Flutter": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
                 "WebSmartTV": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
                 "iOS": Object {
-                  "app_versions": "in_progress",
-                  "ticket": "https://tracker.com",
-                },
-                "Flutter": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
@@ -936,15 +936,15 @@ Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
+                "Flutter": Object {
+                  "app_versions": "in_progress",
+                  "ticket": "https://tracker.com",
+                },
                 "WebSmartTV": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
                 "iOS": Object {
-                  "app_versions": "in_progress",
-                  "ticket": "https://tracker.com",
-                },
-                "Flutter": Object {
                   "app_versions": "in_progress",
                   "ticket": "https://tracker.com",
                 },
@@ -964,15 +964,15 @@ Object {
             "Android": Object {
               "app_versions": "not_supported",
             },
+            "Flutter": Object {
+              "app_versions": "in_progress",
+              "ticket": "https://tracker.com",
+            },
             "WebSmartTV": Object {
               "app_versions": "in_progress",
               "ticket": "https://tracker.com",
             },
             "iOS": Object {
-              "app_versions": "in_progress",
-              "ticket": "https://tracker.com",
-            },
-            "Flutter": Object {
               "app_versions": "in_progress",
               "ticket": "https://tracker.com",
             },
@@ -1038,16 +1038,16 @@ Object {
             "app_versions": "3.12 - 3.15",
             "ticket": "https://tracker.com",
           },
+          "Flutter": Object {
+            "app_versions": "in_progress",
+            "ticket": "https://tracker.com",
+          },
           "WebSmartTV": Object {
             "app_versions": "in_progress",
             "ticket": "https://tracker.com",
           },
           "iOS": Object {
             "app_versions": "4.1 - 4.2",
-            "ticket": "https://tracker.com",
-          },
-          "Flutter": Object {
-            "app_versions": "in_progress",
             "ticket": "https://tracker.com",
           },
           "tvOS": Object {
@@ -1065,16 +1065,16 @@ Object {
             "app_versions": "3.12 - 3.15",
             "ticket": "https://tracker.com",
           },
+          "Flutter": Object {
+            "app_versions": "in_progress",
+            "ticket": "https://tracker.com",
+          },
           "WebSmartTV": Object {
             "app_versions": "in_progress",
             "ticket": "https://tracker.com",
           },
           "iOS": Object {
             "app_versions": "4.1 - 4.2",
-            "ticket": "https://tracker.com",
-          },
-          "Flutter": Object {
-            "app_versions": "in_progress",
             "ticket": "https://tracker.com",
           },
           "tvOS": Object {
@@ -1234,8 +1234,8 @@ Object {
     },
     "android": "Android",
     "cinema_card": "cinema_card",
+    "flutter": "Flutter",
     "ios": "iOS",
-    "flutter" : "Flutter",
     "locked_subscription_screen": "locked_subscription_screen",
     "my_movies_screen": "my_movies_screen",
     "onboarding_screen": "onboarding_screen",

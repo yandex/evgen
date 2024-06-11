@@ -247,6 +247,7 @@ ci:
                 add_timestamp: true
               environment_variables_map:
                 PROJECT_DIR: ${context.config_info.dir}
+                VERSION: ${context.version_info.full}
               secret_environment_variables_map:
                 STARTREK_TOKEN:
                   key: STARTREK_TOKEN
@@ -264,6 +265,8 @@ ci:
                 set -ex
 
                 pnpm i
+
+                npm version $VERSION
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-macos-x64 -o $RESULT_RESOURCES_PATH/evgen .
@@ -294,6 +297,7 @@ ci:
                 add_timestamp: true
               environment_variables_map:
                 PROJECT_DIR: ${context.config_info.dir}
+                VERSION: ${context.version_info.full}
               secret_environment_variables_map:
                 STARTREK_TOKEN:
                   key: STARTREK_TOKEN
@@ -311,6 +315,8 @@ ci:
                 set -ex
 
                 pnpm i
+
+                npm version $VERSION
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-linux-x64 -o $RESULT_RESOURCES_PATH/evgen .
@@ -341,6 +347,7 @@ ci:
                 add_timestamp: true
               environment_variables_map:
                 PROJECT_DIR: ${context.config_info.dir}
+                VERSION: ${context.version_info.full}
               secret_environment_variables_map:
                 STARTREK_TOKEN:
                   key: STARTREK_TOKEN
@@ -358,6 +365,8 @@ ci:
                 set -ex
 
                 pnpm i
+
+                npm version $VERSION
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-win-x64 -o $RESULT_RESOURCES_PATH/evgen .
@@ -647,6 +656,7 @@ ci:
                 add_timestamp: true
               environment_variables_map:
                 PROJECT_DIR: ${context.config_info.dir}
+                VERSION: 0.0.0-pr-${to_string(context.launch_pull_request_info.pull_request.id)}
               secret_environment_variables_map:
                 STARTREK_TOKEN:
                   key: STARTREK_TOKEN
@@ -664,6 +674,8 @@ ci:
                 set -ex
 
                 pnpm i
+
+                npm version $VERSION
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-macos-x64 -o $RESULT_RESOURCES_PATH/evgen .
@@ -697,6 +709,7 @@ ci:
                 add_timestamp: true
               environment_variables_map:
                 PROJECT_DIR: ${context.config_info.dir}
+                VERSION: 0.0.0-pr-${to_string(context.launch_pull_request_info.pull_request.id)}
               secret_environment_variables_map:
                 STARTREK_TOKEN:
                   key: STARTREK_TOKEN
@@ -714,6 +727,8 @@ ci:
                 set -ex
 
                 pnpm i
+
+                npm version $VERSION
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-linux-x64 -o $RESULT_RESOURCES_PATH/evgen .
@@ -747,6 +762,7 @@ ci:
                 add_timestamp: true
               environment_variables_map:
                 PROJECT_DIR: ${context.config_info.dir}
+                VERSION: 0.0.0-pr-${to_string(context.launch_pull_request_info.pull_request.id)}
               secret_environment_variables_map:
                 STARTREK_TOKEN:
                   key: STARTREK_TOKEN
@@ -764,6 +780,8 @@ ci:
                 set -ex
 
                 pnpm i
+
+                npm version $VERSION
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-win-x64 -o $RESULT_RESOURCES_PATH/evgen .

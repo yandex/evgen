@@ -17,6 +17,13 @@ Object {
       "output_dir": "android_kotlin",
       "platform": "Android",
     },
+    "Flutter": Object {
+      "class_name": "EvgenAnalytics",
+      "language": "dart",
+      "only_last_version": false,
+      "output_dir": "flutter",
+      "platform": "Flutter",
+    },
     "WebSmartTV": Object {
       "class_name": "EvgenAnalytics",
       "language": "type_script",
@@ -44,13 +51,6 @@ Object {
       "only_last_version": false,
       "output_dir": "ios_swift",
       "platform": "iOS",
-    },
-    "Flutter": Object {
-      "class_name": "EvgenAnalytics",
-      "language": "dart",
-      "only_last_version": false,
-      "output_dir": "flutter",
-      "platform": "Flutter",
     },
   },
   "doc": Object {
