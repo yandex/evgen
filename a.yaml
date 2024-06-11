@@ -224,7 +224,7 @@ ci:
 
                 echo "{\"id\": \"npm-registry\", \"module\": \"ARCADIA\", \"url\": \"$npm_url\", \"text\": \"npm-registry\", \"status\": \"SUCCESSFUL\" }" > $RESULT_BADGES_PATH/badges
 
-        build-macos:
+        build-darwin:
           needs: publish
           task: common/misc/run_command
           requirements:
@@ -258,7 +258,7 @@ ci:
                   ci_badge: true
                   attributes:
                     released: stable
-                    platform: macos
+                    platform: darwin
                     ttl: inf
               cmd_line: |
                 source /etc/profile
@@ -270,7 +270,7 @@ ci:
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-macos-x64 -o $RESULT_RESOURCES_PATH/evgen .
-                if [[ macos == win32 ]]; then
+                if [[ darwin == win32 ]]; then
                     mv $RESULT_RESOURCES_PATH/evgen.exe $RESULT_RESOURCES_PATH/evgen
                 fi
 
@@ -376,7 +376,7 @@ ci:
 
         close-release-ticket:
           needs:
-            - build-macos
+            - build-darwin
             - build-linux
             - build-win32
           task: common/tracker/transit_issue
@@ -624,13 +624,13 @@ ci:
           needs:
             - skip-publish
             - publish
-            - build-macos
+            - build-darwin
             - build-linux
             - build-win32
           needs-type: any
           task: dummy
 
-        build-macos:
+        build-darwin:
           needs:
             - jest
             - lint
@@ -667,7 +667,7 @@ ci:
                   ci_badge: true
                   attributes:
                     released: unstable
-                    platform: macos
+                    platform: darwin
                     ttl: "14"
               cmd_line: |
                 source /etc/profile
@@ -679,7 +679,7 @@ ci:
                 pnpm build
 
                 npx -y pkg@5.8.1 -d -t node18-macos-x64 -o $RESULT_RESOURCES_PATH/evgen .
-                if [[ macos == win32 ]]; then
+                if [[ darwin == win32 ]]; then
                     mv $RESULT_RESOURCES_PATH/evgen.exe $RESULT_RESOURCES_PATH/evgen
                 fi
 
