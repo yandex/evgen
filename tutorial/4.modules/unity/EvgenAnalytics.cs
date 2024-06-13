@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-class EvgenAnalytics {
+public class EvgenAnalytics {
     public EvgenAnalytics(
         ITracker eventTracker,
         IGlobalParamsProvider globalParamsProvider,
