@@ -33,9 +33,12 @@ export const generateEventsCode = async (
         'type.Enum.name'
     );
 
+    const allVersionsByEvent = groupAllVersionsByEvent(events.eventNamespaces);
+
     const ctx = {
         ...events,
         eventNamespaces,
+        allVersionsByEvent,
         namedEnums,
         onlyLastVersion: options.onlyLastVersion,
         classname: options.className || DEFAULT_CLASS_NAME,
@@ -57,8 +60,23 @@ export const generateEventsDocs = async (events: NamespaceCollection, options: G
         'documentationDir'
     );
 
+    const allVersionsByEvent = groupAllVersionsByEvent(events.eventNamespaces);
+
+    const ctx = {
+        ...events,
+        allVersionsByEvent,
+        eventNamespacesByDocDir,
+    };
+
+    return compileTemplates(ctx, {
+        templateDir,
+        outputPath,
+    });
+};
+
+const groupAllVersionsByEvent = (eventNamespaces: EventNamespace<Event>[]) => {
     const allVersionsByEvent: Record<string, EventVersion[]> = {};
-    sortBy(events.eventNamespaces, 'name').forEach((namespace) => {
+    sortBy(eventNamespaces, 'name').forEach((namespace) => {
         namespace.events.forEach((namespaceEvents) => {
             namespaceEvents.versions.forEach((version) => {
                 const eventNames = version.additionalNamespaces.length
@@ -75,16 +93,7 @@ export const generateEventsDocs = async (events: NamespaceCollection, options: G
         });
     });
 
-    const ctx = {
-        ...events,
-        allVersionsByEvent,
-        eventNamespacesByDocDir,
-    };
-
-    return compileTemplates(ctx, {
-        templateDir,
-        outputPath,
-    });
+    return allVersionsByEvent;
 };
 
 const prepareOutDir = async (outDir: string) => rm(outDir, { recursive: true, force: true });
