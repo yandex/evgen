@@ -3,7 +3,7 @@ import { toUpper, isString, toLower, snakeCase } from 'lodash';
 
 const wordSeparator = /_|\.|-/;
 const ignoreSeparators = /([\[\]\(\)\<\>])/g;
-const ignoreSeporatorReplacer = '_{$1}_'; // separate brackets from other words with '_'
+const ignoreSeporatorReplacer = '_$1_'; // separate brackets from other words with '_'
 
 export const upperFirstLetter = (str: string) => str.replace(/[a-zA-Z0-9]/, toUpper);
 export const lowerFirstLetter = (str: string) => str.replace(/[a-zA-Z0-9]/, toLower);
