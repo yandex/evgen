@@ -3,8 +3,8 @@ import { toUpper, isString, toLower, snakeCase } from 'lodash';
 
 const wordSeparator = /_|\.|-/;
 
-export const upperFirstLetter = (str: string) => str.replace(/^(.)/, toUpper);
-export const lowerFirstLetter = (str: string) => str.replace(/^(.)/, toLower);
+export const upperFirstLetter = (str: string) => str.replace(/[a-zA-Z0-9]/, toUpper);
+export const lowerFirstLetter = (str: string) => str.replace(/[a-zA-Z0-9]/, toLower);
 
 export const splitByNewLine = (str: unknown) => (isString(str) ? str.split('\n') : '');
 
