@@ -2,6 +2,8 @@ import { HelperOptions } from 'handlebars';
 import { toUpper, isString, toLower, snakeCase } from 'lodash';
 
 const wordSeparator = /_|\.|-/;
+const ignoreSeparators = /([\[\]\(\)\<\>])/g;
+const ignoreSeporatorReplacer = '_{$1}_'; // separate brackets from other words with '_'
 
 export const upperFirstLetter = (str: string) => str.replace(/[a-zA-Z0-9]/, toUpper);
 export const lowerFirstLetter = (str: string) => str.replace(/[a-zA-Z0-9]/, toLower);
@@ -29,12 +31,19 @@ export const escape = (options: HelperOptions) => {
 
 export const camelCase = (str: string) =>
     str
+        .replace(ignoreSeparators, ignoreSeporatorReplacer)
         .split(wordSeparator)
         .filter(Boolean)
         .map((word, i) => (i === 0 ? lowerFirstLetter(word) : upperFirstLetter(word)))
         .join('');
 
-export const pascalCase = (str: string) => str.split(wordSeparator).map(upperFirstLetter).join('');
+export const pascalCase = (str: string) =>
+    str
+        .replace(ignoreSeparators, ignoreSeporatorReplacer)
+        .split(wordSeparator)
+        .filter(Boolean)
+        .map(upperFirstLetter)
+        .join('');
 
 export const upperCase = (str: string) => toUpper(str).replaceAll('-', '_');
 
