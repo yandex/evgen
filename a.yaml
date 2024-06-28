@@ -119,6 +119,37 @@ ci:
 
                 pnpm run --if-present lint
 
+        typecheck:
+          needs: create-release-ticket
+          task: common/misc/run_command
+          requirements:
+            cores: 1
+            ram: 8 GB
+            disk: 40 GB
+            sandbox:
+              dns: dns64
+              client_tags: GENERIC & LINUX & SSD & PORTOD
+              porto_layers:
+                - 6122813573
+                - 6108463329
+          input:
+            config:
+              arc_mount_config:
+                enabled: true
+              logs_config:
+                redirect_stderr_to_stdout: true
+                stdout_ci_badge: true
+                add_timestamp: true
+              environment_variables_map:
+                PROJECT_DIR: ${context.config_info.dir}
+              cmd_line: |
+                source /etc/profile
+                set -xe
+
+                pnpm install --frozen-lockfile
+
+                pnpm run --if-present typecheck
+
         jest:
           needs: create-release-ticket
           task: common/misc/run_command
@@ -174,6 +205,7 @@ ci:
         publish:
           needs:
             - lint
+            - typecheck
             - jest
           task: common/misc/run_command
           requirements:
@@ -496,6 +528,36 @@ ci:
 
                 pnpm run --if-present lint
 
+        typecheck:
+          task: common/misc/run_command
+          requirements:
+            cores: 1
+            ram: 8 GB
+            disk: 40 GB
+            sandbox:
+              dns: dns64
+              client_tags: GENERIC & LINUX & SSD & PORTOD
+              porto_layers:
+                - 6122813573
+                - 6108463329
+          input:
+            config:
+              arc_mount_config:
+                enabled: true
+              logs_config:
+                redirect_stderr_to_stdout: true
+                stdout_ci_badge: true
+                add_timestamp: true
+              environment_variables_map:
+                PROJECT_DIR: ${context.config_info.dir}
+              cmd_line: |
+                source /etc/profile
+                set -xe
+
+                pnpm install --frozen-lockfile
+
+                pnpm run --if-present typecheck
+
         jest:
           task: common/misc/run_command
           requirements:
@@ -550,6 +612,7 @@ ci:
         publish:
           needs:
             - lint
+            - typecheck
             - jest
           task: common/misc/run_command
           requirements:
@@ -616,6 +679,7 @@ ci:
         skip-publish:
           needs:
             - lint
+            - typecheck
             - jest
           needs-type: any
           task: dummy
