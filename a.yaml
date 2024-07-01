@@ -498,6 +498,79 @@ ci:
 
     package-evgen-pr-flow:
       jobs:
+        publish:
+          task: common/misc/run_command
+          requirements:
+            cores: 1
+            ram: 8 GB
+            disk: 40 GB
+            sandbox:
+              dns: dns64
+              client_tags: GENERIC & LINUX & SSD & PORTOD
+              porto_layers:
+                - 6122813573
+                - 6108463329
+          manual: true
+          runtime:
+            sandbox:
+              kill-timeout: 30m
+          input:
+            config:
+              arc_mount_config:
+                enabled: true
+              logs_config:
+                redirect_stderr_to_stdout: true
+                stdout_ci_badge: true
+                add_timestamp: true
+              environment_variables_map:
+                PROJECT_DIR: ${context.config_info.dir}
+                VERSION: ${context.version_info.full}
+                PR_NUMBER: ${to_string(context.launch_pull_request_info.pull_request.id)}
+              secret_environment_variables_map:
+                NPM_AUTH_TOKEN:
+                  key: npm_authToken
+                AWS_ACCESS_KEY_ID:
+                  key: KP_AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY:
+                  key: KP_AWS_SECRET_ACCESS_KEY
+              result_badges:
+                - path: badges
+              cmd_line: |
+                source /etc/profile
+                set -ex
+
+                pnpm install --frozen-lockfile
+
+                full_version=0.0.0-pr-$PR_NUMBER-$VERSION
+
+                npm version $full_version
+
+                package_name=$(node -p 'require("./package.json").name')
+                npm_url=https://npm.yandex-team.ru/-/ui/package/$package_name/v/$full_version
+                    
+                npm publish --tag="pr$PR_NUMBER"
+                    
+                curl -XPOST "https://a.yandex-team.ru/api/v1/review-requests/$PR_NUMBER/comments" \
+                    -H "Authorization: OAuth $ARC_TOKEN" \
+                    -H "Content-Type: application/json" \
+                    -d "{
+                    \"issue_status\": \"not_issue\",
+                    \"content\": \"The package was published: [$package_name@$full_version]($npm_url)\",
+                    \"draft\": false
+                    }" -iv
+
+                echo "{\"id\": \"npm-registry\", \"module\": \"ARCADIA\", \"url\": \"$npm_url\", \"text\": \"npm-registry\", \"status\": \"SUCCESSFUL\" }" > $RESULT_BADGES_PATH/badges
+
+        skip-publish:
+          task: dummy
+
+        finish-publish:
+          needs:
+            - skip-publish
+            - publish
+          needs-type: any
+          task: dummy
+
         lint:
           task: common/misc/run_command
           requirements:
@@ -609,89 +682,14 @@ ci:
                 fi
                 exit $exit_code
 
-        publish:
-          needs:
-            - lint
-            - typecheck
-            - jest
-          task: common/misc/run_command
-          requirements:
-            cores: 1
-            ram: 8 GB
-            disk: 40 GB
-            sandbox:
-              dns: dns64
-              client_tags: GENERIC & LINUX & SSD & PORTOD
-              porto_layers:
-                - 6122813573
-                - 6108463329
-          manual: true
-          runtime:
-            sandbox:
-              kill-timeout: 30m
-          input:
-            config:
-              arc_mount_config:
-                enabled: true
-              logs_config:
-                redirect_stderr_to_stdout: true
-                stdout_ci_badge: true
-                add_timestamp: true
-              environment_variables_map:
-                PROJECT_DIR: ${context.config_info.dir}
-                VERSION: ${context.version_info.full}
-                PR_NUMBER: ${to_string(context.launch_pull_request_info.pull_request.id)}
-              secret_environment_variables_map:
-                NPM_AUTH_TOKEN:
-                  key: npm_authToken
-                AWS_ACCESS_KEY_ID:
-                  key: KP_AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY:
-                  key: KP_AWS_SECRET_ACCESS_KEY
-              result_badges:
-                - path: badges
-              cmd_line: |
-                source /etc/profile
-                set -ex
-
-                pnpm install --frozen-lockfile
-
-                full_version=0.0.0-pr-$PR_NUMBER-$VERSION
-
-                npm version $full_version
-
-                package_name=$(node -p 'require("./package.json").name')
-                npm_url=https://npm.yandex-team.ru/-/ui/package/$package_name/v/$full_version
-                    
-                npm publish --tag="pr$PR_NUMBER"
-                    
-                curl -XPOST "https://a.yandex-team.ru/api/v1/review-requests/$PR_NUMBER/comments" \
-                    -H "Authorization: OAuth $ARC_TOKEN" \
-                    -H "Content-Type: application/json" \
-                    -d "{
-                    \"issue_status\": \"not_issue\",
-                    \"content\": \"The package was published: [$package_name@$full_version]($npm_url)\",
-                    \"draft\": false
-                    }" -iv
-
-                echo "{\"id\": \"npm-registry\", \"module\": \"ARCADIA\", \"url\": \"$npm_url\", \"text\": \"npm-registry\", \"status\": \"SUCCESSFUL\" }" > $RESULT_BADGES_PATH/badges
-
-        skip-publish:
-          needs:
-            - lint
-            - typecheck
-            - jest
-          needs-type: any
-          task: dummy
-
         finish:
           needs:
-            - skip-publish
-            - publish
-            - build-darwin
-            - build-linux
-            - build-win32
-          needs-type: any
+            - finish-publish
+            - lint
+            - typecheck
+            - jest
+            - finish-builds
+          needs-type: all-success
           task: dummy
 
         build-darwin:
@@ -852,6 +850,21 @@ ci:
                 if [[ win32 == win32 ]]; then
                     mv $RESULT_RESOURCES_PATH/evgen.exe $RESULT_RESOURCES_PATH/evgen
                 fi
+
+        skip-builds:
+          needs:
+            - jest
+            - lint
+          task: dummy
+
+        finish-builds:
+          needs:
+            - build-darwin
+            - build-linux
+            - build-win32
+            - skip-builds
+          needs-type: any
+          task: dummy
 
       cleanup-jobs:
         deprecate-npm-package:
