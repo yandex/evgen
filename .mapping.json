@@ -9,7 +9,6 @@
   "CONTRIBUTING.md":"kinopoisk/frontend/packages/evgen/CONTRIBUTING.md",
   "LICENSE":"kinopoisk/frontend/packages/evgen/LICENSE",
   "README.md":"kinopoisk/frontend/packages/evgen/README.md",
-  "a.yaml":"kinopoisk/frontend/packages/evgen/a.yaml",
   "babel.config.js":"kinopoisk/frontend/packages/evgen/babel.config.js",
   "demo/android_kotlin/EvgenAnalytics.kt":"kinopoisk/frontend/packages/evgen/demo/android_kotlin/EvgenAnalytics.kt",
   "demo/events/interfaces.yaml":"kinopoisk/frontend/packages/evgen/demo/events/interfaces.yaml",
