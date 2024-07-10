@@ -14,7 +14,9 @@
             {{~#if (isEnum parameter.type)~}}
                 Enum(
                     {{~#if parameter.type.Enum.name~}}{{parameter.type.Enum.name}}: {{/if}}
-                    {{~join parameter.type.Enum.values~}}
+                    {{~#each parameter.type.Enum.values~}}
+                    {{default value this}}{{#unless @last}}, {{/unless}}
+                    {{~/each~}}
                 )
             {{~/if~}}
         {{~/if~}}

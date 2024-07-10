@@ -114,15 +114,16 @@ class EvgenAnalytics {
    * 6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
    * 7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
    * 8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
-   * 9. dictParam - параметр типа Dict.
-   * 10. dictElementType - параметр типа Dict енумов.
-   * 11. typedDictParam - типизированный Dict.
-   * 12. typedListParam - типизированный List.
-   * 13. platformConst - Платформозависимая константа
-   * 14. listOfInt - Список целочисленных параметров
-   * 15. listOfDouble - Список флотовых параметров
-   * 16. listOfString - Cписок строк
-   * 17. listOfEnum - Cписок енумов
+   * 9. enumWithDescriptionsParam - Enum с описанием возможных значений 
+   * 10. dictParam - параметр типа Dict.
+   * 11. dictElementType - параметр типа Dict енумов.
+   * 12. typedDictParam - типизированный Dict.
+   * 13. typedListParam - типизированный List.
+   * 14. platformConst - Платформозависимая константа
+   * 15. listOfInt - Список целочисленных параметров
+   * 16. listOfDouble - Список флотовых параметров
+   * 17. listOfString - Cписок строк
+   * 18. listOfEnum - Cписок енумов
    */
   void myNamespaceMyEvent({
     String stringParam = 'val',
@@ -133,6 +134,7 @@ class EvgenAnalytics {
     MyNamespaceMyEventEnumParam enumParam = MyNamespaceMyEventEnumParam.option1,
     MyNamespaceMyEventEnumParamInt enumParamInt = MyNamespaceMyEventEnumParamInt.num1,
     required Pages namedEnumParam,
+    required PagesWithDescriptions enumWithDescriptionsParam,
     required Map<String, dynamic> dictParam,
     required Map<String, MyNamespaceMyEventEnumParam> dictElementType,
     required Map<String, dynamic> typedDictParam,
@@ -152,6 +154,7 @@ class EvgenAnalytics {
       'enumParam': enumParam.value,
       'enumParamInt': enumParamInt.value,
       'namedEnumParam': namedEnumParam.value,
+      'enumWithDescriptionsParam': enumWithDescriptionsParam.value,
       'dictParam': dictParam,
       'dictElementType': dictElementType,
       'typedDictParam': typedDictParam,
@@ -188,6 +191,21 @@ enum Pages {
   final dynamic value;
 
   const Pages(this.value);
+}
+
+/**
+ * - screen_1 - My description screen_1 
+ * - screen_2 - My description screen_2 
+ * - screen_3 - My description screen_3 
+ */
+enum PagesWithDescriptions {
+  screen1('screen_1'),
+  screen2('screen_2'),
+  screen3('screen_3');
+
+  final dynamic value;
+
+  const PagesWithDescriptions(this.value);
 }
 
 enum MyNamespaceMyEventEnumParamInt {

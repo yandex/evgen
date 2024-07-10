@@ -1,13 +1,22 @@
 {{#if (isEnum parameter.type)}}
+{{#filterTruthy parameter.type.Enum.values "description"}}
+{{#if this}}
+/**
+{{#each this}}
+ * - {{value}} - {{description}} 
+{{/each}}
+ */
+{{/if}}
+{{/filterTruthy}}
 public enum {{typeFormat parameter}}: String {
     {{#each parameter.type.Enum.values}}
-    {{#if (isNumber this)}}
-    int{{this}} = {{this}},
+    {{#if (isNumber (default value this))}}
+    int{{default value this}} = {{default value this}},
     {{else}}
-    {{#if (isSpecialWord (camelcase this))}}
-    case `{{camelcase this}}` = "{{this}}"
+    {{#if (isSpecialWord (camelcase (default value this)))}}
+    case `{{camelcase (default value this)}}` = "{{default value this}}"
     {{else}}
-    case {{camelcase this}} = "{{this}}"
+    case {{camelcase (default value this)}} = "{{default value this}}"
     {{/if}}
     {{/if}}
     {{/each}}

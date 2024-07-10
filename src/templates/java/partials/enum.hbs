@@ -1,10 +1,19 @@
 {{#if (isEnum parameter.type)}}
+{{#filterTruthy parameter.type.Enum.values "description"}}
+{{#if this}}
+/**
+    {{#each this}}
+ * - {{value}} - {{description}} 
+    {{/each}}
+ */
+ {{/if}}
+ {{/filterTruthy}}
 public enum {{typeFormat parameter}} {
     {{#each parameter.type.Enum.values}}
-    {{#if (isNumber this)}}
-    INT_{{this}}("{{this}}"),
+    {{#if (isNumber (default value this))}}
+    INT_{{default value this}}("{{default value this}}"),
     {{else}}
-    {{upperCase (replace this '.' '_')}}("{{this}}"){{#if @last}};{{else}},{{/if}}
+    {{upperCase (replace (default value this) '.' '_')}}("{{default value this}}"){{#if @last}};{{else}},{{/if}}
     {{/if}}
     {{/each}}
     public final String eventValue;

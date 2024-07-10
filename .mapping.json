@@ -167,6 +167,7 @@
   "tutorial/1.event_parameters/web_smart_tv/EvgenAnalytics/evgen_analytics.ts":"kinopoisk/frontend/packages/evgen/tutorial/1.event_parameters/web_smart_tv/EvgenAnalytics/evgen_analytics.ts",
   "tutorial/1.event_parameters/web_smart_tv/EvgenAnalytics/my_namespace.ts":"kinopoisk/frontend/packages/evgen/tutorial/1.event_parameters/web_smart_tv/EvgenAnalytics/my_namespace.ts",
   "tutorial/1.event_parameters/web_smart_tv/EvgenAnalytics/named_enums.ts":"kinopoisk/frontend/packages/evgen/tutorial/1.event_parameters/web_smart_tv/EvgenAnalytics/named_enums.ts",
+  "tutorial/1.event_parameters/yaml_doc/all_events.yaml":"kinopoisk/frontend/packages/evgen/tutorial/1.event_parameters/yaml_doc/all_events.yaml",
   "tutorial/2.interfaces/android_java/EvgenAnalytics.java":"kinopoisk/frontend/packages/evgen/tutorial/2.interfaces/android_java/EvgenAnalytics.java",
   "tutorial/2.interfaces/android_kotlin/EvgenAnalytics.kt":"kinopoisk/frontend/packages/evgen/tutorial/2.interfaces/android_kotlin/EvgenAnalytics.kt",
   "tutorial/2.interfaces/events.yaml":"kinopoisk/frontend/packages/evgen/tutorial/2.interfaces/events.yaml",

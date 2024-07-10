@@ -23,6 +23,7 @@ Constants:
   element_type: &element_type element_type
   empty_list: &empty_list empty_list
   enum_values: &values values
+  value: &value value
   enum_name: &name name
   abstract: &abstract abstract
   const: &const Const
@@ -111,6 +112,22 @@ Constants:
                              Если какой-то enum используется больше одного раза,
                              то лучше давать ему явное имя, разботчики смогут
                              обращаться к нему однообразно
+                    enumWithDescriptionsParam:
+                        *type :
+                            *enum :
+                                *name : PagesWithDescriptions
+                                *values :
+                                    -
+                                        *value : screen_1
+                                        *description : My description screen_1
+                                    -
+                                        *value : screen_2
+                                        *description : My description screen_2
+                                    -
+                                        *value : screen_3
+                                        *description : My description screen_3
+                        *description : |-   # Символ многострочного комментария в yaml
+                            Enum с описанием возможных значений 
                     dictParam:
                         *type : *dict
                         *description : параметр типа Dict.

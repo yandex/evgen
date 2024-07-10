@@ -7,7 +7,7 @@
 import {EvgenAnalytics} from "./evgen_analytics"
 import {makeMetaParams} from "./evgen_analytics"
 
-import {MyNamespaceMyEventEnumParam, Pages} from "./named_enums"
+import {MyNamespaceMyEventEnumParam, Pages, PagesWithDescriptions} from "./named_enums"
 
 export enum MyNamespaceMyEventEnumParamInt {
     int1 = 1,
@@ -27,15 +27,16 @@ export enum MyNamespaceMyEventEnumParamInt {
  *  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
  *  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
  *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
- *  9. dictParam - параметр типа Dict.
- *  10. dictElementType - параметр типа Dict енумов.
- *  11. typedDictParam - типизированный Dict.
- *  12. typedListParam - типизированный List.
- *  13. platformConst [const] - Платформозависимая константа
- *  14. listOfInt - Список целочисленных параметров
- *  15. listOfDouble - Список флотовых параметров
- *  16. listOfString - Cписок строк
- *  17. listOfEnum - Cписок енумов
+ *  9. enumWithDescriptionsParam - Enum с описанием возможных значений 
+ *  10. dictParam - параметр типа Dict.
+ *  11. dictElementType - параметр типа Dict енумов.
+ *  12. typedDictParam - типизированный Dict.
+ *  13. typedListParam - типизированный List.
+ *  14. platformConst [const] - Платформозависимая константа
+ *  15. listOfInt - Список целочисленных параметров
+ *  16. listOfDouble - Список флотовых параметров
+ *  17. listOfString - Cписок строк
+ *  18. listOfEnum - Cписок енумов
  */
 export type MyNamespaceMyEventParameters = {
     stringParam?: string;
@@ -46,6 +47,7 @@ export type MyNamespaceMyEventParameters = {
     enumParam?: MyNamespaceMyEventEnumParam;
     enumParamInt?: MyNamespaceMyEventEnumParamInt;
     namedEnumParam: Pages;
+    enumWithDescriptionsParam: PagesWithDescriptions;
     dictParam: Record<string, any>;
     dictElementType: Record<string, MyNamespaceMyEventEnumParam>;
     typedDictParam: { stringParam: string; typedListParam: { intParam: number; boolParam: boolean; }[]; };

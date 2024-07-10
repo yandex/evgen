@@ -22,6 +22,8 @@ import {
     repeat,
     entries,
     upperSnakeCase,
+    isTypedList,
+    isTypedDict,
 } from '../helpers';
 import { typeFormat as typescriptTypeformat } from '../languages/typescript/types';
 import { typeFormat as swiftTypeformat } from '../languages/swift/types';
@@ -56,6 +58,8 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
     hbs.registerHelper('isNumber', (val) => typeof val === 'number');
     hbs.registerHelper('isString', (val) => typeof val === 'string');
     hbs.registerHelper('isEnum', isEnum);
+    hbs.registerHelper('isTypedList', isTypedList);
+    hbs.registerHelper('isTypedDict', isTypedDict);
     hbs.registerHelper('isConst', isConst);
     hbs.registerHelper('isPlatformConst', isPlatformConst);
     hbs.registerHelper('isNamedEnum', isNamedEnum);

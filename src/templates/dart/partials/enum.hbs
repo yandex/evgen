@@ -1,10 +1,19 @@
 {{#if (isEnum parameter.type)}}
+{{#filterTruthy parameter.type.Enum.values "description"}}
+{{#if this}}
+/**
+    {{#each this}}
+ * - {{value}} - {{description}} 
+    {{/each}}
+ */
+ {{/if}}
+ {{/filterTruthy}}
 enum {{pascalcase (typeFormat parameter)}} {
   {{#each parameter.type.Enum.values}}
-  {{#if (isString this)}}
-  {{#if (isSpecialWord (camelcase this))}}${{/if}}{{camelcase this}}('{{this}}'){{#if @last}};{{else}},{{/if}}
+  {{#if (isString (default value this))}}
+  {{#if (isSpecialWord (camelcase (default value this)))}}${{/if}}{{camelcase (default value this)}}('{{default value this}}'){{#if @last}};{{else}},{{/if}}
   {{else}}
-  num{{this}}({{this}}){{#if @last}};{{else}},{{/if}}
+  num{{default value this}}({{default value this}}){{#if @last}};{{else}},{{/if}}
   {{/if}}
   {{/each}}
 

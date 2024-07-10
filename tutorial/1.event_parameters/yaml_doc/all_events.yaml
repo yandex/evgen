@@ -1,0 +1,66 @@
+.GlobalParams:
+  parameters:
+    globalParam:
+      type: String
+Events:
+  AnotherNamespace.Event1:
+    v1:
+      parameters:
+        reusedParam:
+          type: String
+  AnotherNamespace.kebab-case-event-2:
+    v1:
+      parameters:
+        reusedParam:
+          type: String
+  MyNamespace.MyEvent:
+    v1:
+      parameters:
+        boolParam:
+          default_value: true
+          type: Bool
+        constParam:
+          type: String
+        dictElementType:
+          type: Dict
+        dictParam:
+          type: Dict
+        doubleParam:
+          type: Double
+        enumParam:
+          default_value: option1
+          type: String
+        enumParamInt:
+          default_value: 1
+          type: Int
+        enumWithDescriptionsParam:
+          type: String
+        intParam:
+          default_value: 42
+          type: Int
+        listOfDouble:
+          default_value: empty_list
+          type: List
+        listOfEnum:
+          default_value: empty_list
+          type: List
+        listOfInt:
+          default_value: empty_list
+          type: List
+        listOfString:
+          default_value: empty_list
+          type: List
+        longIntParam:
+          type: Long Int
+        namedEnumParam:
+          type: String
+        platformConst:
+          type: String
+        stringParam:
+          default_value: val
+          type: String
+        typedDictParam:
+          type: Dict
+        typedListParam:
+          type: List
+Interfaces: {}

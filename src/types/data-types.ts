@@ -2,10 +2,15 @@ export type ConstType = { Const: string };
 
 export type PlatformConstType = { PlatformConst: Record<string, string> };
 
+type ValueWithDescription = {
+    value: number | string;
+    description?: string;
+};
+
 export type EnumType = {
     Enum: {
         name?: string;
-        values: number[] | string[];
+        values: ValueWithDescription[] | number[] | string[];
     };
 };
 

@@ -90,6 +90,21 @@ public final class EvgenAnalytics {
     }
     
     /**
+     * - screen_1 - My description screen_1 
+     * - screen_2 - My description screen_2 
+     * - screen_3 - My description screen_3 
+     */
+    public enum PagesWithDescriptions {
+        SCREEN_1("screen_1"),
+        SCREEN_2("screen_2"),
+        SCREEN_3("screen_3");
+        public final String eventValue;
+        PagesWithDescriptions(String eventValue) {
+            this.eventValue = eventValue;
+        }
+    }
+    
+    /**
      *  Первое событие с переиспользуемым параметром
      *
      *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
@@ -139,17 +154,18 @@ public final class EvgenAnalytics {
      *  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
      *  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
      *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
-     *  9. dictParam - параметр типа Dict.
-     *  10. dictElementType - параметр типа Dict енумов.
-     *  11. typedDictParam - типизированный Dict.
-     *  12. typedListParam - типизированный List.
-     *  13. platformConst - Платформозависимая константа
-     *  14. listOfInt - Список целочисленных параметров
-     *  15. listOfDouble - Список флотовых параметров
-     *  16. listOfString - Cписок строк
-     *  17. listOfEnum - Cписок енумов
+     *  9. enumWithDescriptionsParam - Enum с описанием возможных значений 
+     *  10. dictParam - параметр типа Dict.
+     *  11. dictElementType - параметр типа Dict енумов.
+     *  12. typedDictParam - типизированный Dict.
+     *  13. typedListParam - типизированный List.
+     *  14. platformConst - Платформозависимая константа
+     *  15. listOfInt - Список целочисленных параметров
+     *  16. listOfDouble - Список флотовых параметров
+     *  17. listOfString - Cписок строк
+     *  18. listOfEnum - Cписок енумов
      */
-    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, Map<String, ?> dictParam, Map<String, MyNamespaceMyEventEnumParam> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum) {
+    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, PagesWithDescriptions enumWithDescriptionsParam, Map<String, ?> dictParam, Map<String, MyNamespaceMyEventEnumParam> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum) {
         Map<String, Object> params = new HashMap<>();
         params.put("stringParam", stringParam);
         params.put("intParam", String.valueOf(intParam));
@@ -160,6 +176,7 @@ public final class EvgenAnalytics {
         params.put("enumParam", enumParam.eventValue);
         params.put("enumParamInt", enumParamInt.eventValue);
         params.put("namedEnumParam", namedEnumParam.eventValue);
+        params.put("enumWithDescriptionsParam", enumWithDescriptionsParam.eventValue);
         params.put("dictParam", dictParam);
         params.put("dictElementType", dictElementType);
         params.put("typedDictParam", typedDictParam);

@@ -1,9 +1,18 @@
 {{#if (isEnum parameter.type)}}
+{{#filterTruthy parameter.type.Enum.values "description"}}
+{{#if this}}
+/**
+    {{#each this}}
+ * - {{value}} - {{description}} 
+    {{/each}}
+ */
+ {{/if}}
+ {{/filterTruthy}}
 public class {{typeFormat parameter}} {
     private {{typeFormat parameter}}(string value) { RawValue = value; }
     public string RawValue { get; private set; }
 {{#each parameter.type.Enum.values}}
-    public static {{typeFormat ../parameter}} {{#if (isNumber this)}}Int{{this}}{{else}}{{uppersnakecase (replace this '.' '_')}}{{/if}} { get { return new {{typeFormat ../parameter}}("{{this}}"); } }
+    public static {{typeFormat ../parameter}} {{#if (isNumber (default value this))}}Int{{default value this}}{{else}}{{uppersnakecase (replace (default value this) '.' '_')}}{{/if}} { get { return new {{typeFormat ../parameter}}("{{default value this}}"); } }
 {{/each}}
 }
 

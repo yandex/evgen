@@ -9,11 +9,19 @@
       String
     {{else}}
       {{#if (isEnum parameter.type)}}
-        {{~#if (isNumber parameter.type.Enum.values.[0])~}}
+        {{~#if (isNumber (default parameter.type.Enum.values.[0].value parameter.type.Enum.values.[0]))~}}
           Int
         {{else~}}
           String
         {{/if}}
-    {{/if}}
-  {{/or}}
+      {{else}}
+        {{~#if (isTypedList parameter.type)~}}
+          List
+        {{else}}
+          {{~#if (isTypedDict parameter.type)~}}
+            Dict
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    {{/or}}
   {{/contains}}

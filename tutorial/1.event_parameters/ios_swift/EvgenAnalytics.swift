@@ -93,6 +93,17 @@ public final class EvgenAnalytics {
     }
     
     /**
+     * - screen_1 - My description screen_1 
+     * - screen_2 - My description screen_2 
+     * - screen_3 - My description screen_3 
+     */
+    public enum PagesWithDescriptions: String {
+        case screen1 = "screen_1"
+        case screen2 = "screen_2"
+        case screen3 = "screen_3"
+    }
+    
+    /**
      *  Первое событие с переиспользуемым параметром
      *
      *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
@@ -138,17 +149,18 @@ public final class EvgenAnalytics {
      *  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
      *  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
      *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
-     *  9. dictParam - параметр типа Dict.
-     *  10. dictElementType - параметр типа Dict енумов.
-     *  11. typedDictParam - типизированный Dict.
-     *  12. typedListParam - типизированный List.
-     *  13. platformConst - Платформозависимая константа
-     *  14. listOfInt - Список целочисленных параметров
-     *  15. listOfDouble - Список флотовых параметров
-     *  16. listOfString - Cписок строк
-     *  17. listOfEnum - Cписок енумов
+     *  9. enumWithDescriptionsParam - Enum с описанием возможных значений 
+     *  10. dictParam - параметр типа Dict.
+     *  11. dictElementType - параметр типа Dict енумов.
+     *  12. typedDictParam - типизированный Dict.
+     *  13. typedListParam - типизированный List.
+     *  14. platformConst - Платформозависимая константа
+     *  15. listOfInt - Список целочисленных параметров
+     *  16. listOfDouble - Список флотовых параметров
+     *  17. listOfString - Cписок строк
+     *  18. listOfEnum - Cписок енумов
      */
-    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, dictParam: [String: Any], dictElementType: [String: MyNamespaceMyEventEnumParam], typedDictParam: [String: Any], typedListParam: [Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = [], listOfEnum: [MyNamespaceMyEventEnumParam] = []) {
+    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, enumWithDescriptionsParam: PagesWithDescriptions, dictParam: [String: Any], dictElementType: [String: MyNamespaceMyEventEnumParam], typedDictParam: [String: Any], typedListParam: [Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = [], listOfEnum: [MyNamespaceMyEventEnumParam] = []) {
         var options: [String: Any] = [:]
         options["stringParam"] = stringParam
         options["intParam"] = "\(intParam)"
@@ -163,6 +175,7 @@ public final class EvgenAnalytics {
         options["enumParam"] = enumParam.rawValue
         options["enumParamInt"] = enumParamInt.rawValue
         options["namedEnumParam"] = namedEnumParam.rawValue
+        options["enumWithDescriptionsParam"] = enumWithDescriptionsParam.rawValue
         options["dictParam"] = dictParam
         options["dictElementType"] = dictElementType
         options["typedDictParam"] = typedDictParam
