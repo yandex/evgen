@@ -72,7 +72,7 @@ const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
         case 'Dict':
             return 'Record<string, any>';
         case 'List':
-            return '[]';
+            return 'any[]';
         default:
             throw new Error(`Unknown type: ${JSON.stringify(primitiveType)}`);
     }
