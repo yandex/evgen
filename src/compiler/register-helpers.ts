@@ -50,7 +50,7 @@ import { CodeLanguage } from '../types/evgen-config';
 import { Handlebars } from './types';
 
 export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
-    hbsHelpers(['comparison', 'array', 'string', 'object', 'collection'], { hbs });
+    hbsHelpers(['comparison', 'array', 'string', 'object', 'collection', 'math'], { hbs });
     hbs.registerHelper('camelcase', camelCase);
     hbs.registerHelper('snakecase', snakeCase);
     hbs.registerHelper('pascalcase', pascalCase);

@@ -7,7 +7,15 @@
 
     V{{version}}
     Неймспейсы: {{join additionalNamespaces ', '}}
-    {{description}}
+    {{#each (splitByNewLine description)}}
+    {{this}}
+    {{/each}}
+    {{#if comment}}
+    
+    {{/if}}
+    {{#each (splitByNewLine comment)}}
+    {{this}}
+    {{/each}}
 
     {{#each parameters}}
     {{@index}}. {{name}}: {{>typeFormat parameter=this}} - {{description}}

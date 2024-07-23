@@ -112,13 +112,21 @@ class {{classname}}(
 
     {{/unless}}
     /**
-    {{#each (splitByNewLine this.description)}}
-     * {{this}}
+    {{#each (splitByNewLine description)}}
+     *  {{this}}
+    {{/each}}
+    {{#if comment}}
+     *
+    {{/if}}
+    {{#each (splitByNewLine comment)}}
+     *  {{this}}
     {{/each}}
      *
-    {{#each this.parameters}}
-     * {{@index}}. {{this.name}} - {{this.description}}
+    {{#filterFalsy parameters 'type.Const'}}
+    {{#each this}}
+     *  {{sum @index 1}}. {{name}} - {{description}}
     {{/each}}
+    {{/filterFalsy}}
      */
     fun {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({{#unless (isEmpty additionalNamespaces)}}
         namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}},{{/unless}}

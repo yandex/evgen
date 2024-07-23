@@ -179,11 +179,21 @@ public final class {{classname}} {
 
     {{/unless}}
     /**
-     *  {{this.description}}
+    {{#each (splitByNewLine description)}}
+     *  {{this}}
+    {{/each}}
+    {{#if comment}}
      *
-        {{#each this.parameters}}
-     *  {{@index}}. {{this.name}} - {{this.description}}
-        {{/each}}
+    {{/if}}
+    {{#each (splitByNewLine comment)}}
+     *  {{this}}
+    {{/each}}
+     *
+    {{#filterFalsy parameters 'type.Const'}}
+    {{#each this}}
+     *  {{sum @index 1}}. {{name}} - {{description}}
+    {{/each}}
+    {{/filterFalsy}}
      */
     public func {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
         {{~#unless (isEmpty additionalNamespaces)}}namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}}, {{/unless~}}

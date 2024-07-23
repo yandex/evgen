@@ -150,13 +150,21 @@ public final class {{classname}} {
 
     {{/unless}}
     /**
-        {{#each (splitByNewLine description)}}
+    {{#each (splitByNewLine description)}}
      *  {{this}}
-        {{/each}}
+    {{/each}}
+    {{#if comment}}
      *
-        {{#each parameters}}
-     *  {{@index}}. {{name}} - {{description}}
-        {{/each}}
+    {{/if}}
+    {{#each (splitByNewLine comment)}}
+     *  {{this}}
+    {{/each}}
+     *
+    {{#filterFalsy parameters 'type.Const'}}
+    {{#each this}}
+     *  {{sum @index 1}}. {{name}} - {{description}}
+    {{/each}}
+    {{/filterFalsy}}
      */
     public void {{camelcase name}}{{#gt version 1}}V{{version}}{{/gt}}(
         {{~#unless (isEmpty additionalNamespaces)}}{{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}} namespace, {{/unless~}}

@@ -182,13 +182,21 @@ public class {{classname}} {
 
     {{/unless}}
     /**
-    {{#each (splitByNewLine this.description)}}
+    {{#each (splitByNewLine description)}}
+        {{this}}
+    {{/each}}
+    {{#if comment}}
+    
+    {{/if}}
+    {{#each (splitByNewLine comment)}}
         {{this}}
     {{/each}}
     
-    {{#each parameters}}
-        {{@index}}. {{name}} - {{description}}
+    {{#filterFalsy parameters 'type.Const'}}
+    {{#each this}}
+        {{sum @index 1}}. {{name}} - {{description}}
     {{/each}}
+    {{/filterFalsy}}
     */
     public void {{upperFirstLetter (camelcase name)}}{{#gt version 1}}V{{version}}{{/gt}}({{#unless (isEmpty additionalNamespaces)}}
         namespace: {{pascalcase name}}Namespaces{{#gt version 1}}V{{version}}{{/gt}},{{/unless}}

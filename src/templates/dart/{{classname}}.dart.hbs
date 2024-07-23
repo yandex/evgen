@@ -112,13 +112,21 @@ class {{classname}} {
   {{#each allVersions}}
 
   /**
-  {{#each (splitByNewLine this.description)}}
-   * {{this}}
+  {{#each (splitByNewLine description)}}
+   *  {{this}}
+  {{/each}}
+  {{#if comment}}
+   *
+  {{/if}}
+  {{#each (splitByNewLine comment)}}
+   *  {{this}}
   {{/each}}
    *
-  {{#each this.parameters}}
-   * {{@index}}. {{this.name}} - {{this.description}}
+  {{#filterFalsy parameters 'type.Const'}}
+  {{#each this}}
+   *  {{sum @index 1}}. {{name}} - {{description}}
   {{/each}}
+  {{/filterFalsy}}
    */
   {{#unless (isEmpty this.parameters)}}
   void {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({

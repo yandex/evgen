@@ -30,11 +30,21 @@ export enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{
 
 {{/unless}}
 /**
- * {{this.description}}
+{{#each (splitByNewLine description)}}
+ *  {{this}}
+{{/each}}
+{{#if comment}}
  *
-    {{#each this.parameters}}
- *  {{@index}}. {{this.name}} {{#if (isConst this.type)}}[const] {{/if}}- {{this.description}}
-    {{/each}}
+{{/if}}
+{{#each (splitByNewLine comment)}}
+ *  {{this}}
+{{/each}}
+ *
+{{#filterFalsy this.parameters 'type.Const'}}
+{{#each this}}
+ *  {{sum @index 1}}. {{this.name}} - {{this.description}}
+{{/each}}
+{{/filterFalsy}}
  */
 export type {{pascalcase this.name}}Parameters{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}} = {
     {{#filterFalsy this.parameters "type.Const"}}
