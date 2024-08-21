@@ -1,5 +1,7 @@
 # Code generation for event logging
 
+[![npm version](https://badger.yandex-team.ru/npm/@kinopoisk-int/evgen/version.svg)](https://npm.yandex-team.ru/-/ui/package/@kinopoisk-int/evgen) [![OKO: distribution health](https://badger.yandex-team.ru/oko/pkg/@kinopoisk-int/evgen/health.svg)](https://oko.yandex-team.ru/packages/%40kinopoisk-int%2Fevgen) [![oko health](https://oko.yandex-team.ru/badges/repo.svg?repoName=kinopoisk%2Ffrontend%2Fpackages%2Fevgen&vcs=arcadia)](https://oko.yandex-team.ru/projects/kinopoisk%2Ffrontend%2Fpackages%2Fevgen) [![oko health](https://oko.yandex-team.ru/badges/repoSecurity.svg?repoName=kinopoisk/frontend/packages/evgen&vcs=arcadia)](https://oko.yandex-team.ru/projects/kinopoisk%2Ffrontend%2Fpackages%2Fevgen) [![owners](https://badger.yandex-team.ru/custom/[ABC]/[Kinopoisk%20Frontend%20Infrastructure][green]/badge.svg)](https://abc.yandex-team.ru/services/kpott_infrafront/)
+
 EvGen: Event Generator.  Useful tools for making contracts between analysts and developers.
 
 Supported languages
