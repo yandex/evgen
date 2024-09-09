@@ -1,0 +1,41 @@
+Events:
+    Namespace:
+        inheritance:
+            reused_param: &reused_param
+                reusedParam:
+                    type: String
+                    description: Description
+
+        Event:
+            v1:
+                description: Первое событие с переиспользуемым параметром
+                parameters:
+                    firstParam:
+                        type: Int
+                        description: Первый параметр
+                    # По умолчанию параметры, смерженные с помощью <<: и добавленные как _included, встают перед остальными параметрами
+                    # Но со включенным флагом keepParametersOrder порядок сохраняется
+                    _included_single_param: !include params:reused_params.single_param
+                    <<: *reused_param
+                    _included_several_params: !include params:reused_params.several_params
+                    lastParam:
+                        type: String
+                        description: Последний параметр
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    iOS:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Flutter:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Unity:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+
+

@@ -42,8 +42,10 @@ program
     )
     .action(async (options) => {
         try {
-            const events = await parseEventsFile(options.events_path);
             const config: Config = await parseConfigFile(options.evgen_config_path);
+            const events = await parseEventsFile(options.events_path, {
+                keepParametersOrder: config.options?.keepParametersOrder,
+            });
 
             const rootDir = dirname(resolve(options.evgen_config_path));
             const parsedEvents = parseEvents(events as RawEvents);

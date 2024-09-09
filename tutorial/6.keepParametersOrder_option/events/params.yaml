@@ -1,0 +1,12 @@
+reused_params:
+    single_param:
+        paramFromAnotherFile:
+            type: String
+            description: Параметр, описанный в отдельным файле.
+    several_params:
+        batchParam1:
+            type: String
+            description: Параметр, описанный в отдельным файле.
+        batchParam2:
+            type: String
+            description: Параметр, описанный в отдельным файле.

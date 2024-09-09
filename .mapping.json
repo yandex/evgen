@@ -247,5 +247,22 @@
   "tutorial/5.additional_namespaces/unity/MapExtensions.cs":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/unity/MapExtensions.cs",
   "tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/evgen_analytics.ts":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/evgen_analytics.ts",
   "tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/my_event.ts":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/web_smart_tv/EvgenAnalytics/my_event.ts",
-  "tutorial/5.additional_namespaces/yaml_doc/all_events.yaml":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/yaml_doc/all_events.yaml"
+  "tutorial/5.additional_namespaces/yaml_doc/all_events.yaml":"kinopoisk/frontend/packages/evgen/tutorial/5.additional_namespaces/yaml_doc/all_events.yaml",
+  "tutorial/6.keepParametersOrder_option/android_java/EvgenAnalytics.java":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/android_java/EvgenAnalytics.java",
+  "tutorial/6.keepParametersOrder_option/android_kotlin/EvgenAnalytics.kt":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/android_kotlin/EvgenAnalytics.kt",
+  "tutorial/6.keepParametersOrder_option/events/namespace.yaml":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/events/namespace.yaml",
+  "tutorial/6.keepParametersOrder_option/events/params.yaml":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/events/params.yaml",
+  "tutorial/6.keepParametersOrder_option/evgen.yaml":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/evgen.yaml",
+  "tutorial/6.keepParametersOrder_option/flutter/EvgenAnalytics.dart":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/flutter/EvgenAnalytics.dart",
+  "tutorial/6.keepParametersOrder_option/ios_swift/EvgenAnalytics.swift":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/ios_swift/EvgenAnalytics.swift",
+  "tutorial/6.keepParametersOrder_option/md_doc/actual_events.md":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/md_doc/actual_events.md",
+  "tutorial/6.keepParametersOrder_option/md_doc/all_events.md":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/md_doc/all_events.md",
+  "tutorial/6.keepParametersOrder_option/md_doc/all_events/__global_params.md":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/md_doc/all_events/__global_params.md",
+  "tutorial/6.keepParametersOrder_option/md_doc/all_events/namespace.md":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/md_doc/all_events/namespace.md",
+  "tutorial/6.keepParametersOrder_option/txt_doc/__global_params.txt":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/txt_doc/__global_params.txt",
+  "tutorial/6.keepParametersOrder_option/txt_doc/namespace.txt":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/txt_doc/namespace.txt",
+  "tutorial/6.keepParametersOrder_option/unity/EvgenAnalytics.cs":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/unity/EvgenAnalytics.cs",
+  "tutorial/6.keepParametersOrder_option/unity/MapExtensions.cs":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/unity/MapExtensions.cs",
+  "tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/evgen_analytics.ts":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/evgen_analytics.ts",
+  "tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/namespace.ts":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/namespace.ts"
 }

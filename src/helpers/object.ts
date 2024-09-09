@@ -11,3 +11,9 @@ export const entries = (obj: unknown) => {
 
 export const isTypedDict = (type: ParameterType): type is TypedDict =>
     isObject((type as TypedDict).Dict);
+
+export const assertIsObject = (value: unknown) => {
+    if (!isObject(value)) {
+        throw new Error(`Included value should be object, but got ${value}`);
+    }
+};

@@ -1,0 +1,40 @@
+options:
+  keepParametersOrder: true
+code:
+  AndroidJava:
+    platform: 'Android'
+    output_dir: 'android_java'
+    language: 'java'
+    class_name: 'EvgenAnalytics'
+  AndroidKotlin:
+    platform: 'Android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
+    class_name: 'EvgenAnalytics'
+  iOSSwift:
+    platform: 'iOS'
+    output_dir: 'ios_swift'
+    language: 'swift'
+    class_name: 'EvgenAnalytics'
+  Flutter:
+    platform: 'Flutter'
+    output_dir: 'flutter'
+    language: 'dart'
+    class_name: 'EvgenAnalytics'
+  WebSmartTV:
+    platform: 'WebSmartTV'
+    output_dir: 'web_smart_tv'
+    language: 'type_script'
+    class_name: 'EvgenAnalytics'
+  Unity:
+    platform: 'Unity'
+    output_dir: 'unity'
+    language: 'c_sharp'
+    class_name: 'EvgenAnalytics'
+doc:
+  Markdown:
+    extension: 'md'
+    output_dir: 'md_doc'
+  Txt:
+    extension: 'txt'
+    output_dir: 'txt_doc'
