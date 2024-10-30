@@ -1,0 +1,29 @@
+public final class {{classname}} {
+  {{#each eventNamespaces}}
+  {{#each allVersions}}
+  {{#each parameters}}
+  {{#if (isCustomParameter type)}}
+  {{>customParam type=type name=name}}
+  {{else}}
+  let {{camelcase name}}: {{typeFormat this}}
+  {{/if}}
+  {{/each}}
+
+  public func {{camelcase name}}{{#gt version 1}}V{{version}}{{/gt}}(
+    {{~#filterUndefined parameters 'type.Const'~}}
+        {{~#each this~}}
+            {{~camelcase name}}: {{typeFormat this~}}
+            {{~#if (isDefined defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+            {{~#unless @last}}, {{/unless~}}
+        {{~/each~}}
+    {{~/filterUndefined~}}
+  ) {
+    var options: [String: Any] = [:]
+    {{#each parameters}}
+    options[{{name}}] = {{>variableValueFormat parameter=this}}
+    {{/each}}
+    trackEvent("{{event}}", withOptions: options)
+  }
+  {{/each}}
+  {{/each}}
+}

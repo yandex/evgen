@@ -1,6 +1,13 @@
 import { PrimitiveType, SinglePlatformParameterType } from '../../types/data-types';
 import { EventParameter } from '../../types/parsed-types';
-import { pascalCase, isEnum, isConst, isTypedDict, isTypedList } from '../../helpers';
+import {
+    pascalCase,
+    isEnum,
+    isConst,
+    isTypedDict,
+    isTypedList,
+    isCustomParameter,
+} from '../../helpers';
 
 export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType>): string => {
     const { type, elementType, namespace, version, name } = parameter;
@@ -49,6 +56,9 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
                             })};`
                     )
                     .join(' ')} }`;
+            }
+            if (isCustomParameter(type)) {
+                return pascalCase(name);
             }
             throw new Error(`Unknown type: ${JSON.stringify(type)}`);
     }

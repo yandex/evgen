@@ -1,0 +1,32 @@
+
+public struct {{pascalcase name}} {
+    {{#each type.Custom}}
+    {{#unless (isConst type)}}
+    {{#if (isCustomParameter type)}}
+    {{>customParam type=type name=@key}}
+    {{else}}
+    let {{camelcase @key}}: {{typeFormat this}}
+    {{/if}}
+    {{/unless}}
+    {{/each}}
+
+    public init(
+        {{~#each type.Custom~}}
+            {{~camelcase @key}}: {{typeFormat (extend this name=@key)~}}
+            {{~#if (isDefined defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+            {{~#unless @last}}, {{/unless~}}
+        {{~/each~}}
+    ) {
+        {{#each type.Custom}}
+        self.{{camelcase @key}} = {{camelcase @key}}
+        {{/each}}
+    }
+
+    func makeDictionary() -> [String: Any] {
+        var options: [String: Any] = [:]
+        {{#each type.Custom}}
+        options["{{@key}}"] = {{#if (isCustomParameter this)}}{{camelcase @key}}.makeDictionary(){{else}}{{camelcase @key}}{{/if}}
+        {{/each}}
+        return options
+    }
+}

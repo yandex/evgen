@@ -22,6 +22,10 @@ export type TypedList = {
     List: { [k: string]: PrimitiveType };
 };
 
+export type CustomType = {
+    Custom: unknown;
+};
+
 export type PrimitiveType =
     | 'String'
     | 'Int'
@@ -33,6 +37,11 @@ export type PrimitiveType =
     | 'List'
     | EnumType;
 
-export type SinglePlatformParameterType = PrimitiveType | ConstType | TypedDict | TypedList;
+export type SinglePlatformParameterType =
+    | PrimitiveType
+    | ConstType
+    | TypedDict
+    | TypedList
+    | CustomType;
 
 export type ParameterType = SinglePlatformParameterType | PlatformConstType;

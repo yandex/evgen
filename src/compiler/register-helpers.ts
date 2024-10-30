@@ -24,6 +24,7 @@ import {
     upperSnakeCase,
     isTypedList,
     isTypedDict,
+    isCustomParameter,
 } from '../helpers';
 import { typeFormat as typescriptTypeformat } from '../languages/typescript/types';
 import { typeFormat as swiftTypeformat } from '../languages/swift/types';
@@ -63,6 +64,7 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
     hbs.registerHelper('isConst', isConst);
     hbs.registerHelper('isPlatformConst', isPlatformConst);
     hbs.registerHelper('isNamedEnum', isNamedEnum);
+    hbs.registerHelper('isCustomParameter', isCustomParameter);
     hbs.registerHelper('filterTruthy', filterTruthy);
     hbs.registerHelper('filterFalsy', filterFalsy);
     hbs.registerHelper('filterDefined', filterDefined);

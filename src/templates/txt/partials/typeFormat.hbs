@@ -18,6 +18,10 @@
                     {{default value this}}{{#unless @last}}, {{/unless}}
                     {{~/each~}}
                 )
+            {{~else~}}
+                {{~#if (isCustomParameter parameter.type)~}}
+                    Custom(see yaml spec)
+                {{~/if~}}
             {{~/if~}}
         {{~/if~}}
     {{~/if~}}

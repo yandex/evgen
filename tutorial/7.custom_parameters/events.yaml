@@ -1,0 +1,32 @@
+# Для работы с кастомными параметрами нужно написать свой кастомный шаблон.
+# В дефлотных шаблонах работа с кастомными типами пока не поддерживается
+Events:
+  Application:
+    Resumed:
+      v1:
+        description: Инвент разворачивания/старта приложения
+        parameters:
+          startup_info:
+            description: My Custom Type
+            type:
+              Custom:
+                deeplink_info:
+                  type:
+                    Custom:
+                      url:
+                        type: String
+                        description: Deeplink url
+                common_params:
+                  type:
+                    Custom:
+                      time_since_last_app_launch:
+                        type: Int
+                        description: Seconds since last app launch
+                        optional: true
+                      is_cold_launch:
+                        type: Bool
+                        description: Flag indicates is launch cold
+        platforms:
+          iOS:
+            app_versions: in_progress
+            ticket: https://your-tracker.com

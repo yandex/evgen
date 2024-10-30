@@ -55,6 +55,7 @@
   "src/evgen.ts":"kinopoisk/frontend/packages/evgen/src/evgen.ts",
   "src/helpers/array.ts":"kinopoisk/frontend/packages/evgen/src/helpers/array.ts",
   "src/helpers/const.ts":"kinopoisk/frontend/packages/evgen/src/helpers/const.ts",
+  "src/helpers/custom-parameter.ts":"kinopoisk/frontend/packages/evgen/src/helpers/custom-parameter.ts",
   "src/helpers/defined.ts":"kinopoisk/frontend/packages/evgen/src/helpers/defined.ts",
   "src/helpers/enum.ts":"kinopoisk/frontend/packages/evgen/src/helpers/enum.ts",
   "src/helpers/index.ts":"kinopoisk/frontend/packages/evgen/src/helpers/index.ts",
@@ -264,5 +265,18 @@
   "tutorial/6.keepParametersOrder_option/unity/EvgenAnalytics.cs":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/unity/EvgenAnalytics.cs",
   "tutorial/6.keepParametersOrder_option/unity/MapExtensions.cs":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/unity/MapExtensions.cs",
   "tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/evgen_analytics.ts":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/evgen_analytics.ts",
-  "tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/namespace.ts":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/namespace.ts"
+  "tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/namespace.ts":"kinopoisk/frontend/packages/evgen/tutorial/6.keepParametersOrder_option/web_smart_tv/EvgenAnalytics/namespace.ts",
+  "tutorial/7.custom_parameters/events.yaml":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/events.yaml",
+  "tutorial/7.custom_parameters/evgen.yaml":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/evgen.yaml",
+  "tutorial/7.custom_parameters/ios/ApplicationAnalytics.swift":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/ios/ApplicationAnalytics.swift",
+  "tutorial/7.custom_parameters/md_doc/actual_events.md":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/md_doc/actual_events.md",
+  "tutorial/7.custom_parameters/md_doc/all_events.md":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/md_doc/all_events.md",
+  "tutorial/7.custom_parameters/md_doc/all_events/__global_params.md":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/md_doc/all_events/__global_params.md",
+  "tutorial/7.custom_parameters/md_doc/all_events/application.md":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/md_doc/all_events/application.md",
+  "tutorial/7.custom_parameters/templates/ios/partials/customParam.hbs":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/templates/ios/partials/customParam.hbs",
+  "tutorial/7.custom_parameters/templates/ios/partials/defaultValueFormat.hbs":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/templates/ios/partials/defaultValueFormat.hbs",
+  "tutorial/7.custom_parameters/templates/ios/partials/variableValueFormat.hbs":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/templates/ios/partials/variableValueFormat.hbs",
+  "tutorial/7.custom_parameters/templates/ios/{{classname}}.swift.hbs":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/templates/ios/{{classname}}.swift.hbs",
+  "tutorial/7.custom_parameters/txt_doc/__global_params.txt":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/txt_doc/__global_params.txt",
+  "tutorial/7.custom_parameters/txt_doc/application.txt":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/txt_doc/application.txt"
 }

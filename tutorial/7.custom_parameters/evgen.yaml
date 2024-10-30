@@ -1,0 +1,14 @@
+code:
+  WebSmartTV:
+    platform: 'iOS'
+    output_dir: 'ios'
+    language: 'swift'
+    class_name: 'ApplicationAnalytics'
+    template_dir: 'templates/ios'
+doc:
+  Markdown:
+    extension: 'md'
+    output_dir: 'md_doc'
+  Txt:
+    extension: 'txt'
+    output_dir: 'txt_doc'

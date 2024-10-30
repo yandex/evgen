@@ -1,0 +1,7 @@
+Application.Resumed
+
+    V1
+    Неймспейсы: 
+    Инвент разворачивания/старта приложения
+
+    0. startup_info: Custom(see yaml spec) - My Custom Type
