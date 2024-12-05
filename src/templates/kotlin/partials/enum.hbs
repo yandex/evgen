@@ -13,7 +13,11 @@ enum class {{typeFormat parameter}}(val eventValue: String) {
     {{#if (isNumber (default value this))}}
     Int{{default value this}}("{{default value this}}"),
     {{else}}
+    {{#if (isSpecialWord (pascalcase (default value this)))}}
+    `{{pascalcase (default value this)}}`("{{default value this}}"),
+    {{else}}
     {{pascalcase (default value this)}}("{{default value this}}"),
+    {{/if}}
     {{/if}}
     {{/each}}
 }

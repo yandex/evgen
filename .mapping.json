@@ -65,6 +65,7 @@
   "src/languages/dart/special-words.ts":"kinopoisk/frontend/packages/evgen/src/languages/dart/special-words.ts",
   "src/languages/dart/types.ts":"kinopoisk/frontend/packages/evgen/src/languages/dart/types.ts",
   "src/languages/java/types.ts":"kinopoisk/frontend/packages/evgen/src/languages/java/types.ts",
+  "src/languages/kotlin/special-words.ts":"kinopoisk/frontend/packages/evgen/src/languages/kotlin/special-words.ts",
   "src/languages/kotlin/types.ts":"kinopoisk/frontend/packages/evgen/src/languages/kotlin/types.ts",
   "src/languages/swift/special-words.ts":"kinopoisk/frontend/packages/evgen/src/languages/swift/special-words.ts",
   "src/languages/swift/types.ts":"kinopoisk/frontend/packages/evgen/src/languages/swift/types.ts",

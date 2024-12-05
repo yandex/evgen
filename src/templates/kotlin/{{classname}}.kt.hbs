@@ -106,7 +106,11 @@ class {{classname}}(
     {{#unless (isEmpty additionalNamespaces)}}
     enum class {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}(val eventValue: String) {
     {{#each additionalNamespaces}}
+        {{#if (isSpecialWord (pascalcase this))}}
+        `{{pascalcase this}}`("{{this}}"),
+        {{else}}
         {{pascalcase this}}("{{this}}"),
+        {{/if}}
     {{/each}}
     }
 

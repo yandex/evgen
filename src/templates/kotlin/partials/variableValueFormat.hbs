@@ -1,9 +1,17 @@
 {{~#if (isEnum parameter.type)~}}
-    {{~camelcase parameter.name~}}.eventValue
+    {{~#if (isSpecialWord (camelcase parameter.name))~}}
+        `{{~camelcase parameter.name~}}`.eventValue
+    {{~else~}}
+        {{~camelcase parameter.name~}}.eventValue
+    {{~/if~}}
 {{~else~}}
     {{~#if (isConst parameter.type)~}}
         "{{~parameter.type.Const~}}"
     {{~else~}}
-        {{~camelcase parameter.name~}}
+        {{~#if (isSpecialWord (camelcase parameter.name))~}}
+            `{{~camelcase parameter.name~}}`
+        {{~else~}}
+            {{~camelcase parameter.name~}}
+        {{~/if~}}
     {{~/if~}}
 {{~/if~}}

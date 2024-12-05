@@ -37,6 +37,7 @@ import {
     typeFormat as kotlinTypeformat,
     primitiveTypeFormat as kotlinPrimitiveTypeFormat,
 } from '../languages/kotlin/types';
+import { specialWords as kotlinSpecialWords } from '../languages/kotlin/special-words';
 import {
     typeFormat as dartTypeformat,
     primitiveTypeFormat as dartPrimitiveTypeFormat,
@@ -92,6 +93,7 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
             case 'kotlin':
                 hbs.registerHelper('typeFormat', kotlinTypeformat);
                 hbs.registerHelper('primitiveTypeFormat', kotlinPrimitiveTypeFormat);
+                hbs.registerHelper('isSpecialWord', (str) => kotlinSpecialWords.includes(str));
                 break;
             case 'java':
                 hbs.registerHelper('typeFormat', javaTypeformat);
