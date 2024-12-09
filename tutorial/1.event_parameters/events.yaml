@@ -189,6 +189,11 @@ Constants:
                         *element_type : *simpleEnumType
                         *default_value : *empty_list
                         *description : Cписок енумов
+                    
+                    defaultNullParam: 
+                        *type : *string
+                        *description : Параметр типа String со значением null по умолчанию
+                        *default_value : null
 
                 *platforms :
                     *android :

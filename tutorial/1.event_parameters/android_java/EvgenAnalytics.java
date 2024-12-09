@@ -107,7 +107,7 @@ public final class EvgenAnalytics {
     /**
      *  Первое событие с переиспользуемым параметром
      *
-     *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     public void anotherNamespaceEvent1(String reusedParam) {
         Map<String, Object> params = new HashMap<>();
@@ -121,7 +121,7 @@ public final class EvgenAnalytics {
     /**
      *  Второе событие с переиспользуемым параметром
      *
-     *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     public void anotherNamespaceKebabCaseEvent2(String reusedParam) {
         Map<String, Object> params = new HashMap<>();
@@ -145,12 +145,11 @@ public final class EvgenAnalytics {
     /**
      *  События со всеми возможными типами параметров
      *
-     *  0. stringParam - Параметр типа String
-     *  1. intParam - Параметр типа Int
-     *  2. longIntParam - Параметр типа Long Int
-     *  3. boolParam - Параметр типа Bool
-     *  4. doubleParam - Параметр типа Double
-     *  5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
+     *  1. stringParam - Параметр типа String
+     *  2. intParam - Параметр типа Int
+     *  3. longIntParam - Параметр типа Long Int
+     *  4. boolParam - Параметр типа Bool
+     *  5. doubleParam - Параметр типа Double
      *  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
      *  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
      *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
@@ -159,13 +158,13 @@ public final class EvgenAnalytics {
      *  11. dictElementType - параметр типа Dict енумов.
      *  12. typedDictParam - типизированный Dict.
      *  13. typedListParam - типизированный List.
-     *  14. platformConst - Платформозависимая константа
-     *  15. listOfInt - Список целочисленных параметров
-     *  16. listOfDouble - Список флотовых параметров
-     *  17. listOfString - Cписок строк
-     *  18. listOfEnum - Cписок енумов
+     *  14. listOfInt - Список целочисленных параметров
+     *  15. listOfDouble - Список флотовых параметров
+     *  16. listOfString - Cписок строк
+     *  17. listOfEnum - Cписок енумов
+     *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
      */
-    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, PagesWithDescriptions enumWithDescriptionsParam, Map<String, ?> dictParam, Map<String, MyNamespaceMyEventEnumParam> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum) {
+    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, PagesWithDescriptions enumWithDescriptionsParam, Map<String, ?> dictParam, Map<String, MyNamespaceMyEventEnumParam> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum, String defaultNullParam) {
         Map<String, Object> params = new HashMap<>();
         params.put("stringParam", stringParam);
         params.put("intParam", String.valueOf(intParam));
@@ -186,6 +185,7 @@ public final class EvgenAnalytics {
         params.put("listOfDouble", listOfDouble);
         params.put("listOfString", listOfString);
         params.put("listOfEnum", listOfEnum);
+        params.put("defaultNullParam", defaultNullParam);
         Map<String, Object> interfacesDict = new HashMap<>();
         Map<String, Object> _meta = makeMeta(1, interfacesDict);
         params.put("_meta", _meta);

@@ -21,6 +21,8 @@ Events:
           type: Bool
         constParam:
           type: String
+        defaultNullParam:
+          type: String
         dictElementType:
           type: Dict
         dictParam:

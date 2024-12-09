@@ -9,9 +9,9 @@ import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
- * Первое событие с переиспользуемым параметром
+ *  Первое событие с переиспользуемым параметром
  *
- *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+ *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
  */
 export type AnotherNamespaceEvent1Parameters = {
     reusedParam: string;
@@ -27,9 +27,9 @@ export function anotherNamespaceEvent1 (
 }
 
 /**
- * Второе событие с переиспользуемым параметром
+ *  Второе событие с переиспользуемым параметром
  *
- *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+ *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
  */
 export type AnotherNamespaceKebabCaseEvent2Parameters = {
     reusedParam: string;

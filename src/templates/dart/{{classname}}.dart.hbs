@@ -36,7 +36,7 @@ class {{classname}}GlobalParams {
   {{classname}}GlobalParams(
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{typeFormat this}} {{camelcase this.name}},
+    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}},
     {{/unless}}
     {{/each}}
   ) : parameters = {
@@ -68,7 +68,7 @@ class {{classname}}PlatformParams {
   {{classname}}PlatformParams(
     {{#each platformParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{typeFormat this}} {{camelcase this.name}},
+    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}},
     {{/unless}}
     {{/each}}
   ) : parameters = {
@@ -136,7 +136,7 @@ class {{classname}} {
     {{#filterUndefined this.parameters 'type.Const'}}
     {{#each this}}
     {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
-    {{typeFormat this}} {{camelcase this.name}}
+    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}
     {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
     {{/each}}
     {{/filterUndefined}}
@@ -152,7 +152,7 @@ class {{classname}} {
     {{#filterUndefined this.parameters 'type.Const'}}
     {{#each this}}
     {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
-    {{typeFormat this}} {{camelcase this.name}}
+    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}
     {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
     {{/each}}
     {{/filterUndefined}}

@@ -8,10 +8,14 @@
             {{pascalcase (typeFormat parameter defaultTypeName)}}.{{pascalcase parameter.defaultValue}}
         {{~/if~}}
     {{~else~}}
-        {{~#eq parameter.type 'String'~}}
-            "{{parameter.defaultValue}}"
+        {{~#eq parameter.defaultValue null~}}
+            undefined
         {{~else~}}
-            {{~parameter.defaultValue~}}
+            {{~#eq parameter.type 'String'~}}
+                "{{parameter.defaultValue}}"
+            {{~else~}}
+                {{~parameter.defaultValue~}}
+            {{~/eq~}}
         {{~/eq~}}
     {{~/if~}}
 {{~/eq~}}

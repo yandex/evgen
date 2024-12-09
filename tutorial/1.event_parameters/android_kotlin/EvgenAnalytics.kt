@@ -77,9 +77,9 @@ class EvgenAnalytics(
     }
 
     /**
-     * Первое событие с переиспользуемым параметром
+     *  Первое событие с переиспользуемым параметром
      *
-     * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     fun anotherNamespaceEvent1(
         reusedParam: String,
@@ -94,9 +94,9 @@ class EvgenAnalytics(
 
 
     /**
-     * Второе событие с переиспользуемым параметром
+     *  Второе событие с переиспользуемым параметром
      *
-     * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     fun anotherNamespaceKebabCaseEvent2(
         reusedParam: String,
@@ -116,27 +116,26 @@ class EvgenAnalytics(
     }
 
     /**
-     * События со всеми возможными типами параметров
+     *  События со всеми возможными типами параметров
      *
-     * 0. stringParam - Параметр типа String
-     * 1. intParam - Параметр типа Int
-     * 2. longIntParam - Параметр типа Long Int
-     * 3. boolParam - Параметр типа Bool
-     * 4. doubleParam - Параметр типа Double
-     * 5. constParam - Параметр типа Const. Не участвует в сигнатуре функции, но логируется в при отправке в трекер
-     * 6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
-     * 7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
-     * 8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
-     * 9. enumWithDescriptionsParam - Enum с описанием возможных значений 
-     * 10. dictParam - параметр типа Dict.
-     * 11. dictElementType - параметр типа Dict енумов.
-     * 12. typedDictParam - типизированный Dict.
-     * 13. typedListParam - типизированный List.
-     * 14. platformConst - Платформозависимая константа
-     * 15. listOfInt - Список целочисленных параметров
-     * 16. listOfDouble - Список флотовых параметров
-     * 17. listOfString - Cписок строк
-     * 18. listOfEnum - Cписок енумов
+     *  1. stringParam - Параметр типа String
+     *  2. intParam - Параметр типа Int
+     *  3. longIntParam - Параметр типа Long Int
+     *  4. boolParam - Параметр типа Bool
+     *  5. doubleParam - Параметр типа Double
+     *  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+     *  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+     *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
+     *  9. enumWithDescriptionsParam - Enum с описанием возможных значений 
+     *  10. dictParam - параметр типа Dict.
+     *  11. dictElementType - параметр типа Dict енумов.
+     *  12. typedDictParam - типизированный Dict.
+     *  13. typedListParam - типизированный List.
+     *  14. listOfInt - Список целочисленных параметров
+     *  15. listOfDouble - Список флотовых параметров
+     *  16. listOfString - Cписок строк
+     *  17. listOfEnum - Cписок енумов
+     *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
      */
     fun myNamespaceMyEvent(
         stringParam: String = "val",
@@ -156,6 +155,7 @@ class EvgenAnalytics(
         listOfDouble: List<Double> = listOf<Double>(),
         listOfString: List<String> = listOf<String>(),
         listOfEnum: List<MyNamespaceMyEventEnumParam> = listOf<MyNamespaceMyEventEnumParam>(),
+        defaultNullParam: String? = null,
     ) {
         val parameters = mutableMapOf<String, Any>()
         parameters["stringParam"] = stringParam
@@ -177,6 +177,7 @@ class EvgenAnalytics(
         parameters["listOfDouble"] = listOfDouble
         parameters["listOfString"] = listOfString
         parameters["listOfEnum"] = listOfEnum
+        parameters["defaultNullParam"] = defaultNullParam
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta

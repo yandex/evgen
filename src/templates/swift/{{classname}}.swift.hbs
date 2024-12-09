@@ -30,7 +30,7 @@ public protocol {{classname}}PlatformParamsProvider: AnyObject {
 public struct {{classname}}GlobalParams {
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
-    public var {{camelcase this.name}}: {{typeFormat this}}
+    public var {{camelcase this.name}}: {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}}
     {{/unless}}
     {{/each}}
 
@@ -53,7 +53,7 @@ public struct {{classname}}GlobalParams {
     public init(
         {{~#each globalParameters.parameters~}}
         {{#unless (isConst this.type)}}
-        {{~camelcase this.name}}: {{typeFormat this~}}
+        {{~camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
         {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
         {{~#unless @last}}, {{/unless~}}
         {{/unless}}
@@ -83,7 +83,7 @@ public struct {{classname}}PlatformParams {
     {{#if platformParameters}}
     {{#each platformParameters.parameters}}
     {{#unless (isConst this.type)}}
-    public var {{camelcase this.name}}: {{typeFormat this}}
+    public var {{camelcase this.name}}: {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}}
     {{/unless}}
     {{/each}}
     {{/if}}
@@ -102,7 +102,7 @@ public struct {{classname}}PlatformParams {
         {{~#if platformParameters~}}
         {{~#each platformParameters.parameters~}}
         {{~#unless (isConst this.type)~}}
-        {{~camelcase this.name}}: {{typeFormat this~}}
+        {{~camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
         {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
         {{~#unless @last}}, {{/unless~}}
         {{~/unless~}}
@@ -199,7 +199,7 @@ public final class {{classname}} {
         {{~#unless (isEmpty additionalNamespaces)}}namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}}, {{/unless~}}
         {{~#filterUndefined this.parameters 'type.Const'~}}
             {{~#each this~}}
-                {{~camelcase this.name}}: {{typeFormat this~}}
+                {{~camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
                 {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
                 {{~#unless @last}}, {{/unless~}}
             {{~/each~}}

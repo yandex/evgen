@@ -23,3 +23,4 @@ MyNamespace.MyEvent
     16. listOfDouble: List - Список флотовых параметров
     17. listOfString: List - Cписок строк
     18. listOfEnum: List - Cписок енумов
+    19. defaultNullParam: String - Параметр типа String со значением null по умолчанию
