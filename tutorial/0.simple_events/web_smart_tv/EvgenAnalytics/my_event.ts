@@ -9,7 +9,7 @@ import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
- * Event description
+ *  Event description
  *
  */
 export type MyEventParameters = {

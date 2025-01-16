@@ -18,7 +18,10 @@
     {{/each}}
 
     {{#each parameters}}
-    {{@index}}. {{name}}: {{>typeFormat parameter=this}} - {{description}}
+    {{@index}}. {{name}}: {{>typeFormat parameter=this}}
+    {{#each (splitByNewLine description)}}
+       {{this}}
+    {{/each}}
     {{/each}}
 {{/each}}
 {{/each}}

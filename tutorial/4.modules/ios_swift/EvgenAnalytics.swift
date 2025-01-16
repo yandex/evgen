@@ -83,7 +83,7 @@ public final class EvgenAnalytics {
     /**
      *  Первое событие с переиспользуемым параметром
      *
-     *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     public func anotherNamespaceEvent1(reusedParam: String) {
         var options: [String: Any] = [:]
@@ -97,7 +97,7 @@ public final class EvgenAnalytics {
     /**
      *  Второе событие с переиспользуемым параметром
      *
-     *  0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+     *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
      */
     public func anotherNamespaceEvent2(reusedParam: String) {
         var options: [String: Any] = [:]
@@ -111,12 +111,11 @@ public final class EvgenAnalytics {
     /**
      *  События со всеми возможными типами параметров
      *
-     *  0. paramFromAnotherFile - Параметр, описанный в отдельным файле.
-     *  1. batchParam1 - Параметр, описанный в отдельным файле.
-     *  2. batchParam2 - Параметр, описанный в отдельным файле.
-     *  3. stringParam - Парамтер типа String
-     *  4. intParam - Параметр типа Int
-     *  5. сonstParam - Constant parameter
+     *  1. paramFromAnotherFile - Параметр, описанный в отдельным файле.
+     *  2. batchParam1 - Параметр, описанный в отдельным файле.
+     *  3. batchParam2 - Параметр, описанный в отдельным файле.
+     *  4. stringParam - Парамтер типа String
+     *  5. intParam - Параметр типа Int
      */
     public func myNamespaceMyEvent(paramFromAnotherFile: String, batchParam1: String, batchParam2: String, stringParam: String = "val1", intParam: Int = 42) {
         var options: [String: Any] = [:]

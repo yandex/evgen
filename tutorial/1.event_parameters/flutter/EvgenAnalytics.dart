@@ -195,9 +195,9 @@ enum Pages {
 }
 
 /**
- * - screen_1 - My description screen_1 
- * - screen_2 - My description screen_2 
- * - screen_3 - My description screen_3 
+ * - screen_1 - My description screen_1
+ * - screen_2 - My description screen_2
+ * - screen_3 - My description screen_3
  */
 enum PagesWithDescriptions {
   screen1('screen_1'),

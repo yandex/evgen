@@ -67,9 +67,9 @@ class EvgenAnalytics {
       };
 
   /**
-   * Первое событие с переиспользуемым параметром
+   *  Первое событие с переиспользуемым параметром
    *
-   * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+   *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
    */
   void anotherNamespaceEvent1({
     required String reusedParam,
@@ -85,9 +85,9 @@ class EvgenAnalytics {
   }
 
   /**
-   * Второе событие с переиспользуемым параметром
+   *  Второе событие с переиспользуемым параметром
    *
-   * 0. reusedParam - Параметр, который переиспользуется в нескольких событиях
+   *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
    */
   void anotherNamespaceEvent2({
     required String reusedParam,
@@ -103,14 +103,13 @@ class EvgenAnalytics {
   }
 
   /**
-   * События со всеми возможными типами параметров
+   *  События со всеми возможными типами параметров
    *
-   * 0. paramFromAnotherFile - Параметр, описанный в отдельным файле.
-   * 1. batchParam1 - Параметр, описанный в отдельным файле.
-   * 2. batchParam2 - Параметр, описанный в отдельным файле.
-   * 3. stringParam - Парамтер типа String
-   * 4. intParam - Параметр типа Int
-   * 5. сonstParam - Constant parameter
+   *  1. paramFromAnotherFile - Параметр, описанный в отдельным файле.
+   *  2. batchParam1 - Параметр, описанный в отдельным файле.
+   *  3. batchParam2 - Параметр, описанный в отдельным файле.
+   *  4. stringParam - Парамтер типа String
+   *  5. intParam - Параметр типа Int
    */
   void myNamespaceMyEvent({
     required String paramFromAnotherFile,

@@ -9,10 +9,10 @@ import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
- * Показ экрана магазина
+ *  Показ экрана магазина
  *
- *  0. page - Название страницы
- *  1. pageId - Идентификатор страницы
+ *  1. page - Название страницы
+ *  2. pageId - Идентификатор страницы
  */
 export type ShopShowedParameters = {
     page: string;

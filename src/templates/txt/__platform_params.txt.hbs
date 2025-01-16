@@ -6,6 +6,9 @@
 {{this.description}}
 
 {{#each this.parameters}}
-    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}} - {{this.description}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}
+    {{#each (splitByNewLine description)}}
+       {{this}}
+    {{/each}}
 {{/each}}
 {{/each}}

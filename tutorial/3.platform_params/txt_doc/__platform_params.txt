@@ -4,24 +4,29 @@
 Android
 Эти параметры добавляются к параметрам, отправленных с Android
 
-    0. appVersion: String - Версия приложения
+    0. appVersion: String
+       Версия приложения
 
 iOS
 Эти параметры добавляются к параметрам, отправленных с iOS
 
-    0. hasSubscription: Bool - Есть ли у пользователя подписка
+    0. hasSubscription: Bool
+       Есть ли у пользователя подписка
 
 Flutter
 Эти параметры добавляются к параметрам, отправленным с Flutter
 
-    0. hasSubscription: Bool - Есть ли у пользователя подписка
+    0. hasSubscription: Bool
+       Есть ли у пользователя подписка
 
 WebSmartTV
 Эти параметры добавляются к параметрам, отправленных со смарт-ТВ
 
-    0. tvModel: String - Модель ТВ
+    0. tvModel: String
+       Модель ТВ
 
 Unity
 Эти параметры добавляются к параметрам, отправленных с Unity
 
-    0. unityVersion: String - Версия Unity
+    0. unityVersion: String
+       Версия Unity

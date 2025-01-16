@@ -9,14 +9,13 @@ import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
- * События со всеми возможными типами параметров
+ *  События со всеми возможными типами параметров
  *
- *  0. paramFromAnotherFile - Параметр, описанный в отдельным файле.
- *  1. batchParam1 - Параметр, описанный в отдельным файле.
- *  2. batchParam2 - Параметр, описанный в отдельным файле.
- *  3. stringParam - Парамтер типа String
- *  4. intParam - Параметр типа Int
- *  5. сonstParam [const] - Constant parameter
+ *  1. paramFromAnotherFile - Параметр, описанный в отдельным файле.
+ *  2. batchParam1 - Параметр, описанный в отдельным файле.
+ *  3. batchParam2 - Параметр, описанный в отдельным файле.
+ *  4. stringParam - Парамтер типа String
+ *  5. intParam - Параметр типа Int
  */
 export type MyNamespaceMyEventParameters = {
     paramFromAnotherFile: string;

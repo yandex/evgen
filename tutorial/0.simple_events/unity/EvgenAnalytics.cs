@@ -73,6 +73,8 @@ public class EvgenAnalytics {
     /**
         Also event description
     
+        Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
+    
     */
     public void AlsoMyEventLogged(
     ) {
@@ -85,6 +87,8 @@ public class EvgenAnalytics {
 
     /**
         Forced Event Name
+    
+        Если нужно, чтобы в качестве имени события вместо конкатенированных через точку неймспесов было какое-то кастомное значение, то можно использовать поле "force_event_name"
     
     */
     public void ForcedNamesMyCustomEvent(

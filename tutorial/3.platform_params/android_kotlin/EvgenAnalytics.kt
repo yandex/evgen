@@ -57,7 +57,9 @@ class EvgenAnalytics(
 
 
     /**
-     * Also event description
+     *  Also event description
+     *
+     *  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
      *
      */
     fun alsoMyEventLogged(
@@ -71,7 +73,7 @@ class EvgenAnalytics(
 
 
     /**
-     * Event description
+     *  Event description
      *
      */
     fun myEvent(

@@ -4,4 +4,5 @@ Application.Resumed
     Неймспейсы: 
     Инвент разворачивания/старта приложения
 
-    0. startup_info: Custom(see yaml spec) - My Custom Type
+    0. startup_info: Custom(see yaml spec)
+       My Custom Type

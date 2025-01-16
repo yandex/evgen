@@ -4,4 +4,5 @@ MyEvent
     Неймспейсы: MyNamespace, Nested.Namespace, MyAnotherNamespace
     Event description
 
-    0. stringParam: String - Параметр типа String
+    0. stringParam: String
+       Параметр типа String

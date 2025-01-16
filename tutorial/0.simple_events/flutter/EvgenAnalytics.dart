@@ -60,7 +60,9 @@ class EvgenAnalytics {
       };
 
   /**
-   * Also event description
+   *  Also event description
+   *
+   *  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
    *
    */
   void alsoMyEventLogged() {
@@ -73,7 +75,9 @@ class EvgenAnalytics {
   }
 
   /**
-   * Forced Event Name
+   *  Forced Event Name
+   *
+   *  Если нужно, чтобы в качестве имени события вместо конкатенированных через точку неймспесов было какое-то кастомное значение, то можно использовать поле "force_event_name"
    *
    */
   void forcedNamesMyCustomEvent() {
@@ -86,7 +90,7 @@ class EvgenAnalytics {
   }
 
   /**
-   * Event description
+   *  Event description
    *
    */
   void myEvent() {

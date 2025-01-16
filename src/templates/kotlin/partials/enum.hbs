@@ -3,7 +3,7 @@
 {{#if this}}
 /**
 {{#each this}}
- * - {{value}} - {{description}} 
+ * - {{value}} - {{#escape newLine=" "}}{{../description}}{{/escape}} 
 {{/each}}
  */
 {{/if}}

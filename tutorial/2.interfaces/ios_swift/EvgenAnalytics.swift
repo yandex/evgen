@@ -77,8 +77,8 @@ public final class EvgenAnalytics {
     /**
      *  Показ экрана магазина
      *
-     *  0. page - Название страницы
-     *  1. pageId - Идентификатор страницы
+     *  1. page - Название страницы
+     *  2. pageId - Идентификатор страницы
      */
     public func shopShowed(page: String, pageId: Int) {
         var options: [String: Any] = [:]
@@ -96,10 +96,10 @@ public final class EvgenAnalytics {
     /**
      *  Показ экрана магазина
      *
-     *  0. page - Название страницы
-     *  1. movieName - Название фильма
-     *  2. movieId - Идентификатор фильма
-     *  3. pageId - Идентификатор страницы
+     *  1. page - Название страницы
+     *  2. movieName - Название фильма
+     *  3. movieId - Идентификатор фильма
+     *  4. pageId - Идентификатор страницы
      */
     public func showcaseMovieShowed(page: String, movieName: String, movieId: Int, pageId: Int) {
         var options: [String: Any] = [:]
@@ -122,9 +122,9 @@ public final class EvgenAnalytics {
     /**
      *  Показ экрана магазина
      *
-     *  0. page - Название страницы
-     *  1. movieName - Название фильма
-     *  2. pageId - Идентификатор страницы
+     *  1. page - Название страницы
+     *  2. movieName - Название фильма
+     *  3. pageId - Идентификатор страницы
      */
     public func showcaseTVShowShowed(page: String, movieName: String, pageId: Int) {
         var options: [String: Any] = [:]

@@ -4,9 +4,15 @@ Namespace.Event
     Неймспейсы: 
     Первое событие с переиспользуемым параметром
 
-    0. firstParam: Int - Первый параметр
-    1. paramFromAnotherFile: String - Параметр, описанный в отдельным файле.
-    2. reusedParam: String - Description
-    3. batchParam1: String - Параметр, описанный в отдельным файле.
-    4. batchParam2: String - Параметр, описанный в отдельным файле.
-    5. lastParam: String - Последний параметр
+    0. firstParam: Int
+       Первый параметр
+    1. paramFromAnotherFile: String
+       Параметр, описанный в отдельным файле.
+    2. reusedParam: String
+       Description
+    3. batchParam1: String
+       Параметр, описанный в отдельным файле.
+    4. batchParam2: String
+       Параметр, описанный в отдельным файле.
+    5. lastParam: String
+       Последний параметр

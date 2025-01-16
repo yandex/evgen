@@ -83,7 +83,7 @@ public final class EvgenAnalytics {
     /**
      *  Event description
      *
-     *  0. stringParam - Параметр типа String
+     *  1. stringParam - Параметр типа String
      */
     public func myEvent(namespace: MyEventNamespaces, stringParam: String) {
         var options: [String: Any] = [:]

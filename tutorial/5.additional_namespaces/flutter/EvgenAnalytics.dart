@@ -60,9 +60,9 @@ class EvgenAnalytics {
       };
 
   /**
-   * Event description
+   *  Event description
    *
-   * 0. stringParam - Параметр типа String
+   *  1. stringParam - Параметр типа String
    */
   void myEvent({
     required MyEventNamespaces namespace,

@@ -4,10 +4,14 @@ Showcase.Movie.Showed
     Неймспейсы: 
     Показ экрана магазина
 
-    0. page: String - Название страницы
-    1. movieName: String - Название фильма
-    2. movieId: Int - Идентификатор фильма
-    3. pageId: Int - Идентификатор страницы
+    0. page: String
+       Название страницы
+    1. movieName: String
+       Название фильма
+    2. movieId: Int
+       Идентификатор фильма
+    3. pageId: Int
+       Идентификатор страницы
 
 Showcase.TVShow.Showed
 
@@ -15,6 +19,9 @@ Showcase.TVShow.Showed
     Неймспейсы: 
     Показ экрана магазина
 
-    0. page: String - Название страницы
-    1. movieName: String - Название фильма
-    2. pageId: Int - Идентификатор страницы
+    0. page: String
+       Название страницы
+    1. movieName: String
+       Название фильма
+    2. pageId: Int
+       Идентификатор страницы

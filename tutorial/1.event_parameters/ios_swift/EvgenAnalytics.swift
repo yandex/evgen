@@ -93,9 +93,9 @@ public final class EvgenAnalytics {
     }
     
     /**
-     * - screen_1 - My description screen_1 
-     * - screen_2 - My description screen_2 
-     * - screen_3 - My description screen_3 
+     * - screen_1 - My description screen_1
+     * - screen_2 - My description screen_2
+     * - screen_3 - My description screen_3
      */
     public enum PagesWithDescriptions: String {
         case screen1 = "screen_1"

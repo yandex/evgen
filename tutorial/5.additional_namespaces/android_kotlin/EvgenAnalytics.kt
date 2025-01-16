@@ -58,9 +58,9 @@ class EvgenAnalytics(
     }
 
     /**
-     * Event description
+     *  Event description
      *
-     * 0. stringParam - Параметр типа String
+     *  1. stringParam - Параметр типа String
      */
     fun myEvent(
         namespace: MyEventNamespaces,

@@ -76,7 +76,7 @@ public final class EvgenAnalytics {
     /**
      *  Event description
      *
-     *  0. stringParam - Параметр типа String
+     *  1. stringParam - Параметр типа String
      */
     public void myEvent(MyEventNamespaces namespace, String stringParam) {
         Map<String, Object> params = new HashMap<>();

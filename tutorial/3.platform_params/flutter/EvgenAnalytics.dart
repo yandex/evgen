@@ -67,7 +67,9 @@ class EvgenAnalytics {
       };
 
   /**
-   * Also event description
+   *  Also event description
+   *
+   *  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
    *
    */
   void alsoMyEventLogged() {
@@ -80,7 +82,7 @@ class EvgenAnalytics {
   }
 
   /**
-   * Event description
+   *  Event description
    *
    */
   void myEvent() {

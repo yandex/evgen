@@ -42,7 +42,7 @@ export enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{
  *
 {{#filterFalsy this.parameters 'type.Const'}}
 {{#each this}}
- *  {{sum @index 1}}. {{this.name}} - {{this.description}}
+ *  {{sum @index 1}}. {{this.name}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
 {{/each}}
 {{/filterFalsy}}
  */

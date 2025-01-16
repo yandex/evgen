@@ -9,7 +9,9 @@ import {makeMetaParams} from "./evgen_analytics"
 
 
 /**
- * Forced Event Name
+ *  Forced Event Name
+ *
+ *  Если нужно, чтобы в качестве имени события вместо конкатенированных через точку неймспесов было какое-то кастомное значение, то можно использовать поле "force_event_name"
  *
  */
 export type ForcedNamesMyCustomEventParameters = {

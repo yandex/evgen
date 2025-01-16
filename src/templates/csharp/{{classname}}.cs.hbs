@@ -54,7 +54,7 @@ public class {{classname}} {
     {{#unless (isEmpty globalParameters.parameters)}}
     /**
     {{#each globalParameters.parameters}}
-        {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+        {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
     {{/each}}
     */
     {{/unless}}
@@ -106,7 +106,7 @@ public class {{classname}} {
     {{#unless (isEmpty platformParameters.parameters)}}
     /**
     {{#each platformParameters.parameters}}
-        {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{description}}
+        {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
     {{/each}}
     */
     {{/unless}}
@@ -194,7 +194,7 @@ public class {{classname}} {
     
     {{#filterFalsy parameters 'type.Const'}}
     {{#each this}}
-        {{sum @index 1}}. {{name}} - {{description}}
+        {{sum @index 1}}. {{name}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
     {{/each}}
     {{/filterFalsy}}
     */

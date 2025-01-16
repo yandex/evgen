@@ -73,8 +73,8 @@ public class EvgenAnalytics {
     /**
         Показ экрана магазина
     
-        0. page - Название страницы
-        1. pageId - Идентификатор страницы
+        1. page - Название страницы
+        2. pageId - Идентификатор страницы
     */
     public void ShopShowed(
         string page,
@@ -95,10 +95,10 @@ public class EvgenAnalytics {
     /**
         Показ экрана магазина
     
-        0. page - Название страницы
-        1. movieName - Название фильма
-        2. movieId - Идентификатор фильма
-        3. pageId - Идентификатор страницы
+        1. page - Название страницы
+        2. movieName - Название фильма
+        3. movieId - Идентификатор фильма
+        4. pageId - Идентификатор страницы
     */
     public void ShowcaseMovieShowed(
         string page,
@@ -126,9 +126,9 @@ public class EvgenAnalytics {
     /**
         Показ экрана магазина
     
-        0. page - Название страницы
-        1. movieName - Название фильма
-        2. pageId - Идентификатор страницы
+        1. page - Название страницы
+        2. movieName - Название фильма
+        3. pageId - Идентификатор страницы
     */
     public void ShowcaseTVShowShowed(
         string page,

@@ -15,9 +15,9 @@ export enum MyEventNamespaces {
 }
 
 /**
- * Event description
+ *  Event description
  *
- *  0. stringParam - Параметр типа String
+ *  1. stringParam - Параметр типа String
  */
 export type MyEventParameters = {
     stringParam: string;

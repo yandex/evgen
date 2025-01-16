@@ -72,6 +72,8 @@ public final class EvgenAnalytics {
     /**
      *  Also event description
      *
+     *  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
+     *
      */
     public void alsoMyEventLogged() {
         Map<String, Object> params = new HashMap<>();
