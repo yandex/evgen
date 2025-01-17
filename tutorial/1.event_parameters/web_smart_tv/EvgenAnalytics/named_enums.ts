@@ -26,3 +26,8 @@ export enum PagesWithDescriptions {
     Screen3 = 'screen_3',
 }
 
+export enum DictInEnumType {
+    Option1 = 'option1',
+    Option2 = 'option2',
+}
+

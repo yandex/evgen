@@ -7,7 +7,7 @@
 import {EvgenAnalytics} from "./evgen_analytics"
 import {makeMetaParams} from "./evgen_analytics"
 
-import {MyNamespaceMyEventEnumParam, Pages, PagesWithDescriptions} from "./named_enums"
+import {DictInEnumType, MyNamespaceMyEventEnumParam, Pages, PagesWithDescriptions} from "./named_enums"
 
 export enum MyNamespaceMyEventEnumParamInt {
     int1 = 1,
@@ -48,7 +48,7 @@ export type MyNamespaceMyEventParameters = {
     namedEnumParam: Pages;
     enumWithDescriptionsParam: PagesWithDescriptions;
     dictParam: Record<string, any>;
-    dictElementType: Record<string, MyNamespaceMyEventEnumParam>;
+    dictElementType: Record<string, DictInEnumType>;
     typedDictParam: { stringParam: string; typedListParam: { intParam: number; boolParam: boolean; }[]; };
     typedListParam: { stringParam: string; typedDictParam: { intParam: number; boolParam: boolean; }; }[];
     listOfInt?: number[];

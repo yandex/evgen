@@ -135,7 +135,7 @@ class EvgenAnalytics {
     required Pages namedEnumParam,
     required PagesWithDescriptions enumWithDescriptionsParam,
     required Map<String, dynamic> dictParam,
-    required Map<String, MyNamespaceMyEventEnumParam> dictElementType,
+    required Map<String, DictInEnumType> dictElementType,
     required Map<String, dynamic> typedDictParam,
     required List<dynamic> typedListParam,
     List<int> listOfInt = const [],
@@ -207,6 +207,15 @@ enum PagesWithDescriptions {
   final dynamic value;
 
   const PagesWithDescriptions(this.value);
+}
+
+enum DictInEnumType {
+  option1('option1'),
+  option2('option2');
+
+  final dynamic value;
+
+  const DictInEnumType(this.value);
 }
 
 enum MyNamespaceMyEventEnumParamInt {

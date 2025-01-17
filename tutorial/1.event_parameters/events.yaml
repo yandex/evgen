@@ -135,7 +135,12 @@ Constants:
                     dictElementType:
                         *type : *dict
                         *description : параметр типа Dict енумов.
-                        *element_type : *simpleEnumType
+                        *element_type : 
+                            *enum :
+                                *name : DictInEnumType
+                                *values :
+                                    - option1
+                                    - option2
                     typedDictParam:
                         *description : типизированный Dict.
                         *type :

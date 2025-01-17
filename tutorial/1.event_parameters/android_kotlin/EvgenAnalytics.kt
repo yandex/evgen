@@ -75,6 +75,10 @@ class EvgenAnalytics(
         Screen2("screen_2"),
         Screen3("screen_3"),
     }
+    enum class DictInEnumType(val eventValue: String) {
+        Option1("option1"),
+        Option2("option2"),
+    }
 
     /**
      *  Первое событие с переиспользуемым параметром
@@ -148,7 +152,7 @@ class EvgenAnalytics(
         namedEnumParam: Pages,
         enumWithDescriptionsParam: PagesWithDescriptions,
         dictParam: Map<String, Any>,
-        dictElementType: Map<String, MyNamespaceMyEventEnumParam>,
+        dictElementType: Map<String, DictInEnumType>,
         typedDictParam: Map<String, Any>,
         typedListParam: List<Any>,
         listOfInt: List<Int> = listOf<Int>(),

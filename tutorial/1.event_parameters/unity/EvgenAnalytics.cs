@@ -106,6 +106,13 @@ public class EvgenAnalytics {
         public static PagesWithDescriptions SCREEN_3 { get { return new PagesWithDescriptions("screen_3"); } }
     }
     
+    public class DictInEnumType {
+        private DictInEnumType(string value) { RawValue = value; }
+        public string RawValue { get; private set; }
+        public static DictInEnumType OPTION_1 { get { return new DictInEnumType("option1"); } }
+        public static DictInEnumType OPTION_2 { get { return new DictInEnumType("option2"); } }
+    }
+    
     /**
         Первое событие с переиспользуемым параметром
     
@@ -179,7 +186,7 @@ public class EvgenAnalytics {
         Pages namedEnumParam,
         PagesWithDescriptions enumWithDescriptionsParam,
         Dictionary<string, object> dictParam,
-        Dictionary<string, MyNamespaceMyEventEnumParam> dictElementType,
+        Dictionary<string, DictInEnumType> dictElementType,
         Dictionary<string, object> typedDictParam,
         List<object> typedListParam,
         List<int> listOfInt = [],

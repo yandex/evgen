@@ -7,6 +7,8 @@ import { compileTemplates } from './compiler';
 import { CodeLanguage } from './types/evgen-config';
 import { EventNamespace, Event, NamespaceCollection, EventVersion } from './types/parsed-types';
 import { SinglePlatformNamespaceCollection } from './types/single-platform-types';
+import { isNamedEnum } from './helpers';
+import { ParameterType } from './types/data-types';
 
 const DEFAULT_CLASS_NAME = 'EvgenAnalytics';
 
@@ -110,10 +112,7 @@ const extendNamespaceData = (namespace: EventNamespace<Event>) => {
             eventVersion.platforms &&
             Object.values(eventVersion.platforms).every((platform) => platform.lastVersion !== null)
     );
-    const namedEnums = uniqBy(
-        namespace.events.flatMap((e) => e.versions.flatMap((v) => v.parameters)),
-        'type.Enum.name'
-    );
+    const namedEnums = uniqBy(findNamedEnumsDeepInEvents(namespace.events), 'type.Enum.name');
     const allPlatforms = uniq(
         namespace.events.flatMap((e) =>
             e.versions.flatMap((version) => Object.keys(version.platforms || {}))
@@ -128,4 +127,26 @@ const extendNamespaceData = (namespace: EventNamespace<Event>) => {
         deprecatedVersions,
         allPlatforms,
     };
+};
+
+const findNamedEnumsDeepInEvents = (events: Event[]) => {
+    const topLevelParams = events.flatMap((e) => e.versions.flatMap((v) => v.parameters));
+    return topLevelParams.map((param) => findNamedEnumsDeep(param)).flat();
+};
+
+const findNamedEnumsDeep = (obj: unknown, namedEnumArray: Array<unknown> = []) => {
+    if (!obj || typeof obj !== 'object') {
+        return namedEnumArray;
+    }
+
+    const record = obj as Record<string, unknown>;
+    if (isNamedEnum(record as ParameterType)) {
+        namedEnumArray.push({ type: record });
+    }
+
+    for (const prop in record) {
+        findNamedEnumsDeep(record[prop], namedEnumArray);
+    }
+
+    return namedEnumArray;
 };

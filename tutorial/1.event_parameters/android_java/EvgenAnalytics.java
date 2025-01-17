@@ -104,6 +104,15 @@ public final class EvgenAnalytics {
         }
     }
     
+    public enum DictInEnumType {
+        OPTION1("option1"),
+        OPTION2("option2");
+        public final String eventValue;
+        DictInEnumType(String eventValue) {
+            this.eventValue = eventValue;
+        }
+    }
+    
     /**
      *  Первое событие с переиспользуемым параметром
      *
@@ -164,7 +173,7 @@ public final class EvgenAnalytics {
      *  17. listOfEnum - Cписок енумов
      *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
      */
-    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, PagesWithDescriptions enumWithDescriptionsParam, Map<String, ?> dictParam, Map<String, MyNamespaceMyEventEnumParam> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum, String defaultNullParam) {
+    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, PagesWithDescriptions enumWithDescriptionsParam, Map<String, ?> dictParam, Map<String, DictInEnumType> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum, String defaultNullParam) {
         Map<String, Object> params = new HashMap<>();
         params.put("stringParam", stringParam);
         params.put("intParam", String.valueOf(intParam));
