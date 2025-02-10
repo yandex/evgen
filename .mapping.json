@@ -1,4 +1,5 @@
 {
+  ".":"kinopoisk/frontend/packages/evgen",
   ".editorconfig":"kinopoisk/frontend/packages/evgen/.editorconfig",
   ".eslintrc.js":"kinopoisk/frontend/packages/evgen/.eslintrc.js",
   ".gitignore":"kinopoisk/frontend/packages/evgen/.gitignore",
