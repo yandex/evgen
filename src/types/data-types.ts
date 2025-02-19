@@ -23,6 +23,8 @@ export type TypedList = {
 };
 
 export type CustomType = {
+    name: string;
+    isNamed: boolean;
     Custom: unknown;
 };
 
@@ -35,13 +37,9 @@ export type PrimitiveType =
     | 'TimeMilliseconds'
     | 'Dict'
     | 'List'
-    | EnumType;
-
-export type SinglePlatformParameterType =
-    | PrimitiveType
-    | ConstType
-    | TypedDict
-    | TypedList
+    | EnumType
     | CustomType;
+
+export type SinglePlatformParameterType = PrimitiveType | ConstType | TypedDict | TypedList;
 
 export type ParameterType = SinglePlatformParameterType | PlatformConstType;

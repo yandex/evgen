@@ -1,4 +1,5 @@
-import { ParameterType } from '../types/data-types';
+import { populateCustomTypesDeep } from '../helpers';
+import { ParameterType, PrimitiveType } from '../types/data-types';
 import { EventParameter } from '../types/parsed-types';
 import { RawEventParameter } from '../types/raw-types';
 
@@ -16,12 +17,12 @@ export const parseParameters = (
             name,
             namespace,
             version,
-            type: parameter.type,
+            type: populateCustomTypesDeep(parameter.type, name) as ParameterType,
             description: parameter.description || '',
             defaultValue: parameter.default_value,
             abstract: parameter.abstract || false,
             optional: parameter.optional || false,
-            elementType: parameter.element_type,
+            elementType: populateCustomTypesDeep(parameter.element_type, name) as PrimitiveType,
         });
     });
 

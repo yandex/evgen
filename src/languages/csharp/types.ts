@@ -42,7 +42,7 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
                 return primitiveTypeFormat('Dict');
             }
             if (isCustomParameter(type)) {
-                return pascalCase(name);
+                return pascalCase(type.name || name);
             }
             throw new Error(`Unknown type: ${JSON.stringify(type)}`);
     }

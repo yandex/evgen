@@ -58,7 +58,7 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
                     .join(' ')} }`;
             }
             if (isCustomParameter(type)) {
-                return pascalCase(name);
+                return pascalCase(type.name || name);
             }
             throw new Error(`Unknown type: ${JSON.stringify(type)}`);
     }

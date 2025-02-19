@@ -1,11 +1,14 @@
 public final class {{classname}} {
   {{#each eventNamespaces}}
+  {{#each namedCustomParameters}}
+  {{>customParam type=this}}
+  {{/each}}
   {{#each allVersions}}
   {{#each parameters}}
   {{#if (isCustomParameter type)}}
-  {{>customParam type=type name=name}}
-  {{else}}
-  let {{camelcase name}}: {{typeFormat this}}
+  {{#unless (isNamedCustomType type)}}
+  {{>customParam type=type}}
+  {{/unless}}
   {{/if}}
   {{/each}}
 

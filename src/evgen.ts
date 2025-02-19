@@ -1,14 +1,17 @@
 import { rm } from 'fs/promises';
 import { resolve } from 'path';
 
-import { groupBy, sortBy, uniq, uniqBy } from 'lodash';
+import { groupBy, sortBy, uniq, uniqBy, uniqWith } from 'lodash';
 
 import { compileTemplates } from './compiler';
 import { CodeLanguage } from './types/evgen-config';
 import { EventNamespace, Event, NamespaceCollection, EventVersion } from './types/parsed-types';
 import { SinglePlatformNamespaceCollection } from './types/single-platform-types';
-import { isNamedEnum } from './helpers';
-import { ParameterType } from './types/data-types';
+import {
+    findNamedEnumsDeepInEvents,
+    findNamedCustomTypesDeepInEvents,
+    compareCustomTypes,
+} from './helpers';
 
 const DEFAULT_CLASS_NAME = 'EvgenAnalytics';
 
@@ -35,6 +38,11 @@ export const generateEventsCode = async (
         'type.Enum.name'
     );
 
+    const namedCustomParameters = uniqWith(
+        eventNamespaces.flatMap((namespace) => namespace.namedCustomParameters),
+        compareCustomTypes
+    );
+
     const allVersionsByEvent = groupAllVersionsByEvent(events.eventNamespaces);
 
     const ctx = {
@@ -42,6 +50,7 @@ export const generateEventsCode = async (
         eventNamespaces,
         allVersionsByEvent,
         namedEnums,
+        namedCustomParameters,
         onlyLastVersion: options.onlyLastVersion,
         classname: options.className || DEFAULT_CLASS_NAME,
     };
@@ -113,6 +122,10 @@ const extendNamespaceData = (namespace: EventNamespace<Event>) => {
             Object.values(eventVersion.platforms).every((platform) => platform.lastVersion !== null)
     );
     const namedEnums = uniqBy(findNamedEnumsDeepInEvents(namespace.events), 'type.Enum.name');
+    const namedCustomParameters = uniqWith(
+        findNamedCustomTypesDeepInEvents(namespace.events),
+        compareCustomTypes
+    );
     const allPlatforms = uniq(
         namespace.events.flatMap((e) =>
             e.versions.flatMap((version) => Object.keys(version.platforms || {}))
@@ -122,31 +135,10 @@ const extendNamespaceData = (namespace: EventNamespace<Event>) => {
     return {
         ...namespace,
         namedEnums,
+        namedCustomParameters,
         allVersions,
         actualVersions,
         deprecatedVersions,
         allPlatforms,
     };
-};
-
-const findNamedEnumsDeepInEvents = (events: Event[]) => {
-    const topLevelParams = events.flatMap((e) => e.versions.flatMap((v) => v.parameters));
-    return topLevelParams.map((param) => findNamedEnumsDeep(param)).flat();
-};
-
-const findNamedEnumsDeep = (obj: unknown, namedEnumArray: Array<unknown> = []) => {
-    if (!obj || typeof obj !== 'object') {
-        return namedEnumArray;
-    }
-
-    const record = obj as Record<string, unknown>;
-    if (isNamedEnum(record as ParameterType)) {
-        namedEnumArray.push({ type: record });
-    }
-
-    for (const prop in record) {
-        findNamedEnumsDeep(record[prop], namedEnumArray);
-    }
-
-    return namedEnumArray;
 };

@@ -2,7 +2,22 @@ Application.Resumed
 
     V1
     Неймспейсы: 
-    Инвент разворачивания/старта приложения
+    Ивент разворачивания/старта приложения
 
     0. startup_info: Custom(see yaml spec)
        My Custom Type
+    1. startup_info_duplicate: Custom(see yaml spec)
+       Параметр с дублирующимся кастомным типом
+
+Application.Resumed
+
+    V2
+    Неймспейсы: 
+    Ивент с дублирующимся кастомным типом
+
+    0. startup_info_v2: Custom(see yaml spec)
+       My Custom Type v2
+    1. list_unnamed_property: List
+       
+    2. list_named_property: List
+       

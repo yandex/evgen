@@ -40,7 +40,7 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
                 return primitiveTypeFormat('Dict');
             }
             if (isCustomParameter(type)) {
-                return pascalCase(name);
+                return primitiveTypeFormat(type);
             }
             throw new Error(`Unknown type: ${JSON.stringify(type)}`);
     }
@@ -49,6 +49,9 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
 const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
     if (isEnum(primitiveType)) {
         return primitiveType.Enum.name || 'Any';
+    }
+    if (isCustomParameter(primitiveType)) {
+        return pascalCase(primitiveType.name);
     }
     switch (primitiveType) {
         case 'String':
