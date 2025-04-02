@@ -196,12 +196,12 @@ public final class {{classname}} {
     {{/filterFalsy}}
      */
     public func {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}(
-        {{~#unless (isEmpty additionalNamespaces)}}namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}}, {{/unless~}}
+        {{~#unless (isEmpty additionalNamespaces)}}namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless~}}
         {{~#filterUndefined this.parameters 'type.Const'~}}
             {{~#each this~}}
+                {{~#and @first (isEmpty ../../additionalNamespaces)}}{{else}}, {{/and~}}
                 {{~camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
                 {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
-                {{~#unless @last}}, {{/unless~}}
             {{~/each~}}
         {{~/filterUndefined~}}
     ) {
