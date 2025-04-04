@@ -10,7 +10,7 @@
     "engines": {
         "node": ">=20"
     },
-    "packageManager": "pnpm@8.15.6",
+    "packageManager": "pnpm@10.6.5",
     "bin": {
         "evgen": "./dist/cli.js"
     },
@@ -44,9 +44,9 @@
         "yaml": "2.3.1"
     },
     "devDependencies": {
-        "@babel/core": "7.21.4",
-        "@babel/preset-env": "7.21.4",
-        "@babel/preset-typescript": "7.21.4",
+        "@babel/core": "7.26.10",
+        "@babel/preset-env": "7.26.9",
+        "@babel/preset-typescript": "7.26.0",
         "@jest/types": "29.6.3",
         "@tsconfig/node18": "1.0.1",
         "@types/handlebars-helpers": "0.5.3",
