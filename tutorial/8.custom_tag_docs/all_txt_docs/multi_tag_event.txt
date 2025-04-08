@@ -1,0 +1,6 @@
+MultiTagEvent
+
+    V1
+    Неймспейсы: 
+    Custom multiple tag event
+

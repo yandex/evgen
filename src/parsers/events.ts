@@ -107,6 +107,7 @@ const parseEventVersions = (
                     interfaceNames: getInterfaceNames(value.interface),
                     interfaces: {},
                     additionalNamespaces: value.namespaces || [],
+                    tags: parseTags(value.tags),
                 },
             ];
         }
@@ -134,3 +135,15 @@ const getInterfaceNames = (value: unknown): string[] => {
 
 const isEventNode = (node: NestedRecord<NestedRecord<RawEvent>>): node is RawEvent =>
     node.parameters !== undefined && node.description !== undefined;
+
+const parseTags = (tags: string | string[] | undefined): string[] => {
+    if (!tags) {
+        return [];
+    }
+
+    if (Array.isArray(tags)) {
+        return tags;
+    }
+
+    return [tags];
+};

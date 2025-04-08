@@ -1,0 +1,24 @@
+code:
+  AndroidKotlin:
+    platform: 'Android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
+    class_name: 'EvgenAnalytics'
+doc:
+  AllDocs:
+    extension: 'md'
+    output_dir: 'all_docs'
+  TagDocs:
+    extension: 'md'
+    output_dir: 'custom_tag_docs'
+    # В документацию попадут только события, помеченные данным тегом
+    tag: custom
+  AllTxtDocs:
+    extension: 'txt'
+    output_dir: 'all_txt_docs'
+  TagTxtDocs:
+    extension: 'txt'
+    output_dir: 'custom_tag_txt_docs'
+    # В документацию попадут только события, помеченные данным тегом
+    tag: custom
+

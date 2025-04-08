@@ -25,6 +25,10 @@ interface CodeGenerateOptions extends GenerateOptions {
     onlyLastVersion?: boolean;
 }
 
+interface DocsGenerateOptions extends GenerateOptions {
+    tag?: string;
+}
+
 export const generateEventsCode = async (
     language: CodeLanguage,
     events: SinglePlatformNamespaceCollection,
@@ -62,9 +66,22 @@ export const generateEventsCode = async (
     });
 };
 
-export const generateEventsDocs = async (events: NamespaceCollection, options: GenerateOptions) => {
-    const { templateDir, outputPath } = options;
+export const generateEventsDocs = async (
+    events: NamespaceCollection,
+    options: DocsGenerateOptions
+) => {
+    const { templateDir, outputPath, tag } = options;
     await prepareOutDir(resolve(outputPath));
+
+    if (tag) {
+        events.eventNamespaces = events.eventNamespaces.map((namespace) => ({
+            ...namespace,
+            events: namespace.events.map((event) => ({
+                ...event,
+                versions: event.versions.filter((event) => event.tags?.includes(tag)),
+            })),
+        }));
+    }
 
     const eventNamespacesByDocDir = groupBy(
         sortBy(events.eventNamespaces.map(extendNamespaceData), 'documentationDir'),

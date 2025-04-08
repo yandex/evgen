@@ -49,6 +49,7 @@ export interface EventData {
     interfaces: Record<string, number>;
     comment?: string;
     interfaceNames?: string[];
+    tags: string[];
 }
 
 export interface EventVersion extends EventData {

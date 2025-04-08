@@ -1,5 +1,6 @@
 {{#each eventNamespacesByDocDir}}
 {{#each this}}
+{{#unless (isEmpty allVersions)}}
 #start-file:{{#if this.documentationDir}}{{this.documentationDir}}/{{/if}}{{snakecase this.name}}.md
 | | Название события | Версия события | Неймспейсы | Параметры | Описание | Комментарий | {{join this.allPlatforms ' | '}} |
 |---:|:---|:---|:---|:---|:---|:---|{{#each this.allPlatforms}}:---|{{/each}}
@@ -29,6 +30,7 @@
 {{~/each~}}
 |
 {{/each}}
-{{/each}}
 #end-file
+{{/unless}}
+{{/each}}
 {{/each}}

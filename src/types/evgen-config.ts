@@ -22,6 +22,7 @@ export interface DocConfig {
     extension: DocsType;
     output_dir: string;
     template_dir?: string;
+    tag?: string;
 }
 
 interface EvgenOptions {

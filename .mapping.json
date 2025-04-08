@@ -280,5 +280,22 @@
   "tutorial/7.custom_parameters/templates/ios/partials/variableValueFormat.hbs":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/templates/ios/partials/variableValueFormat.hbs",
   "tutorial/7.custom_parameters/templates/ios/{{classname}}.swift.hbs":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/templates/ios/{{classname}}.swift.hbs",
   "tutorial/7.custom_parameters/txt_doc/__global_params.txt":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/txt_doc/__global_params.txt",
-  "tutorial/7.custom_parameters/txt_doc/application.txt":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/txt_doc/application.txt"
+  "tutorial/7.custom_parameters/txt_doc/application.txt":"kinopoisk/frontend/packages/evgen/tutorial/7.custom_parameters/txt_doc/application.txt",
+  "tutorial/8.custom_tag_docs/all_docs/actual_events.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_docs/actual_events.md",
+  "tutorial/8.custom_tag_docs/all_docs/all_events.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_docs/all_events.md",
+  "tutorial/8.custom_tag_docs/all_docs/all_events/multi_tag_event.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_docs/all_events/multi_tag_event.md",
+  "tutorial/8.custom_tag_docs/all_docs/all_events/no_tag_event.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_docs/all_events/no_tag_event.md",
+  "tutorial/8.custom_tag_docs/all_docs/all_events/tag_event.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_docs/all_events/tag_event.md",
+  "tutorial/8.custom_tag_docs/all_txt_docs/multi_tag_event.txt":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_txt_docs/multi_tag_event.txt",
+  "tutorial/8.custom_tag_docs/all_txt_docs/no_tag_event.txt":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_txt_docs/no_tag_event.txt",
+  "tutorial/8.custom_tag_docs/all_txt_docs/tag_event.txt":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/all_txt_docs/tag_event.txt",
+  "tutorial/8.custom_tag_docs/android_kotlin/EvgenAnalytics.kt":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/android_kotlin/EvgenAnalytics.kt",
+  "tutorial/8.custom_tag_docs/custom_tag_docs/actual_events.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/custom_tag_docs/actual_events.md",
+  "tutorial/8.custom_tag_docs/custom_tag_docs/all_events.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/custom_tag_docs/all_events.md",
+  "tutorial/8.custom_tag_docs/custom_tag_docs/all_events/multi_tag_event.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/custom_tag_docs/all_events/multi_tag_event.md",
+  "tutorial/8.custom_tag_docs/custom_tag_docs/all_events/tag_event.md":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/custom_tag_docs/all_events/tag_event.md",
+  "tutorial/8.custom_tag_docs/custom_tag_txt_docs/multi_tag_event.txt":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/custom_tag_txt_docs/multi_tag_event.txt",
+  "tutorial/8.custom_tag_docs/custom_tag_txt_docs/tag_event.txt":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/custom_tag_txt_docs/tag_event.txt",
+  "tutorial/8.custom_tag_docs/events.yaml":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/events.yaml",
+  "tutorial/8.custom_tag_docs/evgen.yaml":"kinopoisk/frontend/packages/evgen/tutorial/8.custom_tag_docs/evgen.yaml"
 }

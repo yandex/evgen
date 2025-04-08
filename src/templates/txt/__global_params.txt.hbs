@@ -1,3 +1,4 @@
+{{#if (isDefined globalParameters)}}
 .GlobalParams
 
     {{globalParameters.description}}
@@ -8,3 +9,4 @@
        {{this}}
     {{/each}}{{this.description}}
 {{/each}}
+{{/if}}

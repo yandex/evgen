@@ -1,0 +1,47 @@
+Constants:
+    Events: &Events Events
+    parameters: &parameters parameters
+    description: &description description
+    platforms: &platforms platforms
+    app_versions: &app_versions app_versions
+    ticket: &ticket ticket
+    in_progress: &in_progress in_progress
+    inheritance: &inheritance inheritance
+    tags: &tags tags
+
+*inheritance :
+    android: &android Android
+
+*Events :
+    NoTagEvent:
+        v1:
+            *parameters :
+            *description : No tag event
+            *platforms :
+                *android :
+                    *app_versions : *in_progress
+                    *ticket : https://your-tracker.com
+
+    TagEvent:
+        v1:
+            # Добавляем тег, чтобы по нему собирать документацию
+            *tags : custom
+            *parameters :
+            *description : Custom tag event
+            *platforms :
+                *android :
+                    *app_versions : *in_progress
+                    *ticket : https://your-tracker.com
+
+    MultiTagEvent:
+        v1:
+            # Добавляем несколько тегов
+            *tags :
+                - custom
+                - other_tag
+            *parameters :
+            *description : Custom multiple tag event
+            *platforms :
+                *android :
+                    *app_versions : *in_progress
+                    *ticket : https://your-tracker.com

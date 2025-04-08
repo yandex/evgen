@@ -99,6 +99,7 @@ program
                                           DEFAULT_TEMPLATES_PATH,
                                           DEFAULT_TEMPLATES_DIRS[docConfig.extension]
                                       ),
+                                tag: docConfig.tag,
                             });
                         } catch (e) {
                             console.error(

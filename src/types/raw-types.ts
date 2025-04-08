@@ -30,6 +30,7 @@ export interface RawEvent {
     interface?: string | string[];
     namespaces?: string[];
     force_event_name?: string;
+    tags?: string | string[];
 }
 
 export interface RawGlobalParameters {

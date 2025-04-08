@@ -1,3 +1,4 @@
+{{#if (isDefined globalParameters)}}
 ## .GlobalParams
 
 || Название события | Параметры | Описание | Комментарий |                    
@@ -13,3 +14,4 @@
 |
 {{~#escape newLine="<br>"}}{{@root.globalParameters.description}}{{/escape~}}
 |
+{{/if}}
