@@ -1,19 +1,18 @@
 // ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: one_member_abstracts
 
-/**
- * AUTO-GENERATED FILE. DO NOT MODIFY
- * This class was automatically generated.
- */
+// AUTO-GENERATED FILE. DO NOT MODIFY
+// This class was automatically generated.
 
-abstract interface class EvgenAnalyticsTracker {
+abstract interface class IEvgenAnalyticsTracker {
   void trackEvent(String event, Map<String, dynamic> parameters);
 }
 
-abstract interface class EvgenAnalyticsGlobalParamsProvider {
+abstract interface class IEvgenAnalyticsGlobalParamsProvider {
   EvgenAnalyticsGlobalParams getGlobalParams();
 }
 
-abstract interface class EvgenAnalyticsPlatformParamsProvider {
+abstract interface class IEvgenAnalyticsPlatformParamsProvider {
   EvgenAnalyticsPlatformParams getPlatformParams();
 }
 
@@ -30,15 +29,15 @@ class EvgenAnalyticsPlatformParams {
 }
 
 class EvgenAnalytics {
-  final EvgenAnalyticsTracker eventTracker;
-  final EvgenAnalyticsGlobalParamsProvider globalParamsProvider;
-  final EvgenAnalyticsPlatformParamsProvider platformParamsProvider;
+  final IEvgenAnalyticsTracker eventTracker;
+  final IEvgenAnalyticsGlobalParamsProvider globalParamsProvider;
+  final IEvgenAnalyticsPlatformParamsProvider platformParamsProvider;
 
-  EvgenAnalytics(
-    this.eventTracker,
-    this.globalParamsProvider,
-    this.platformParamsProvider,
-  );
+  EvgenAnalytics({
+    required this.eventTracker,
+    required this.globalParamsProvider,
+    required this.platformParamsProvider,
+  });
 
   void trackEvent(String event, Map<String, dynamic> parameters) =>
       eventTracker.trackEvent(
@@ -59,12 +58,10 @@ class EvgenAnalytics {
         'interfaces': interfaces,
       };
 
-  /**
-   *  Показ экрана магазина
-   *
-   *  1. page - Название страницы
-   *  2. pageId - Идентификатор страницы
-   */
+  ///  Показ экрана магазина
+  ///
+  ///  1. page - Название страницы
+  ///  2. pageId - Идентификатор страницы
   void shopShowed({
     required String page,
     required int pageId,
@@ -82,14 +79,12 @@ class EvgenAnalytics {
     trackEvent('Shop.Showed', parameters);
   }
 
-  /**
-   *  Показ экрана магазина
-   *
-   *  1. page - Название страницы
-   *  2. movieName - Название фильма
-   *  3. movieId - Идентификатор фильма
-   *  4. pageId - Идентификатор страницы
-   */
+  ///  Показ экрана магазина
+  ///
+  ///  1. page - Название страницы
+  ///  2. movieName - Название фильма
+  ///  3. movieId - Идентификатор фильма
+  ///  4. pageId - Идентификатор страницы
   void showcaseMovieShowed({
     required String page,
     required String movieName,
@@ -112,13 +107,11 @@ class EvgenAnalytics {
     trackEvent('Showcase.Movie.Showed', parameters);
   }
 
-  /**
-   *  Показ экрана магазина
-   *
-   *  1. page - Название страницы
-   *  2. movieName - Название фильма
-   *  3. pageId - Идентификатор страницы
-   */
+  ///  Показ экрана магазина
+  ///
+  ///  1. page - Название страницы
+  ///  2. movieName - Название фильма
+  ///  3. pageId - Идентификатор страницы
   void showcaseTVShowShowed({
     required String page,
     required String movieName,

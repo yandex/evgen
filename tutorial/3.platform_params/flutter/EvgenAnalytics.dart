@@ -1,19 +1,18 @@
 // ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: one_member_abstracts
 
-/**
- * AUTO-GENERATED FILE. DO NOT MODIFY
- * This class was automatically generated.
- */
+// AUTO-GENERATED FILE. DO NOT MODIFY
+// This class was automatically generated.
 
-abstract interface class EvgenAnalyticsTracker {
+abstract interface class IEvgenAnalyticsTracker {
   void trackEvent(String event, Map<String, dynamic> parameters);
 }
 
-abstract interface class EvgenAnalyticsGlobalParamsProvider {
+abstract interface class IEvgenAnalyticsGlobalParamsProvider {
   EvgenAnalyticsGlobalParams getGlobalParams();
 }
 
-abstract interface class EvgenAnalyticsPlatformParamsProvider {
+abstract interface class IEvgenAnalyticsPlatformParamsProvider {
   EvgenAnalyticsPlatformParams getPlatformParams();
 }
 
@@ -23,29 +22,27 @@ class EvgenAnalyticsGlobalParams {
   EvgenAnalyticsGlobalParams() : parameters = const {};
 }
 
-/**
- * 0. hasSubscription - Есть ли у пользователя подписка
- */
+/// 0. hasSubscription - Есть ли у пользователя подписка
 class EvgenAnalyticsPlatformParams {
   final Map<String, dynamic> parameters;
 
-  EvgenAnalyticsPlatformParams(
-    bool hasSubscription,
-  ) : parameters = {
+  EvgenAnalyticsPlatformParams({
+    required bool hasSubscription,
+  }) : parameters = {
           'hasSubscription': hasSubscription,
         };
 }
 
 class EvgenAnalytics {
-  final EvgenAnalyticsTracker eventTracker;
-  final EvgenAnalyticsGlobalParamsProvider globalParamsProvider;
-  final EvgenAnalyticsPlatformParamsProvider platformParamsProvider;
+  final IEvgenAnalyticsTracker eventTracker;
+  final IEvgenAnalyticsGlobalParamsProvider globalParamsProvider;
+  final IEvgenAnalyticsPlatformParamsProvider platformParamsProvider;
 
-  EvgenAnalytics(
-    this.eventTracker,
-    this.globalParamsProvider,
-    this.platformParamsProvider,
-  );
+  EvgenAnalytics({
+    required this.eventTracker,
+    required this.globalParamsProvider,
+    required this.platformParamsProvider,
+  });
 
   void trackEvent(String event, Map<String, dynamic> parameters) =>
       eventTracker.trackEvent(
@@ -66,12 +63,9 @@ class EvgenAnalytics {
         'interfaces': interfaces,
       };
 
-  /**
-   *  Also event description
-   *
-   *  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
-   *
-   */
+  ///  Also event description
+  ///
+  ///  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
   void alsoMyEventLogged() {
     final parameters = const <String, dynamic>{};
 
@@ -81,10 +75,7 @@ class EvgenAnalytics {
     trackEvent('AlsoMyEvent.Logged', parameters);
   }
 
-  /**
-   *  Event description
-   *
-   */
+  ///  Event description
   void myEvent() {
     final parameters = const <String, dynamic>{};
 

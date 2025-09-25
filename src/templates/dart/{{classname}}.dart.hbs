@@ -1,19 +1,18 @@
 // ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: one_member_abstracts
 
-/**
- * AUTO-GENERATED FILE. DO NOT MODIFY
- * This class was automatically generated.
- */
+// AUTO-GENERATED FILE. DO NOT MODIFY
+// This class was automatically generated.
 
-abstract interface class {{classname}}Tracker {
+abstract interface class I{{classname}}Tracker {
   void trackEvent(String event, Map<String, dynamic> parameters);
 }
 
-abstract interface class {{classname}}GlobalParamsProvider {
+abstract interface class I{{classname}}GlobalParamsProvider {
   {{classname}}GlobalParams getGlobalParams();
 }
 
-abstract interface class {{classname}}PlatformParamsProvider {
+abstract interface class I{{classname}}PlatformParamsProvider {
   {{classname}}PlatformParams getPlatformParams();
 }
 
@@ -21,11 +20,9 @@ abstract interface class {{classname}}PlatformParamsProvider {
 {{>enum parameter=this}}
 {{/each}}
 {{#unless (isEmpty globalParameters.parameters)}}
-/**
 {{#each globalParameters.parameters}}
- * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
+/// {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
 {{/each}}
- */
 {{/unless}}
 class {{classname}}GlobalParams {
   final Map<String, dynamic> parameters;
@@ -33,13 +30,13 @@ class {{classname}}GlobalParams {
   {{#if (isEmpty globalParameters.parameters)}}
   {{classname}}GlobalParams() : parameters = const {};
   {{else}}
-  {{classname}}GlobalParams(
+  {{classname}}GlobalParams({
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}},
+    {{#unless (isDefined this.defaultValue)}}required {{/unless}}{{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}{{#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/unless}}
     {{/each}}
-  ) : parameters = {
+  }) : parameters = {
           {{#each globalParameters.parameters}}
           '{{this.name}}': {{camelcase this.name}},
           {{/each}}
@@ -52,11 +49,9 @@ class {{classname}}GlobalParams {
 {{>enum parameter=this}}
 {{/each}}
 {{#unless (isEmpty platformParameters.parameters)}}
-/**
 {{#each platformParameters.parameters}}
- * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
+/// {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
 {{/each}}
- */
 {{/unless}}
 {{/if}}
 class {{classname}}PlatformParams {
@@ -65,30 +60,30 @@ class {{classname}}PlatformParams {
   {{#if (isEmpty platformParameters.parameters)}}
   {{classname}}PlatformParams() : parameters = const {};
   {{else}}
-  {{classname}}PlatformParams(
+  {{classname}}PlatformParams({
     {{#each platformParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}},
+    {{#unless (isDefined this.defaultValue)}}required {{/unless}}{{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}{{#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/unless}}
     {{/each}}
-  ) : parameters = {
+  }) : parameters = {
           {{#each platformParameters.parameters}}
-          '{{this.name}}': {{camelcase name}},
+          '{{this.name}}': {{camelcase this.name}},
           {{/each}}
         };
   {{/if}}
 }
 
 class {{classname}} {
-  final {{classname}}Tracker eventTracker;
-  final {{classname}}GlobalParamsProvider globalParamsProvider;
-  final {{classname}}PlatformParamsProvider platformParamsProvider;
+  final I{{classname}}Tracker eventTracker;
+  final I{{classname}}GlobalParamsProvider globalParamsProvider;
+  final I{{classname}}PlatformParamsProvider platformParamsProvider;
 
-  {{classname}}(
-    this.eventTracker,
-    this.globalParamsProvider,
-    this.platformParamsProvider,
-  );
+  {{classname}}({
+    required this.eventTracker,
+    required this.globalParamsProvider,
+    required this.platformParamsProvider,
+  });
 
   void trackEvent(String event, Map<String, dynamic> parameters) =>
       eventTracker.trackEvent(
@@ -111,23 +106,23 @@ class {{classname}} {
   {{#each eventNamespaces}}
   {{#each allVersions}}
 
-  /**
   {{#each (splitByNewLine description)}}
-   *  {{this}}
+  ///  {{this}}
   {{/each}}
   {{#if comment}}
-   *
+  ///
   {{/if}}
   {{#each (splitByNewLine comment)}}
-   *  {{this}}
+  ///  {{this}}
   {{/each}}
-   *
+  {{#if (filterFalsy parameters 'type.Const')}}
+  ///
+  {{/if}}
   {{#filterFalsy parameters 'type.Const'}}
   {{#each this}}
-   *  {{sum @index 1}}. {{name}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
+  ///  {{sum @index 1}}. {{name}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
   {{/each}}
   {{/filterFalsy}}
-   */
   {{#unless (isEmpty this.parameters)}}
   void {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({
     {{#unless (isEmpty additionalNamespaces)}}

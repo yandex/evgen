@@ -1,11 +1,9 @@
 {{#if (isEnum parameter.type)}}
 {{#filterTruthy parameter.type.Enum.values "description"}}
 {{#if this}}
-/**
     {{#each this}}
- * - {{value}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
+/// - {{value}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
     {{/each}}
- */
  {{/if}}
  {{/filterTruthy}}
 enum {{pascalcase (typeFormat parameter)}} {

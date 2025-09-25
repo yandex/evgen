@@ -25,9 +25,11 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
             return `Map<String, ${elementType ? primitiveTypeFormat(elementType) : 'dynamic'}>`;
         default:
             if (isEnum(type)) {
-                return (
+                return pascalCase(
                     type.Enum.name ||
-                    namespace + (version > 1 ? `V${version}` : '') + pascalCase(name)
+                        pascalCase(namespace) +
+                            (version > 1 ? `V${version}` : '') +
+                            pascalCase(name)
                 );
             }
             if (isConst(type)) {

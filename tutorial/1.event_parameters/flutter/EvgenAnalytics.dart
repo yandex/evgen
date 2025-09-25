@@ -1,31 +1,28 @@
 // ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: one_member_abstracts
 
-/**
- * AUTO-GENERATED FILE. DO NOT MODIFY
- * This class was automatically generated.
- */
+// AUTO-GENERATED FILE. DO NOT MODIFY
+// This class was automatically generated.
 
-abstract interface class EvgenAnalyticsTracker {
+abstract interface class IEvgenAnalyticsTracker {
   void trackEvent(String event, Map<String, dynamic> parameters);
 }
 
-abstract interface class EvgenAnalyticsGlobalParamsProvider {
+abstract interface class IEvgenAnalyticsGlobalParamsProvider {
   EvgenAnalyticsGlobalParams getGlobalParams();
 }
 
-abstract interface class EvgenAnalyticsPlatformParamsProvider {
+abstract interface class IEvgenAnalyticsPlatformParamsProvider {
   EvgenAnalyticsPlatformParams getPlatformParams();
 }
 
-/**
- * 0. globalParam - Глобальный параметр, который добавится к каждому событию
- */
+/// 0. globalParam - Глобальный параметр, который добавится к каждому событию
 class EvgenAnalyticsGlobalParams {
   final Map<String, dynamic> parameters;
 
-  EvgenAnalyticsGlobalParams(
-    String globalParam,
-  ) : parameters = {
+  EvgenAnalyticsGlobalParams({
+    required String globalParam,
+  }) : parameters = {
           'globalParam': globalParam,
         };
 }
@@ -37,15 +34,15 @@ class EvgenAnalyticsPlatformParams {
 }
 
 class EvgenAnalytics {
-  final EvgenAnalyticsTracker eventTracker;
-  final EvgenAnalyticsGlobalParamsProvider globalParamsProvider;
-  final EvgenAnalyticsPlatformParamsProvider platformParamsProvider;
+  final IEvgenAnalyticsTracker eventTracker;
+  final IEvgenAnalyticsGlobalParamsProvider globalParamsProvider;
+  final IEvgenAnalyticsPlatformParamsProvider platformParamsProvider;
 
-  EvgenAnalytics(
-    this.eventTracker,
-    this.globalParamsProvider,
-    this.platformParamsProvider,
-  );
+  EvgenAnalytics({
+    required this.eventTracker,
+    required this.globalParamsProvider,
+    required this.platformParamsProvider,
+  });
 
   void trackEvent(String event, Map<String, dynamic> parameters) =>
       eventTracker.trackEvent(
@@ -66,11 +63,9 @@ class EvgenAnalytics {
         'interfaces': interfaces,
       };
 
-  /**
-   *  Первое событие с переиспользуемым параметром
-   *
-   *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
-   */
+  ///  Первое событие с переиспользуемым параметром
+  ///
+  ///  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
   void anotherNamespaceEvent1({
     required String reusedParam,
   }) {
@@ -84,11 +79,9 @@ class EvgenAnalytics {
     trackEvent('AnotherNamespace.Event1', parameters);
   }
 
-  /**
-   *  Второе событие с переиспользуемым параметром
-   *
-   *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
-   */
+  ///  Второе событие с переиспользуемым параметром
+  ///
+  ///  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
   void anotherNamespaceKebabCaseEvent2({
     required String reusedParam,
   }) {
@@ -102,28 +95,26 @@ class EvgenAnalytics {
     trackEvent('AnotherNamespace.kebab-case-event-2', parameters);
   }
 
-  /**
-   *  События со всеми возможными типами параметров
-   *
-   *  1. stringParam - Параметр типа String
-   *  2. intParam - Параметр типа Int
-   *  3. longIntParam - Параметр типа Long Int
-   *  4. boolParam - Параметр типа Bool
-   *  5. doubleParam - Параметр типа Double
-   *  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
-   *  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
-   *  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
-   *  9. enumWithDescriptionsParam - Enum с описанием возможных значений 
-   *  10. dictParam - параметр типа Dict.
-   *  11. dictElementType - параметр типа Dict енумов.
-   *  12. typedDictParam - типизированный Dict.
-   *  13. typedListParam - типизированный List.
-   *  14. listOfInt - Список целочисленных параметров
-   *  15. listOfDouble - Список флотовых параметров
-   *  16. listOfString - Cписок строк
-   *  17. listOfEnum - Cписок енумов
-   *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
-   */
+  ///  События со всеми возможными типами параметров
+  ///
+  ///  1. stringParam - Параметр типа String
+  ///  2. intParam - Параметр типа Int
+  ///  3. longIntParam - Параметр типа Long Int
+  ///  4. boolParam - Параметр типа Bool
+  ///  5. doubleParam - Параметр типа Double
+  ///  6. enumParam - Параметр типа Enum. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+  ///  7. enumParamInt - Параметр типа Enum Int. При логировании можно выбрать только один вариант. В коде имеет тип MyNamespaceMyEventEnumparam
+  ///  8. namedEnumParam - Параметр типа Enum. В коде имеет тип Pages. Если какой-то enum используется больше одного раза, то лучше давать ему явное имя, разботчики смогут обращаться к нему однообразно
+  ///  9. enumWithDescriptionsParam - Enum с описанием возможных значений 
+  ///  10. dictParam - параметр типа Dict.
+  ///  11. dictElementType - параметр типа Dict енумов.
+  ///  12. typedDictParam - типизированный Dict.
+  ///  13. typedListParam - типизированный List.
+  ///  14. listOfInt - Список целочисленных параметров
+  ///  15. listOfDouble - Список флотовых параметров
+  ///  16. listOfString - Cписок строк
+  ///  17. listOfEnum - Cписок енумов
+  ///  18. defaultNullParam - Параметр типа String со значением null по умолчанию
   void myNamespaceMyEvent({
     String stringParam = 'val',
     int intParam = 42,
@@ -194,11 +185,9 @@ enum Pages {
   const Pages(this.value);
 }
 
-/**
- * - screen_1 - My description screen_1
- * - screen_2 - My description screen_2
- * - screen_3 - My description screen_3
- */
+/// - screen_1 - My description screen_1
+/// - screen_2 - My description screen_2
+/// - screen_3 - My description screen_3
 enum PagesWithDescriptions {
   screen1('screen_1'),
   screen2('screen_2'),

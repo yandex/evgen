@@ -1,31 +1,28 @@
 // ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: one_member_abstracts
 
-/**
- * AUTO-GENERATED FILE. DO NOT MODIFY
- * This class was automatically generated.
- */
+// AUTO-GENERATED FILE. DO NOT MODIFY
+// This class was automatically generated.
 
-abstract interface class EvgenAnalyticsTracker {
+abstract interface class IEvgenAnalyticsTracker {
   void trackEvent(String event, Map<String, dynamic> parameters);
 }
 
-abstract interface class EvgenAnalyticsGlobalParamsProvider {
+abstract interface class IEvgenAnalyticsGlobalParamsProvider {
   EvgenAnalyticsGlobalParams getGlobalParams();
 }
 
-abstract interface class EvgenAnalyticsPlatformParamsProvider {
+abstract interface class IEvgenAnalyticsPlatformParamsProvider {
   EvgenAnalyticsPlatformParams getPlatformParams();
 }
 
-/**
- * 0. globalParam - Глобальный параметр, который добавится к каждомоу событию
- */
+/// 0. globalParam - Глобальный параметр, который добавится к каждомоу событию
 class EvgenAnalyticsGlobalParams {
   final Map<String, dynamic> parameters;
 
-  EvgenAnalyticsGlobalParams(
-    String globalParam,
-  ) : parameters = {
+  EvgenAnalyticsGlobalParams({
+    required String globalParam,
+  }) : parameters = {
           'globalParam': globalParam,
         };
 }
@@ -37,15 +34,15 @@ class EvgenAnalyticsPlatformParams {
 }
 
 class EvgenAnalytics {
-  final EvgenAnalyticsTracker eventTracker;
-  final EvgenAnalyticsGlobalParamsProvider globalParamsProvider;
-  final EvgenAnalyticsPlatformParamsProvider platformParamsProvider;
+  final IEvgenAnalyticsTracker eventTracker;
+  final IEvgenAnalyticsGlobalParamsProvider globalParamsProvider;
+  final IEvgenAnalyticsPlatformParamsProvider platformParamsProvider;
 
-  EvgenAnalytics(
-    this.eventTracker,
-    this.globalParamsProvider,
-    this.platformParamsProvider,
-  );
+  EvgenAnalytics({
+    required this.eventTracker,
+    required this.globalParamsProvider,
+    required this.platformParamsProvider,
+  });
 
   void trackEvent(String event, Map<String, dynamic> parameters) =>
       eventTracker.trackEvent(
@@ -66,11 +63,9 @@ class EvgenAnalytics {
         'interfaces': interfaces,
       };
 
-  /**
-   *  Первое событие с переиспользуемым параметром
-   *
-   *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
-   */
+  ///  Первое событие с переиспользуемым параметром
+  ///
+  ///  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
   void anotherNamespaceEvent1({
     required String reusedParam,
   }) {
@@ -84,11 +79,9 @@ class EvgenAnalytics {
     trackEvent('AnotherNamespace.Event1', parameters);
   }
 
-  /**
-   *  Второе событие с переиспользуемым параметром
-   *
-   *  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
-   */
+  ///  Второе событие с переиспользуемым параметром
+  ///
+  ///  1. reusedParam - Параметр, который переиспользуется в нескольких событиях
   void anotherNamespaceEvent2({
     required String reusedParam,
   }) {
@@ -102,15 +95,13 @@ class EvgenAnalytics {
     trackEvent('AnotherNamespace.Event2', parameters);
   }
 
-  /**
-   *  События со всеми возможными типами параметров
-   *
-   *  1. paramFromAnotherFile - Параметр, описанный в отдельным файле.
-   *  2. batchParam1 - Параметр, описанный в отдельным файле.
-   *  3. batchParam2 - Параметр, описанный в отдельным файле.
-   *  4. stringParam - Парамтер типа String
-   *  5. intParam - Параметр типа Int
-   */
+  ///  События со всеми возможными типами параметров
+  ///
+  ///  1. paramFromAnotherFile - Параметр, описанный в отдельным файле.
+  ///  2. batchParam1 - Параметр, описанный в отдельным файле.
+  ///  3. batchParam2 - Параметр, описанный в отдельным файле.
+  ///  4. stringParam - Парамтер типа String
+  ///  5. intParam - Параметр типа Int
   void myNamespaceMyEvent({
     required String paramFromAnotherFile,
     required String batchParam1,
