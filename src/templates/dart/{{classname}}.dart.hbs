@@ -155,7 +155,7 @@ class {{classname}} {
   {{/if}}
   {{/unless}}
     {{#if (isEmpty this.parameters)}}
-    final parameters = const <String, dynamic>{};
+    final parameters = <String, dynamic>{};
     {{else}}
     final parameters = <String, dynamic>{
       {{#each this.parameters}}
@@ -165,7 +165,7 @@ class {{classname}} {
     {{/if}}
 
     {{#if (isEmpty this.interfaces)}}
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
     {{else}}
     final interfacesDict = <String, dynamic>{
       {{#each this.interfaces}}
