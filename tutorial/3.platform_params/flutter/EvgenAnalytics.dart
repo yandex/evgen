@@ -67,9 +67,9 @@ class EvgenAnalytics {
   ///
   ///  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
   void alsoMyEventLogged() {
-    final parameters = const <String, dynamic>{};
+    final parameters = <String, dynamic>{};
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('AlsoMyEvent.Logged', parameters);
@@ -77,9 +77,9 @@ class EvgenAnalytics {
 
   ///  Event description
   void myEvent() {
-    final parameters = const <String, dynamic>{};
+    final parameters = <String, dynamic>{};
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('MyEvent', parameters);

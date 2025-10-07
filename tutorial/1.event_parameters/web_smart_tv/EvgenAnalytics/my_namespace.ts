@@ -4,10 +4,10 @@
  */
 // eslint-disable
 
-import {EvgenAnalytics} from "./evgen_analytics"
-import {makeMetaParams} from "./evgen_analytics"
+import { type EvgenAnalytics } from './evgen_analytics'
+import { makeMetaParams } from './evgen_analytics'
 
-import {DictInEnumType, MyNamespaceMyEventEnumParam, Pages, PagesWithDescriptions} from "./named_enums"
+import { DictInEnumType, MyNamespaceMyEventEnumParam, Pages, PagesWithDescriptions } from './named_enums'
 
 export enum MyNamespaceMyEventEnumParamInt {
     int1 = 1,

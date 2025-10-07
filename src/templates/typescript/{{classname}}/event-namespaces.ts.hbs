@@ -6,12 +6,12 @@
  */
 // eslint-disable
 
-import { type {{~@root.classname~}} } from "./{{snakecase @root.classname}}"
-import {makeMetaParams} from "./{{snakecase @root.classname}}"
+import { type {{@root.classname}} } from './{{snakecase @root.classname}}'
+import { makeMetaParams } from './{{snakecase @root.classname}}'
 
 {{#filterTruthy this.namedEnums "type.Enum.name" }}
 {{#if this}}
-import { {{~join (sort (pluck this "type.Enum.name"))~}} } from "./named_enums"
+import { {{join (sort (pluck this "type.Enum.name"))}} } from './named_enums'
 {{/if}}
 
 {{/filterTruthy}}

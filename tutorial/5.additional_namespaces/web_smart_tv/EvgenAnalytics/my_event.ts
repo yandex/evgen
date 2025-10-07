@@ -4,8 +4,8 @@
  */
 // eslint-disable
 
-import {EvgenAnalytics} from "./evgen_analytics"
-import {makeMetaParams} from "./evgen_analytics"
+import { type EvgenAnalytics } from './evgen_analytics'
+import { makeMetaParams } from './evgen_analytics'
 
 
 export enum MyEventNamespaces {

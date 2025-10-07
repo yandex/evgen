@@ -69,7 +69,7 @@ class EvgenAnalytics {
       'stringParam': stringParam,
     };
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent(namespace.toString() + '.' + 'MyEvent', parameters);

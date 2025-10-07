@@ -1,19 +1,18 @@
 // ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: one_member_abstracts
 
-/**
- * AUTO-GENERATED FILE. DO NOT MODIFY
- * This class was automatically generated.
- */
+// AUTO-GENERATED FILE. DO NOT MODIFY
+// This class was automatically generated.
 
-abstract interface class EvgenAnalyticsTracker {
+abstract interface class IEvgenAnalyticsTracker {
   void trackEvent(String event, Map<String, dynamic> parameters);
 }
 
-abstract interface class EvgenAnalyticsGlobalParamsProvider {
+abstract interface class IEvgenAnalyticsGlobalParamsProvider {
   EvgenAnalyticsGlobalParams getGlobalParams();
 }
 
-abstract interface class EvgenAnalyticsPlatformParamsProvider {
+abstract interface class IEvgenAnalyticsPlatformParamsProvider {
   EvgenAnalyticsPlatformParams getPlatformParams();
 }
 
@@ -30,15 +29,15 @@ class EvgenAnalyticsPlatformParams {
 }
 
 class EvgenAnalytics {
-  final EvgenAnalyticsTracker eventTracker;
-  final EvgenAnalyticsGlobalParamsProvider globalParamsProvider;
-  final EvgenAnalyticsPlatformParamsProvider platformParamsProvider;
+  final IEvgenAnalyticsTracker eventTracker;
+  final IEvgenAnalyticsGlobalParamsProvider globalParamsProvider;
+  final IEvgenAnalyticsPlatformParamsProvider platformParamsProvider;
 
-  EvgenAnalytics(
-    this.eventTracker,
-    this.globalParamsProvider,
-    this.platformParamsProvider,
-  );
+  EvgenAnalytics({
+    required this.eventTracker,
+    required this.globalParamsProvider,
+    required this.platformParamsProvider,
+  });
 
   void trackEvent(String event, Map<String, dynamic> parameters) =>
       eventTracker.trackEvent(
@@ -59,16 +58,14 @@ class EvgenAnalytics {
         'interfaces': interfaces,
       };
 
-  /**
-   *  Первое событие с переиспользуемым параметром
-   *
-   *  1. firstParam - Первый параметр
-   *  2. paramFromAnotherFile - Параметр, описанный в отдельным файле.
-   *  3. reusedParam - Description
-   *  4. batchParam1 - Параметр, описанный в отдельным файле.
-   *  5. batchParam2 - Параметр, описанный в отдельным файле.
-   *  6. lastParam - Последний параметр
-   */
+  ///  Первое событие с переиспользуемым параметром
+  ///
+  ///  1. firstParam - Первый параметр
+  ///  2. paramFromAnotherFile - Параметр, описанный в отдельным файле.
+  ///  3. reusedParam - Description
+  ///  4. batchParam1 - Параметр, описанный в отдельным файле.
+  ///  5. batchParam2 - Параметр, описанный в отдельным файле.
+  ///  6. lastParam - Последний параметр
   void namespaceEvent({
     required int firstParam,
     required String paramFromAnotherFile,
@@ -86,7 +83,7 @@ class EvgenAnalytics {
       'lastParam': lastParam,
     };
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('Namespace.Event', parameters);

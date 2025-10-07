@@ -73,7 +73,7 @@ class EvgenAnalytics {
       'reusedParam': reusedParam,
     };
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('AnotherNamespace.Event1', parameters);
@@ -89,7 +89,7 @@ class EvgenAnalytics {
       'reusedParam': reusedParam,
     };
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('AnotherNamespace.kebab-case-event-2', parameters);
@@ -158,7 +158,7 @@ class EvgenAnalytics {
       'defaultNullParam': defaultNullParam,
     };
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('MyNamespace.MyEvent', parameters);

@@ -62,9 +62,9 @@ class EvgenAnalytics {
   ///
   ///  Опциональное поле, сюда можно написать, например, требования по логированию или дать ссылку.
   void alsoMyEventLogged() {
-    final parameters = const <String, dynamic>{};
+    final parameters = <String, dynamic>{};
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('AlsoMyEvent.Logged', parameters);
@@ -74,9 +74,9 @@ class EvgenAnalytics {
   ///
   ///  Если нужно, чтобы в качестве имени события вместо конкатенированных через точку неймспесов было какое-то кастомное значение, то можно использовать поле "force_event_name"
   void forcedNamesMyCustomEvent() {
-    final parameters = const <String, dynamic>{};
+    final parameters = <String, dynamic>{};
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('my-custom-event-name', parameters);
@@ -84,9 +84,9 @@ class EvgenAnalytics {
 
   ///  Event description
   void myEvent() {
-    final parameters = const <String, dynamic>{};
+    final parameters = <String, dynamic>{};
 
-    final interfacesDict = const <String, dynamic>{};
+    final interfacesDict = <String, dynamic>{};
 
     parameters['_meta'] = makeMeta(1, interfacesDict);
     trackEvent('MyEvent', parameters);
