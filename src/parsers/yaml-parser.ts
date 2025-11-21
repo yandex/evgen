@@ -116,14 +116,21 @@ export const parseEventsFile = async (
         const yamlFiles = await fg(YAML_FILE_PATTERN, { cwd: eventsPath });
         const events: Record<string, unknown> = {};
         const eventsByFile: Record<string, unknown> = {};
-        await Promise.all(
-            yamlFiles.map(async (fileName: string) => {
+
+        // Параллельный парсинг файлов с сохранением алфавитного порядка
+        const processedFiles = await Promise.all(
+            yamlFiles.sort().map(async (fileName: string) => {
                 const fileData = await parseYamlFile(join(eventsPath, fileName));
                 const fileDataProcessed = replaceMerges(fileData, { keepParametersOrder });
-                eventsByFile[fileName.replace(/\.yaml$/, '')] = fileDataProcessed;
-                merge(events, fileDataProcessed);
+                return { fileName, fileDataProcessed };
             })
         );
+
+        // Последовательный мерж в объект events с сохранением порядка файлов
+        processedFiles.forEach(({ fileName, fileDataProcessed }) => {
+            eventsByFile[fileName.replace(/\.yaml$/, '')] = fileDataProcessed;
+            merge(events, fileDataProcessed);
+        });
 
         return replaceIncludes(events, eventsByFile, { keepParametersOrder });
     }
