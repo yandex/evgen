@@ -42,7 +42,11 @@ const parseInterfaceVersions = (
                     name,
                     namespace,
                     version,
-                    parameters: parseParameters(value.parameters, name, version),
+                    parameters: parseParameters(value.parameters, {
+                        namespace: name,
+                        version,
+                        scope: namespaceParts.join('.'),
+                    }),
                     description: value.description || '',
                 },
             ];

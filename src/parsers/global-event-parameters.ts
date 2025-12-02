@@ -19,7 +19,9 @@ export const parseGlobalParameters = (
         );
     }
 
-    const parameters = parseParameters(rawGlobalParameters.parameters);
+    const parameters = parseParameters(rawGlobalParameters.parameters, {
+        scope: GLOBAL_PARAMETERS_FIELD,
+    });
 
     return {
         parameters,

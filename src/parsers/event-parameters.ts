@@ -2,17 +2,27 @@ import { populateCustomTypesDeep } from '../helpers';
 import { ParameterType, PrimitiveType } from '../types/data-types';
 import { EventParameter } from '../types/parsed-types';
 import { RawEventParameter } from '../types/raw-types';
+import { validateParameter } from '../validators/parameter-validator';
+
+interface ParseParametersOptions {
+    scope: string;
+    namespace?: string;
+    version?: number;
+}
 
 export const parseParameters = (
     parameters: Record<string, RawEventParameter> | null,
-    namespace = '',
-    version = 1
+    { scope, namespace = '', version = 1 }: ParseParametersOptions
 ): EventParameter<ParameterType>[] => {
     const parsedParams: EventParameter<ParameterType>[] = [];
     if (!parameters) {
         return parsedParams;
     }
-    Object.entries(parameters).forEach(([name, parameter]) => {
+    Object.entries(parameters).forEach(([name, parameter], index) => {
+        validateParameter(parameter, {
+            key: name,
+            path: `${scope}.v${version}.[${index}]`,
+        });
         parsedParams.push({
             name,
             namespace,

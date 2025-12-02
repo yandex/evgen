@@ -94,13 +94,18 @@ const parseEventVersions = (
                 });
             }
 
+            const fullNamespace = namespaceParts.join('.');
             return [
                 {
                     name,
                     namespace,
-                    event: value.force_event_name || namespaceParts.join('.'),
+                    event: value.force_event_name || fullNamespace,
                     version,
-                    parameters: parseParameters(value.parameters, name, version),
+                    parameters: parseParameters(value.parameters, {
+                        namespace: name,
+                        version,
+                        scope: fullNamespace,
+                    }),
                     description: value.description || '',
                     comment: value.comment,
                     platforms: value.platforms ? parsePlatforms(value.platforms) : undefined,
@@ -130,7 +135,15 @@ const getInterfaceNames = (value: unknown): string[] => {
         return [];
     }
 
-    return Array.isArray(value) ? value : [value];
+    if (typeof value === 'string') {
+        return [value];
+    }
+
+    if (Array.isArray(value)) {
+        return value.filter((v) => typeof v === 'string');
+    }
+
+    return [];
 };
 
 const isEventNode = (node: NestedRecord<NestedRecord<RawEvent>>): node is RawEvent =>

@@ -10,6 +10,7 @@ import { parseEvents } from './parsers';
 import { CodeLanguage, Config, DocsType } from './types/evgen-config';
 import { RawEvents } from './types/raw-types';
 import { singlePlatformEvents } from './parsers/single-platform-events';
+import { logger } from './helpers';
 
 const program = new Command();
 
@@ -77,7 +78,7 @@ program
                                 }
                             );
                         } catch (e) {
-                            console.error(`Failed to generate code for ${codeConfig.platform}`, e);
+                            logger.error(`Failed to generate code for ${codeConfig.platform}`, e);
                         }
                     })
                 );
@@ -102,7 +103,7 @@ program
                                 tag: docConfig.tag,
                             });
                         } catch (e) {
-                            console.error(
+                            logger.error(
                                 `Failed to generate ${docConfig.extension} documentation`,
                                 e
                             );

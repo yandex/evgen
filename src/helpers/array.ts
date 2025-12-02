@@ -30,3 +30,6 @@ export const filterUndefined = (array: [], prop: string, options: HelperOptions)
 };
 
 export const toArray = (...values: [unknown]) => (Array.isArray(values) ? values : []);
+
+export const hasDuplicates = (array: (string | number | boolean | null | undefined)[]): boolean =>
+    new Set(array).size !== array.length;
