@@ -1,22 +1,26 @@
 {{~#eq parameter.defaultValue 'empty_list'~}}
     const []
 {{~else~}}
-    {{~#if (isEnum parameter.type)~}}
-        {{~#if (isNumber parameter.defaultValue)~}}
-            {{pascalcase (typeFormat parameter)}}.num{{parameter.defaultValue}}
-        {{~else~}}
-            {{~#if (isSpecialWord parameter.defaultValue)~}}${{~/if~}}
-            {{pascalcase (typeFormat parameter)}}.{{camelcase parameter.defaultValue}}
-        {{~/if~}}
+    {{~#eq parameter.defaultValue 'empty_dict'~}}
+    const {}
     {{~else~}}
-        {{~#eq parameter.defaultValue null~}}
-            null
-        {{~else~}}
-            {{~#eq parameter.type 'String'~}}
-                '{{parameter.defaultValue}}'
+        {{~#if (isEnum parameter.type)~}}
+            {{~#if (isNumber parameter.defaultValue)~}}
+                {{pascalcase (typeFormat parameter)}}.num{{parameter.defaultValue}}
             {{~else~}}
-                {{parameter.defaultValue}}
+                {{~#if (isSpecialWord parameter.defaultValue)~}}${{~/if~}}
+                {{pascalcase (typeFormat parameter)}}.{{camelcase parameter.defaultValue}}
+            {{~/if~}}
+        {{~else~}}
+            {{~#eq parameter.defaultValue null~}}
+                null
+            {{~else~}}
+                {{~#eq parameter.type 'String'~}}
+                    '{{parameter.defaultValue}}'
+                {{~else~}}
+                    {{parameter.defaultValue}}
+                {{~/eq~}}
             {{~/eq~}}
-        {{~/eq~}}
-    {{~/if~}}
+        {{~/if~}}
+    {{~/eq~}}
 {{~/eq~}}

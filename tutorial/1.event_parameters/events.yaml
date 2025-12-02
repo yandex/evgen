@@ -22,6 +22,7 @@ Constants:
   list: &list List
   element_type: &element_type element_type
   empty_list: &empty_list empty_list
+  empty_dict: &empty_dict empty_dict
   enum_values: &values values
   value: &value value
   enum_name: &name name
@@ -131,7 +132,7 @@ Constants:
                     dictParam:
                         *type : *dict
                         *description : параметр типа Dict.
-                        # default values for dictionaries are not supported
+                        *default_value : *empty_dict
                     dictElementType:
                         *type : *dict
                         *description : параметр типа Dict енумов.
@@ -143,6 +144,7 @@ Constants:
                                     - option2
                     typedDictParam:
                         *description : типизированный Dict.
+                        *default_value : *empty_dict
                         *type :
                             *dict :
                                 stringParam: *string
@@ -150,7 +152,7 @@ Constants:
                                     *list :
                                         intParam: *int
                                         boolParam: *bool
-
+                                
                     typedListParam:
                         *description : типизированный List.
                         *type :

@@ -26,6 +26,7 @@ Events:
         dictElementType:
           type: Dict
         dictParam:
+          default_value: empty_dict
           type: Dict
         doubleParam:
           type: Double
@@ -62,6 +63,7 @@ Events:
           default_value: val
           type: String
         typedDictParam:
+          default_value: empty_dict
           type: Dict
         typedListParam:
           type: List

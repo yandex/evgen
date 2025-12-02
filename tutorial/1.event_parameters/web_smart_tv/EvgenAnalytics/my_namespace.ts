@@ -47,9 +47,9 @@ export type MyNamespaceMyEventParameters = {
     enumParamInt?: MyNamespaceMyEventEnumParamInt;
     namedEnumParam: Pages;
     enumWithDescriptionsParam: PagesWithDescriptions;
-    dictParam: Record<string, any>;
+    dictParam?: Record<string, any>;
     dictElementType: Record<string, DictInEnumType>;
-    typedDictParam: { stringParam: string; typedListParam: { intParam: number; boolParam: boolean; }[]; };
+    typedDictParam?: { stringParam: string; typedListParam: { intParam: number; boolParam: boolean; }[]; };
     typedListParam: { stringParam: string; typedDictParam: { intParam: number; boolParam: boolean; }; }[];
     listOfInt?: number[];
     listOfDouble?: number[];
@@ -67,6 +67,8 @@ export function myNamespaceMyEvent (
         boolParam = true,
         enumParam = MyNamespaceMyEventEnumParam.Option1,
         enumParamInt = MyNamespaceMyEventEnumParamInt.int1,
+        dictParam = {},
+        typedDictParam = {},
         listOfInt = [],
         listOfDouble = [],
         listOfString = [],
@@ -78,7 +80,7 @@ export function myNamespaceMyEvent (
     const platformConst = 'WebSmartTVValue';
 
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters, stringParam, intParam, boolParam, enumParam, enumParamInt, listOfInt, listOfDouble, listOfString, listOfEnum, defaultNullParam, constParam, platformConst, _meta}
+    const enhancedParams = {...parameters, stringParam, intParam, boolParam, enumParam, enumParamInt, dictParam, typedDictParam, listOfInt, listOfDouble, listOfString, listOfEnum, defaultNullParam, constParam, platformConst, _meta}
     evgen_analytics.trackEvent("MyNamespace.MyEvent", enhancedParams);
 }
 
