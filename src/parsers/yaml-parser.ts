@@ -4,7 +4,14 @@ import { join } from 'path';
 import { parse as yamlParse } from 'yaml';
 import fg from 'fast-glob';
 import { isObject, get, merge } from 'lodash';
-import { assertIsObject } from '../helpers';
+import {
+    type CycleTracker,
+    assertIsObject,
+    createCycleTracker,
+    assertNoCycle,
+    markVisited,
+    unmarkVisited,
+} from '../helpers';
 
 const INCLUDE_TAG = '!include';
 const INCLUDED_PREFIX = '_included';
@@ -38,25 +45,37 @@ const parseYamlFile = async (file: string) => {
 
 type NodeType = Record<string, unknown> | string | boolean | number;
 
-const replaceMerges = (node: unknown, parseOptions: ParseOptions): unknown => {
+const replaceMerges = (
+    node: unknown,
+    parseOptions: ParseOptions,
+    path: string[] = [],
+    visited: CycleTracker = createCycleTracker()
+): unknown => {
     const primaryFields: Record<string, unknown> = {};
     const secondaryFields: Record<string, unknown> = {};
 
     if (isObject(node)) {
+        assertNoCycle(node, path, visited);
+        markVisited(node, path, visited);
+
         const allKeys = Object.keys(node);
         allKeys.forEach((key) => {
             const value = (node as Record<string, unknown>)[key];
             if (key.startsWith(MERGED_PREFIX)) {
                 assertIsObject(value);
-                Object.assign(primaryFields, replaceMerges(value, parseOptions));
+                Object.assign(
+                    primaryFields,
+                    replaceMerges(value, parseOptions, [...path, key], visited)
+                );
             } else {
                 (parseOptions.keepParametersOrder ? primaryFields : secondaryFields)[key] =
-                    replaceMerges(value, parseOptions);
+                    replaceMerges(value, parseOptions, [...path, key], visited);
             }
 
             delete (node as Record<string, unknown>)[key];
         });
 
+        unmarkVisited(node, visited);
         Object.assign(node, primaryFields, secondaryFields);
     }
 
@@ -66,7 +85,9 @@ const replaceMerges = (node: unknown, parseOptions: ParseOptions): unknown => {
 const replaceIncludes = (
     node: NodeType,
     eventsByFile: Record<string, unknown>,
-    parseOptions: ParseOptions
+    parseOptions: ParseOptions,
+    visitPath: string[] = [],
+    visited: CycleTracker = createCycleTracker()
 ): unknown => {
     if (typeof node === 'string' && node.startsWith(INCLUDE_TAG)) {
         const [, file, path] = node.split(':');
@@ -75,15 +96,30 @@ const replaceIncludes = (
             throw new Error(`Failed to include ${file}: ${path}. Initial value is ${node}`);
         }
 
-        return replaceIncludes(includedNode, eventsByFile, parseOptions);
+        return replaceIncludes(
+            includedNode,
+            eventsByFile,
+            parseOptions,
+            [...visitPath, `${file}:${path}`],
+            visited
+        );
     }
 
     if (isObject(node)) {
+        assertNoCycle(node, visitPath, visited);
+        markVisited(node, visitPath, visited);
+
         const primaryFields: Record<string, unknown> = {};
         const secondaryFields: Record<string, unknown> = {};
 
         Object.entries(node).forEach(([key, value]) => {
-            const newValue = replaceIncludes(value as NodeType, eventsByFile, parseOptions);
+            const newValue = replaceIncludes(
+                value as NodeType,
+                eventsByFile,
+                parseOptions,
+                [...visitPath, key],
+                visited
+            );
             if (key.startsWith(INCLUDED_PREFIX)) {
                 assertIsObject(newValue);
                 Object.assign(primaryFields, newValue);
@@ -94,6 +130,7 @@ const replaceIncludes = (
             delete node[key];
         });
 
+        unmarkVisited(node, visited);
         return Object.assign(node, primaryFields, secondaryFields);
     }
 

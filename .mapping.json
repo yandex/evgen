@@ -57,6 +57,7 @@
   "src/helpers/array.ts":"kinopoisk/frontend/packages/evgen/src/helpers/array.ts",
   "src/helpers/const.ts":"kinopoisk/frontend/packages/evgen/src/helpers/const.ts",
   "src/helpers/custom-parameter.ts":"kinopoisk/frontend/packages/evgen/src/helpers/custom-parameter.ts",
+  "src/helpers/cycle-detection.ts":"kinopoisk/frontend/packages/evgen/src/helpers/cycle-detection.ts",
   "src/helpers/defined.ts":"kinopoisk/frontend/packages/evgen/src/helpers/defined.ts",
   "src/helpers/enum.ts":"kinopoisk/frontend/packages/evgen/src/helpers/enum.ts",
   "src/helpers/index.ts":"kinopoisk/frontend/packages/evgen/src/helpers/index.ts",
