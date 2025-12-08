@@ -22,6 +22,7 @@ export const parseParameters = (
         validateParameter(parameter, {
             key: name,
             path: `${scope}.v${version}.[${index}]`,
+            allParameters: parameters,
         });
         parsedParams.push({
             name,

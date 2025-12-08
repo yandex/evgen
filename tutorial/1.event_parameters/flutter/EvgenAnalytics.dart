@@ -115,6 +115,7 @@ class EvgenAnalytics {
   ///  16. listOfString - Cписок строк
   ///  17. listOfEnum - Cписок енумов
   ///  18. defaultNullParam - Параметр типа String со значением null по умолчанию
+  ///  19. refParam - Параметр по дефолту копирующий значение из другого параметра
   void myNamespaceMyEvent({
     String stringParam = 'val',
     int intParam = 42,
@@ -134,7 +135,9 @@ class EvgenAnalytics {
     List<String> listOfString = const [],
     List<MyNamespaceMyEventEnumParam> listOfEnum = const [],
     String? defaultNullParam = null,
+    String? refParam,
   }) {
+    final _refParam = refParam ?? enumParam.value;
     final parameters = <String, dynamic>{
       'stringParam': stringParam,
       'intParam': intParam,
@@ -156,6 +159,7 @@ class EvgenAnalytics {
       'listOfString': listOfString,
       'listOfEnum': listOfEnum,
       'defaultNullParam': defaultNullParam,
+      'refParam': _refParam,
     };
 
     final interfacesDict = <String, dynamic>{};

@@ -136,14 +136,21 @@ class {{classname}}(
         namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}},{{/unless}}
         {{#filterUndefined this.parameters 'type.Const'}}
         {{#each this}}
-        {{camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
-        {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+        {{camelcase this.name}}: {{typeFormat this~}}{{~#if (isRef this.defaultValue)}}?{{else}}{{#eq this.defaultValue null}}?{{/eq}}{{/if~}}
+        {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
         {{/each}}
         {{/filterUndefined}}
     ) {
+        {{#filterDefined this.parameters 'defaultValue'}}
+        {{#each this}}
+        {{#if (isRef this.defaultValue)}}
+        val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
+        {{/if}}
+        {{/each}}
+        {{/filterDefined}}
         val parameters = mutableMapOf<String, Any>()
         {{#each this.parameters}}
-        parameters["{{this.name}}"] = {{>variableValueFormat parameter=this}}
+        parameters["{{this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}
             .toString()
         {{~/contains}}

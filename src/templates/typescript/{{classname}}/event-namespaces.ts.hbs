@@ -65,7 +65,7 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
     {{#if this}}
     const {
         {{#each this}}
-        {{camelcase this.name}} = {{>defaultValueFormat parameter=this }},
+        {{camelcase this.name}} = {{#if (isRef this.defaultValue)}}parameters.{{/if}}{{>defaultValueFormat parameter=this }},
         {{/each}}
     } = parameters;
 

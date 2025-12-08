@@ -202,14 +202,21 @@ public class {{classname}} {
         namespace: {{pascalcase name}}Namespaces{{#gt version 1}}V{{version}}{{/gt}},{{/unless}}
         {{#filterUndefined parameters 'type.Const'}}
         {{#each this}}
-        {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase name}}
-        {{~#if (isDefined defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if}}{{#unless @last}},{{/unless}}
+        {{typeFormat this}}{{#if (isRef defaultValue)}}?{{else}}{{#eq defaultValue null}}?{{/eq}}{{/if}} {{camelcase name}}
+        {{~#if (isDefined defaultValue)}} = {{#if (isRef defaultValue)}}null{{else}}{{>defaultValueFormat parameter=this}}{{/if}}{{/if}}{{#unless @last}},{{/unless}}
         {{/each}}
         {{/filterUndefined}}
     ) {
+        {{#filterDefined parameters 'defaultValue'}}
+        {{#each this}}
+        {{#if (isRef defaultValue)}}
+        var _{{camelcase name}} = {{camelcase name}} ?? {{camelcase (extractRef defaultValue)}}.RawValue;
+        {{/if}}
+        {{/each}}
+        {{/filterDefined}}
         var parameters = new Dictionary<string, object>();
         {{#each parameters}}
-        parameters.Add("{{name}}", {{>variableValueFormat parameter=this}});
+        parameters.Add("{{name}}", {{#if (isRef defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}});
         {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}
             .ToString()
         {{~/contains}}

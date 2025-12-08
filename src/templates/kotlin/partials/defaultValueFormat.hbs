@@ -1,31 +1,35 @@
-{{~#eq parameter.defaultValue 'empty_list'~}}
-listOf<
-    {{~#if parameter.elementType~}}
-        {{~primitiveTypeFormat parameter.elementType~}}
-    {{~else~}}
-        String
-    {{~/if~}}
->()
+{{~#if (isRef parameter.defaultValue)~}}
+    {{camelcase (extractRef parameter.defaultValue)}}
 {{~else~}}
-    {{~#eq parameter.defaultValue 'empty_dict'~}}
-    mapOf<String, Any>()
-    {{~else~}}
-        {{~#if (isEnum parameter.type)~}}
-            {{~#if (isNumber parameter.defaultValue)~}}
-                {{pascalcase (typeFormat parameter)}}.Int{{parameter.defaultValue}}
-            {{~else~}}
-                {{pascalcase (typeFormat parameter)}}.{{pascalcase parameter.defaultValue}}
-            {{~/if~}}
+    {{~#eq parameter.defaultValue 'empty_list'~}}
+    listOf<
+        {{~#if parameter.elementType~}}
+            {{~primitiveTypeFormat parameter.elementType~}}
         {{~else~}}
-            {{~#eq parameter.defaultValue null~}}
-                null
-            {{~else~}}
-                {{~#eq parameter.type 'String'~}}
-                    "{{parameter.defaultValue}}"
-                {{~else~}}
-                    {{parameter.defaultValue}}
-                {{~/eq~}}
-            {{~/eq~}}
+            String
         {{~/if~}}
+    >()
+    {{~else~}}
+        {{~#eq parameter.defaultValue 'empty_dict'~}}
+        mapOf<String, Any>()
+        {{~else~}}
+            {{~#if (isEnum parameter.type)~}}
+                {{~#if (isNumber parameter.defaultValue)~}}
+                    {{pascalcase (typeFormat parameter)}}.Int{{parameter.defaultValue}}
+                {{~else~}}
+                    {{pascalcase (typeFormat parameter)}}.{{pascalcase parameter.defaultValue}}
+                {{~/if~}}
+            {{~else~}}
+                {{~#eq parameter.defaultValue null~}}
+                    null
+                {{~else~}}
+                    {{~#eq parameter.type 'String'~}}
+                        "{{parameter.defaultValue}}"
+                    {{~else~}}
+                        {{parameter.defaultValue}}
+                    {{~/eq~}}
+                {{~/eq~}}
+            {{~/if~}}
+        {{~/eq~}}
     {{~/eq~}}
-{{~/eq~}}
+{{~/if~}}

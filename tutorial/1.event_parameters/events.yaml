@@ -202,6 +202,11 @@ Constants:
                         *description : Параметр типа String со значением null по умолчанию
                         *default_value : null
 
+                    refParam:
+                        *type : *string
+                        *description : Параметр по дефолту копирующий значение из другого параметра
+                        *default_value : !ref enumParam
+
                 *platforms :
                     *android :
                         *app_versions : 3.14

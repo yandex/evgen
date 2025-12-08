@@ -59,6 +59,9 @@ Events:
           type: String
         platformConst:
           type: String
+        refParam:
+          default_value: !ref enumParam
+          type: String
         stringParam:
           default_value: val
           type: String

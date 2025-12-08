@@ -174,6 +174,7 @@ public class EvgenAnalytics {
         16. listOfString - Cписок строк
         17. listOfEnum - Cписок енумов
         18. defaultNullParam - Параметр типа String со значением null по умолчанию
+        19. refParam - Параметр по дефолту копирующий значение из другого параметра
     */
     public void MyNamespaceMyEvent(
         string stringParam = "val",
@@ -193,8 +194,10 @@ public class EvgenAnalytics {
         List<double> listOfDouble = [],
         List<string> listOfString = [],
         List<MyNamespaceMyEventEnumParam> listOfEnum = [],
-        string? defaultNullParam = null
+        string? defaultNullParam = null,
+        string? refParam = null
     ) {
+        var _refParam = refParam ?? enumParam.RawValue;
         var parameters = new Dictionary<string, object>();
         parameters.Add("stringParam", stringParam);
         parameters.Add("intParam", intParam);
@@ -216,6 +219,7 @@ public class EvgenAnalytics {
         parameters.Add("listOfString", listOfString);
         parameters.Add("listOfEnum", listOfEnum);
         parameters.Add("defaultNullParam", defaultNullParam);
+        parameters.Add("refParam", _refParam);
         Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
         var _meta = MakeMeta(1, interfacesDict);
         parameters.Add("_meta", _meta);

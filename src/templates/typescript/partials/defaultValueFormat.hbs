@@ -1,25 +1,29 @@
-{{~#eq parameter.defaultValue 'empty_list'~}}
-[]
+{{~#if (isRef parameter.defaultValue)~}}
+    {{camelcase (extractRef parameter.defaultValue)}}
 {{~else~}}
-    {{~#eq parameter.defaultValue 'empty_dict'~}}
-    {}
+    {{~#eq parameter.defaultValue 'empty_list'~}}
+    []
     {{~else~}}
-        {{~#if (isEnum parameter.type)~}}
-            {{~#if (isNumber parameter.defaultValue)~}}
-                {{pascalcase (typeFormat parameter defaultTypeName)}}.int{{parameter.defaultValue}}
-            {{~else~}}
-                {{pascalcase (typeFormat parameter defaultTypeName)}}.{{pascalcase parameter.defaultValue}}
-            {{~/if~}}
+        {{~#eq parameter.defaultValue 'empty_dict'~}}
+        {}
         {{~else~}}
-            {{~#eq parameter.defaultValue null~}}
-                undefined
-            {{~else~}}
-                {{~#eq parameter.type 'String'~}}
-                    "{{parameter.defaultValue}}"
+            {{~#if (isEnum parameter.type)~}}
+                {{~#if (isNumber parameter.defaultValue)~}}
+                    {{pascalcase (typeFormat parameter defaultTypeName)}}.int{{parameter.defaultValue}}
                 {{~else~}}
-                    {{~parameter.defaultValue~}}
+                    {{pascalcase (typeFormat parameter defaultTypeName)}}.{{pascalcase parameter.defaultValue}}
+                {{~/if~}}
+            {{~else~}}
+                {{~#eq parameter.defaultValue null~}}
+                    undefined
+                {{~else~}}
+                    {{~#eq parameter.type 'String'~}}
+                        "{{parameter.defaultValue}}"
+                    {{~else~}}
+                        {{~parameter.defaultValue~}}
+                    {{~/eq~}}
                 {{~/eq~}}
-            {{~/eq~}}
-        {{~/if~}}
+            {{~/if~}}
+        {{~/eq~}}
     {{~/eq~}}
-{{~/eq~}}
+{{~/if~}}

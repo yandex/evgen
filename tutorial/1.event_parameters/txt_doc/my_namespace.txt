@@ -51,3 +51,5 @@ MyNamespace.MyEvent
        Cписок енумов
     19. defaultNullParam: String
        Параметр типа String со значением null по умолчанию
+    20. refParam: String
+       Параметр по дефолту копирующий значение из другого параметра

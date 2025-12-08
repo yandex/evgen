@@ -200,11 +200,18 @@ public final class {{classname}} {
         {{~#filterUndefined this.parameters 'type.Const'~}}
             {{~#each this~}}
                 {{~#and @first (isEmpty ../../additionalNamespaces)}}{{else}}, {{/and~}}
-                {{~camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
-                {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+                {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (isRef this.defaultValue)}}?{{else}}{{#eq this.defaultValue null}}?{{/eq}}{{/if~}}
+                {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = nil{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
             {{~/each~}}
         {{~/filterUndefined~}}
     ) {
+        {{#filterDefined this.parameters 'defaultValue'}}
+        {{#each this}}
+        {{#if (isRef this.defaultValue)}}
+        let _{{camelcase this.name}} = {{camelcase this.name}} ?? {{camelcase (extractRef this.defaultValue)}}.rawValue
+        {{/if}}
+        {{/each}}
+        {{/filterDefined}}
         var options: [String: Any] = [:]
         {{#each this.parameters}}
         {{#eq this.type 'Bool'}}
@@ -214,7 +221,7 @@ public final class {{classname}} {
             options["{{this.name}}"] = "false"
         }
         {{else}}
-        options["{{this.name}}"] = {{>variableValueFormat parameter=this}}
+        options["{{this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{/eq}}
         {{/each}}
         {{#if (isEmpty this.interfaces)}}let{{else}}var{{/if}} interfacesDict: [String: Any] = [:]

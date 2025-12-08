@@ -11,9 +11,11 @@ import {
     assertNoCycle,
     markVisited,
     unmarkVisited,
+    REF_PREFIX,
 } from '../helpers';
 
 const INCLUDE_TAG = '!include';
+const REF_TAG = '!ref';
 const INCLUDED_PREFIX = '_included';
 const MERGED_PREFIX = '_merged';
 const YAML_FILE_PATTERN = '**/*.yaml';
@@ -38,6 +40,10 @@ const parseYamlFile = async (file: string) => {
             {
                 tag: INCLUDE_TAG,
                 resolve: (str: string) => `${INCLUDE_TAG}:${str}`,
+            },
+            {
+                tag: REF_TAG,
+                resolve: (str: string) => `${REF_PREFIX}${str}`,
             },
         ],
     });

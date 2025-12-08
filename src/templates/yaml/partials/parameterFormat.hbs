@@ -1,6 +1,10 @@
 {{parameter.name}}:
   {{#if parameter.defaultValue}}
+  {{#if (isRef parameter.defaultValue)}}
+  default_value: !ref {{extractRef parameter.defaultValue}}
+  {{else}}
   default_value: {{parameter.defaultValue}}
+  {{/if}}
   {{/if}}
   type: {{#contains (toArray 'Int' 'Long Int' 'Double' 'Bool' 'String' 'Dict' 'List' 'TimeMilliseconds') parameter.type~}}
     {{parameter.type}}

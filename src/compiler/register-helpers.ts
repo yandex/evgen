@@ -7,6 +7,8 @@ import {
     isConst,
     isPlatformConst,
     isDefined,
+    isRef,
+    extractRef,
     pascalCase,
     camelCase,
     upperFirstLetter,
@@ -73,6 +75,8 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
     hbs.registerHelper('filterDefined', filterDefined);
     hbs.registerHelper('filterUndefined', filterUndefined);
     hbs.registerHelper('isDefined', isDefined);
+    hbs.registerHelper('isRef', isRef);
+    hbs.registerHelper('extractRef', extractRef);
     hbs.registerHelper('toArray', toArray);
     hbs.registerHelper('splitByNewLine', splitByNewLine);
     hbs.registerHelper('escape', escape);

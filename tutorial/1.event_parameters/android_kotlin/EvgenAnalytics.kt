@@ -140,6 +140,7 @@ class EvgenAnalytics(
      *  16. listOfString - Cписок строк
      *  17. listOfEnum - Cписок енумов
      *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
+     *  19. refParam - Параметр по дефолту копирующий значение из другого параметра
      */
     fun myNamespaceMyEvent(
         stringParam: String = "val",
@@ -160,7 +161,9 @@ class EvgenAnalytics(
         listOfString: List<String> = listOf<String>(),
         listOfEnum: List<MyNamespaceMyEventEnumParam> = listOf<MyNamespaceMyEventEnumParam>(),
         defaultNullParam: String? = null,
+        refParam: String? = null,
     ) {
+        val _refParam = refParam ?: enumParam.eventValue
         val parameters = mutableMapOf<String, Any>()
         parameters["stringParam"] = stringParam
         parameters["intParam"] = intParam.toString()
@@ -182,6 +185,7 @@ class EvgenAnalytics(
         parameters["listOfString"] = listOfString
         parameters["listOfEnum"] = listOfEnum
         parameters["defaultNullParam"] = defaultNullParam
+        parameters["refParam"] = _refParam
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta

@@ -131,8 +131,8 @@ class {{classname}} {
     {{#filterUndefined this.parameters 'type.Const'}}
     {{#each this}}
     {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
-    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}
-    {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+    {{typeFormat this}}{{#if (or (isRef defaultValue) (eq defaultValue null))}}?{{/if}} {{camelcase name~}}
+    {{#if (and (isDefined defaultValue) (not (isRef defaultValue)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/each}}
     {{/filterUndefined}}
   }) {
@@ -147,19 +147,26 @@ class {{classname}} {
     {{#filterUndefined this.parameters 'type.Const'}}
     {{#each this}}
     {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
-    {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}
-    {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+    {{typeFormat this}}{{#if (or (isRef defaultValue) (eq defaultValue null))}}?{{/if}} {{camelcase name~}}
+    {{#if (and (isDefined defaultValue) (not (isRef defaultValue)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/each}}
     {{/filterUndefined}}
   }) {
   {{/if}}
   {{/unless}}
+    {{#filterDefined this.parameters 'defaultValue'}}
+    {{#each this}}
+    {{#if (isRef this.defaultValue)}}
+    final _{{camelcase this.name}} = {{camelcase this.name}} ?? {{camelcase (extractRef this.defaultValue)}}.value;
+    {{/if}}
+    {{/each}}
+    {{/filterDefined}}
     {{#if (isEmpty this.parameters)}}
     final parameters = <String, dynamic>{};
     {{else}}
     final parameters = <String, dynamic>{
       {{#each this.parameters}}
-      '{{this.name}}': {{>variableValueFormat parameter=this}},
+      '{{this.name}}': {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}},
       {{/each}}
     };
     {{/if}}

@@ -163,8 +163,10 @@ public final class EvgenAnalytics {
      *  16. listOfString - Cписок строк
      *  17. listOfEnum - Cписок енумов
      *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
+     *  19. refParam - Параметр по дефолту копирующий значение из другого параметра
      */
-    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, enumWithDescriptionsParam: PagesWithDescriptions, dictParam: [String: Any] = [:], dictElementType: [String: DictInEnumType], typedDictParam: [String: Any] = [:], typedListParam: [Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = [], listOfEnum: [MyNamespaceMyEventEnumParam] = [], defaultNullParam: String? = nil) {
+    public func myNamespaceMyEvent(stringParam: String = "val", intParam: Int = 42, longIntParam: Int, boolParam: Bool = true, doubleParam: Double, enumParam: MyNamespaceMyEventEnumParam = MyNamespaceMyEventEnumParam.option1, enumParamInt: MyNamespaceMyEventEnumParamInt = MyNamespaceMyEventEnumParamInt.int1, namedEnumParam: Pages, enumWithDescriptionsParam: PagesWithDescriptions, dictParam: [String: Any] = [:], dictElementType: [String: DictInEnumType], typedDictParam: [String: Any] = [:], typedListParam: [Any], listOfInt: [Int] = [], listOfDouble: [Double] = [], listOfString: [String] = [], listOfEnum: [MyNamespaceMyEventEnumParam] = [], defaultNullParam: String? = nil, refParam: String? = nil) {
+        let _refParam = refParam ?? enumParam.rawValue
         var options: [String: Any] = [:]
         options["stringParam"] = stringParam
         options["intParam"] = "\(intParam)"
@@ -190,6 +192,7 @@ public final class EvgenAnalytics {
         options["listOfString"] = listOfString
         options["listOfEnum"] = listOfEnum
         options["defaultNullParam"] = defaultNullParam
+        options["refParam"] = _refParam
         let interfacesDict: [String: Any] = [:]
         let _meta = makeMeta(1, interfaces: interfacesDict)
         options["_meta"] = _meta

@@ -175,13 +175,20 @@ public final class {{classname}} {
             {{~/each~}}
         {{~/filterUndefined~}}
     ) {
+        {{#filterDefined parameters 'defaultValue'}}
+        {{#each this}}
+        {{#if (isRef this.defaultValue)}}
+        String _{{camelcase this.name}} = {{camelcase this.name}} != null ? {{camelcase this.name}} : {{camelcase (extractRef this.defaultValue)}}.eventValue;
+        {{/if}}
+        {{/each}}
+        {{/filterDefined}}
         Map<String, Object> params = new HashMap<>();
         {{#each parameters}}
         params.put("{{name}}"
         {{~#contains (toArray 'int' 'long' 'double' 'boolean') (typeFormat this)~}}
-            , String.valueOf({{>variableValueFormat parameter=this}})
+            , String.valueOf({{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
         {{~else~}}
-            , {{>variableValueFormat parameter=this}}
+            , {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{~/contains~}}
         );
         {{/each}}
