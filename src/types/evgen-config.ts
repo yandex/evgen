@@ -16,6 +16,7 @@ export interface CodeConfig {
     only_last_version?: boolean;
     param_name_case?: string;
     template_dir?: string;
+    disable_sending_meta?: boolean;
 }
 
 export interface DocConfig {
@@ -32,5 +33,14 @@ interface EvgenOptions {
      * False (default) - Originally '_included' fields were before other fields in generated code and documentation. It was done for compatibility with previous version of EvGen
      * True - order according to yaml spec
      */
-    keepParametersOrder: boolean;
+    keepParametersOrder?: boolean;
+    /**
+     * Disable sending _meta attribute in generated code.
+     *
+     * False (default) - _meta attribute is added to events with version and interfaces info
+     * True - _meta attribute and makeMeta function are not generated
+     *
+     * Can be overridden per-platform in code config.
+     */
+    disable_sending_meta?: boolean;
 }

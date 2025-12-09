@@ -7,7 +7,9 @@
 // eslint-disable
 
 import { type {{@root.classname}} } from './{{snakecase @root.classname}}'
+{{#unless @root.disableSendingMeta}}
 import { makeMetaParams } from './{{snakecase @root.classname}}'
+{{/unless}}
 
 {{#filterTruthy this.namedEnums "type.Enum.name" }}
 {{#if this}}
@@ -78,6 +80,7 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
     {{/filterTruthy}}
     {{/if}}
 
+    {{#unless @root.disableSendingMeta}}
     {{#unless (isEmpty this.interfaces)}}
     const interfaces = {
         {{#each this.interfaces}}
@@ -93,6 +96,7 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
         , interfaces
         {{~/unless~}}
     )
+    {{/unless}}
     const enhancedParams = { 
         {{~#if this.parameters~}}
         {{~#unless (isEmpty (filterFalsy this.parameters 'type.Const'))~}}...parameters, {{/unless~}}
@@ -103,7 +107,7 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
         {{~#each this}}{{camelcase this.name}}, {{/each}}
         {{~/filterTruthy~}}
         {{~/if~}}
-        _meta}
+        {{~#unless @root.disableSendingMeta}}_meta{{/unless~}} }
     {{snakecase @root.classname}}.trackEvent({{#unless (isEmpty additionalNamespaces)}}`${namespace}.{{this.event}}`{{else}}"{{this.event}}"{{/unless}}, enhancedParams);
 }
 

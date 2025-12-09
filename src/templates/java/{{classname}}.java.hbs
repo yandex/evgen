@@ -112,6 +112,7 @@ public final class {{classname}} {
         this.tracker.trackEvent(eventName, mergedParams);
     }
     
+    {{#unless @root.disableSendingMeta}}
     private Map<String, Object>  makeMeta(int event_version, Map<String, ?> interfaces ) {
         Map<String, Object> metaDict = new HashMap<>();
         Map<String, Object> eventDict = new HashMap<>();
@@ -120,6 +121,7 @@ public final class {{classname}} {
         metaDict.put("interfaces", interfaces);
         return metaDict;
     }
+    {{/unless}}
     
     private Tracker tracker;
     private GlobalParamsProvider globalParamsProvider;
@@ -192,6 +194,7 @@ public final class {{classname}} {
         {{~/contains~}}
         );
         {{/each}}
+        {{#unless @root.disableSendingMeta}}
         Map<String, Object> interfacesDict = new HashMap<>();
         {{#each interfaces}}
         Map<String, Object> {{camelcase @key}} = new HashMap<>();
@@ -200,6 +203,7 @@ public final class {{classname}} {
         {{/each}}
         Map<String, Object> _meta = makeMeta({{version}}, interfacesDict);
         params.put("_meta", _meta);
+        {{/unless}}
         trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace + "." + {{/unless}}"{{event}}", params);
     }
 

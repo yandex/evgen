@@ -27,6 +27,7 @@ public class {{classname}} {
         _eventTracker.TrackEvent(eventName, mergedParams);
     }
 
+    {{#unless @root.disableSendingMeta}}
     private Dictionary<string, object> MakeMeta(int event_version, Dictionary<string, object> interfaces) {
         Dictionary<string, object>  metaDict = new Dictionary<string, object>();
         Dictionary<string, object> eventDict = new Dictionary<string, object>();
@@ -35,6 +36,7 @@ public class {{classname}} {
         metaDict.Add("interfaces", interfaces);
         return metaDict;
     }
+    {{/unless}}
 
     public interface ITracker {
         void TrackEvent(string eventName, Dictionary<string, object> parameters);
@@ -222,6 +224,7 @@ public class {{classname}} {
         {{~/contains}}
 
         {{/each}}
+        {{#unless @root.disableSendingMeta}}
         Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
         {{#each this.interfaces}}
         Dictionary<string, object> {{camelcase @key}} = new Dictionary<string, object>();
@@ -230,6 +233,7 @@ public class {{classname}} {
         {{/each}}
         var _meta = MakeMeta({{version}}, interfacesDict);
         parameters.Add("_meta", _meta);
+        {{/unless}}
         TrackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.ToString() + "." + {{/unless}}"{{event}}", parameters);
     }
 

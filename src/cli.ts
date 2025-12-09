@@ -75,6 +75,9 @@ program
                                               DEFAULT_TEMPLATES_DIRS[codeConfig.language]
                                           ),
                                     onlyLastVersion: codeConfig.only_last_version,
+                                    disableSendingMeta:
+                                        codeConfig.disable_sending_meta ??
+                                        config.options?.disable_sending_meta,
                                 }
                             );
                         } catch (e) {

@@ -60,6 +60,7 @@ code:
     only_last_version: boolean # Генерировать только последние версии (опционально)
     param_name_case: string    # Стиль именования параметров (опционально)
     template_dir: string       # Путь к пользовательским шаблонам (опционально)
+    disable_sending_meta: boolean # Отключить _meta для этой платформы (опционально)
 
 doc:
   # Конфигурации для генерации документации
@@ -71,6 +72,7 @@ doc:
 
 options:
   keepParametersOrder: boolean # Сохранять порядок параметров в событиях согласно YAML
+  disable_sending_meta: boolean # Отключить добавление _meta атрибута в событиях
 ```
 
 ### Поддерживаемые языки
@@ -111,6 +113,51 @@ doc:
 
 options:
   keepParametersOrder: true
+```
+
+### Опции конфигурации
+
+#### `keepParametersOrder`
+Сохраняет порядок параметров в событиях согласно YAML-спецификации.
+- `false` (по умолчанию) — параметры, включённые через `_included`, располагаются перед остальными (для совместимости с предыдущими версиями)
+- `true` — порядок параметров соответствует порядку в YAML
+
+#### `disable_sending_meta`
+Отключает добавление атрибута `_meta` и генерацию функции `makeMeta` в сгенерированном коде.
+- `false` (по умолчанию) — атрибут `_meta` добавляется к каждому событию с информацией о версии и интерфейсах
+- `true` — атрибут `_meta` и функция `makeMeta` не генерируются
+
+Эту опцию можно задать глобально в `options`, а также переопределить для конкретной платформы в конфигурации `code`. Настройка платформы имеет приоритет над глобальной.
+
+**Пример с глобальным отключением:**
+```yaml
+options:
+  disable_sending_meta: true  # Отключено для всех платформ
+
+code:
+  Android:
+    platform: 'Android'
+    output_dir: 'android'
+    language: 'kotlin'
+```
+
+**Пример с переопределением для платформы:**
+```yaml
+options:
+  disable_sending_meta: false  # Включено глобально
+
+code:
+  Android:
+    platform: 'Android'
+    output_dir: 'android'
+    language: 'kotlin'
+    disable_sending_meta: true  # Но отключено для Android
+
+  iOS:
+    platform: 'iOS'
+    output_dir: 'ios'
+    language: 'swift'
+    # Использует глобальную настройку (false)
 ```
 
 ## Файл событий (один events.yaml в простейшем случае, но так же может быть и папка с такими файлами)
@@ -497,6 +544,7 @@ code:
 
 - **`classname`** (`string`) - имя генерируемого класса из конфигурации
 - **`onlyLastVersion`** (`boolean`) - флаг генерации только последних версий событий
+- **`disableSendingMeta`** (`boolean`) - флаг отключения генерации `_meta` атрибута
 
 #### Параметры
 

@@ -145,6 +145,7 @@ public final class {{classname}} {
         eventTracker.trackEvent(event, withOptions: mergedOptions)
     }
     
+    {{#unless @root.disableSendingMeta}}
     private func makeMeta(_ event_version: Int, interfaces: [String: Any]) -> [String: Any] {
         var metaDict: [String: Any] = [:]
         var eventDict: [String: Any] = [:]
@@ -153,6 +154,7 @@ public final class {{classname}} {
         metaDict["interfaces"] = interfaces
         return metaDict
     }
+    {{/unless}}
     
     {{#filterTruthy this.namedEnums "type.Enum.name"}}
     {{#each this}}
@@ -224,6 +226,7 @@ public final class {{classname}} {
         options["{{this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{/eq}}
         {{/each}}
+        {{#unless @root.disableSendingMeta}}
         {{#if (isEmpty this.interfaces)}}let{{else}}var{{/if}} interfacesDict: [String: Any] = [:]
         {{#each this.interfaces}}
         var {{camelcase @key}}: [String: Any] = [:]
@@ -232,6 +235,7 @@ public final class {{classname}} {
         {{/each}}
         let _meta = makeMeta({{this.version}}, interfaces: interfacesDict)
         options["_meta"] = _meta
+        {{/unless}}
         trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.rawValue + "." + {{/unless}}"{{this.event}}", withOptions: options)
     }
 

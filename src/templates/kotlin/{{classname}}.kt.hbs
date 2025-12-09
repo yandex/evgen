@@ -81,6 +81,7 @@ class {{classname}}(
         eventTracker.trackEvent(event, mergedParameters)
     }
 
+    {{#unless @root.disableSendingMeta}}
     private fun makeMeta(event_version: Int, interfaces: Map<String, Any>): Map<String, Any> {
         val metaDict = HashMap<String, Any>()
         val eventDict = HashMap<String, Any>()
@@ -89,6 +90,7 @@ class {{classname}}(
         metaDict["interfaces"] = interfaces
         return metaDict
     }
+    {{/unless}}
 
     {{#filterTruthy this.namedEnums "type.Enum.name"}}
     {{#each this}}
@@ -156,6 +158,7 @@ class {{classname}}(
         {{~/contains}}
 
         {{/each}}
+        {{#unless @root.disableSendingMeta}}
         val interfacesDict = HashMap<String, Any>()
         {{#each this.interfaces}}
         val {{camelcase @key}} = HashMap<String, Any>()
@@ -164,6 +167,7 @@ class {{classname}}(
         {{/each}}
         val _meta = makeMeta({{this.version}}, interfacesDict)
         parameters["_meta"] = _meta
+        {{/unless}}
         trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + "." + {{/unless}}"{{this.event}}", parameters)
     }
 

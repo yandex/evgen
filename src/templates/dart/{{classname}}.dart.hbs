@@ -95,6 +95,7 @@ class {{classname}} {
         },
       );
 
+  {{#unless @root.disableSendingMeta}}
   Map<String, dynamic> makeMeta(
     int eventVersion,
     Map<String, dynamic> interfaces,
@@ -103,6 +104,7 @@ class {{classname}} {
         'event': <String, dynamic> { 'version': eventVersion },
         'interfaces': interfaces,
       };
+  {{/unless}}
   {{#each eventNamespaces}}
   {{#each allVersions}}
 
@@ -171,6 +173,7 @@ class {{classname}} {
     };
     {{/if}}
 
+    {{#unless @root.disableSendingMeta}}
     {{#if (isEmpty this.interfaces)}}
     final interfacesDict = <String, dynamic>{};
     {{else}}
@@ -182,6 +185,7 @@ class {{classname}} {
     {{/if}}
 
     parameters['_meta'] = makeMeta({{this.version}}, interfacesDict);
+    {{/unless}}
     trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + '.' + {{/unless}}'{{this.event}}', parameters);
   }
   {{/each}}

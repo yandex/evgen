@@ -23,6 +23,7 @@ interface GenerateOptions {
 interface CodeGenerateOptions extends GenerateOptions {
     className?: string;
     onlyLastVersion?: boolean;
+    disableSendingMeta?: boolean;
 }
 
 interface DocsGenerateOptions extends GenerateOptions {
@@ -57,6 +58,7 @@ export const generateEventsCode = async (
         namedCustomParameters,
         onlyLastVersion: options.onlyLastVersion,
         classname: options.className || DEFAULT_CLASS_NAME,
+        disableSendingMeta: options.disableSendingMeta,
     };
 
     return compileTemplates(ctx, {

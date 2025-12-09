@@ -16,6 +16,7 @@ export interface {{classname}}PlatformParamsProvider {
     getPlatformParams(): PlatformParams;
 }
 
+{{#unless @root.disableSendingMeta}}
 export interface MetaParams<I extends Record<string, any>> {
     event:  {
         version: number
@@ -31,6 +32,7 @@ export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParam
         interfaces,
     }
 }
+{{/unless}}
 
 {{#each globalParameters.parameters}}
 {{>enum parameter=this}}
