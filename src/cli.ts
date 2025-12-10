@@ -55,6 +55,8 @@ program
                 await Promise.all(
                     Object.values(config.code).map(async (codeConfig) => {
                         try {
+                            const metaToSend =
+                                codeConfig.meta_to_send ?? config.options?.meta_to_send;
                             await generateEventsCode(
                                 codeConfig.language,
 
@@ -78,6 +80,8 @@ program
                                     disableSendingMeta:
                                         codeConfig.disable_sending_meta ??
                                         config.options?.disable_sending_meta,
+                                    sendMetaEvent: metaToSend?.includes('event') ?? true,
+                                    sendMetaInterfaces: metaToSend?.includes('interfaces') ?? true,
                                 }
                             );
                         } catch (e) {

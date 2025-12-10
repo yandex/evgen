@@ -61,6 +61,7 @@ code:
     param_name_case: string    # Стиль именования параметров (опционально)
     template_dir: string       # Путь к пользовательским шаблонам (опционально)
     disable_sending_meta: boolean # Отключить _meta для этой платформы (опционально)
+    meta_to_send: array           # Какие поля включить в _meta: ['event', 'interfaces'] (опционально)
 
 doc:
   # Конфигурации для генерации документации
@@ -73,6 +74,7 @@ doc:
 options:
   keepParametersOrder: boolean # Сохранять порядок параметров в событиях согласно YAML
   disable_sending_meta: boolean # Отключить добавление _meta атрибута в событиях
+  meta_to_send: array           # Какие поля включить в _meta: ['event', 'interfaces']
 ```
 
 ### Поддерживаемые языки
@@ -158,6 +160,51 @@ code:
     output_dir: 'ios'
     language: 'swift'
     # Использует глобальную настройку (false)
+```
+
+#### `meta_to_send`
+Позволяет выборочно указать, какие поля включать в атрибут `_meta`. Работает только если `disable_sending_meta` не установлен в `true`.
+
+- Массив, который может содержать значения: `'event'`, `'interfaces'`
+- По умолчанию (не указано) — включаются все поля: `['event', 'interfaces']`
+
+Доступные значения:
+- `'event'` — включает информацию о версии события (`{ event: { version: N } }`)
+- `'interfaces'` — включает информацию об интерфейсах (`{ interfaces: {...} }`)
+
+Эту опцию можно задать глобально в `options`, а также переопределить для конкретной платформы.
+
+> **Важно:** `disable_sending_meta: true` имеет больший приоритет — если он установлен, `meta_to_send` игнорируется.
+
+**Пример — отправлять только версию события:**
+```yaml
+options:
+  meta_to_send: ['event']  # Только версия события, без интерфейсов
+
+code:
+  Android:
+    platform: 'Android'
+    output_dir: 'android'
+    language: 'kotlin'
+```
+
+**Пример — разная конфигурация для разных платформ:**
+```yaml
+options:
+  meta_to_send: ['event', 'interfaces']  # Полная мета для всех
+
+code:
+  Android:
+    platform: 'Android'
+    output_dir: 'android'
+    language: 'kotlin'
+    meta_to_send: ['event']  # Только версия для Android
+
+  iOS:
+    platform: 'iOS'
+    output_dir: 'ios'
+    language: 'swift'
+    disable_sending_meta: true  # Полностью отключить _meta для iOS
 ```
 
 ## Файл событий (один events.yaml в простейшем случае, но так же может быть и папка с такими файлами)
@@ -544,7 +591,9 @@ code:
 
 - **`classname`** (`string`) - имя генерируемого класса из конфигурации
 - **`onlyLastVersion`** (`boolean`) - флаг генерации только последних версий событий
-- **`disableSendingMeta`** (`boolean`) - флаг отключения генерации `_meta` атрибута
+- **`disableSendingMeta`** (`boolean`) - флаг полного отключения генерации `_meta` атрибута
+- **`sendMetaEvent`** (`boolean`) - включать ли версию события в `_meta.event`
+- **`sendMetaInterfaces`** (`boolean`) - включать ли интерфейсы в `_meta.interfaces`
 
 #### Параметры
 

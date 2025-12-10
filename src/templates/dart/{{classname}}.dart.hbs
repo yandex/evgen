@@ -97,12 +97,20 @@ class {{classname}} {
 
   {{#unless @root.disableSendingMeta}}
   Map<String, dynamic> makeMeta(
+    {{#if @root.sendMetaEvent}}
     int eventVersion,
+    {{/if}}
+    {{#if @root.sendMetaInterfaces}}
     Map<String, dynamic> interfaces,
+    {{/if}}
   ) =>
       {
+        {{#if @root.sendMetaEvent}}
         'event': <String, dynamic> { 'version': eventVersion },
+        {{/if}}
+        {{#if @root.sendMetaInterfaces}}
         'interfaces': interfaces,
+        {{/if}}
       };
   {{/unless}}
   {{#each eventNamespaces}}
@@ -174,6 +182,7 @@ class {{classname}} {
     {{/if}}
 
     {{#unless @root.disableSendingMeta}}
+    {{#if @root.sendMetaInterfaces}}
     {{#if (isEmpty this.interfaces)}}
     final interfacesDict = <String, dynamic>{};
     {{else}}
@@ -184,7 +193,16 @@ class {{classname}} {
     };
     {{/if}}
 
-    parameters['_meta'] = makeMeta({{this.version}}, interfacesDict);
+    {{/if}}
+    parameters['_meta'] = makeMeta(
+      {{~#if @root.sendMetaEvent~}}
+      {{this.version}}
+      {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+      {{~/if~}}
+      {{~#if @root.sendMetaInterfaces~}}
+      interfacesDict
+      {{~/if~}}
+    );
     {{/unless}}
     trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + '.' + {{/unless}}'{{this.event}}', parameters);
   }

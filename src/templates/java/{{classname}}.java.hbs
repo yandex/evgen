@@ -113,12 +113,24 @@ public final class {{classname}} {
     }
     
     {{#unless @root.disableSendingMeta}}
-    private Map<String, Object>  makeMeta(int event_version, Map<String, ?> interfaces ) {
+    private Map<String, Object> makeMeta(
+        {{~#if @root.sendMetaEvent~}}
+        int event_version
+        {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+        {{~/if~}}
+        {{~#if @root.sendMetaInterfaces~}}
+        Map<String, ?> interfaces
+        {{~/if~}}
+    ) {
         Map<String, Object> metaDict = new HashMap<>();
+        {{#if @root.sendMetaEvent}}
         Map<String, Object> eventDict = new HashMap<>();
         eventDict.put("version", event_version);
         metaDict.put("event", eventDict);
+        {{/if}}
+        {{#if @root.sendMetaInterfaces}}
         metaDict.put("interfaces", interfaces);
+        {{/if}}
         return metaDict;
     }
     {{/unless}}
@@ -195,13 +207,23 @@ public final class {{classname}} {
         );
         {{/each}}
         {{#unless @root.disableSendingMeta}}
+        {{#if @root.sendMetaInterfaces}}
         Map<String, Object> interfacesDict = new HashMap<>();
         {{#each interfaces}}
         Map<String, Object> {{camelcase @key}} = new HashMap<>();
         {{camelcase @key}}.put("version", {{this}});
         interfacesDict.put("{{@key}}", {{camelcase @key}});
         {{/each}}
-        Map<String, Object> _meta = makeMeta({{version}}, interfacesDict);
+        {{/if}}
+        Map<String, Object> _meta = makeMeta(
+            {{~#if @root.sendMetaEvent~}}
+            {{version}}
+            {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+            {{~/if~}}
+            {{~#if @root.sendMetaInterfaces~}}
+            interfacesDict
+            {{~/if~}}
+        );
         params.put("_meta", _meta);
         {{/unless}}
         trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace + "." + {{/unless}}"{{event}}", params);

@@ -81,6 +81,7 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
     {{/if}}
 
     {{#unless @root.disableSendingMeta}}
+    {{#if @root.sendMetaInterfaces}}
     {{#unless (isEmpty this.interfaces)}}
     const interfaces = {
         {{#each this.interfaces}}
@@ -90,11 +91,16 @@ export function {{camelcase this.name}}{{#unless @root.onlyLastVersion}}{{#gt th
         {{/each}}
     }
     {{/unless}}
+    {{/if}}
     const _meta = makeMetaParams(
-        {{~this.version~}}
+        {{~#if @root.sendMetaEvent~}}
+        {{this.version}}
+        {{~/if~}}
+        {{~#if @root.sendMetaInterfaces~}}
         {{~#unless (isEmpty this.interfaces)~}}
-        , interfaces
+        {{#if @root.sendMetaEvent}}, {{/if}}interfaces
         {{~/unless~}}
+        {{~/if~}}
     )
     {{/unless}}
     const enhancedParams = { 

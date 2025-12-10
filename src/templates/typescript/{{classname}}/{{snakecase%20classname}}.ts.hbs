@@ -17,19 +17,35 @@ export interface {{classname}}PlatformParamsProvider {
 }
 
 {{#unless @root.disableSendingMeta}}
-export interface MetaParams<I extends Record<string, any>> {
+export interface MetaParams{{#if sendMetaInterfaces}}<I extends Record<string, any>>{{/if}} {
+    {{#if sendMetaEvent}}
     event:  {
         version: number
     }
+    {{/if}}
+    {{#if sendMetaInterfaces}}
     interfaces: I    
+    {{/if}}
 }
 
-export function makeMetaParams(eventVersion: number, interfaces = {}): MetaParams<typeof interfaces>  {
+export function makeMetaParams(
+    {{~#if sendMetaEvent~}}
+    eventVersion: number
+    {{~#if sendMetaInterfaces}}, {{/if~}}
+    {{~/if~}}
+    {{~#if sendMetaInterfaces~}}
+    interfaces = {}
+    {{~/if~}}
+): MetaParams{{#if sendMetaInterfaces}}<typeof interfaces>{{/if}}  {
     return {
+        {{#if sendMetaEvent}}
         event: {
             version: eventVersion
         },
+        {{/if}}
+        {{#if sendMetaInterfaces}}
         interfaces,
+        {{/if}}
     }
 }
 {{/unless}}

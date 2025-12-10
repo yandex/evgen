@@ -28,12 +28,24 @@ public class {{classname}} {
     }
 
     {{#unless @root.disableSendingMeta}}
-    private Dictionary<string, object> MakeMeta(int event_version, Dictionary<string, object> interfaces) {
+    private Dictionary<string, object> MakeMeta(
+        {{~#if @root.sendMetaEvent~}}
+        int event_version
+        {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+        {{~/if~}}
+        {{~#if @root.sendMetaInterfaces~}}
+        Dictionary<string, object> interfaces
+        {{~/if~}}
+    ) {
         Dictionary<string, object>  metaDict = new Dictionary<string, object>();
+        {{#if @root.sendMetaEvent}}
         Dictionary<string, object> eventDict = new Dictionary<string, object>();
         eventDict.Add("version", event_version);
         metaDict.Add("event", eventDict);
+        {{/if}}
+        {{#if @root.sendMetaInterfaces}}
         metaDict.Add("interfaces", interfaces);
+        {{/if}}
         return metaDict;
     }
     {{/unless}}
@@ -225,13 +237,23 @@ public class {{classname}} {
 
         {{/each}}
         {{#unless @root.disableSendingMeta}}
+        {{#if @root.sendMetaInterfaces}}
         Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
         {{#each this.interfaces}}
         Dictionary<string, object> {{camelcase @key}} = new Dictionary<string, object>();
         {{camelcase @key}}.Add("version", {{this}});
         interfacesDict.Add("{{@key}}", {{camelcase @key}});
         {{/each}}
-        var _meta = MakeMeta({{version}}, interfacesDict);
+        {{/if}}
+        var _meta = MakeMeta(
+            {{~#if @root.sendMetaEvent~}}
+            {{version}}
+            {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+            {{~/if~}}
+            {{~#if @root.sendMetaInterfaces~}}
+            interfacesDict
+            {{~/if~}}
+        );
         parameters.Add("_meta", _meta);
         {{/unless}}
         TrackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.ToString() + "." + {{/unless}}"{{event}}", parameters);

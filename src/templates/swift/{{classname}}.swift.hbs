@@ -146,12 +146,24 @@ public final class {{classname}} {
     }
     
     {{#unless @root.disableSendingMeta}}
-    private func makeMeta(_ event_version: Int, interfaces: [String: Any]) -> [String: Any] {
+    private func makeMeta(
+        {{~#if @root.sendMetaEvent~}}
+        _ event_version: Int
+        {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+        {{~/if~}}
+        {{~#if @root.sendMetaInterfaces~}}
+        interfaces: [String: Any]
+        {{~/if~}}
+    ) -> [String: Any] {
         var metaDict: [String: Any] = [:]
+        {{#if @root.sendMetaEvent}}
         var eventDict: [String: Any] = [:]
         eventDict["version"] = event_version
         metaDict["event"] = eventDict
+        {{/if}}
+        {{#if @root.sendMetaInterfaces}}
         metaDict["interfaces"] = interfaces
+        {{/if}}
         return metaDict
     }
     {{/unless}}
@@ -227,13 +239,23 @@ public final class {{classname}} {
         {{/eq}}
         {{/each}}
         {{#unless @root.disableSendingMeta}}
+        {{#if @root.sendMetaInterfaces}}
         {{#if (isEmpty this.interfaces)}}let{{else}}var{{/if}} interfacesDict: [String: Any] = [:]
         {{#each this.interfaces}}
         var {{camelcase @key}}: [String: Any] = [:]
         {{camelcase @key}}["version"] = {{this}}
         interfacesDict["{{@key}}"] = {{camelcase @key}}
         {{/each}}
-        let _meta = makeMeta({{this.version}}, interfaces: interfacesDict)
+        {{/if}}
+        let _meta = makeMeta(
+            {{~#if @root.sendMetaEvent~}}
+            {{this.version}}
+            {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+            {{~/if~}}
+            {{~#if @root.sendMetaInterfaces~}}
+            interfaces: interfacesDict
+            {{~/if~}}
+        )
         options["_meta"] = _meta
         {{/unless}}
         trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.rawValue + "." + {{/unless}}"{{this.event}}", withOptions: options)

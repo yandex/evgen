@@ -24,6 +24,8 @@ interface CodeGenerateOptions extends GenerateOptions {
     className?: string;
     onlyLastVersion?: boolean;
     disableSendingMeta?: boolean;
+    sendMetaEvent?: boolean;
+    sendMetaInterfaces?: boolean;
 }
 
 interface DocsGenerateOptions extends GenerateOptions {
@@ -59,6 +61,8 @@ export const generateEventsCode = async (
         onlyLastVersion: options.onlyLastVersion,
         classname: options.className || DEFAULT_CLASS_NAME,
         disableSendingMeta: options.disableSendingMeta,
+        sendMetaEvent: options.sendMetaEvent,
+        sendMetaInterfaces: options.sendMetaInterfaces,
     };
 
     return compileTemplates(ctx, {

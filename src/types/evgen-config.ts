@@ -8,6 +8,8 @@ export type CodeLanguage = 'kotlin' | 'swift' | 'type_script' | 'java' | 'dart' 
 
 export type DocsType = 'txt' | 'md' | 'yaml';
 
+export type MetaField = 'event' | 'interfaces';
+
 export interface CodeConfig {
     platform: string;
     output_dir: string;
@@ -17,6 +19,7 @@ export interface CodeConfig {
     param_name_case?: string;
     template_dir?: string;
     disable_sending_meta?: boolean;
+    meta_to_send?: MetaField[];
 }
 
 export interface DocConfig {
@@ -43,4 +46,13 @@ interface EvgenOptions {
      * Can be overridden per-platform in code config.
      */
     disable_sending_meta?: boolean;
+    /**
+     * Array of meta fields to include in _meta attribute.
+     * Possible values: 'event', 'interfaces'
+     * Default (undefined) - all fields are included: ['event', 'interfaces']
+     *
+     * Can be overridden per-platform in code config.
+     * Note: doesn't work if disable_sending_meta is true
+     */
+    meta_to_send?: MetaField[];
 }

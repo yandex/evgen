@@ -82,12 +82,24 @@ class {{classname}}(
     }
 
     {{#unless @root.disableSendingMeta}}
-    private fun makeMeta(event_version: Int, interfaces: Map<String, Any>): Map<String, Any> {
+    private fun makeMeta(
+        {{~#if @root.sendMetaEvent~}}
+        event_version: Int
+        {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+        {{~/if~}}
+        {{~#if @root.sendMetaInterfaces~}}
+        interfaces: Map<String, Any>
+        {{~/if~}}
+    ): Map<String, Any> {
         val metaDict = HashMap<String, Any>()
+        {{#if @root.sendMetaEvent}}
         val eventDict = HashMap<String, Any>()
         eventDict["version"] = event_version
         metaDict["event"] = eventDict
+        {{/if}}
+        {{#if @root.sendMetaInterfaces}}
         metaDict["interfaces"] = interfaces
+        {{/if}}
         return metaDict
     }
     {{/unless}}
@@ -159,13 +171,23 @@ class {{classname}}(
 
         {{/each}}
         {{#unless @root.disableSendingMeta}}
+        {{#if @root.sendMetaInterfaces}}
         val interfacesDict = HashMap<String, Any>()
         {{#each this.interfaces}}
         val {{camelcase @key}} = HashMap<String, Any>()
         {{camelcase @key}}["version"] = {{this}}
         interfacesDict["{{@key}}"] = {{camelcase @key}}
         {{/each}}
-        val _meta = makeMeta({{this.version}}, interfacesDict)
+        {{/if}}
+        val _meta = makeMeta(
+            {{~#if @root.sendMetaEvent~}}
+            {{this.version}}
+            {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+            {{~/if~}}
+            {{~#if @root.sendMetaInterfaces~}}
+            interfacesDict
+            {{~/if~}}
+        )
         parameters["_meta"] = _meta
         {{/unless}}
         trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + "." + {{/unless}}"{{this.event}}", parameters)

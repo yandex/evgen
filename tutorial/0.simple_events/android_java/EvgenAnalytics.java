@@ -50,7 +50,7 @@ public final class EvgenAnalytics {
         this.tracker.trackEvent(eventName, mergedParams);
     }
     
-    private Map<String, Object>  makeMeta(int event_version, Map<String, ?> interfaces ) {
+    private Map<String, Object> makeMeta(int event_version, Map<String, ?> interfaces) {
         Map<String, Object> metaDict = new HashMap<>();
         Map<String, Object> eventDict = new HashMap<>();
         eventDict.put("version", event_version);
