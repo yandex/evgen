@@ -109,6 +109,13 @@ class {{classname}}(
     {{>enum parameter=this}}
     {{/each}}
     {{/filterTruthy}}
+    {{#each globalTypes}}
+    {{#if (isEnum type)}}
+    {{>enum parameter=this}}
+    {{else}}
+    typealias {{pascalcase name}} = {{typeFormat this}}
+    {{/if}}
+    {{/each}}
     {{#each eventNamespaces}}
     {{#each allVersions}}
     {{#filterFalsy this.parameters "type.Enum.name"}}

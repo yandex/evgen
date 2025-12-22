@@ -1,0 +1,13 @@
+{{#unless (isEmpty globalTypes)}}
+#start-file:__global_types.md
+# Глобальные типы
+
+| Имя | Тип |
+|:----|:----|
+{{#each globalTypes}}
+| {{name}} | {{>globalTypeFormat type=type}} |
+{{/each}}
+
+#end-file
+{{/unless}}
+

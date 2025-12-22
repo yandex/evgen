@@ -7,6 +7,8 @@ import {
     isTypedDict,
     isTypedList,
     isCustomParameter,
+    isRef,
+    extractRef,
 } from '../../helpers';
 
 export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType>): string => {
@@ -26,6 +28,9 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
                 elementType ? primitiveTypeFormat(elementType) : 'object'
             }>`;
         default:
+            if (isRef(type)) {
+                return pascalCase(extractRef(type));
+            }
             if (isEnum(type)) {
                 return (
                     type.Enum.name ||

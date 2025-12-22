@@ -1,5 +1,6 @@
 export const GLOBAL_PARAMETERS_FIELD = '.GlobalParams';
 export const PLATFORM_PARAMETERS_FIELD = '.PlatformParams';
+export const GLOBAL_TYPES_FIELD = '.GlobalTypes';
 export const EVENTS_FIELD = 'Events';
 export const INTERFACES_FIELD = 'Interfaces';
 export const SHARED_FIELD = 'Shared';

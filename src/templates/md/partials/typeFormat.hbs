@@ -1,26 +1,38 @@
 {{~#if (contains (toArray 'Int' 'Long Int' 'Double' 'Bool' 'String' 'Dict' 'List' 'TimeMilliseconds') parameter.type)~}}
     {{~parameter.type~}}
 {{~else~}}
-    {{~#if (isConst parameter.type)~}}
-        "{{parameter.type.Const}}"
+    {{~#if (isRef parameter.type)~}}
+        {{~extractRef parameter.type~}}
     {{~else~}}
-        {{~#if (isPlatformConst parameter.type)~}}
-            PlatformConst(
-                {{~#each parameter.type.PlatformConst~}}
-                    {{@key}}: {{this}},
-                {{~/each~}}
-            )
+        {{~#if (isConst parameter.type)~}}
+            "{{parameter.type.Const}}"
         {{~else~}}
-            {{~#if (isEnum parameter.type)~}}
-                Enum(
-                    {{~#if parameter.type.Enum.name~}}{{parameter.type.Enum.name}}: {{/if}}
-                    {{~#each parameter.type.Enum.values~}}
-                    {{default value this}}{{#unless @last}}, {{/unless}}
+            {{~#if (isPlatformConst parameter.type)~}}
+                PlatformConst(
+                    {{~#each parameter.type.PlatformConst~}}
+                        {{@key}}: {{this}},
                     {{~/each~}}
                 )
             {{~else~}}
-                {{~#if (isCustomParameter parameter.type)~}}
-                    Custom(see yaml spec)
+                {{~#if (isEnum parameter.type)~}}
+                    Enum(
+                        {{~#if parameter.type.Enum.name~}}{{parameter.type.Enum.name}}: {{/if}}
+                        {{~#each parameter.type.Enum.values~}}
+                        {{default value this}}{{#unless @last}}, {{/unless}}
+                        {{~/each~}}
+                    )
+                {{~else~}}
+                    {{~#if (isTypedDict parameter.type)~}}
+                        Dict({{#each parameter.type.Dict}}{{@key}}: {{this}}{{#unless @last}}, {{/unless}}{{/each}})
+                    {{~else~}}
+                        {{~#if (isTypedList parameter.type)~}}
+                            List({{#each parameter.type.List}}{{@key}}: {{this}}{{#unless @last}}, {{/unless}}{{/each}})
+                        {{~else~}}
+                            {{~#if (isCustomParameter parameter.type)~}}
+                                Custom(see yaml spec)
+                            {{~/if~}}
+                        {{~/if~}}
+                    {{~/if~}}
                 {{~/if~}}
             {{~/if~}}
         {{~/if~}}

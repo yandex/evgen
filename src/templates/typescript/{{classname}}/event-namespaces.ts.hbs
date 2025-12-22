@@ -17,6 +17,9 @@ import { {{join (sort (pluck this "type.Enum.name"))}} } from './named_enums'
 {{/if}}
 
 {{/filterTruthy}}
+{{#unless (isEmpty typeRefs)}}
+import { {{join typeRefs}} } from './types'
+{{/unless}}
 {{#each allVersions}}
 {{#filterFalsy this.parameters "type.Enum.name"}}
 {{#each this}}

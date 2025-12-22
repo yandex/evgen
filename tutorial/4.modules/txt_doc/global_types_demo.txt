@@ -1,0 +1,45 @@
+GlobalTypesDemo.PageView
+
+    V1
+    Неймспейсы: 
+    Просмотр страницы (использует глобальный тип PageId)
+
+    0. pageId: PageId
+       ID страницы
+
+GlobalTypesDemo.Purchase
+
+    V1
+    Неймспейсы: 
+    Покупка контента (примитивные глобальные типы)
+
+    0. userId: UserId
+       ID пользователя
+    1. contentId: ContentId
+       ID контента
+    2. price: Price
+       Цена покупки
+    3. timestamp: Timestamp
+       Время покупки
+
+GlobalTypesDemo.ContentListView
+
+    V1
+    Неймспейсы: 
+    Просмотр списка контента (использует Metadata.v1)
+
+    0. items: ContentItems
+       Элементы контента
+    1. metadata: Metadata.v1
+       Метаданные запроса (базовая версия)
+
+GlobalTypesDemo.ContentListView
+
+    V2
+    Неймспейсы: 
+    Просмотр списка контента (использует Metadata.v2 с тегами)
+
+    0. items: ContentItems
+       Элементы контента
+    1. metadata: Metadata.v2
+       Метаданные запроса (расширенная версия с тегами)

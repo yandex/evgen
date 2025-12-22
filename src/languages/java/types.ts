@@ -1,5 +1,5 @@
 import { PrimitiveType, SinglePlatformParameterType } from '../../types/data-types';
-import { EventParameter } from '../../types/parsed-types';
+import { EventParameter, GlobalType } from '../../types/parsed-types';
 import {
     pascalCase,
     isEnum,
@@ -7,10 +7,21 @@ import {
     isTypedDict,
     isTypedList,
     isCustomParameter,
+    isRef,
+    extractRef,
 } from '../../helpers';
 
-export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType>): string => {
+interface TypeFormatOptions {
+    globalTypes?: Record<string, GlobalType>;
+}
+
+export const typeFormat = (
+    parameter: EventParameter<SinglePlatformParameterType>,
+    options: TypeFormatOptions = {}
+): string => {
     const { type, elementType, name, namespace, version } = parameter;
+    const { globalTypes = {} } = options;
+
     switch (type) {
         case 'String':
         case 'Int':
@@ -24,6 +35,21 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
         case 'Dict':
             return `Map<String, ${elementType ? primitiveTypeFormat(elementType) : '?'}>`;
         default:
+            // Вместо typealias-конструкций резолвим тип инлайн
+            if (isRef(type)) {
+                const refName = extractRef(type);
+                const globalType = globalTypes[refName];
+                if (globalType) {
+                    return typeFormat(
+                        {
+                            ...parameter,
+                            type: globalType.type as SinglePlatformParameterType,
+                        },
+                        options
+                    );
+                }
+                return pascalCase(refName);
+            }
             if (isEnum(type)) {
                 return (
                     type.Enum.name ||
@@ -50,19 +76,19 @@ export const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
     if (isEnum(primitiveType)) {
         return primitiveType.Enum.name || '?';
     }
+
     switch (primitiveType) {
         case 'String':
             return 'String';
         case 'Int':
             return 'int';
         case 'Long Int':
+        case 'TimeMilliseconds':
             return 'long';
         case 'Double':
             return 'double';
         case 'Bool':
             return 'boolean';
-        case 'TimeMilliseconds':
-            return 'long';
         case 'Dict':
             return 'Map<String, ?>';
         case 'List':

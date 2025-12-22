@@ -1,0 +1,14 @@
+{{#unless (isEmpty globalTypes)}}
+/**
+ *  AUTO-GENERATED FILE. DO NOT MODIFY
+ *  This class was automatically generated.
+ */
+// eslint-disable
+{{#each globalTypes}}
+{{#if (isEnum type)}}
+{{>enum parameter=this}}
+{{else}}
+export type {{pascalcase name}} = {{typeFormat this}}
+{{/if}}
+{{/each}}
+{{/unless}}

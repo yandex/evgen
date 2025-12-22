@@ -11,6 +11,9 @@ import {
     findNamedEnumsDeepInEvents,
     findNamedCustomTypesDeepInEvents,
     compareCustomTypes,
+    isRef,
+    extractRef,
+    pascalCase,
 } from './helpers';
 
 const DEFAULT_CLASS_NAME = 'EvgenAnalytics';
@@ -154,11 +157,18 @@ const extendNamespaceData = (namespace: EventNamespace<Event>) => {
             e.versions.flatMap((version) => Object.keys(version.platforms || {}))
         )
     );
+    const typeRefs = uniq(
+        allVersions
+            .flatMap((version) => version.parameters)
+            .filter((param) => isRef(param.type))
+            .map((param) => pascalCase(extractRef(param.type as string)))
+    ).sort();
 
     return {
         ...namespace,
         namedEnums,
         namedCustomParameters,
+        typeRefs,
         allVersions,
         actualVersions,
         deprecatedVersions,

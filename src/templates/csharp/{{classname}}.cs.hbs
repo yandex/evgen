@@ -4,6 +4,17 @@
 */
 
 using System.Collections.Generic;
+{{#each globalTypes}}
+{{#unless (isEnum type)}}
+using {{pascalcase name}} = {{typeFormat this}};
+{{/unless}}
+{{/each}}
+{{#each globalTypes}}
+{{#if (isEnum type)}}
+
+{{>enum parameter=this}}
+{{/if}}
+{{/each}}
 
 public class {{classname}} {
     public {{classname}}(

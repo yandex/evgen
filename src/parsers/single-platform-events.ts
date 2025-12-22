@@ -34,6 +34,7 @@ export const singlePlatformEvents = (
             ...platformParameters,
             parameters: parseSinglePlatformParameters(platformParameters.parameters, platform),
         },
+        globalTypes: events.globalTypes,
         eventNamespaces: events.eventNamespaces
             .map((namespace) => {
                 const events = namespace.events

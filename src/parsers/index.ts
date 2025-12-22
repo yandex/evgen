@@ -6,17 +6,20 @@ import { RawEvents } from '../types/raw-types';
 import {
     EVENTS_FIELD,
     GLOBAL_PARAMETERS_FIELD,
+    GLOBAL_TYPES_FIELD,
     SHARED_FIELD,
     INTERFACES_FIELD,
     PLATFORM_PARAMETERS_FIELD,
 } from './constants';
 import { parseEventNamespaces } from './events';
 import { parseGlobalParameters } from './global-event-parameters';
+import { parseGlobalTypes } from './global-types';
 import { getLatestCompatibleVersion } from './interface-compatibility';
 import { parseInterfaces } from './interfaces';
 import { parsePlatformParameters } from './platform-parameters';
 
 export const parseEvents = (rawEvents: RawEvents): NamespaceCollection => {
+    const globalTypes = parseGlobalTypes(rawEvents[GLOBAL_TYPES_FIELD]);
     const globalParameters =
         rawEvents[GLOBAL_PARAMETERS_FIELD] &&
         parseGlobalParameters(rawEvents[GLOBAL_PARAMETERS_FIELD]);
@@ -74,6 +77,7 @@ export const parseEvents = (rawEvents: RawEvents): NamespaceCollection => {
     return {
         globalParameters,
         platformParameters,
+        globalTypes,
         eventNamespaces,
         interfaceNamespaces,
         shared: rawEvents[SHARED_FIELD],

@@ -80,6 +80,21 @@ public final class EvgenAnalytics {
         return metaDict
     }
     
+    public typealias UserId = String
+    public typealias ContentId = String
+    public typealias Timestamp = Int
+    public typealias Price = Double
+    public typealias ViewCount = Int
+    public enum PageId: String {
+        case home = "home"
+        case catalog = "catalog"
+        case movieCard = "movie_card"
+        case seriesCard = "series_card"
+    }
+    
+    public typealias MetadataV1 = [String: Any]
+    public typealias MetadataV2 = [String: Any]
+    public typealias ContentItems = [Any]
     /**
      *  Первое событие с переиспользуемым параметром
      *
@@ -106,6 +121,72 @@ public final class EvgenAnalytics {
         let _meta = makeMeta(1, interfaces: interfacesDict)
         options["_meta"] = _meta
         trackEvent("AnotherNamespace.Event2", withOptions: options)
+    }
+
+    /**
+     *  Просмотр страницы (использует глобальный тип PageId)
+     *
+     *  1. pageId - ID страницы
+     */
+    public func globalTypesDemoPageView(pageId: PageId) {
+        var options: [String: Any] = [:]
+        options["pageId"] = pageId
+        let interfacesDict: [String: Any] = [:]
+        let _meta = makeMeta(1, interfaces: interfacesDict)
+        options["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.PageView", withOptions: options)
+    }
+
+    /**
+     *  Покупка контента (примитивные глобальные типы)
+     *
+     *  1. userId - ID пользователя
+     *  2. contentId - ID контента
+     *  3. price - Цена покупки
+     *  4. timestamp - Время покупки
+     */
+    public func globalTypesDemoPurchase(userId: UserId, contentId: ContentId, price: Price, timestamp: Timestamp) {
+        var options: [String: Any] = [:]
+        options["userId"] = userId
+        options["contentId"] = contentId
+        options["price"] = price
+        options["timestamp"] = timestamp
+        let interfacesDict: [String: Any] = [:]
+        let _meta = makeMeta(1, interfaces: interfacesDict)
+        options["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.Purchase", withOptions: options)
+    }
+
+    /**
+     *  Просмотр списка контента (использует Metadata.v1)
+     *
+     *  1. items - Элементы контента
+     *  2. metadata - Метаданные запроса (базовая версия)
+     */
+    public func globalTypesDemoContentListView(items: ContentItems, metadata: MetadataV1) {
+        var options: [String: Any] = [:]
+        options["items"] = items
+        options["metadata"] = metadata
+        let interfacesDict: [String: Any] = [:]
+        let _meta = makeMeta(1, interfaces: interfacesDict)
+        options["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.ContentListView", withOptions: options)
+    }
+
+    /**
+     *  Просмотр списка контента (использует Metadata.v2 с тегами)
+     *
+     *  1. items - Элементы контента
+     *  2. metadata - Метаданные запроса (расширенная версия с тегами)
+     */
+    public func globalTypesDemoContentListViewV2(items: ContentItems, metadata: MetadataV2) {
+        var options: [String: Any] = [:]
+        options["items"] = items
+        options["metadata"] = metadata
+        let interfacesDict: [String: Any] = [:]
+        let _meta = makeMeta(2, interfaces: interfacesDict)
+        options["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.ContentListView", withOptions: options)
     }
 
     /**

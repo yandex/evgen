@@ -69,6 +69,17 @@ public final class EvgenAnalytics {
     private GlobalParamsProvider globalParamsProvider;
     private PlatformParamsProvider platformParamsProvider;
     
+    public enum PageId {
+        HOME("home"),
+        CATALOG("catalog"),
+        MOVIE_CARD("movie_card"),
+        SERIES_CARD("series_card");
+        public final String eventValue;
+        PageId(String eventValue) {
+            this.eventValue = eventValue;
+        }
+    }
+    
     /**
      *  Первое событие с переиспользуемым параметром
      *
@@ -95,6 +106,72 @@ public final class EvgenAnalytics {
         Map<String, Object> _meta = makeMeta(1, interfacesDict);
         params.put("_meta", _meta);
         trackEvent("AnotherNamespace.Event2", params);
+    }
+
+    /**
+     *  Просмотр страницы (использует глобальный тип PageId)
+     *
+     *  1. pageId - ID страницы
+     */
+    public void globalTypesDemoPageView(PageId pageId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageId", pageId);
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(1, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("GlobalTypesDemo.PageView", params);
+    }
+
+    /**
+     *  Покупка контента (примитивные глобальные типы)
+     *
+     *  1. userId - ID пользователя
+     *  2. contentId - ID контента
+     *  3. price - Цена покупки
+     *  4. timestamp - Время покупки
+     */
+    public void globalTypesDemoPurchase(String userId, String contentId, double price, long timestamp) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("contentId", contentId);
+        params.put("price", String.valueOf(price));
+        params.put("timestamp", String.valueOf(timestamp));
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(1, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("GlobalTypesDemo.Purchase", params);
+    }
+
+    /**
+     *  Просмотр списка контента (использует Metadata.v1)
+     *
+     *  1. items - Элементы контента
+     *  2. metadata - Метаданные запроса (базовая версия)
+     */
+    public void globalTypesDemoContentListView(List items, Map<String, ?> metadata) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("items", items);
+        params.put("metadata", metadata);
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(1, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("GlobalTypesDemo.ContentListView", params);
+    }
+
+    /**
+     *  Просмотр списка контента (использует Metadata.v2 с тегами)
+     *
+     *  1. items - Элементы контента
+     *  2. metadata - Метаданные запроса (расширенная версия с тегами)
+     */
+    public void globalTypesDemoContentListViewV2(List items, Map<String, ?> metadata) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("items", items);
+        params.put("metadata", metadata);
+        Map<String, Object> interfacesDict = new HashMap<>();
+        Map<String, Object> _meta = makeMeta(2, interfacesDict);
+        params.put("_meta", _meta);
+        trackEvent("GlobalTypesDemo.ContentListView", params);
     }
 
     /**

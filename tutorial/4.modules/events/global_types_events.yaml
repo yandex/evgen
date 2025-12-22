@@ -1,0 +1,111 @@
+# События с глобальными типами
+Events:
+    GlobalTypesDemo:
+        PageView:
+            v1:
+                description: Просмотр страницы (использует глобальный тип PageId)
+                parameters:
+                    pageId:
+                        type: !ref PageId
+                        description: ID страницы
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    iOS:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Flutter:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Unity:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+        Purchase:
+            v1:
+                description: Покупка контента (примитивные глобальные типы)
+                parameters:
+                    userId:
+                        type: !ref UserId
+                        description: ID пользователя
+                    contentId:
+                        type: !ref ContentId
+                        description: ID контента
+                    price:
+                        type: !ref Price
+                        description: Цена покупки
+                    timestamp:
+                        type: !ref Timestamp
+                        description: Время покупки
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    iOS:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Flutter:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Unity:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+        ContentListView:
+            v1:
+                description: Просмотр списка контента (использует Metadata.v1)
+                parameters:
+                    items:
+                        type: !ref ContentItems
+                        description: Элементы контента
+                    metadata:
+                        type: !ref Metadata.v1
+                        description: Метаданные запроса (базовая версия)
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    iOS:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Flutter:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Unity:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+            v2:
+                description: Просмотр списка контента (использует Metadata.v2 с тегами)
+                parameters:
+                    items:
+                        type: !ref ContentItems
+                        description: Элементы контента
+                    metadata:
+                        type: !ref Metadata.v2
+                        description: Метаданные запроса (расширенная версия с тегами)
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    iOS:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Flutter:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    WebSmartTV:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+                    Unity:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
+
+

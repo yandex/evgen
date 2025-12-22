@@ -144,6 +144,11 @@ public final class {{classname}} {
     {{>enum parameter=this}}
     {{/each}}
     {{/filterTruthy}}
+    {{#each globalTypes}}
+    {{#if (isEnum type)}}
+    {{>enum parameter=this}}
+    {{/if}}
+    {{/each}}
     {{#each eventNamespaces}}
     {{#each allVersions}}
     {{#filterFalsy parameters "type.Enum.name"}}

@@ -26,6 +26,7 @@ pnpm evgen -e events -c evgen.yaml
 - [Конфигурационный файл evgen.yaml](#конфигурационный-файл-evgenyaml)
 - [Файл событий events.yaml](#файл-событий-eventsyaml)
 - [Типы данных](#типы-данных)
+- [Глобальные типы (.GlobalTypes)](#глобальные-типы-globaltypes)
 - [Интерфейсы](#интерфейсы)
 - [Платформозависимые параметры](#платформозависимые-параметры)
 - [Шаблоны](#шаблоны)
@@ -424,6 +425,115 @@ parameters:
         Flutter: "FlutterValue"
 ```
 
+## Глобальные типы (.GlobalTypes)
+
+Глобальные типы позволяют определить переиспользуемые типы данных, на которые можно ссылаться в параметрах событий через `!ref`.
+
+### Основная структура
+
+```yaml
+.GlobalTypes:
+  # Простые типы-алиасы
+  UserId: String
+  ContentId: String
+  Timestamp: Long Int
+  Price: Double
+
+  # Enum типы
+  PageId:
+    Enum:
+      name: PageId
+      values:
+        - home
+        - catalog
+        - movie_card
+
+  # Типизированный Dict
+  Metadata:
+    Dict:
+      source: String
+      timestamp: Int
+      tags: List
+
+  # Типизированный List
+  ContentItems:
+    List:
+      id: String
+      title: String
+      rating: Double
+```
+
+### Использование в событиях
+
+Для ссылки на глобальный тип используйте тег `!ref`:
+
+```yaml
+Events:
+  MyNamespace:
+    PageView:
+      v1:
+        description: "Просмотр страницы"
+        parameters:
+          pageId:
+            type: !ref PageId
+            description: "ID страницы"
+          userId:
+            type: !ref UserId
+            description: "ID пользователя"
+          metadata:
+            type: !ref Metadata
+            description: "Метаданные"
+        platforms:
+          Android:
+            app_versions: "1.0.0"
+```
+
+### Вложенные типы и версионирование
+
+Глобальные типы поддерживают вложенность и версионирование:
+
+```yaml
+.GlobalTypes:
+  # Вложенные типы (namespace.type)
+  Content:
+    Type:
+      Enum:
+        name: ContentType
+        values: [movie, series]
+    Category:
+      Enum:
+        name: ContentCategory
+        values: [action, comedy, drama]
+
+  # Версионированные типы
+  Metadata:
+    v1:
+      Dict:
+        source: String
+        timestamp: Int
+    v2:
+      Dict:
+        source: String
+        timestamp: Int
+        tags: List
+        version: Int
+```
+
+Использование:
+
+```yaml
+parameters:
+  contentType:
+    type: !ref Content.Type
+    description: "Тип контента"
+  metadataV1:
+    type: !ref Metadata.v1
+    description: "Метаданные v1"
+  metadataV2:
+    type: !ref Metadata.v2
+    description: "Метаданные v2"
+```
+
 ## Интерфейсы
 
 Интерфейсы позволяют определить общие требования к событиям:
@@ -557,6 +667,8 @@ EvGen использует шаблоны Handlebars для генерации �
       - `isNamedEnum` - `{{#if (isNamedEnum parameter.type)}}именованный enum{{/if}}`
       - `isCustomParameter` - `{{#if (isCustomParameter parameter.type)}}пользовательский тип{{/if}}`
       - `isNamedCustomType` - `{{#if (isNamedCustomType parameter.type)}}именованный тип{{/if}}`
+      - `isRef` - `{{#if (isRef parameter.type)}}ссылка на глобальный тип{{/if}}`
+      - `extractRef` - `{{extractRef parameter.type}}` → извлекает имя типа из `!ref_TypeName`
     * фильтрация:
       - `filterTruthy` - `{{#filterTruthy events "isActive"}}{{#each this}}{{name}} is truthy{{/each}}{{/filterTruthy}}`
       - `filterFalsy` - `{{#filterFalsy parameters "isOptional"}}{{#each}}{{name}} is required{{/each}}{{/filterFalsy}}`
@@ -606,6 +718,10 @@ code:
   - `parameters: EventParameter[]` - массив параметров платформы
   - `description: string` - описание параметров платформы
   - `comment?: string` - дополнительный комментарий
+
+- **`globalTypes`** (`Record<string, GlobalType>`) - глобальные типы
+  - `name: string` - имя типа (может содержать точки для вложенных типов, например `Metadata.v1`)
+  - `type: ParameterType` - определение типа
 
 #### События и пространства имен
 

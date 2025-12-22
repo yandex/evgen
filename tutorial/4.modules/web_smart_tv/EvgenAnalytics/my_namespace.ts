@@ -7,7 +7,6 @@
 import { type EvgenAnalytics } from './evgen_analytics'
 import { makeMetaParams } from './evgen_analytics'
 
-
 /**
  *  События со всеми возможными типами параметров
  *

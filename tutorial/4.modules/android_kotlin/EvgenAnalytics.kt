@@ -55,6 +55,20 @@ class EvgenAnalytics(
         return metaDict
     }
 
+    typealias UserId = String
+    typealias ContentId = String
+    typealias Timestamp = Long
+    typealias Price = Double
+    typealias ViewCount = Int
+    enum class PageId(val eventValue: String) {
+        Home("home"),
+        Catalog("catalog"),
+        MovieCard("movie_card"),
+        SeriesCard("series_card"),
+    }
+    typealias MetadataV1 = Map<String, Any>
+    typealias MetadataV2 = Map<String, Any>
+    typealias ContentItems = List<Any>
 
     /**
      *  Первое событие с переиспользуемым параметром
@@ -87,6 +101,89 @@ class EvgenAnalytics(
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta
         trackEvent("AnotherNamespace.Event2", parameters)
+    }
+
+
+    /**
+     *  Просмотр страницы (использует глобальный тип PageId)
+     *
+     *  1. pageId - ID страницы
+     */
+    fun globalTypesDemoPageView(
+        pageId: PageId,
+    ) {
+        val parameters = mutableMapOf<String, Any>()
+        parameters["pageId"] = pageId
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(1, interfacesDict)
+        parameters["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.PageView", parameters)
+    }
+
+
+    /**
+     *  Покупка контента (примитивные глобальные типы)
+     *
+     *  1. userId - ID пользователя
+     *  2. contentId - ID контента
+     *  3. price - Цена покупки
+     *  4. timestamp - Время покупки
+     */
+    fun globalTypesDemoPurchase(
+        userId: UserId,
+        contentId: ContentId,
+        price: Price,
+        timestamp: Timestamp,
+    ) {
+        val parameters = mutableMapOf<String, Any>()
+        parameters["userId"] = userId
+        parameters["contentId"] = contentId
+        parameters["price"] = price
+        parameters["timestamp"] = timestamp
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(1, interfacesDict)
+        parameters["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.Purchase", parameters)
+    }
+
+
+    /**
+     *  Просмотр списка контента (использует Metadata.v1)
+     *
+     *  1. items - Элементы контента
+     *  2. metadata - Метаданные запроса (базовая версия)
+     */
+    fun globalTypesDemoContentListView(
+        items: ContentItems,
+        metadata: MetadataV1,
+    ) {
+        val parameters = mutableMapOf<String, Any>()
+        parameters["items"] = items
+        parameters["metadata"] = metadata
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(1, interfacesDict)
+        parameters["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.ContentListView", parameters)
+    }
+
+
+    /**
+     *  Просмотр списка контента (использует Metadata.v2 с тегами)
+     *
+     *  1. items - Элементы контента
+     *  2. metadata - Метаданные запроса (расширенная версия с тегами)
+     */
+    fun globalTypesDemoContentListViewV2(
+        items: ContentItems,
+        metadata: MetadataV2,
+    ) {
+        val parameters = mutableMapOf<String, Any>()
+        parameters["items"] = items
+        parameters["metadata"] = metadata
+        val interfacesDict = HashMap<String, Any>()
+        val _meta = makeMeta(2, interfacesDict)
+        parameters["_meta"] = _meta
+        trackEvent("GlobalTypesDemo.ContentListView", parameters)
     }
 
 

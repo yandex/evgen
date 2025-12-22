@@ -2,6 +2,7 @@ import { SinglePlatformParameterType } from './data-types';
 import {
     EventNamespace,
     GlobalParameters,
+    GlobalType,
     EventParameter,
     InterfaceVersion,
     EventData,
@@ -11,6 +12,7 @@ import {
 export interface SinglePlatformNamespaceCollection {
     globalParameters: SinglePlatformGlobalParameters;
     platformParameters: SinglePlatformParameters;
+    globalTypes: Record<string, GlobalType>;
     eventNamespaces: EventNamespace<SinglePlatformEvent>[];
     shared: unknown;
 }

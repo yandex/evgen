@@ -7,6 +7,8 @@ import {
     isTypedDict,
     isTypedList,
     isCustomParameter,
+    isRef,
+    extractRef,
 } from '../../helpers';
 
 export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType>): string => {
@@ -24,6 +26,9 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
         case 'Dict':
             return `Map<String, ${elementType ? primitiveTypeFormat(elementType) : 'dynamic'}>`;
         default:
+            if (isRef(type)) {
+                return pascalCase(extractRef(type));
+            }
             if (isEnum(type)) {
                 return pascalCase(
                     type.Enum.name ||

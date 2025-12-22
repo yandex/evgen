@@ -1,0 +1,38 @@
+# Глобальные типы - переиспользуемые типы данных
+.GlobalTypes:
+    # Простые типы-алиасы
+    UserId: String
+    ContentId: String
+    Timestamp: Long Int
+    Price: Double
+    ViewCount: Int
+
+    # Enum типы
+    PageId:
+        Enum:
+            name: PageId
+            values:
+                - home
+                - catalog
+                - movie_card
+                - series_card
+
+    # Типизированный Dict (объект) с версиями
+    Metadata:
+        v1:
+            Dict:
+                source: String
+                timestamp: Int
+        v2:
+            Dict:
+                source: String
+                timestamp: Int
+                tags: List
+                version: Int
+
+    # Типизированный List (массив объектов)
+    ContentItems:
+        List:
+            id: String
+            title: String
+            rating: Double

@@ -102,7 +102,10 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
                 hbs.registerHelper('isSpecialWord', (str) => kotlinSpecialWords.includes(str));
                 break;
             case 'java':
-                hbs.registerHelper('typeFormat', javaTypeformat);
+                hbs.registerHelper('typeFormat', function (param, options) {
+                    const globalTypes = options?.data?.root?.globalTypes || {};
+                    return javaTypeformat(param, { globalTypes });
+                });
                 hbs.registerHelper('primitiveTypeFormat', javaPrimitiveTypeFormat);
                 break;
             case 'dart':

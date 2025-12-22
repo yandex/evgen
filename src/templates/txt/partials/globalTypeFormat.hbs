@@ -1,0 +1,17 @@
+{{~#if (contains (toArray 'Int' 'Long Int' 'Double' 'Bool' 'String' 'Dict' 'List' 'TimeMilliseconds') type)~}}
+    {{~type~}}
+{{~else~}}
+    {{~#if (isEnum type)~}}
+        Enum({{~#if type.Enum.name~}}{{type.Enum.name}}: {{/if}}{{~#each type.Enum.values~}}{{default value this}}{{#unless @last}}, {{/unless}}{{~/each~}})
+    {{~else~}}
+        {{~#if (isTypedDict type)~}}
+            Dict({{#each type.Dict}}{{@key}}: {{this}}{{#unless @last}}, {{/unless}}{{/each}})
+        {{~else~}}
+            {{~#if (isTypedList type)~}}
+                List({{#each type.List}}{{@key}}: {{this}}{{#unless @last}}, {{/unless}}{{/each}})
+            {{~else~}}
+                {{~type~}}
+            {{~/if~}}
+        {{~/if~}}
+    {{~/if~}}
+{{~/if~}}

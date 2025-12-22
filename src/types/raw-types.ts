@@ -1,6 +1,7 @@
 import {
     EVENTS_FIELD,
     GLOBAL_PARAMETERS_FIELD,
+    GLOBAL_TYPES_FIELD,
     SHARED_FIELD,
     INTERFACES_FIELD,
     PLATFORM_PARAMETERS_FIELD,
@@ -51,11 +52,14 @@ export interface RawInterface {
     parameters: Record<string, RawEventParameter>;
 }
 
+export type RawGlobalType = ParameterType;
+
 export type NestedRecord<T> = T | Record<string, T>;
 
 export interface RawEvents {
     [GLOBAL_PARAMETERS_FIELD]: RawGlobalParameters;
     [PLATFORM_PARAMETERS_FIELD]?: Record<string, RawPlatformParameters>;
+    [GLOBAL_TYPES_FIELD]?: Record<string, RawGlobalType>;
     [EVENTS_FIELD]: Record<string, NestedRecord<NestedRecord<RawEvent>>>;
     [INTERFACES_FIELD]?: Record<string, NestedRecord<NestedRecord<RawInterface>>>;
     [SHARED_FIELD]?: unknown;

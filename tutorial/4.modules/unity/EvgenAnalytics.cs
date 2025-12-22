@@ -4,6 +4,24 @@
 */
 
 using System.Collections.Generic;
+using UserId = string;
+using ContentId = string;
+using Timestamp = long;
+using Price = double;
+using ViewCount = int;
+using MetadataV1 = Dictionary<string, object>;
+using MetadataV2 = Dictionary<string, object>;
+using ContentItems = List<object>;
+
+public class PageId {
+    private PageId(string value) { RawValue = value; }
+    public string RawValue { get; private set; }
+    public static PageId HOME { get { return new PageId("home"); } }
+    public static PageId CATALOG { get { return new PageId("catalog"); } }
+    public static PageId MOVIE_CARD { get { return new PageId("movie_card"); } }
+    public static PageId SERIES_CARD { get { return new PageId("series_card"); } }
+}
+
 
 public class EvgenAnalytics {
     public EvgenAnalytics(
@@ -107,6 +125,85 @@ public class EvgenAnalytics {
         var _meta = MakeMeta(1, interfacesDict);
         parameters.Add("_meta", _meta);
         TrackEvent("AnotherNamespace.Event2", parameters);
+    }
+
+    /**
+        Просмотр страницы (использует глобальный тип PageId)
+    
+        1. pageId - ID страницы
+    */
+    public void GlobalTypesDemoPageView(
+        PageId pageId
+    ) {
+        var parameters = new Dictionary<string, object>();
+        parameters.Add("pageId", pageId);
+        Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
+        var _meta = MakeMeta(1, interfacesDict);
+        parameters.Add("_meta", _meta);
+        TrackEvent("GlobalTypesDemo.PageView", parameters);
+    }
+
+    /**
+        Покупка контента (примитивные глобальные типы)
+    
+        1. userId - ID пользователя
+        2. contentId - ID контента
+        3. price - Цена покупки
+        4. timestamp - Время покупки
+    */
+    public void GlobalTypesDemoPurchase(
+        UserId userId,
+        ContentId contentId,
+        Price price,
+        Timestamp timestamp
+    ) {
+        var parameters = new Dictionary<string, object>();
+        parameters.Add("userId", userId);
+        parameters.Add("contentId", contentId);
+        parameters.Add("price", price);
+        parameters.Add("timestamp", timestamp);
+        Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
+        var _meta = MakeMeta(1, interfacesDict);
+        parameters.Add("_meta", _meta);
+        TrackEvent("GlobalTypesDemo.Purchase", parameters);
+    }
+
+    /**
+        Просмотр списка контента (использует Metadata.v1)
+    
+        1. items - Элементы контента
+        2. metadata - Метаданные запроса (базовая версия)
+    */
+    public void GlobalTypesDemoContentListView(
+        ContentItems items,
+        MetadataV1 metadata
+    ) {
+        var parameters = new Dictionary<string, object>();
+        parameters.Add("items", items);
+        parameters.Add("metadata", metadata);
+        Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
+        var _meta = MakeMeta(1, interfacesDict);
+        parameters.Add("_meta", _meta);
+        TrackEvent("GlobalTypesDemo.ContentListView", parameters);
+    }
+
+    /**
+        Просмотр списка контента (использует Metadata.v2 с тегами)
+    
+        1. items - Элементы контента
+        2. metadata - Метаданные запроса (расширенная версия с тегами)
+    */
+    public void GlobalTypesDemoContentListViewV2(
+        ContentItems items,
+        MetadataV2 metadata
+    ) {
+        var parameters = new Dictionary<string, object>();
+        parameters.Add("items", items);
+        parameters.Add("metadata", metadata);
+        Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
+        var _meta = MakeMeta(2, interfacesDict);
+        parameters.Add("_meta", _meta);
+        TrackEvent("GlobalTypesDemo.ContentListView", parameters);
     }
 
     /**

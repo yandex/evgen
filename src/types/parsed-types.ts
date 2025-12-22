@@ -1,8 +1,14 @@
 import { ParameterType, PrimitiveType } from './data-types';
 
+export interface GlobalType {
+    name: string;
+    type: ParameterType;
+}
+
 export interface NamespaceCollection {
     globalParameters?: GlobalParameters;
     platformParameters: Record<string, PlatformParameters>;
+    globalTypes: Record<string, GlobalType>;
     eventNamespaces: EventNamespace<Event>[];
     interfaceNamespaces: Record<string, InterfaceVersion[]>;
     shared: unknown;
