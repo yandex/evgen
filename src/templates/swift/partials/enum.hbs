@@ -11,7 +11,7 @@
 public enum {{typeFormat parameter}}: String {
     {{#each parameter.type.Enum.values}}
     {{#if (isNumber (default value this))}}
-    int{{default value this}} = {{default value this}},
+    case int{{default value this}} = "{{default value this}}"
     {{else}}
     {{#if (isSpecialWord (camelcase (default value this)))}}
     case `{{camelcase (default value this)}}` = "{{default value this}}"

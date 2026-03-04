@@ -137,9 +137,9 @@ public final class EvgenAnalytics {
     }
 
     public enum MyNamespaceMyEventEnumParamInt: String {
-        int1 = 1,
-        int2 = 2,
-        int3 = 3,
+        case int1 = "1"
+        case int2 = "2"
+        case int3 = "3"
     }
     
     /**
