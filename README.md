@@ -268,6 +268,7 @@ Interfaces:
 | `namespaces` | array | Нет | Дополнительные пространства имен |
 | `force_event_name` | string | Нет | Принудительное имя события |
 | `tags` | string/array | Нет | Теги для фильтрации |
+| `meta` | object | Нет | Произвольные метаданные, доступные в шаблонах (не попадают в parameters) |
 
 ### Поля параметра
 
@@ -789,6 +790,7 @@ interface EventVersion {
   comment?: string;                       // Комментарий
   interfaceNames?: string[];              // Имена интерфейсов
   tags: string[];                         // Теги события
+  meta?: Record<string, unknown>;         // Произвольные метаданные для шаблонов
   platforms?: Record<string, Platform>;   // Поддерживаемые платформы
   parameters: EventParameter[];           // Параметры события
 }
@@ -918,6 +920,38 @@ Events:
       v1:
         force_event_name: "custom-event-name"
         # Итоговое имя: "custom-event-name"
+```
+
+### Метаданные события (meta)
+
+Поле `meta` позволяет передавать произвольные данные из YAML-схемы в шаблоны кодогенерации. В отличие от `parameters`, значения `meta` не попадают в сгенерированный рантайм-код — они доступны только на этапе генерации через Handlebars-контекст.
+
+```yaml
+Events:
+  Payment:
+    Completed:
+      v1:
+        description: "Оплата завершена"
+        meta:
+          event_type: statbox
+          owner: payments-team
+        parameters:
+          orderId:
+            type: String
+            description: "ID заказа"
+        platforms:
+          Android:
+            app_versions: in_progress
+```
+
+В кастомных шаблонах поле доступно через `this.meta`:
+
+```handlebars
+{{#if (eq this.meta.event_type "statbox")}}
+evgenAnalyticsPipeline.trackStatboxEvent("{{this.event}}", parameters)
+{{else}}
+evgenAnalyticsPipeline.trackEvent("{{this.event}}", parameters)
+{{/if}}
 ```
 
 ### Версионирование

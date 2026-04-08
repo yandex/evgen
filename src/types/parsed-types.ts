@@ -56,6 +56,7 @@ export interface EventData {
     comment?: string;
     interfaceNames?: string[];
     tags: string[];
+    meta?: Record<string, unknown>;
 }
 
 export interface EventVersion extends EventData {

@@ -113,6 +113,7 @@ const parseEventVersions = (
                     interfaces: {},
                     additionalNamespaces: value.namespaces || [],
                     tags: parseTags(value.tags),
+                    meta: value.meta || {},
                 },
             ];
         }

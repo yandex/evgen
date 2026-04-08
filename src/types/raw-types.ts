@@ -32,6 +32,7 @@ export interface RawEvent {
     namespaces?: string[];
     force_event_name?: string;
     tags?: string | string[];
+    meta?: Record<string, unknown>;
 }
 
 export interface RawGlobalParameters {
