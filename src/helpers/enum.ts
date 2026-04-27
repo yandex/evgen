@@ -2,6 +2,7 @@ import { isObject } from 'lodash';
 
 import { ParameterType, EnumType } from '../types/data-types';
 import { Event } from '../types/parsed-types';
+import { flattenAllEventVersionParameters } from './event-version-parameters';
 import { hasDuplicates } from './array';
 import { logger } from './logger';
 
@@ -11,7 +12,9 @@ export const isEnum = (parameter: ParameterType): parameter is EnumType =>
 export const isNamedEnum = (parameter: ParameterType) => isEnum(parameter) && parameter.Enum.name;
 
 export const findNamedEnumsDeepInEvents = (events: Event[]) => {
-    const topLevelParams = events.flatMap((e) => e.versions.flatMap((v) => v.parameters));
+    const topLevelParams = events.flatMap((e) =>
+        e.versions.flatMap((v) => flattenAllEventVersionParameters(v))
+    );
     return topLevelParams.map((param) => findNamedEnumsDeep(param)).flat();
 };
 

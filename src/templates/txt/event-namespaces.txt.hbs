@@ -23,6 +23,17 @@
        {{this}}
     {{/each}}
     {{/each}}
+    {{#if parametersPerPlatform}}
+    {{#each parametersPerPlatform}}
+    {{@key}}:
+    {{#each this}}
+    {{@index}}. {{name}}: {{>typeFormat parameter=this}}
+    {{#each (splitByNewLine description)}}
+       {{this}}
+    {{/each}}
+    {{/each}}
+    {{/each}}
+    {{/if}}
 {{/each}}
 
 #end-file

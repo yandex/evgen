@@ -35,9 +35,9 @@ MyNamespace.MyEvent
        параметр типа Dict.
     11. dictElementType: Dict
        параметр типа Dict енумов.
-    12. typedDictParam: 
+    12. typedDictParam: Dict(stringParam: String, typedListParam: [object Object])
        типизированный Dict.
-    13. typedListParam: 
+    13. typedListParam: List(stringParam: String, typedDictParam: [object Object])
        типизированный List.
     14. platformConst: PlatformConst(Android: AndroidValueiOS: iOSValueFlutter: FlutterValueWebSmartTV: WebSmartTVValueUnity: UnityValue)
        Платформозависимая константа
@@ -53,3 +53,5 @@ MyNamespace.MyEvent
        Параметр типа String со значением null по умолчанию
     20. refParam: String
        Параметр по дефолту копирующий значение из другого параметра
+    21. optionalParam: String
+       Необязательный параметр

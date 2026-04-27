@@ -62,7 +62,7 @@ export function makeMetaParams(
 {{/unless}}
 interface GlobalParams {
     {{#each globalParameters.parameters}}
-    {{camelcase this.name}}: {{typeFormat this}}
+    {{camelcase this.name}}{{#if (or (isDefined this.defaultValue) this.optional)}}?{{/if}}: {{typeFormat this}}
     {{/each}}
 }
 
@@ -81,7 +81,7 @@ interface GlobalParams {
 interface PlatformParams {
     {{#if platformParameters}}
     {{#each platformParameters.parameters}}
-    {{this.name}}: {{typeFormat this}}
+    {{this.name}}{{#if (or (isDefined this.defaultValue) this.optional)}}?{{/if}}: {{typeFormat this}}
     {{/each}}
     {{/if}}
 }
@@ -102,7 +102,14 @@ export function create{{classname}} (
             ...globalParamsProvider.getGlobalParams(),
             ...platformParamsProvider.getPlatformParams(),
         };
+        {{#if @root.notSendNullParameters}}
+        const payload = Object.fromEntries(
+            Object.entries(mergedParameters).filter(([, value]) => value != null)
+        );
+        eventTracker.trackEvent(event, payload);
+        {{else}}
         eventTracker.trackEvent(event, mergedParameters);
+        {{/if}}
     }
     return { trackEvent };
 }

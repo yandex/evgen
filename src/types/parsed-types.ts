@@ -62,6 +62,7 @@ export interface EventData {
 export interface EventVersion extends EventData {
     platforms?: Record<string, Platform>;
     parameters: EventParameter<ParameterType>[];
+    parametersPerPlatform?: Record<string, EventParameter<ParameterType>[]>;
 }
 
 export interface EventParameter<T> {
@@ -73,7 +74,7 @@ export interface EventParameter<T> {
     abstract: boolean;
     optional: boolean;
     elementType?: PrimitiveType;
-    defaultValue?: string;
+    defaultValue?: string | null;
 }
 
 export interface Platform {

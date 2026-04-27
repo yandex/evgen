@@ -56,7 +56,6 @@ public class EvgenAnalytics {
 
         public Dictionary<string, object> MakeParams() {
             var parameters = new Dictionary<string, object>();
-            options["globalParam"] = globalParam
             parameters.Add("globalParam", globalParam)
             return parameters;
         }
@@ -175,6 +174,7 @@ public class EvgenAnalytics {
         17. listOfEnum - Cписок енумов
         18. defaultNullParam - Параметр типа String со значением null по умолчанию
         19. refParam - Параметр по дефолту копирующий значение из другого параметра
+        20. optionalParam - Необязательный параметр
     */
     public void MyNamespaceMyEvent(
         string stringParam = "val",
@@ -188,14 +188,15 @@ public class EvgenAnalytics {
         PagesWithDescriptions enumWithDescriptionsParam,
         Dictionary<string, object> dictParam = new Dictionary<string, object>(),
         Dictionary<string, DictInEnumType> dictElementType,
-        Dictionary<string, object> typedDictParam = new Dictionary<string, object>(),
+        Dictionary<string, object> typedDictParam,
         List<object> typedListParam,
         List<int> listOfInt = [],
         List<double> listOfDouble = [],
         List<string> listOfString = [],
         List<MyNamespaceMyEventEnumParam> listOfEnum = [],
         string? defaultNullParam = null,
-        string? refParam = null
+        string? refParam = null,
+        string? optionalParam = null
     ) {
         var _refParam = refParam ?? enumParam.RawValue;
         var parameters = new Dictionary<string, object>();
@@ -220,6 +221,7 @@ public class EvgenAnalytics {
         parameters.Add("listOfEnum", listOfEnum);
         parameters.Add("defaultNullParam", defaultNullParam);
         parameters.Add("refParam", _refParam);
+        parameters.Add("optionalParam", optionalParam);
         Dictionary<string, object> interfacesDict = new Dictionary<string, object>();
         var _meta = MakeMeta(1, interfacesDict);
         parameters.Add("_meta", _meta);

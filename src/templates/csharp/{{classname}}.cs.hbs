@@ -35,6 +35,17 @@ public class {{classname}} {
         var mergedParams = new Dictionary<string, object>(parameters);
         mergedParams.PutAll(_globalParamsProvider.GetGlobalParams().MakeParams());
         mergedParams.PutAll(_platformParamsProvider.GetPlatformParams().MakeParams());
+        {{#if @root.notSendNullParameters}}
+        var keysToRemove = new List<string>();
+        foreach (var kvp in mergedParams) {
+            if (kvp.Value == null) {
+                keysToRemove.Add(kvp.Key);
+            }
+        }
+        foreach (var key in keysToRemove) {
+            mergedParams.Remove(key);
+        }
+        {{/if}}
         _eventTracker.TrackEvent(eventName, mergedParams);
     }
 
@@ -86,23 +97,29 @@ public class {{classname}} {
     public class GlobalParams {
         {{#each globalParameters.parameters}}
         {{#unless (isConst this.type)}}
-        public {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}};
+        public {{typeFormat this}}{{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if}} {{camelcase this.name}};
         {{/unless}}
         {{/each}}
 
         public Dictionary<string, object> MakeParams() {
             var parameters = new Dictionary<string, object>();
+            {{#filterDefined globalParameters.parameters 'defaultValue'}}
+            {{#each this}}
+            {{#if (isRef this.defaultValue)}}
+            var _{{camelcase this.name}} = {{camelcase this.name}} ?? {{camelcase (extractRef this.defaultValue)}}.RawValue;
+            {{/if}}
+            {{/each}}
+            {{/filterDefined}}
             {{#each globalParameters.parameters}}
             {{#eq this.type 'Bool'}}
-            if {{this.name}} {
+            if ({{camelcase this.name}}) {
                 parameters.Add("{{this.name}}", "true");
             } else {
                 parameters.Add("{{this.name}}", "false");
             }
             {{else}}
-            options["{{this.name}}"] = {{>variableValueFormat parameter=this}}
+            parameters.Add("{{this.name}}", {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
             {{/eq}}
-            parameters.Add("{{this.name}}", {{>variableValueFormat parameter=this}})
             {{/each}}
             return parameters;
         }
@@ -110,8 +127,8 @@ public class {{classname}} {
         public GlobalParams(
             {{~#each globalParameters.parameters~}}
             {{#unless (isConst this.type)}}
-            {{~camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
-            {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+            {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+            {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
             {{~#unless @last}}, {{/unless~}}
             {{/unless}}
             {{~/each~}}
@@ -140,7 +157,7 @@ public class {{classname}} {
         {{#if platformParameters}}
         {{#each platformParameters.parameters}}
         {{#unless (isConst this.type)}}
-        public {{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}};
+        public {{typeFormat this}}{{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if}} {{camelcase this.name}};
         {{/unless}}
         {{/each}}
         {{/if}}
@@ -148,15 +165,22 @@ public class {{classname}} {
         public Dictionary<string, object> MakeParams() {
             var parameters = new Dictionary<string, object>();
             {{#if platformParameters}}
+            {{#filterDefined platformParameters.parameters 'defaultValue'}}
+            {{#each this}}
+            {{#if (isRef this.defaultValue)}}
+            var _{{camelcase this.name}} = {{camelcase this.name}} ?? {{camelcase (extractRef this.defaultValue)}}.RawValue;
+            {{/if}}
+            {{/each}}
+            {{/filterDefined}}
             {{#each platformParameters.parameters}}
             {{#eq this.type 'Bool'}}
-            if {{this.name}} {
+            if ({{camelcase this.name}}) {
                 parameters.Add("{{this.name}}", "true");
             } else {
                 parameters.Add("{{this.name}}", "false");
             }
             {{else}}
-            parameters.Add("{{this.name}}", {{>variableValueFormat parameter=this}})
+            parameters.Add("{{this.name}}", {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
             {{/eq}}
             {{/each}}
             {{/if}}
@@ -167,8 +191,8 @@ public class {{classname}} {
             {{~#if platformParameters~}}
             {{~#each platformParameters.parameters~}}
             {{~#unless (isConst this.type)~}}
-            {{~camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
-            {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if~}}
+            {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+            {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
             {{~#unless @last}}, {{/unless~}}
             {{~/unless~}}
             {{~/each~}}
@@ -227,7 +251,7 @@ public class {{classname}} {
         namespace: {{pascalcase name}}Namespaces{{#gt version 1}}V{{version}}{{/gt}},{{/unless}}
         {{#filterUndefined parameters 'type.Const'}}
         {{#each this}}
-        {{typeFormat this}}{{#if (isRef defaultValue)}}?{{else}}{{#eq defaultValue null}}?{{/eq}}{{/if}} {{camelcase name}}
+        {{typeFormat this}}{{#if (isRef defaultValue)}}?{{else}}{{#eq defaultValue null}}?{{else}}{{#if this.optional}}?{{/if}}{{/eq}}{{/if}} {{camelcase name}}
         {{~#if (isDefined defaultValue)}} = {{#if (isRef defaultValue)}}null{{else}}{{>defaultValueFormat parameter=this}}{{/if}}{{/if}}{{#unless @last}},{{/unless}}
         {{/each}}
         {{/filterUndefined}}

@@ -34,7 +34,9 @@ import { typeFormat as swiftTypeformat } from '../languages/swift/types';
 import { specialWords as swiftSpecialWords } from '../languages/swift/special-words';
 import {
     typeFormat as javaTypeformat,
+    nullableTypeFormat as javaNullableTypeformat,
     primitiveTypeFormat as javaPrimitiveTypeFormat,
+    nullablePrimitiveTypeFormat as javaNullablePrimitiveTypeFormat,
 } from '../languages/java/types';
 import {
     typeFormat as kotlinTypeformat,
@@ -106,7 +108,12 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
                     const globalTypes = options?.data?.root?.globalTypes || {};
                     return javaTypeformat(param, { globalTypes });
                 });
+                hbs.registerHelper('nullableTypeFormat', function (param, options) {
+                    const globalTypes = options?.data?.root?.globalTypes || {};
+                    return javaNullableTypeformat(param, { globalTypes });
+                });
                 hbs.registerHelper('primitiveTypeFormat', javaPrimitiveTypeFormat);
+                hbs.registerHelper('nullablePrimitiveTypeFormat', javaNullablePrimitiveTypeFormat);
                 break;
             case 'dart':
                 hbs.registerHelper('typeFormat', dartTypeformat);

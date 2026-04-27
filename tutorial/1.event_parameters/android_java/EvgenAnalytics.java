@@ -173,8 +173,9 @@ public final class EvgenAnalytics {
      *  17. listOfEnum - Cписок енумов
      *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
      *  19. refParam - Параметр по дефолту копирующий значение из другого параметра
+     *  20. optionalParam - Необязательный параметр
      */
-    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, PagesWithDescriptions enumWithDescriptionsParam, Map<String, ?> dictParam, Map<String, DictInEnumType> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum, String defaultNullParam, String refParam) {
+    public void myNamespaceMyEvent(String stringParam, int intParam, long longIntParam, boolean boolParam, double doubleParam, MyNamespaceMyEventEnumParam enumParam, MyNamespaceMyEventEnumParamInt enumParamInt, Pages namedEnumParam, PagesWithDescriptions enumWithDescriptionsParam, Map<String, ?> dictParam, Map<String, DictInEnumType> dictElementType, Map<String, ?> typedDictParam, List typedListParam, List<int> listOfInt, List<double> listOfDouble, List<String> listOfString, List<MyNamespaceMyEventEnumParam> listOfEnum, String defaultNullParam, String refParam, String optionalParam) {
         String _refParam = refParam != null ? refParam : enumParam.eventValue;
         Map<String, Object> params = new HashMap<>();
         params.put("stringParam", stringParam);
@@ -198,6 +199,7 @@ public final class EvgenAnalytics {
         params.put("listOfEnum", listOfEnum);
         params.put("defaultNullParam", defaultNullParam);
         params.put("refParam", _refParam);
+        params.put("optionalParam", optionalParam);
         Map<String, Object> interfacesDict = new HashMap<>();
         Map<String, Object> _meta = makeMeta(1, interfacesDict);
         params.put("_meta", _meta);

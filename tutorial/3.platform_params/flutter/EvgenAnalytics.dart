@@ -44,15 +44,14 @@ class EvgenAnalytics {
     required this.platformParamsProvider,
   });
 
-  void trackEvent(String event, Map<String, dynamic> parameters) =>
-      eventTracker.trackEvent(
-        event,
-        {
-          ...parameters,
-          ...globalParamsProvider.getGlobalParams().parameters,
-          ...platformParamsProvider.getPlatformParams().parameters,
-        },
-      );
+  void trackEvent(String event, Map<String, dynamic> parameters) {
+    final mergedParameters = <String, dynamic>{
+      ...parameters,
+      ...globalParamsProvider.getGlobalParams().parameters,
+      ...platformParamsProvider.getPlatformParams().parameters,
+    };
+    eventTracker.trackEvent(event, mergedParameters);
+  }
 
   Map<String, dynamic> makeMeta(
     int eventVersion,

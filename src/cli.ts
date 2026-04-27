@@ -82,6 +82,10 @@ program
                                         config.options?.disable_sending_meta,
                                     sendMetaEvent: metaToSend?.includes('event') ?? true,
                                     sendMetaInterfaces: metaToSend?.includes('interfaces') ?? true,
+                                    notSendNullParameters:
+                                        codeConfig.not_send_null_parameters ??
+                                        config.options?.not_send_null_parameters ??
+                                        false,
                                 }
                             );
                         } catch (e) {

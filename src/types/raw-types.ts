@@ -12,6 +12,7 @@ import { ParameterType, PrimitiveType } from './data-types';
 export interface RawPlatform {
     app_versions: string | number;
     ticket?: string;
+    parameters?: Record<string, RawEventParameter> | null;
 }
 
 export interface RawEventParameter {
@@ -24,7 +25,7 @@ export interface RawEventParameter {
 }
 
 export interface RawEvent {
-    parameters: Record<string, RawEventParameter> | null;
+    parameters?: Record<string, RawEventParameter> | null;
     description: string;
     platforms?: Record<string, RawPlatform>;
     comment?: string;

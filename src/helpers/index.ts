@@ -2,6 +2,7 @@ export * from './array';
 export * from './const';
 export * from './cycle-detection';
 export * from './defined';
+export * from './event-version-parameters';
 export * from './enum';
 export * from './string';
 export * from './object';

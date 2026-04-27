@@ -55,10 +55,26 @@
 {{~#each this.parameters~}}
     {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>
 {{~/each~}}
+{{~#if this.parametersPerPlatform~}}
+{{~#each this.parametersPerPlatform~}}
+<strong>{{@key}}:</strong><br>
+{{~#each this~}}
+    {{@index}}. {{this.name}}: {{>typeFormat parameter=this}}<br>
+{{~/each~}}
+{{~/each~}}
+{{~/if~}}
 |
 {{~#each this.parameters~}}
     {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{../description}}{{/escape}}<br>
 {{~/each~}}
+{{~#if this.parametersPerPlatform~}}
+{{~#each this.parametersPerPlatform~}}
+<strong>{{@key}}:</strong><br>
+{{~#each this~}}
+    {{@index}}. {{this.name}} - {{#escape newLine="<br>"}}{{this.description}}{{/escape}}<br>
+{{~/each~}}
+{{~/each~}}
+{{~/if~}}
 {{~#escape newLine="<br>" space="&nbsp;"~}}
 {{~/escape~}}
 |

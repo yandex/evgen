@@ -63,6 +63,7 @@ code:
     template_dir: string       # Путь к пользовательским шаблонам (опционально)
     disable_sending_meta: boolean # Отключить _meta для этой платформы (опционально)
     meta_to_send: array           # Какие поля включить в _meta: ['event', 'interfaces'] (опционально)
+    not_send_null_parameters: boolean # Не передавать в trackEvent ключи с null (опционально)
 
 doc:
   # Конфигурации для генерации документации
@@ -76,6 +77,7 @@ options:
   keepParametersOrder: boolean # Сохранять порядок параметров в событиях согласно YAML
   disable_sending_meta: boolean # Отключить добавление _meta атрибута в событиях
   meta_to_send: array           # Какие поля включить в _meta: ['event', 'interfaces']
+  not_send_null_parameters: boolean # Не передавать в trackEvent ключи с null/undefined (зависит от языка)
 ```
 
 ### Поддерживаемые языки
@@ -206,6 +208,28 @@ code:
     output_dir: 'ios'
     language: 'swift'
     disable_sending_meta: true  # Полностью отключить _meta для iOS
+```
+
+#### `not_send_null_parameters`
+Управляет тем, отправляются ли null-like параметры в `trackEvent`
+
+- `false` (по умолчанию) — объект параметров передаётся как есть, в том числе с ключами, значение которых `null`
+- `true` — перед вызовом внутреннего трекера такие ключи отфильтровываются.
+
+Опцию можно задать глобально в `options` и переопределить для конкретной платформы в `code`: значение в конфиге платформы имеет приоритет над глобальным.
+
+**Пример — включить только для веба:**
+```yaml
+options:
+  not_send_null_parameters: false
+
+code:
+  Web:
+    platform: 'WebSmartTV'
+    output_dir: 'web_smart_tv'
+    language: 'type_script'
+    class_name: 'EvgenAnalytics'
+    not_send_null_parameters: true
 ```
 
 ## Файл событий (один events.yaml в простейшем случае, но так же может быть и папка с такими файлами)
@@ -707,6 +731,7 @@ code:
 - **`disableSendingMeta`** (`boolean`) - флаг полного отключения генерации `_meta` атрибута
 - **`sendMetaEvent`** (`boolean`) - включать ли версию события в `_meta.event`
 - **`sendMetaInterfaces`** (`boolean`) - включать ли интерфейсы в `_meta.interfaces`
+- **`notSendNullParameters`** (`boolean`) - если `true`, в сгенерированном `trackEvent` из итогового словаря параметров убираются ключи со значением null (в TypeScript также `undefined`); задаётся опцией `not_send_null_parameters` в YAML
 
 #### Параметры
 

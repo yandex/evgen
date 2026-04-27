@@ -1,9 +1,9 @@
 import { get, isObject } from 'lodash';
 
-import { EventNamespace, EventVersion, Event } from '../types/parsed-types';
+import { Event, EventNamespace, EventVersion } from '../types/parsed-types';
 import { NestedRecord, RawEvent } from '../types/raw-types';
 
-import { parseParameters } from './event-parameters';
+import { parseParameters, parseParametersFromEventPlatforms } from './event-parameters';
 import { parsePlatforms } from './platforms';
 import { VERSION_PATTERN } from './constants';
 import { upperFirstLetter } from '../helpers';
@@ -95,17 +95,24 @@ const parseEventVersions = (
             }
 
             const fullNamespace = namespaceParts.join('.');
+            const commonParameters = parseParameters(value.parameters ?? null, {
+                namespace: name,
+                version,
+                scope: fullNamespace,
+            });
+            const parametersPerPlatform = parseParametersFromEventPlatforms(value.platforms, {
+                namespace: name,
+                version,
+                scope: fullNamespace,
+            });
             return [
                 {
                     name,
                     namespace,
                     event: value.force_event_name || fullNamespace,
                     version,
-                    parameters: parseParameters(value.parameters, {
-                        namespace: name,
-                        version,
-                        scope: fullNamespace,
-                    }),
+                    parameters: commonParameters,
+                    parametersPerPlatform,
                     description: value.description || '',
                     comment: value.comment,
                     platforms: value.platforms ? parsePlatforms(value.platforms) : undefined,
@@ -147,8 +154,17 @@ const getInterfaceNames = (value: unknown): string[] => {
     return [];
 };
 
+const hasPlatformOnlyEventParameters = (node: RawEvent): boolean =>
+    Boolean(
+        node.platforms &&
+            Object.values(node.platforms).some(
+                (p) => p.parameters != null && Object.keys(p.parameters).length > 0
+            )
+    );
+
 const isEventNode = (node: NestedRecord<NestedRecord<RawEvent>>): node is RawEvent =>
-    node.parameters !== undefined && node.description !== undefined;
+    node.description !== undefined &&
+    (node.parameters !== undefined || hasPlatformOnlyEventParameters(node as RawEvent));
 
 const parseTags = (tags: string | string[] | undefined): string[] => {
     if (!tags) {

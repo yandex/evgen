@@ -33,12 +33,12 @@ class {{classname}}GlobalParams {
   {{classname}}GlobalParams({
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{#unless (isDefined this.defaultValue)}}required {{/unless}}{{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}{{#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if}},
+    {{#unless (isDefined this.defaultValue)}}required {{/unless}}{{typeFormat this}}{{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if}} {{camelcase this.name}}{{#if (and (isDefined this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/unless}}
     {{/each}}
   }) : parameters = {
           {{#each globalParameters.parameters}}
-          '{{this.name}}': {{camelcase this.name}},
+          '{{this.name}}': {{#if (and (isRef this.defaultValue) (not (isConst this.type)))}}{{camelcase this.name}} ?? {{camelcase (extractRef this.defaultValue)}}.value{{else}}{{>variableValueFormat parameter=this}}{{/if}},
           {{/each}}
         };
   {{/if}}
@@ -63,12 +63,12 @@ class {{classname}}PlatformParams {
   {{classname}}PlatformParams({
     {{#each platformParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{#unless (isDefined this.defaultValue)}}required {{/unless}}{{typeFormat this}}{{#eq this.defaultValue null}}?{{/eq}} {{camelcase this.name}}{{#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}}{{/if}},
+    {{#unless (isDefined this.defaultValue)}}required {{/unless}}{{typeFormat this}}{{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if}} {{camelcase this.name}}{{#if (and (isDefined this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/unless}}
     {{/each}}
   }) : parameters = {
           {{#each platformParameters.parameters}}
-          '{{this.name}}': {{camelcase this.name}},
+          '{{this.name}}': {{#if (and (isRef this.defaultValue) (not (isConst this.type)))}}{{camelcase this.name}} ?? {{camelcase (extractRef this.defaultValue)}}.value{{else}}{{>variableValueFormat parameter=this}}{{/if}},
           {{/each}}
         };
   {{/if}}
@@ -85,15 +85,17 @@ class {{classname}} {
     required this.platformParamsProvider,
   });
 
-  void trackEvent(String event, Map<String, dynamic> parameters) =>
-      eventTracker.trackEvent(
-        event,
-        {
-          ...parameters,
-          ...globalParamsProvider.getGlobalParams().parameters,
-          ...platformParamsProvider.getPlatformParams().parameters,
-        },
-      );
+  void trackEvent(String event, Map<String, dynamic> parameters) {
+    final mergedParameters = <String, dynamic>{
+      ...parameters,
+      ...globalParamsProvider.getGlobalParams().parameters,
+      ...platformParamsProvider.getPlatformParams().parameters,
+    };
+    {{#if @root.notSendNullParameters}}
+    mergedParameters.removeWhere((_, value) => value == null);
+    {{/if}}
+    eventTracker.trackEvent(event, mergedParameters);
+  }
 
   {{#unless @root.disableSendingMeta}}
   Map<String, dynamic> makeMeta(
@@ -141,8 +143,8 @@ class {{classname}} {
     {{#filterUndefined this.parameters 'type.Const'}}
     {{#each this}}
     {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
-    {{typeFormat this}}{{#if (or (isRef defaultValue) (eq defaultValue null))}}?{{/if}} {{camelcase name~}}
-    {{#if (and (isDefined defaultValue) (not (isRef defaultValue)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
+    {{typeFormat this}}{{#if (or (isRef defaultValue) (eq defaultValue null) optional)}}?{{/if}} {{camelcase name~}}
+    {{#if (and (isDefined defaultValue) (not (isRef defaultValue)) (not (eq defaultValue null)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/each}}
     {{/filterUndefined}}
   }) {
@@ -157,8 +159,8 @@ class {{classname}} {
     {{#filterUndefined this.parameters 'type.Const'}}
     {{#each this}}
     {{#unless (isDefined this.defaultValue)}}required {{/unless~}}
-    {{typeFormat this}}{{#if (or (isRef defaultValue) (eq defaultValue null))}}?{{/if}} {{camelcase name~}}
-    {{#if (and (isDefined defaultValue) (not (isRef defaultValue)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
+    {{typeFormat this}}{{#if (or (isRef defaultValue) (eq defaultValue null) optional)}}?{{/if}} {{camelcase name~}}
+    {{#if (and (isDefined defaultValue) (not (isRef defaultValue)) (not (eq defaultValue null)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/each}}
     {{/filterUndefined}}
   }) {

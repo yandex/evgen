@@ -29,14 +29,21 @@ interface {{classname}}PlatformParamsProvider {
 class {{classname}}GlobalParams(
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
-        {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+    {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+        {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
     {{/unless}}
     {{/each}}
 ) {
+    {{#filterDefined globalParameters.parameters 'defaultValue'}}
+    {{#each this}}
+    {{#if (isRef this.defaultValue)}}
+    val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
+    {{/if}}
+    {{/each}}
+    {{/filterDefined}}
     val parameters: Map<String, Any> = mapOf(
         {{#each globalParameters.parameters}}
-        "{{this.name}}" to {{>variableValueFormat parameter=this}},
+        "{{this.name}}" to {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}},
         {{/each}}
     )
 }
@@ -56,14 +63,23 @@ class {{classname}}GlobalParams(
 class {{classname}}PlatformParams(
     {{#each platformParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{camelcase this.name}}: {{typeFormat this~}}{{~#eq this.defaultValue null}}?{{/eq~}}
-        {{~#if (isDefined this.defaultValue)}} = {{>defaultValueFormat parameter=this}},{{else}},{{/if}}
+    {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+        {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
     {{/unless}}
     {{/each}}
 ) {
+    {{#if platformParameters}}
+    {{#filterDefined platformParameters.parameters 'defaultValue'}}
+    {{#each this}}
+    {{#if (isRef this.defaultValue)}}
+    val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
+    {{/if}}
+    {{/each}}
+    {{/filterDefined}}
+    {{/if}}
     val parameters: Map<String, Any> = mapOf(
         {{#each platformParameters.parameters}}
-        "{{this.name}}" to {{>variableValueFormat parameter=this}},
+        "{{this.name}}" to {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}},
         {{/each}}
     )
 }
@@ -78,6 +94,9 @@ class {{classname}}(
         mergedParameters.putAll(parameters)
         mergedParameters.putAll(globalParamsProvider.getGlobalParams().parameters)
         mergedParameters.putAll(platformParamsProvider.getPlatformParams().parameters)
+        {{#if @root.notSendNullParameters}}
+        mergedParameters.entries.removeAll { it.value == null }
+        {{/if}}
         eventTracker.trackEvent(event, mergedParameters)
     }
 

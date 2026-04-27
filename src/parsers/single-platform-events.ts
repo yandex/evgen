@@ -70,6 +70,25 @@ const parseSinglePlatformParameters = (
             }) as EventParameter<SinglePlatformParameterType>
     );
 
+const parametersByName = (list: EventParameter<ParameterType>[]) =>
+    Object.fromEntries(list.map((p) => [p.name, p])) as Record<
+        string,
+        EventParameter<ParameterType>
+    >;
+
+const mergeEventParametersForPlatform = (
+    version: EventVersion,
+    platformName: string
+): EventParameter<ParameterType>[] => {
+    const overrides = version.parametersPerPlatform?.[platformName];
+    if (!overrides?.length) {
+        return version.parameters;
+    }
+    const parameters = parametersByName(version.parameters);
+    const platformParams = parametersByName(overrides);
+    return Object.values({ ...parameters, ...platformParams });
+};
+
 const parsePlatformConstType = (
     platformConstType: PlatformConstType,
     platform: string
@@ -102,7 +121,10 @@ const parsePlatformEventVersions = (
         .map((version) => ({
             ...version,
             platform: platformName,
-            parameters: parseSinglePlatformParameters(version.parameters, platformName),
+            parameters: parseSinglePlatformParameters(
+                mergeEventParametersForPlatform(version, platformName),
+                platformName
+            ),
         }));
 
     if (allPlatformVersions.length === 0) {

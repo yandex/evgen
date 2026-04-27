@@ -27,6 +27,7 @@ Constants:
   value: &value value
   enum_name: &name name
   abstract: &abstract abstract
+  optional: &optional optional
   const: &const Const
   platformConst: &platformConst PlatformConst
   true: &true True
@@ -144,7 +145,6 @@ Constants:
                                     - option2
                     typedDictParam:
                         *description : типизированный Dict.
-                        *default_value : *empty_dict
                         *type :
                             *dict :
                                 stringParam: *string
@@ -196,8 +196,8 @@ Constants:
                         *element_type : *simpleEnumType
                         *default_value : *empty_list
                         *description : Cписок енумов
-                    
-                    defaultNullParam: 
+
+                    defaultNullParam:
                         *type : *string
                         *description : Параметр типа String со значением null по умолчанию
                         *default_value : null
@@ -206,7 +206,11 @@ Constants:
                         *type : *string
                         *description : Параметр по дефолту копирующий значение из другого параметра
                         *default_value : !ref enumParam
-
+                    
+                    optionalParam:
+                        *type : *string
+                        *optional : true
+                        *description : Необязательный параметр
                 *platforms :
                     *android :
                         *app_versions : 3.14

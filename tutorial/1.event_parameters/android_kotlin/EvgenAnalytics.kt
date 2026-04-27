@@ -141,6 +141,7 @@ class EvgenAnalytics(
      *  17. listOfEnum - Cписок енумов
      *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
      *  19. refParam - Параметр по дефолту копирующий значение из другого параметра
+     *  20. optionalParam - Необязательный параметр
      */
     fun myNamespaceMyEvent(
         stringParam: String = "val",
@@ -154,7 +155,7 @@ class EvgenAnalytics(
         enumWithDescriptionsParam: PagesWithDescriptions,
         dictParam: Map<String, Any> = mapOf<String, Any>(),
         dictElementType: Map<String, DictInEnumType>,
-        typedDictParam: Map<String, Any> = mapOf<String, Any>(),
+        typedDictParam: Map<String, Any>,
         typedListParam: List<Any>,
         listOfInt: List<Int> = listOf<Int>(),
         listOfDouble: List<Double> = listOf<Double>(),
@@ -162,6 +163,7 @@ class EvgenAnalytics(
         listOfEnum: List<MyNamespaceMyEventEnumParam> = listOf<MyNamespaceMyEventEnumParam>(),
         defaultNullParam: String? = null,
         refParam: String? = null,
+        optionalParam: String? = null,
     ) {
         val _refParam = refParam ?: enumParam.eventValue
         val parameters = mutableMapOf<String, Any>()
@@ -186,6 +188,7 @@ class EvgenAnalytics(
         parameters["listOfEnum"] = listOfEnum
         parameters["defaultNullParam"] = defaultNullParam
         parameters["refParam"] = _refParam
+        parameters["optionalParam"] = optionalParam
         val interfacesDict = HashMap<String, Any>()
         val _meta = makeMeta(1, interfacesDict)
         parameters["_meta"] = _meta

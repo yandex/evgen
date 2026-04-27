@@ -1,0 +1,7 @@
+.GlobalParams
+
+    Глобальные параметры для tutorial optional + not_send_null_parameters.
+
+    0. optionalGlobal: String
+       Необязательный глобальный параметр
+    Необязательный глобальный параметр

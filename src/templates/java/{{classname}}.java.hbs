@@ -22,26 +22,37 @@ public final class {{classname}} {
     public static final class GlobalParams {
         {{#each globalParameters.parameters}}
         {{#unless (isConst type)}}
-        public {{typeFormat this}} {{camelcase name}};
+        public {{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}{{nullableTypeFormat this}}{{else}}{{typeFormat this}}{{/if}} {{camelcase name}};
         {{/unless}}
         {{/each}}
         public Map<String, Object> paramsMap;
         public GlobalParams(
             {{~#each globalParameters.parameters~}}
             {{~#unless (isConst type)~}}
-            {{typeFormat this}} {{camelcase name}}
+            {{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}{{nullableTypeFormat this}}{{else}}{{typeFormat this}}{{/if}} {{camelcase name}}
             {{~#unless @last}}, {{/unless~}}
             {{~/unless~}}
             {{~/each~}}
         ) {
             {{#each globalParameters.parameters}}
             {{#unless (isConst type)}}
+            {{#if (and (isDefined this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}}
+            this.{{camelcase name}} = {{camelcase name}} != null ? {{camelcase name}} : {{>defaultValueFormat parameter=this}};
+            {{else}}
             this.{{camelcase name}} = {{camelcase name}};
+            {{/if}}
             {{/unless}}
             {{/each}}
+            {{#filterDefined globalParameters.parameters 'defaultValue'}}
+            {{#each this}}
+            {{#if (isRef this.defaultValue)}}
+            String _{{camelcase this.name}} = {{camelcase this.name}} != null ? {{camelcase this.name}} : {{camelcase (extractRef this.defaultValue)}}.eventValue;
+            {{/if}}
+            {{/each}}
+            {{/filterDefined}}
             Map<String, Object> params = new HashMap<>();
             {{#each globalParameters.parameters}}
-            params.put("{{name}}", {{camelcase name}});
+            params.put("{{name}}", {{#if (isRef this.defaultValue)}}_{{camelcase this.name}}{{else}}{{>variableValueFormat parameter=this}}{{/if}});
             {{/each}}
             this.paramsMap = params;
         }
@@ -62,26 +73,39 @@ public final class {{classname}} {
     public static final class PlatformParams {
         {{#each platformParameters.parameters}}
         {{#unless (isConst type)}}
-        public {{typeFormat this}} {{camelcase name}};
+        public {{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}{{nullableTypeFormat this}}{{else}}{{typeFormat this}}{{/if}} {{camelcase name}};
         {{/unless}}
         {{/each}}
         public Map<String, Object> paramsMap;
         public PlatformParams(
             {{~#each platformParameters.parameters~}}
             {{~#unless (isConst type)~}}
-            {{typeFormat this}} {{camelcase name}}
+            {{#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}{{nullableTypeFormat this}}{{else}}{{typeFormat this}}{{/if}} {{camelcase name}}
             {{~#unless @last}}, {{/unless~}}
             {{~/unless~}}
             {{~/each~}}
         ) {
             {{#each platformParameters.parameters}}
             {{#unless (isConst type)}}
+            {{#if (and (isDefined this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}}
+            this.{{camelcase name}} = {{camelcase name}} != null ? {{camelcase name}} : {{>defaultValueFormat parameter=this}};
+            {{else}}
             this.{{camelcase name}} = {{camelcase name}};
+            {{/if}}
             {{/unless}}
             {{/each}}
+            {{#if platformParameters}}
+            {{#filterDefined platformParameters.parameters 'defaultValue'}}
+            {{#each this}}
+            {{#if (isRef this.defaultValue)}}
+            String _{{camelcase this.name}} = {{camelcase this.name}} != null ? {{camelcase this.name}} : {{camelcase (extractRef this.defaultValue)}}.eventValue;
+            {{/if}}
+            {{/each}}
+            {{/filterDefined}}
+            {{/if}}
             Map<String, Object> params = new HashMap<>();
             {{#each platformParameters.parameters}}
-            params.put("{{name}}", {{camelcase name}});
+            params.put("{{name}}", {{#if (isRef this.defaultValue)}}_{{camelcase this.name}}{{else}}{{>variableValueFormat parameter=this}}{{/if}});
             {{/each}}
             this.paramsMap = params;
         }
@@ -109,6 +133,9 @@ public final class {{classname}} {
         Map<String, Object> mergedParams = new HashMap<>(parameters);
         mergedParams.putAll(this.globalParamsProvider.getGlobalParams().paramsMap);
         mergedParams.putAll(this.platformParamsProvider.getPlatformParams().paramsMap);
+        {{#if @root.notSendNullParameters}}
+        mergedParams.entrySet().removeIf(entry -> entry.getValue() == null);
+        {{/if}}
         this.tracker.trackEvent(eventName, mergedParams);
     }
     

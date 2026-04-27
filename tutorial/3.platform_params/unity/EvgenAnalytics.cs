@@ -67,7 +67,7 @@ public class EvgenAnalytics {
         
         public Dictionary<string, object> MakeParams() {
             var parameters = new Dictionary<string, object>();
-            parameters.Add("unityVersion", unityVersion)
+            parameters.Add("unityVersion", unityVersion);
             return parameters;
         }
         

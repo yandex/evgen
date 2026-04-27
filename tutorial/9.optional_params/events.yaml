@@ -1,0 +1,108 @@
+Constants:
+
+  Events: &Events Events
+  GlobalParameters: &GlobalParameters .GlobalParams
+  PlatformParameters: &PlatformParameters .PlatformParams
+  parameters: &parameters parameters
+  type: &type type
+  description: &description description
+  platforms: &platforms platforms
+  app_versions: &app_versions app_versions
+  ticket: &ticket ticket
+  in_progress: &in_progress in_progress
+  int: &int Int
+  string: &string String
+  optional: &optional optional
+  inheritance: &inheritance inheritance
+
+*inheritance :
+    android: &android Android
+    ios: &ios iOS
+    flutter: &flutter Flutter
+    web_smart_tv: &web_smart_tv WebSmartTV
+    unity: &unity Unity
+
+# Глобальный параметр с optional — в сочетании с not_send_null_parameters null не отправится, если явно не задан
+*GlobalParameters :
+    *parameters :
+        optionalGlobal:
+            *type : *string
+            *optional : true
+            *description : Необязательный глобальный параметр
+    *description : Глобальные параметры для tutorial optional + not_send_null_parameters.
+
+*PlatformParameters :
+    *android :
+        *description : Платформенные параметры Android
+        *parameters :
+            optionalPlatformHint:
+                *type : *string
+                *optional : true
+                *description : Необязательная подсказка с платформы
+    *ios :
+        *description : Платформенные параметры iOS
+        *parameters :
+            optionalPlatformHint:
+                *type : *string
+                *optional : true
+                *description : Необязательная подсказка с платформы
+    *flutter :
+        *description : Платформенные параметры Flutter
+        *parameters :
+            optionalPlatformHint:
+                *type : *string
+                *optional : true
+                *description : Необязательная подсказка с платформы
+    *web_smart_tv :
+        *description : Платформенные параметры WebSmartTV
+        *parameters :
+            optionalPlatformHint:
+                *type : *string
+                *optional : true
+                *description : Необязательная подсказка с платформы
+    *unity :
+        *description : Платформенные параметры Unity
+        *parameters :
+            optionalPlatformHint:
+                *type : *string
+                *optional : true
+                *description : Необязательная подсказка с платформы
+
+*Events :
+    OptionalNamespace:
+        DemoEvent:
+            v1:
+                *description : Событие с optional-параметрами; клиент может не передавать их, тогда при merge null-ключи отфильтровываются
+                *parameters :
+                    requiredId:
+                        *type : *string
+                        *description : Обязательный идентификатор
+                    optionalContext:
+                        *type : *string
+                        *optional : true
+                        *description : Необязательный контекст
+                    optionalScore:
+                        *type : *int
+                        *optional : true
+                        *description : Необязательное числовое значение
+                *platforms :
+                    *android :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                      *parameters :
+                          androidOnlyLocal:
+                              *type : *string
+                              *optional : true
+                              *description : Локальный параметр только для Android (не в общем списке и не на других платформах)
+                    *ios :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *flutter :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *web_smart_tv :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com
+                    *unity :
+                      *app_versions : *in_progress
+                      *ticket : https://your-tracker.com

@@ -15,9 +15,16 @@ interface TypeFormatOptions {
     globalTypes?: Record<string, GlobalType>;
 }
 
-export const typeFormat = (
+export const primitiveTypeFormat = (primitiveType: PrimitiveType): string =>
+    primitiveTypeFormatInternal(primitiveType, false);
+
+export const nullablePrimitiveTypeFormat = (primitiveType: PrimitiveType): string =>
+    primitiveTypeFormatInternal(primitiveType, true);
+
+const typeFormatInternal = (
     parameter: EventParameter<SinglePlatformParameterType>,
-    options: TypeFormatOptions = {}
+    options: TypeFormatOptions,
+    nullable: boolean
 ): string => {
     const { type, elementType, name, namespace, version } = parameter;
     const { globalTypes = {} } = options;
@@ -29,23 +36,27 @@ export const typeFormat = (
         case 'Double':
         case 'Bool':
         case 'TimeMilliseconds':
-            return primitiveTypeFormat(type);
+            return primitiveTypeFormatInternal(type, nullable);
         case 'List':
-            return elementType ? `List<${primitiveTypeFormat(elementType)}>` : 'List';
+            return elementType
+                ? `List<${primitiveTypeFormatInternal(elementType, false)}>`
+                : 'List';
         case 'Dict':
-            return `Map<String, ${elementType ? primitiveTypeFormat(elementType) : '?'}>`;
+            return `Map<String, ${
+                elementType ? primitiveTypeFormatInternal(elementType, false) : '?'
+            }>`;
         default:
-            // Вместо typealias-конструкций резолвим тип инлайн
             if (isRef(type)) {
                 const refName = extractRef(type);
                 const globalType = globalTypes[refName];
                 if (globalType) {
-                    return typeFormat(
+                    return typeFormatInternal(
                         {
                             ...parameter,
                             type: globalType.type as SinglePlatformParameterType,
                         },
-                        options
+                        options,
+                        nullable
                     );
                 }
                 return pascalCase(refName);
@@ -60,10 +71,10 @@ export const typeFormat = (
                 return `'${type.Const}'`;
             }
             if (isTypedList(type)) {
-                return primitiveTypeFormat('List');
+                return primitiveTypeFormatInternal('List', nullable);
             }
             if (isTypedDict(type)) {
-                return primitiveTypeFormat('Dict');
+                return primitiveTypeFormatInternal('Dict', nullable);
             }
             if (isCustomParameter(type)) {
                 return pascalCase(type.name || name);
@@ -72,7 +83,7 @@ export const typeFormat = (
     }
 };
 
-export const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
+const primitiveTypeFormatInternal = (primitiveType: PrimitiveType, nullable: boolean): string => {
     if (isEnum(primitiveType)) {
         return primitiveType.Enum.name || '?';
     }
@@ -81,14 +92,14 @@ export const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
         case 'String':
             return 'String';
         case 'Int':
-            return 'int';
+            return nullable ? 'Integer' : 'int';
         case 'Long Int':
         case 'TimeMilliseconds':
-            return 'long';
+            return nullable ? 'Long' : 'long';
         case 'Double':
-            return 'double';
+            return nullable ? 'Double' : 'double';
         case 'Bool':
-            return 'boolean';
+            return nullable ? 'Boolean' : 'boolean';
         case 'Dict':
             return 'Map<String, ?>';
         case 'List':
@@ -97,3 +108,13 @@ export const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
             throw new Error(`Unknown type: ${JSON.stringify(primitiveType)}`);
     }
 };
+
+export const typeFormat = (
+    parameter: EventParameter<SinglePlatformParameterType>,
+    options: TypeFormatOptions = {}
+): string => typeFormatInternal(parameter, options, false);
+
+export const nullableTypeFormat = (
+    parameter: EventParameter<SinglePlatformParameterType>,
+    options: TypeFormatOptions = {}
+): string => typeFormatInternal(parameter, options, true);

@@ -37,6 +37,7 @@ export enum MyNamespaceMyEventEnumParamInt {
  *  17. listOfEnum - Cписок енумов
  *  18. defaultNullParam - Параметр типа String со значением null по умолчанию
  *  19. refParam - Параметр по дефолту копирующий значение из другого параметра
+ *  20. optionalParam - Необязательный параметр
  */
 export type MyNamespaceMyEventParameters = {
     stringParam?: string;
@@ -50,7 +51,7 @@ export type MyNamespaceMyEventParameters = {
     enumWithDescriptionsParam: PagesWithDescriptions;
     dictParam?: Record<string, any>;
     dictElementType: Record<string, DictInEnumType>;
-    typedDictParam?: { stringParam: string; typedListParam: { intParam: number; boolParam: boolean; }[]; };
+    typedDictParam: { stringParam: string; typedListParam: { intParam: number; boolParam: boolean; }[]; };
     typedListParam: { stringParam: string; typedDictParam: { intParam: number; boolParam: boolean; }; }[];
     listOfInt?: number[];
     listOfDouble?: number[];
@@ -58,6 +59,7 @@ export type MyNamespaceMyEventParameters = {
     listOfEnum?: MyNamespaceMyEventEnumParam[];
     defaultNullParam?: string;
     refParam?: string;
+    optionalParam?: string;
 };
 export function myNamespaceMyEvent (
     evgen_analytics: EvgenAnalytics,
@@ -70,20 +72,20 @@ export function myNamespaceMyEvent (
         enumParam = MyNamespaceMyEventEnumParam.Option1,
         enumParamInt = MyNamespaceMyEventEnumParamInt.int1,
         dictParam = {},
-        typedDictParam = {},
         listOfInt = [],
         listOfDouble = [],
         listOfString = [],
         listOfEnum = [],
         defaultNullParam = undefined,
         refParam = parameters.enumParam,
+        optionalParam = undefined,
     } = parameters;
 
     const constParam = 'ValueToLog';
     const platformConst = 'WebSmartTVValue';
 
     const _meta = makeMetaParams(1)
-    const enhancedParams = {...parameters, stringParam, intParam, boolParam, enumParam, enumParamInt, dictParam, typedDictParam, listOfInt, listOfDouble, listOfString, listOfEnum, defaultNullParam, refParam, constParam, platformConst, _meta}
+    const enhancedParams = {...parameters, stringParam, intParam, boolParam, enumParam, enumParamInt, dictParam, listOfInt, listOfDouble, listOfString, listOfEnum, defaultNullParam, refParam, optionalParam, constParam, platformConst, _meta}
     evgen_analytics.trackEvent("MyNamespace.MyEvent", enhancedParams);
 }
 

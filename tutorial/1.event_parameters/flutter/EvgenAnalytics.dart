@@ -44,15 +44,14 @@ class EvgenAnalytics {
     required this.platformParamsProvider,
   });
 
-  void trackEvent(String event, Map<String, dynamic> parameters) =>
-      eventTracker.trackEvent(
-        event,
-        {
-          ...parameters,
-          ...globalParamsProvider.getGlobalParams().parameters,
-          ...platformParamsProvider.getPlatformParams().parameters,
-        },
-      );
+  void trackEvent(String event, Map<String, dynamic> parameters) {
+    final mergedParameters = <String, dynamic>{
+      ...parameters,
+      ...globalParamsProvider.getGlobalParams().parameters,
+      ...platformParamsProvider.getPlatformParams().parameters,
+    };
+    eventTracker.trackEvent(event, mergedParameters);
+  }
 
   Map<String, dynamic> makeMeta(
     int eventVersion,
@@ -116,6 +115,7 @@ class EvgenAnalytics {
   ///  17. listOfEnum - Cписок енумов
   ///  18. defaultNullParam - Параметр типа String со значением null по умолчанию
   ///  19. refParam - Параметр по дефолту копирующий значение из другого параметра
+  ///  20. optionalParam - Необязательный параметр
   void myNamespaceMyEvent({
     String stringParam = 'val',
     int intParam = 42,
@@ -128,7 +128,7 @@ class EvgenAnalytics {
     required PagesWithDescriptions enumWithDescriptionsParam,
     Map<String, dynamic> dictParam = const {},
     required Map<String, DictInEnumType> dictElementType,
-    Map<String, dynamic> typedDictParam = const {},
+    required Map<String, dynamic> typedDictParam,
     required List<dynamic> typedListParam,
     List<int> listOfInt = const [],
     List<double> listOfDouble = const [],
@@ -136,6 +136,7 @@ class EvgenAnalytics {
     List<MyNamespaceMyEventEnumParam> listOfEnum = const [],
     String? defaultNullParam = null,
     String? refParam,
+    String? optionalParam = null,
   }) {
     final _refParam = refParam ?? enumParam.value;
     final parameters = <String, dynamic>{
@@ -160,6 +161,7 @@ class EvgenAnalytics {
       'listOfEnum': listOfEnum,
       'defaultNullParam': defaultNullParam,
       'refParam': _refParam,
+      'optionalParam': optionalParam,
     };
 
     final interfacesDict = <String, dynamic>{};

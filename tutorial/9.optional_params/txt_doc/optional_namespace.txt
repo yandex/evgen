@@ -1,0 +1,15 @@
+OptionalNamespace.DemoEvent
+
+    V1
+    Неймспейсы: 
+    Событие с optional-параметрами; клиент может не передавать их, тогда при merge null-ключи отфильтровываются
+
+    0. requiredId: String
+       Обязательный идентификатор
+    1. optionalContext: String
+       Необязательный контекст
+    2. optionalScore: Int
+       Необязательное числовое значение
+    Android:
+    0. androidOnlyLocal: String
+       Локальный параметр только для Android (не в общем списке и не на других платформах)

@@ -11,6 +11,7 @@ import {
     findNamedEnumsDeepInEvents,
     findNamedCustomTypesDeepInEvents,
     compareCustomTypes,
+    flattenAllEventVersionParameters,
     isRef,
     extractRef,
     pascalCase,
@@ -29,6 +30,7 @@ interface CodeGenerateOptions extends GenerateOptions {
     disableSendingMeta?: boolean;
     sendMetaEvent?: boolean;
     sendMetaInterfaces?: boolean;
+    notSendNullParameters?: boolean;
 }
 
 interface DocsGenerateOptions extends GenerateOptions {
@@ -66,6 +68,7 @@ export const generateEventsCode = async (
         disableSendingMeta: options.disableSendingMeta,
         sendMetaEvent: options.sendMetaEvent,
         sendMetaInterfaces: options.sendMetaInterfaces,
+        notSendNullParameters: options.notSendNullParameters,
     };
 
     return compileTemplates(ctx, {
@@ -159,7 +162,7 @@ const extendNamespaceData = (namespace: EventNamespace<Event>) => {
     );
     const typeRefs = uniq(
         allVersions
-            .flatMap((version) => version.parameters)
+            .flatMap((version) => flattenAllEventVersionParameters(version))
             .filter((param) => isRef(param.type))
             .map((param) => pascalCase(extractRef(param.type as string)))
     ).sort();

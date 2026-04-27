@@ -20,6 +20,7 @@ export interface CodeConfig {
     template_dir?: string;
     disable_sending_meta?: boolean;
     meta_to_send?: MetaField[];
+    not_send_null_parameters?: boolean;
 }
 
 export interface DocConfig {
@@ -55,4 +56,11 @@ interface EvgenOptions {
      * Note: doesn't work if disable_sending_meta is true
      */
     meta_to_send?: MetaField[];
+    /**
+     * When true, generated `trackEvent` drops parameters whose values are null (and `undefined` in TypeScript).
+     * Default false — merged parameters are sent as-is.
+     *
+     * Can be overridden per-platform in code config.
+     */
+    not_send_null_parameters?: boolean;
 }

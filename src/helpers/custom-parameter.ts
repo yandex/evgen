@@ -1,6 +1,7 @@
 import { isEqual, get, set } from 'lodash';
 import { CustomType } from '../types/data-types';
 import { Event } from '../types/parsed-types';
+import { flattenAllEventVersionParameters } from './event-version-parameters';
 
 export const isCustomParameter = (type: unknown): type is CustomType =>
     typeof (type as CustomType).Custom === 'object';
@@ -8,7 +9,9 @@ export const isCustomParameter = (type: unknown): type is CustomType =>
 export const isNamedCustomType = (type: unknown) => isCustomParameter(type) && type.isNamed;
 
 export const findNamedCustomTypesDeepInEvents = (events: Event[]) => {
-    const topLevelParams = events.flatMap((e) => e.versions.flatMap((v) => v.parameters));
+    const topLevelParams = events.flatMap((e) =>
+        e.versions.flatMap((v) => flattenAllEventVersionParameters(v))
+    );
     return topLevelParams.map((param) => findNamedCustomTypesDeep(param)).flat();
 };
 

@@ -1,0 +1,32 @@
+.PlatformParams
+
+
+Android
+Платформенные параметры Android
+
+    0. optionalPlatformHint: String
+       Необязательная подсказка с платформы
+
+iOS
+Платформенные параметры iOS
+
+    0. optionalPlatformHint: String
+       Необязательная подсказка с платформы
+
+Flutter
+Платформенные параметры Flutter
+
+    0. optionalPlatformHint: String
+       Необязательная подсказка с платформы
+
+WebSmartTV
+Платформенные параметры WebSmartTV
+
+    0. optionalPlatformHint: String
+       Необязательная подсказка с платформы
+
+Unity
+Платформенные параметры Unity
+
+    0. optionalPlatformHint: String
+       Необязательная подсказка с платформы
