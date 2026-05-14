@@ -36,7 +36,7 @@ public final class {{classname}} {
         ) {
             {{#each globalParameters.parameters}}
             {{#unless (isConst type)}}
-            {{#if (and (isDefined this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}}
+            {{#if (and (isSpecified this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}}
             this.{{camelcase name}} = {{camelcase name}} != null ? {{camelcase name}} : {{>defaultValueFormat parameter=this}};
             {{else}}
             this.{{camelcase name}} = {{camelcase name}};
@@ -52,7 +52,7 @@ public final class {{classname}} {
             {{/filterDefined}}
             Map<String, Object> params = new HashMap<>();
             {{#each globalParameters.parameters}}
-            params.put("{{name}}", {{#if (isRef this.defaultValue)}}_{{camelcase this.name}}{{else}}{{>variableValueFormat parameter=this}}{{/if}});
+            params.put("{{paramNameCase name}}", {{#if (isRef this.defaultValue)}}_{{camelcase this.name}}{{else}}{{>variableValueFormat parameter=this}}{{/if}});
             {{/each}}
             this.paramsMap = params;
         }
@@ -87,7 +87,7 @@ public final class {{classname}} {
         ) {
             {{#each platformParameters.parameters}}
             {{#unless (isConst type)}}
-            {{#if (and (isDefined this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}}
+            {{#if (and (isSpecified this.defaultValue) (not (isRef this.defaultValue)) (not (eq this.defaultValue null)))}}
             this.{{camelcase name}} = {{camelcase name}} != null ? {{camelcase name}} : {{>defaultValueFormat parameter=this}};
             {{else}}
             this.{{camelcase name}} = {{camelcase name}};
@@ -105,7 +105,7 @@ public final class {{classname}} {
             {{/if}}
             Map<String, Object> params = new HashMap<>();
             {{#each platformParameters.parameters}}
-            params.put("{{name}}", {{#if (isRef this.defaultValue)}}_{{camelcase this.name}}{{else}}{{>variableValueFormat parameter=this}}{{/if}});
+            params.put("{{paramNameCase name}}", {{#if (isRef this.defaultValue)}}_{{camelcase this.name}}{{else}}{{>variableValueFormat parameter=this}}{{/if}});
             {{/each}}
             this.paramsMap = params;
         }
@@ -230,7 +230,7 @@ public final class {{classname}} {
         {{/filterDefined}}
         Map<String, Object> params = new HashMap<>();
         {{#each parameters}}
-        params.put("{{name}}"
+        params.put("{{paramNameCase name}}"
         {{~#contains (toArray 'int' 'long' 'double' 'boolean') (typeFormat this)~}}
             , String.valueOf({{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
         {{~else~}}

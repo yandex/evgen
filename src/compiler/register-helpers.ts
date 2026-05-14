@@ -7,6 +7,7 @@ import {
     isConst,
     isPlatformConst,
     isDefined,
+    isSpecified,
     isRef,
     extractRef,
     pascalCase,
@@ -28,7 +29,9 @@ import {
     isTypedDict,
     isCustomParameter,
     isNamedCustomType,
+    logger,
 } from '../helpers';
+import { applyCase } from '../helpers/parameter-case';
 import { typeFormat as typescriptTypeformat } from '../languages/typescript/types';
 import { typeFormat as swiftTypeformat } from '../languages/swift/types';
 import { specialWords as swiftSpecialWords } from '../languages/swift/special-words';
@@ -52,11 +55,11 @@ import {
     typeFormat as csharpTypeformat,
     primitiveTypeFormat as csharpPrimitiveTypeFormat,
 } from '../languages/csharp/types';
-import { CodeLanguage } from '../types/evgen-config';
+import { CompileOptions } from './types';
 
 import { Handlebars } from './types';
 
-export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
+export const registerHelpers = (hbs: Handlebars, compileOptions: CompileOptions) => {
     hbsHelpers(['comparison', 'array', 'string', 'object', 'collection', 'math'], { hbs });
     hbs.registerHelper('camelcase', camelCase);
     hbs.registerHelper('snakecase', snakeCase);
@@ -77,6 +80,7 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
     hbs.registerHelper('filterDefined', filterDefined);
     hbs.registerHelper('filterUndefined', filterUndefined);
     hbs.registerHelper('isDefined', isDefined);
+    hbs.registerHelper('isSpecified', isSpecified);
     hbs.registerHelper('isRef', isRef);
     hbs.registerHelper('extractRef', extractRef);
     hbs.registerHelper('toArray', toArray);
@@ -89,19 +93,28 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
     hbs.registerHelper('upperFirstLetter', upperFirstLetter);
     hbs.registerHelper('upperCase', upperCase);
 
-    if (language) {
-        switch (language) {
+    if (compileOptions.language) {
+        switch (compileOptions.language) {
             case 'type_script':
                 hbs.registerHelper('typeFormat', typescriptTypeformat);
+                hbs.registerHelper('paramNameCase', (value: string) =>
+                    applyCase(value, compileOptions.paramNameCase ?? 'camel')
+                );
                 break;
             case 'swift':
                 hbs.registerHelper('typeFormat', swiftTypeformat);
                 hbs.registerHelper('isSpecialWord', (str) => swiftSpecialWords.includes(str));
+                hbs.registerHelper('paramNameCase', (value: string) =>
+                    applyCase(value, compileOptions.paramNameCase ?? 'no')
+                );
                 break;
             case 'kotlin':
                 hbs.registerHelper('typeFormat', kotlinTypeformat);
                 hbs.registerHelper('primitiveTypeFormat', kotlinPrimitiveTypeFormat);
                 hbs.registerHelper('isSpecialWord', (str) => kotlinSpecialWords.includes(str));
+                hbs.registerHelper('paramNameCase', (value: string) =>
+                    applyCase(value, compileOptions.paramNameCase ?? 'no')
+                );
                 break;
             case 'java':
                 hbs.registerHelper('typeFormat', function (param, options) {
@@ -114,16 +127,29 @@ export const registerHelpers = (hbs: Handlebars, language?: CodeLanguage) => {
                 });
                 hbs.registerHelper('primitiveTypeFormat', javaPrimitiveTypeFormat);
                 hbs.registerHelper('nullablePrimitiveTypeFormat', javaNullablePrimitiveTypeFormat);
+                hbs.registerHelper('paramNameCase', (value: string) =>
+                    applyCase(value, compileOptions.paramNameCase ?? 'no')
+                );
                 break;
             case 'dart':
                 hbs.registerHelper('typeFormat', dartTypeformat);
                 hbs.registerHelper('primitiveTypeFormat', dartPrimitiveTypeFormat);
                 hbs.registerHelper('isSpecialWord', (str) => dartSpecialWords.includes(str));
+                hbs.registerHelper('paramNameCase', (value: string) =>
+                    applyCase(value, compileOptions.paramNameCase ?? 'no')
+                );
                 break;
             case 'c_sharp':
                 hbs.registerHelper('typeFormat', csharpTypeformat);
                 hbs.registerHelper('primitiveTypeFormat', csharpPrimitiveTypeFormat);
+                hbs.registerHelper('paramNameCase', (value: string) =>
+                    applyCase(value, compileOptions.paramNameCase ?? 'no')
+                );
+                break;
             default:
+                logger.warn(
+                    `Unknown language: ${compileOptions.language}. No helpers are registered`
+                );
                 break;
         }
     }

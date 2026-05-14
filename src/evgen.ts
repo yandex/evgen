@@ -4,7 +4,7 @@ import { resolve } from 'path';
 import { groupBy, sortBy, uniq, uniqBy, uniqWith } from 'lodash';
 
 import { compileTemplates } from './compiler';
-import { CodeLanguage } from './types/evgen-config';
+import { CodeLanguage, type CaseMode } from './types/evgen-config';
 import { EventNamespace, Event, NamespaceCollection, EventVersion } from './types/parsed-types';
 import { SinglePlatformNamespaceCollection } from './types/single-platform-types';
 import {
@@ -31,6 +31,7 @@ interface CodeGenerateOptions extends GenerateOptions {
     sendMetaEvent?: boolean;
     sendMetaInterfaces?: boolean;
     notSendNullParameters?: boolean;
+    paramNameCase?: CaseMode;
 }
 
 interface DocsGenerateOptions extends GenerateOptions {
@@ -69,12 +70,14 @@ export const generateEventsCode = async (
         sendMetaEvent: options.sendMetaEvent,
         sendMetaInterfaces: options.sendMetaInterfaces,
         notSendNullParameters: options.notSendNullParameters,
+        paramNameCase: options.paramNameCase,
     };
 
     return compileTemplates(ctx, {
         language,
         templateDir: options.templateDir,
         outputPath: options.outputPath,
+        paramNameCase: options.paramNameCase,
     });
 };
 

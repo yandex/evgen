@@ -1,0 +1,11 @@
+CaseDemo.SampleEvent
+
+    V1
+    Неймспейсы: 
+    Демонстрация param_name_case: одинаковое событие для Android, iOS, Flutter, WebSmartTV, Unity.
+    
+
+    0. user_session_id: String
+       Ключ в YAML в snake_case
+    1. screenTitle: String
+       Ключ в YAML в camelCase (без подчёркиваний)

@@ -5,6 +5,7 @@ export * from './defined';
 export * from './event-version-parameters';
 export * from './enum';
 export * from './string';
+export * from './parameter-case';
 export * from './object';
 export * from './custom-parameter';
 export * from './logger';

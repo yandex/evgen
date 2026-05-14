@@ -1,5 +1,5 @@
 {{~#if (isRef parameter.defaultValue)~}}
-    {{camelcase (extractRef parameter.defaultValue)}}
+    {{paramNameCase (extractRef parameter.defaultValue)}}
 {{~else~}}
     {{~#eq parameter.defaultValue 'empty_list'~}}
     []

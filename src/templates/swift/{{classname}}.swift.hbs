@@ -46,12 +46,12 @@ public struct {{classname}}GlobalParams {
         {{#each globalParameters.parameters}}
         {{#eq this.type 'Bool'}}
         if {{camelcase this.name}} {
-            options["{{this.name}}"] = "true"
+            options["{{paramNameCase this.name}}"] = "true"
         } else {
-            options["{{this.name}}"] = "false"
+            options["{{paramNameCase this.name}}"] = "false"
         }
         {{else}}
-        options["{{this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
+        options["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{/eq}}
         {{/each}}
         return options
@@ -61,7 +61,7 @@ public struct {{classname}}GlobalParams {
         {{~#each globalParameters.parameters~}}
         {{#unless (isConst this.type)}}
         {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
-        {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = nil{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
+        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = nil{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
         {{~#unless @last}}, {{/unless~}}
         {{/unless}}
         {{~/each~}}
@@ -108,7 +108,7 @@ public struct {{classname}}PlatformParams {
         {{#isEmpty platformParameters.parameters~}}let{{else}}var{{~/isEmpty}} options: [String: Any] = [:]
         {{#if platformParameters}}
         {{#each platformParameters.parameters}}
-        options["{{this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
+        options["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{/each}}
         {{/if}}
         return options
@@ -119,7 +119,7 @@ public struct {{classname}}PlatformParams {
         {{~#each platformParameters.parameters~}}
         {{~#unless (isConst this.type)~}}
         {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
-        {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = nil{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
+        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = nil{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
         {{~#unless @last}}, {{/unless~}}
         {{~/unless~}}
         {{~/each~}}
@@ -245,7 +245,7 @@ public final class {{classname}} {
             {{~#each this~}}
                 {{~#and @first (isEmpty ../../additionalNamespaces)}}{{else}}, {{/and~}}
                 {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
-                {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = nil{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
+                {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = nil{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
             {{~/each~}}
         {{~/filterUndefined~}}
     ) {
@@ -260,12 +260,12 @@ public final class {{classname}} {
         {{#each this.parameters}}
         {{#eq this.type 'Bool'}}
         if {{camelcase this.name}} {
-            options["{{this.name}}"] = "true"
+            options["{{paramNameCase this.name}}"] = "true"
         } else {
-            options["{{this.name}}"] = "false"
+            options["{{paramNameCase this.name}}"] = "false"
         }
         {{else}}
-        options["{{this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
+        options["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{/eq}}
         {{/each}}
         {{#unless @root.disableSendingMeta}}

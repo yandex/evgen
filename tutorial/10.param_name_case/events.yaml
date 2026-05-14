@@ -1,0 +1,32 @@
+# Имена параметров в спецификации смешанные (snake_case и camelCase).
+# Во всех конфигах evgen.yaml задано param_name_case: upper — смотрите сгенерированный код по платформам.
+Events:
+  CaseDemo:
+    SampleEvent:
+      v1:
+        description: >
+          Демонстрация param_name_case: одинаковое событие для Android, iOS, Flutter, WebSmartTV, Unity.
+        parameters:
+          user_session_id:
+            type: String
+            description: Ключ в YAML в snake_case
+            default_value: guest
+          screenTitle:
+            type: String
+            description: Ключ в YAML в camelCase (без подчёркиваний)
+        platforms:
+          Android:
+            app_versions: in_progress
+            ticket: https://your-tracker.com
+          iOS:
+            app_versions: in_progress
+            ticket: https://your-tracker.com
+          Flutter:
+            app_versions: in_progress
+            ticket: https://your-tracker.com
+          WebSmartTV:
+            app_versions: in_progress
+            ticket: https://your-tracker.com
+          Unity:
+            app_versions: in_progress
+            ticket: https://your-tracker.com

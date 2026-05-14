@@ -1,24 +1,24 @@
 import Hbs from 'handlebars';
 
-import { CodeLanguage } from '../types/evgen-config';
+import type { CompileOptions } from './types';
 
 import { TEMPLATE_EXTENSION } from './constants';
 import { registerHelpers } from './register-helpers';
 import { registerPartials } from './register-partials';
 
 interface CreateHandlebarsOptions {
-    language?: CodeLanguage;
+    compileOptions: CompileOptions;
     partialsDir?: string;
     extension?: string;
 }
 
 export const createHandlebars = async ({
-    language,
+    compileOptions,
     partialsDir,
     extension = TEMPLATE_EXTENSION,
 }: CreateHandlebarsOptions) => {
     const hbs = Hbs.create();
-    registerHelpers(hbs, language);
+    registerHelpers(hbs, compileOptions);
 
     if (partialsDir) {
         await registerPartials(hbs, partialsDir, {

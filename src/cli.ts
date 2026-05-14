@@ -86,6 +86,7 @@ program
                                         codeConfig.not_send_null_parameters ??
                                         config.options?.not_send_null_parameters ??
                                         false,
+                                    paramNameCase: codeConfig.param_name_case,
                                 }
                             );
                         } catch (e) {

@@ -113,12 +113,12 @@ public class {{classname}} {
             {{#each globalParameters.parameters}}
             {{#eq this.type 'Bool'}}
             if ({{camelcase this.name}}) {
-                parameters.Add("{{this.name}}", "true");
+                parameters.Add("{{paramNameCase this.name}}", "true");
             } else {
-                parameters.Add("{{this.name}}", "false");
+                parameters.Add("{{paramNameCase this.name}}", "false");
             }
             {{else}}
-            parameters.Add("{{this.name}}", {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
+            parameters.Add("{{paramNameCase this.name}}", {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
             {{/eq}}
             {{/each}}
             return parameters;
@@ -128,7 +128,7 @@ public class {{classname}} {
             {{~#each globalParameters.parameters~}}
             {{#unless (isConst this.type)}}
             {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
-            {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
+            {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
             {{~#unless @last}}, {{/unless~}}
             {{/unless}}
             {{~/each~}}
@@ -175,12 +175,12 @@ public class {{classname}} {
             {{#each platformParameters.parameters}}
             {{#eq this.type 'Bool'}}
             if ({{camelcase this.name}}) {
-                parameters.Add("{{this.name}}", "true");
+                parameters.Add("{{paramNameCase this.name}}", "true");
             } else {
-                parameters.Add("{{this.name}}", "false");
+                parameters.Add("{{paramNameCase this.name}}", "false");
             }
             {{else}}
-            parameters.Add("{{this.name}}", {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
+            parameters.Add("{{paramNameCase this.name}}", {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}})
             {{/eq}}
             {{/each}}
             {{/if}}
@@ -192,7 +192,7 @@ public class {{classname}} {
             {{~#each platformParameters.parameters~}}
             {{~#unless (isConst this.type)~}}
             {{~camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
-            {{~#if (isDefined this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
+            {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}}{{/if~}}
             {{~#unless @last}}, {{/unless~}}
             {{~/unless~}}
             {{~/each~}}
@@ -252,7 +252,7 @@ public class {{classname}} {
         {{#filterUndefined parameters 'type.Const'}}
         {{#each this}}
         {{typeFormat this}}{{#if (isRef defaultValue)}}?{{else}}{{#eq defaultValue null}}?{{else}}{{#if this.optional}}?{{/if}}{{/eq}}{{/if}} {{camelcase name}}
-        {{~#if (isDefined defaultValue)}} = {{#if (isRef defaultValue)}}null{{else}}{{>defaultValueFormat parameter=this}}{{/if}}{{/if}}{{#unless @last}},{{/unless}}
+        {{~#if (isSpecified defaultValue)}} = {{#if (isRef defaultValue)}}null{{else}}{{>defaultValueFormat parameter=this}}{{/if}}{{/if}}{{#unless @last}},{{/unless}}
         {{/each}}
         {{/filterUndefined}}
     ) {
@@ -265,7 +265,7 @@ public class {{classname}} {
         {{/filterDefined}}
         var parameters = new Dictionary<string, object>();
         {{#each parameters}}
-        parameters.Add("{{name}}", {{#if (isRef defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}});
+        parameters.Add("{{paramNameCase name}}", {{#if (isRef defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}});
         {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}
             .ToString()
         {{~/contains}}

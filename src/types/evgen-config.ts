@@ -10,13 +10,15 @@ export type DocsType = 'txt' | 'md' | 'yaml';
 
 export type MetaField = 'event' | 'interfaces';
 
+export type CaseMode = 'snake' | 'camel' | 'pascal' | 'upper' | 'no';
+
 export interface CodeConfig {
     platform: string;
     output_dir: string;
     language: CodeLanguage;
     class_name: string;
     only_last_version?: boolean;
-    param_name_case?: string;
+    param_name_case?: CaseMode;
     template_dir?: string;
     disable_sending_meta?: boolean;
     meta_to_send?: MetaField[];

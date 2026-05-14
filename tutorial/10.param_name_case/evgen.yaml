@@ -1,0 +1,46 @@
+# Tutorial 10 — param_name_case: у всех конфигов явно param_name_case upper (SCREAMING_SNAKE),
+# чтобы имена из YAML приводились к UPPER_SNAKE в коде и ключах payload.
+code:
+  AndroidJava:
+    platform: 'Android'
+    output_dir: 'android_java'
+    language: 'java'
+    class_name: 'EvgenAnalytics'
+    param_name_case: upper
+  AndroidKotlin:
+    platform: 'Android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
+    class_name: 'EvgenAnalytics'
+    param_name_case: upper
+  iOSSwift:
+    platform: 'iOS'
+    output_dir: 'ios_swift'
+    language: 'swift'
+    class_name: 'EvgenAnalytics'
+    param_name_case: upper
+  Flutter:
+    platform: 'Flutter'
+    output_dir: 'flutter'
+    language: 'dart'
+    class_name: 'EvgenAnalytics'
+    param_name_case: upper
+  WebSmartTV:
+    platform: 'WebSmartTV'
+    output_dir: 'web_smart_tv'
+    language: 'type_script'
+    class_name: 'EvgenAnalytics'
+    param_name_case: upper
+  Unity:
+    platform: 'Unity'
+    output_dir: 'unity'
+    language: 'c_sharp'
+    class_name: 'EvgenAnalytics'
+    param_name_case: upper
+doc:
+  Markdown:
+    extension: 'md'
+    output_dir: 'md_doc'
+  Txt:
+    extension: 'txt'
+    output_dir: 'txt_doc'
