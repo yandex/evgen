@@ -134,9 +134,9 @@ class EvgenAnalytics {
     List<double> listOfDouble = const [],
     List<String> listOfString = const [],
     List<MyNamespaceMyEventEnumParam> listOfEnum = const [],
-    String? defaultNullParam = null,
+    String? defaultNullParam,
     String? refParam,
-    String? optionalParam = null,
+    String? optionalParam,
   }) {
     final _refParam = refParam ?? enumParam.value;
     final parameters = <String, dynamic>{

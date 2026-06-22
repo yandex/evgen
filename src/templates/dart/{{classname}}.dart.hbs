@@ -144,7 +144,7 @@ class {{classname}} {
     {{#each this}}
     {{#unless (isSpecified this.defaultValue)}}required {{/unless~}}
     {{typeFormat this}}{{#if (or (isRef defaultValue) (eq defaultValue null) optional)}}?{{/if}} {{camelcase name~}}
-    {{#if (and (isSpecified defaultValue) (not (isRef defaultValue)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
+    {{#if (and (isSpecified defaultValue) (not (isRef defaultValue)) (not (eq defaultValue null)))}} = {{>defaultValueFormat parameter=this}}{{/if}},
     {{/each}}
     {{/filterUndefined}}
   }) {
