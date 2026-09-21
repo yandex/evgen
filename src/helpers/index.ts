@@ -10,3 +10,4 @@ export * from './object';
 export * from './custom-parameter';
 export * from './logger';
 export * from './ref';
+export * from './yaml';

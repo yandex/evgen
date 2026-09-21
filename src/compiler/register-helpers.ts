@@ -30,6 +30,7 @@ import {
     isCustomParameter,
     isNamedCustomType,
     logger,
+    yamlScalar,
 } from '../helpers';
 import { applyCase } from '../helpers/parameter-case';
 import { typeFormat as typescriptTypeformat } from '../languages/typescript/types';
@@ -92,6 +93,7 @@ export const registerHelpers = (hbs: Handlebars, compileOptions: CompileOptions)
     hbs.registerHelper('lowerFirstLetter', lowerFirstLetter);
     hbs.registerHelper('upperFirstLetter', upperFirstLetter);
     hbs.registerHelper('upperCase', upperCase);
+    hbs.registerHelper('yamlScalar', yamlScalar);
 
     if (compileOptions.language) {
         switch (compileOptions.language) {

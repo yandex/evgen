@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate yaml doc matches snapshot 1`] = `
+".GlobalParams:
+  parameters:
+    boolString:
+      default_value: \\"False\\"
+      type: String
+    colonString:
+      default_value: \\"12:30\\"
+      type: String
+    dash:
+      default_value: \\"-\\"
+      type: String
+    emptyString:
+      default_value: \\"\\"
+      type: String
+    falseFlag:
+      default_value: false
+      type: Bool
+    negativeNumberString:
+      default_value: \\"-1\\"
+      type: String
+    optionalWithoutDefault:
+      type: String
+    plainString:
+      default_value: unknown
+      type: String
+    yesString:
+      default_value: \\"yes\\"
+      type: String
+    zero:
+      default_value: 0
+      type: Int
+Events:
+  TestNamespace.Event1:
+    v1:
+      parameters:
+        eventDash:
+          default_value: \\"-\\"
+          type: String
+Interfaces: {}
+"
+`;

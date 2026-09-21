@@ -33,12 +33,14 @@ export const compileFile = async (
     const compiledStr = template(ctx);
     const inlineFiles = parseInlineFiles(compiledStr, initialFile);
 
-    return Object.keys(inlineFiles)
-        .filter((file) => inlineFiles[file] && !inlineFiles[file].match(/^\s+$/g))
-        .map(async (filePath) => {
-            const fileDir = dirname(filePath);
-            await mkdir(fileDir, { recursive: true });
+    return Promise.all(
+        Object.keys(inlineFiles)
+            .filter((file) => inlineFiles[file] && !inlineFiles[file].match(/^\s+$/g))
+            .map(async (filePath) => {
+                const fileDir = dirname(filePath);
+                await mkdir(fileDir, { recursive: true });
 
-            return writeFile(filePath, inlineFiles[filePath]);
-        });
+                return writeFile(filePath, inlineFiles[filePath]);
+            })
+    );
 };

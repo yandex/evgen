@@ -1,0 +1,58 @@
+.GlobalParams:
+    description: Дефолты, которые нельзя вставлять в YAML-доку без экранирования.
+    parameters:
+        dash:
+            type: String
+            default_value: '-'
+            description: Прочерк — в YAML это начало элемента списка
+        negativeNumberString:
+            type: String
+            default_value: '-1'
+            description: Строка, которую без кавычек прочитают как число
+        emptyString:
+            type: String
+            default_value: ''
+            description: Пустая строка — falsy, но дефолт задан
+        zero:
+            type: Int
+            default_value: 0
+            description: Ноль — falsy, но дефолт задан
+        falseFlag:
+            type: Bool
+            default_value: false
+            description: false — falsy, но дефолт задан
+        boolString:
+            type: String
+            default_value: 'False'
+            description: Строка, которую без кавычек прочитают как boolean
+        yesString:
+            type: String
+            default_value: 'yes'
+            description: Строка, которую YAML 1.1 без кавычек прочитает как boolean
+        colonString:
+            type: String
+            default_value: '12:30'
+            description: Строка, которую YAML 1.1 без кавычек прочитает как число
+        plainString:
+            type: String
+            default_value: unknown
+            description: Обычная строка, кавычки не нужны
+        optionalWithoutDefault:
+            type: String
+            optional: true
+            description: optional без дефолта — default_value в доку попадать не должен
+
+Events:
+    TestNamespace:
+        Event1:
+            v1:
+                description: Событие с дефолтом-прочерком в параметре
+                parameters:
+                    eventDash:
+                        type: String
+                        default_value: '-'
+                        description: Прочерк в параметре события
+                platforms:
+                    Android:
+                        app_versions: in_progress
+                        ticket: https://your-tracker.com
