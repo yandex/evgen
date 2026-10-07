@@ -6,7 +6,7 @@
 import Foundation
 
 public protocol {{classname}}Tracker {
-    func trackEvent(_ event: String, withOptions options: [String: Any])
+    func trackEvent(_ event: String, withOptions options: [String: {{anyType}}])
 }
 
 public protocol {{classname}}GlobalParamsProvider: AnyObject {
@@ -34,7 +34,7 @@ public struct {{classname}}GlobalParams {
     {{/unless}}
     {{/each}}
 
-    public func makeOptions() -> [String: Any] {
+    public func makeOptions() -> [String: {{anyType}}] {
         {{#filterDefined globalParameters.parameters 'defaultValue'}}
         {{#each this}}
         {{#if (isRef this.defaultValue)}}
@@ -42,7 +42,7 @@ public struct {{classname}}GlobalParams {
         {{/if}}
         {{/each}}
         {{/filterDefined}}
-        {{#isEmpty globalParameters.parameters~}}let{{else}}var{{~/isEmpty}} options: [String: Any] = [:]
+        {{#isEmpty globalParameters.parameters~}}let{{else}}var{{~/isEmpty}} options: [String: {{anyType}}] = [:]
         {{#each globalParameters.parameters}}
         {{#eq this.type 'Bool'}}
         if {{camelcase this.name}} {
@@ -95,7 +95,7 @@ public struct {{classname}}PlatformParams {
     {{/each}}
     {{/if}}
     
-    public func makeOptions() -> [String: Any] {
+    public func makeOptions() -> [String: {{anyType}}] {
         {{#if platformParameters}}
         {{#filterDefined platformParameters.parameters 'defaultValue'}}
         {{#each this}}
@@ -105,7 +105,7 @@ public struct {{classname}}PlatformParams {
         {{/each}}
         {{/filterDefined}}
         {{/if}}
-        {{#isEmpty platformParameters.parameters~}}let{{else}}var{{~/isEmpty}} options: [String: Any] = [:]
+        {{#isEmpty platformParameters.parameters~}}let{{else}}var{{~/isEmpty}} options: [String: {{anyType}}] = [:]
         {{#if platformParameters}}
         {{#each platformParameters.parameters}}
         options["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
@@ -146,7 +146,7 @@ public final class {{classname}} {
     private let globalParamsProvider: {{classname}}GlobalParamsProvider
     private let platformParamsProvider: {{classname}}PlatformParamsProvider
     
-    private func trackEvent(_ event: String, withOptions options: [String: Any]) {
+    private func trackEvent(_ event: String, withOptions options: [String: {{anyType}}]) {
         var mergedOptions = options
         let globalParams = globalParamsProvider.getGlobalParams()
         for (key, value) in globalParams.makeOptions() {
@@ -175,12 +175,12 @@ public final class {{classname}} {
         {{~#if @root.sendMetaInterfaces}}, {{/if~}}
         {{~/if~}}
         {{~#if @root.sendMetaInterfaces~}}
-        interfaces: [String: Any]
+        interfaces: [String: {{anyType}}]
         {{~/if~}}
-    ) -> [String: Any] {
-        var metaDict: [String: Any] = [:]
+    ) -> [String: {{anyType}}] {
+        var metaDict: [String: {{anyType}}] = [:]
         {{#if @root.sendMetaEvent}}
-        var eventDict: [String: Any] = [:]
+        var eventDict: [String: {{anyType}}] = [:]
         eventDict["version"] = event_version
         metaDict["event"] = eventDict
         {{/if}}
@@ -211,7 +211,7 @@ public final class {{classname}} {
     {{/each}}
     {{/filterFalsy}}
     {{#unless (isEmpty additionalNamespaces)}}
-    public enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}: String {
+    public enum {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}: String{{#if (isSendableMode)}}, Sendable{{/if}} {
     {{#each additionalNamespaces}}
         {{#if (isSpecialWord (camelcase this))}}
         case `{{camelcase this}}` = "{{this}}"
@@ -256,7 +256,7 @@ public final class {{classname}} {
         {{/if}}
         {{/each}}
         {{/filterDefined}}
-        var options: [String: Any] = [:]
+        var options: [String: {{anyType}}] = [:]
         {{#each this.parameters}}
         {{#eq this.type 'Bool'}}
         if {{camelcase this.name}} {
@@ -270,9 +270,9 @@ public final class {{classname}} {
         {{/each}}
         {{#unless @root.disableSendingMeta}}
         {{#if @root.sendMetaInterfaces}}
-        {{#if (isEmpty this.interfaces)}}let{{else}}var{{/if}} interfacesDict: [String: Any] = [:]
+        {{#if (isEmpty this.interfaces)}}let{{else}}var{{/if}} interfacesDict: [String: {{anyType}}] = [:]
         {{#each this.interfaces}}
-        var {{camelcase @key}}: [String: Any] = [:]
+        var {{camelcase @key}}: [String: {{anyType}}] = [:]
         {{camelcase @key}}["version"] = {{this}}
         interfacesDict["{{@key}}"] = {{camelcase @key}}
         {{/each}}

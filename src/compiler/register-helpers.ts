@@ -34,7 +34,7 @@ import {
 } from '../helpers';
 import { applyCase } from '../helpers/parameter-case';
 import { typeFormat as typescriptTypeformat } from '../languages/typescript/types';
-import { typeFormat as swiftTypeformat } from '../languages/swift/types';
+import { swiftHelpers } from '../languages/swift/helpers';
 import { specialWords as swiftSpecialWords } from '../languages/swift/special-words';
 import {
     typeFormat as javaTypeformat,
@@ -104,7 +104,7 @@ export const registerHelpers = (hbs: Handlebars, compileOptions: CompileOptions)
                 );
                 break;
             case 'swift':
-                hbs.registerHelper('typeFormat', swiftTypeformat);
+                hbs.registerHelper(swiftHelpers);
                 hbs.registerHelper('isSpecialWord', (str) => swiftSpecialWords.includes(str));
                 hbs.registerHelper('paramNameCase', (value: string) =>
                     applyCase(value, compileOptions.paramNameCase ?? 'no')

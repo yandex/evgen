@@ -9,10 +9,27 @@ import {
     isCustomParameter,
     isRef,
     extractRef,
+    majorLanguageVersion,
 } from '../../helpers';
 
-export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType>): string => {
+const SENDABLE_MIN_SWIFT_VERSION = 6;
+
+export const isSendableMode = (languageVersion?: string): boolean =>
+    (majorLanguageVersion(languageVersion) ?? 0) >= SENDABLE_MIN_SWIFT_VERSION;
+
+export const anyType = (languageVersion?: string): string =>
+    isSendableMode(languageVersion) ? 'any Sendable' : 'Any';
+
+interface TypeFormatOptions {
+    languageVersion?: string;
+}
+
+export const typeFormat = (
+    parameter: EventParameter<SinglePlatformParameterType>,
+    { languageVersion }: TypeFormatOptions = {}
+): string => {
     const { type, elementType, namespace, version, name } = parameter;
+    const valueType = anyType(languageVersion);
     switch (type) {
         case 'String':
         case 'Int':
@@ -20,11 +37,13 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
         case 'Double':
         case 'Bool':
         case 'TimeMilliseconds':
-            return primitiveTypeFormat(type);
+            return primitiveTypeFormat(type, valueType);
         case 'List':
-            return `[${elementType ? primitiveTypeFormat(elementType) : ''}]`;
+            return `[${elementType ? primitiveTypeFormat(elementType, valueType) : ''}]`;
         case 'Dict':
-            return `[String: ${elementType ? primitiveTypeFormat(elementType) : 'Any'}]`;
+            return `[String: ${
+                elementType ? primitiveTypeFormat(elementType, valueType) : valueType
+            }]`;
         default:
             if (isRef(type)) {
                 return pascalCase(extractRef(type));
@@ -39,21 +58,21 @@ export const typeFormat = (parameter: EventParameter<SinglePlatformParameterType
                 return `'${type.Const}'`;
             }
             if (isTypedList(type)) {
-                return primitiveTypeFormat('List');
+                return primitiveTypeFormat('List', valueType);
             }
             if (isTypedDict(type)) {
-                return primitiveTypeFormat('Dict');
+                return primitiveTypeFormat('Dict', valueType);
             }
             if (isCustomParameter(type)) {
-                return primitiveTypeFormat(type);
+                return primitiveTypeFormat(type, valueType);
             }
             throw new Error(`Unknown type: ${JSON.stringify(type)}`);
     }
 };
 
-const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
+const primitiveTypeFormat = (primitiveType: PrimitiveType, valueType: string): string => {
     if (isEnum(primitiveType)) {
-        return primitiveType.Enum.name || 'Any';
+        return primitiveType.Enum.name || valueType;
     }
     if (isCustomParameter(primitiveType)) {
         return pascalCase(primitiveType.name);
@@ -71,9 +90,9 @@ const primitiveTypeFormat = (primitiveType: PrimitiveType): string => {
         case 'TimeMilliseconds':
             return 'Double';
         case 'Dict':
-            return '[String: Any]';
+            return `[String: ${valueType}]`;
         case 'List':
-            return '[Any]';
+            return `[${valueType}]`;
         default:
             throw new Error(`Unknown type: ${JSON.stringify(primitiveType)}`);
     }

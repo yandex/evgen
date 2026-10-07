@@ -23,6 +23,7 @@ export interface CodeConfig {
     disable_sending_meta?: boolean;
     meta_to_send?: MetaField[];
     not_send_null_parameters?: boolean;
+    language_version?: string;
 }
 
 export interface DocConfig {

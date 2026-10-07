@@ -32,6 +32,7 @@ interface CodeGenerateOptions extends GenerateOptions {
     sendMetaInterfaces?: boolean;
     notSendNullParameters?: boolean;
     paramNameCase?: CaseMode;
+    languageVersion?: string;
 }
 
 interface DocsGenerateOptions extends GenerateOptions {
@@ -71,6 +72,7 @@ export const generateEventsCode = async (
         sendMetaInterfaces: options.sendMetaInterfaces,
         notSendNullParameters: options.notSendNullParameters,
         paramNameCase: options.paramNameCase,
+        languageVersion: options.languageVersion,
     };
 
     return compileTemplates(ctx, {

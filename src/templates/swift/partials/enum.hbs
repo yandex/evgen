@@ -8,7 +8,7 @@
  */
 {{/if}}
 {{/filterTruthy}}
-public enum {{typeFormat parameter}}: String {
+public enum {{typeFormat parameter}}: String{{#if (isSendableMode)}}, Sendable{{/if}} {
     {{#each parameter.type.Enum.values}}
     {{#if (isNumber (default value this))}}
     case int{{default value this}} = "{{default value this}}"

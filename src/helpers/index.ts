@@ -6,6 +6,7 @@ export * from './event-version-parameters';
 export * from './enum';
 export * from './string';
 export * from './parameter-case';
+export * from './language-version';
 export * from './object';
 export * from './custom-parameter';
 export * from './logger';

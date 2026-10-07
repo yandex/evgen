@@ -10,7 +10,7 @@ import { parseEvents } from './parsers';
 import { CodeLanguage, Config, DocsType } from './types/evgen-config';
 import { RawEvents } from './types/raw-types';
 import { singlePlatformEvents } from './parsers/single-platform-events';
-import { logger } from './helpers';
+import { logger, resolveLanguageVersion } from './helpers';
 
 const program = new Command();
 
@@ -87,6 +87,9 @@ program
                                         config.options?.not_send_null_parameters ??
                                         false,
                                     paramNameCase: codeConfig.param_name_case,
+                                    languageVersion: resolveLanguageVersion(
+                                        codeConfig.language_version
+                                    ),
                                 }
                             );
                         } catch (e) {

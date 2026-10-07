@@ -64,6 +64,7 @@ code:
     disable_sending_meta: boolean # Отключить _meta для этой платформы (опционально)
     meta_to_send: array           # Какие поля включить в _meta: ['event', 'interfaces'] (опционально)
     not_send_null_parameters: boolean # Не передавать в trackEvent ключи с null (опционально)
+    language_version: string   # Версия языка из поля language, например '6' или '6.0' (опционально)
 
 doc:
   # Конфигурации для генерации документации
@@ -230,6 +231,29 @@ code:
     language: 'type_script'
     class_name: 'EvgenAnalytics'
     not_send_null_parameters: true
+```
+
+#### `language_version`
+Версия языка, указанного в поле `language` этой платформы. Задаётся строкой из чисел через точку (`'6'`, `'6.0'`, `'5.10'`); число из YAML тоже принимается, но версии вроде `5.10` пишите в кавычках, иначе YAML прочитает их как `5.1`. Значение другого формата приводит к ошибке генерации для этой платформы. Версия доступна шаблонам любого языка как переменная `languageVersion`.
+
+Встроенные шаблоны учитывают версию для `language: 'swift'`:
+
+- версия не задана или major меньше 6 — значения словарей и списков без явного типа генерируются как `Any`: `[String: Any]`, `[Any]`
+- major 6 и выше — вместо `Any` генерируется `any Sendable`: `[String: any Sendable]`, `[any Sendable]`, а сгенерированные перечисления объявляются как `Sendable`. Так параметры событий можно передавать между акторами и задачами в режиме Swift 6 strict concurrency.
+
+Тип значения меняется во всём сгенерированном Swift-коде: в протоколе трекера (`trackEvent(_:withOptions:)`), в `makeOptions()` глобальных и платформозависимых параметров, в `_meta`, в параметрах `Dict` без `element_type`, в типизированных `Dict` и `List` и в списках безымянных перечислений. Коллекции с явным `element_type` (например, `[String: String]`) не меняются.
+
+В пользовательских Swift-шаблонах (`template_dir`) используйте хелпер `{{anyType}}` вместо `Any` и условие `{{#if (isSendableMode)}}, Sendable{{/if}}` в объявлении перечислений, иначе шаблон продолжит генерировать `[String: Any]`.
+
+**Пример:**
+```yaml
+code:
+  iOS:
+    platform: 'iOS'
+    output_dir: 'ios'
+    language: 'swift'
+    language_version: '6'
+    class_name: 'EvgenAnalytics'
 ```
 
 ## Файл событий (один events.yaml в простейшем случае, но так же может быть и папка с такими файлами)
@@ -707,6 +731,9 @@ EvGen использует шаблоны Handlebars для генерации �
       - `repeat` - `{{repeat "-" 3}}` → `"---"`
       - `entries` - `{{#each (entries object)}}{{key}}: {{value}}{{/each}}`
       - `groupBy` - `{{#each (groupBy events "namespace")}}группа{{/each}}`
+    * только для Swift:
+      - `anyType` - `[String: {{anyType}}]` → `[String: Any]` или `[String: any Sendable]` в зависимости от `language_version`
+      - `isSendableMode` - `{{#if (isSendableMode)}}, Sendable{{/if}}` → истина, если major `language_version` не меньше 6
 
 
 ### Пользовательские шаблоны
@@ -732,6 +759,7 @@ code:
 - **`sendMetaEvent`** (`boolean`) - включать ли версию события в `_meta.event`
 - **`sendMetaInterfaces`** (`boolean`) - включать ли интерфейсы в `_meta.interfaces`
 - **`notSendNullParameters`** (`boolean`) - если `true`, в сгенерированном `trackEvent` из итогового словаря параметров убираются ключи со значением null (в TypeScript также `undefined`); задаётся опцией `not_send_null_parameters` в YAML
+- **`languageVersion`** (`string | undefined`) - версия языка из опции `language_version`; в Swift-шаблонах от неё зависят хелперы `typeFormat`, `anyType` и `isSendableMode`
 
 #### Параметры
 
