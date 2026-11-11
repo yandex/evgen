@@ -42,7 +42,7 @@ public struct {{classname}}GlobalParams {
         {{/if}}
         {{/each}}
         {{/filterDefined}}
-        {{#isEmpty globalParameters.parameters~}}let{{else}}var{{~/isEmpty}} options: [String: {{anyType}}] = [:]
+        {{#isEmpty globalParameters.parameters~}}let{{else}}var{{~/isEmpty}} options = [String: {{anyType}}](minimumCapacity: {{length globalParameters.parameters}})
         {{#each globalParameters.parameters}}
         {{#eq this.type 'Bool'}}
         if {{camelcase this.name}} {
@@ -105,7 +105,7 @@ public struct {{classname}}PlatformParams {
         {{/each}}
         {{/filterDefined}}
         {{/if}}
-        {{#isEmpty platformParameters.parameters~}}let{{else}}var{{~/isEmpty}} options: [String: {{anyType}}] = [:]
+        {{#isEmpty platformParameters.parameters~}}let{{else}}var{{~/isEmpty}} options = [String: {{anyType}}](minimumCapacity: {{length platformParameters.parameters}})
         {{#if platformParameters}}
         {{#each platformParameters.parameters}}
         options["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
@@ -146,8 +146,7 @@ public final class {{classname}} {
     private let globalParamsProvider: {{classname}}GlobalParamsProvider
     private let platformParamsProvider: {{classname}}PlatformParamsProvider
     
-    private func trackEvent(_ event: String, withOptions options: [String: {{anyType}}]) {
-        var mergedOptions = options
+    private func trackEvent(_ event: String, withOptions mergedOptions: inout [String: {{anyType}}]) {
         let globalParams = globalParamsProvider.getGlobalParams()
         for (key, value) in globalParams.makeOptions() {
             assert(mergedOptions[key] == nil, "Global parameter conflicts with event parameter: \(key). Will be overwritten.")
@@ -178,9 +177,9 @@ public final class {{classname}} {
         interfaces: [String: {{anyType}}]
         {{~/if~}}
     ) -> [String: {{anyType}}] {
-        var metaDict: [String: {{anyType}}] = [:]
+        var metaDict = [String: {{anyType}}](minimumCapacity: {{#if @root.sendMetaEvent}}1{{else}}0{{/if}}{{#if @root.sendMetaInterfaces}} + 1{{/if}})
         {{#if @root.sendMetaEvent}}
-        var eventDict: [String: {{anyType}}] = [:]
+        var eventDict = [String: {{anyType}}](minimumCapacity: 1)
         eventDict["version"] = event_version
         metaDict["event"] = eventDict
         {{/if}}
@@ -256,7 +255,7 @@ public final class {{classname}} {
         {{/if}}
         {{/each}}
         {{/filterDefined}}
-        var options: [String: {{anyType}}] = [:]
+        var options = [String: {{anyType}}](minimumCapacity: {{sum (length this.parameters) (length @root.globalParameters.parameters) (length @root.platformParameters.parameters)}}{{#unless @root.disableSendingMeta}} + 1{{/unless}})
         {{#each this.parameters}}
         {{#eq this.type 'Bool'}}
         if {{camelcase this.name}} {
@@ -270,9 +269,9 @@ public final class {{classname}} {
         {{/each}}
         {{#unless @root.disableSendingMeta}}
         {{#if @root.sendMetaInterfaces}}
-        {{#if (isEmpty this.interfaces)}}let{{else}}var{{/if}} interfacesDict: [String: {{anyType}}] = [:]
+        {{#if (isEmpty this.interfaces)}}let{{else}}var{{/if}} interfacesDict = [String: {{anyType}}](minimumCapacity: {{length this.interfaces}})
         {{#each this.interfaces}}
-        var {{camelcase @key}}: [String: {{anyType}}] = [:]
+        var {{camelcase @key}} = [String: {{anyType}}](minimumCapacity: 1)
         {{camelcase @key}}["version"] = {{this}}
         interfacesDict["{{@key}}"] = {{camelcase @key}}
         {{/each}}
@@ -288,7 +287,7 @@ public final class {{classname}} {
         )
         options["_meta"] = _meta
         {{/unless}}
-        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.rawValue + "." + {{/unless}}"{{this.event}}", withOptions: options)
+        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.rawValue + "." + {{/unless}}"{{this.event}}", withOptions: &options)
     }
 
     {{/each}}

@@ -4,6 +4,10 @@
  */
 /* ktlint-disable */
 
+{{#unless @root.disableSendingMeta}}
+import java.util.Collections
+
+{{/unless}}
 interface {{classname}}Tracker {
     fun trackEvent(event: String, parameters: Map<String, Any>)
 }
@@ -29,7 +33,7 @@ interface {{classname}}PlatformParamsProvider {
 class {{classname}}GlobalParams(
     {{#each globalParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+    private val {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
         {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
     {{/unless}}
     {{/each}}
@@ -41,11 +45,11 @@ class {{classname}}GlobalParams(
     {{/if}}
     {{/each}}
     {{/filterDefined}}
-    val parameters: Map<String, Any> = mapOf(
+    internal fun writeAllTo(target: MutableMap<String, Any>) {
         {{#each globalParameters.parameters}}
-        "{{paramNameCase this.name}}" to {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}},
+        target["{{paramNameCase this.name}}"] = {{#unless (isConst this.type)}}this.{{/unless}}{{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{/each}}
-    )
+    }
 }
 
 {{#if platformParameters}}
@@ -63,7 +67,7 @@ class {{classname}}GlobalParams(
 class {{classname}}PlatformParams(
     {{#each platformParameters.parameters}}
     {{#unless (isConst this.type)}}
-    {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+    private val {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
         {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
     {{/unless}}
     {{/each}}
@@ -77,11 +81,11 @@ class {{classname}}PlatformParams(
     {{/each}}
     {{/filterDefined}}
     {{/if}}
-    val parameters: Map<String, Any> = mapOf(
+    internal fun writeAllTo(target: MutableMap<String, Any>) {
         {{#each platformParameters.parameters}}
-        "{{paramNameCase this.name}}" to {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}},
+        target["{{paramNameCase this.name}}"] = {{#unless (isConst this.type)}}this.{{/unless}}{{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{/each}}
-    )
+    }
 }
 
 class {{classname}}(
@@ -90,14 +94,12 @@ class {{classname}}(
     private val platformParamsProvider: {{classname}}PlatformParamsProvider,
 ) {
     private fun trackEvent(event: String, parameters: MutableMap<String, Any>) {
-        val mergedParameters: HashMap<String, Any> = HashMap<String, Any>()
-        mergedParameters.putAll(parameters)
-        mergedParameters.putAll(globalParamsProvider.getGlobalParams().parameters)
-        mergedParameters.putAll(platformParamsProvider.getPlatformParams().parameters)
+        globalParamsProvider.getGlobalParams().writeAllTo(parameters)
+        platformParamsProvider.getPlatformParams().writeAllTo(parameters)
         {{#if @root.notSendNullParameters}}
-        mergedParameters.entries.removeAll { it.value == null }
+        parameters.entries.removeAll { it.value == null }
         {{/if}}
-        eventTracker.trackEvent(event, mergedParameters)
+        eventTracker.trackEvent(event, parameters)
     }
 
     {{#unless @root.disableSendingMeta}}
@@ -110,10 +112,9 @@ class {{classname}}(
         interfaces: Map<String, Any>
         {{~/if~}}
     ): Map<String, Any> {
-        val metaDict = HashMap<String, Any>()
+        val metaDict = HashMap<String, Any>({{#if (and @root.sendMetaEvent @root.sendMetaInterfaces)}}3{{else}}{{#if (or @root.sendMetaEvent @root.sendMetaInterfaces)}}2{{else}}0{{/if}}{{/if}})
         {{#if @root.sendMetaEvent}}
-        val eventDict = HashMap<String, Any>()
-        eventDict["version"] = event_version
+        val eventDict = Collections.singletonMap<String, Any>("version", event_version)
         metaDict["event"] = eventDict
         {{/if}}
         {{#if @root.sendMetaInterfaces}}
@@ -188,7 +189,11 @@ class {{classname}}(
         {{/if}}
         {{/each}}
         {{/filterDefined}}
-        val parameters = mutableMapOf<String, Any>()
+        {{#if @root.disableSendingMeta}}
+        val parameters = HashMap<String, Any>({{hashMapCapacity (sum (length this.parameters) (length @root.globalParameters.parameters) (length @root.platformParameters.parameters))}})
+        {{else}}
+        val parameters = HashMap<String, Any>({{hashMapCapacity (sum (length this.parameters) (length @root.globalParameters.parameters) (length @root.platformParameters.parameters) 1)}})
+        {{/if}}
         {{#each this.parameters}}
         parameters["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
         {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}
@@ -198,12 +203,22 @@ class {{classname}}(
         {{/each}}
         {{#unless @root.disableSendingMeta}}
         {{#if @root.sendMetaInterfaces}}
-        val interfacesDict = HashMap<String, Any>()
+        {{#if (isEmpty this.interfaces)}}
+        val interfacesDict = emptyMap<String, Any>()
+        {{else}}
+        {{#if (eq (length this.interfaces) 1)}}
         {{#each this.interfaces}}
-        val {{camelcase @key}} = HashMap<String, Any>()
-        {{camelcase @key}}["version"] = {{this}}
+        val {{camelcase @key}} = Collections.singletonMap<String, Any>("version", {{this}})
+        val interfacesDict = Collections.singletonMap<String, Any>("{{@key}}", {{camelcase @key}})
+        {{/each}}
+        {{else}}
+        val interfacesDict = HashMap<String, Any>({{hashMapCapacity (length this.interfaces)}})
+        {{#each this.interfaces}}
+        val {{camelcase @key}} = Collections.singletonMap<String, Any>("version", {{this}})
         interfacesDict["{{@key}}"] = {{camelcase @key}}
         {{/each}}
+        {{/if}}
+        {{/if}}
         {{/if}}
         val _meta = makeMeta(
             {{~#if @root.sendMetaEvent~}}

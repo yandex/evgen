@@ -111,6 +111,9 @@ export const registerHelpers = (hbs: Handlebars, compileOptions: CompileOptions)
                 );
                 break;
             case 'kotlin':
+                hbs.registerHelper('hashMapCapacity', (expectedSize: number) =>
+                    Math.ceil(expectedSize / 0.75)
+                );
                 hbs.registerHelper('typeFormat', kotlinTypeformat);
                 hbs.registerHelper('primitiveTypeFormat', kotlinPrimitiveTypeFormat);
                 hbs.registerHelper('isSpecialWord', (str) => kotlinSpecialWords.includes(str));
