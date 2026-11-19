@@ -1,0 +1,80 @@
+interface {{classname}}Tracker {
+    fun trackEvent(event: String, parameters: Map<String, Any>)
+}
+
+interface {{classname}}GlobalParamsProvider {
+    fun getGlobalParams(): {{classname}}GlobalParams
+}
+
+interface {{classname}}PlatformParamsProvider {
+    fun getPlatformParams(): {{classname}}PlatformParams
+}
+
+{{#each globalParameters.parameters}}
+{{>enum parameter=this}}
+{{/each}}
+{{#unless (isEmpty globalParameters.parameters)}}
+/**
+{{#each globalParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
+{{/each}}
+ */
+{{/unless}}
+class {{classname}}GlobalParams(
+    {{#each globalParameters.parameters}}
+    {{#unless (isConst this.type)}}
+    private val {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
+    {{/unless}}
+    {{/each}}
+) {
+    {{#filterDefined globalParameters.parameters 'defaultValue'}}
+    {{#each this}}
+    {{#if (isRef this.defaultValue)}}
+    val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
+    {{/if}}
+    {{/each}}
+    {{/filterDefined}}
+    internal fun writeAllTo(target: MutableMap<String, Any>) {
+        {{#each globalParameters.parameters}}
+        target["{{paramNameCase this.name}}"] = {{#unless (isConst this.type)}}this.{{/unless}}{{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
+        {{/each}}
+    }
+}
+
+{{#if platformParameters}}
+{{#each platformParameters.parameters}}
+{{>enum parameter=this}}
+{{/each}}
+{{#unless (isEmpty platformParameters.parameters)}}
+/**
+{{#each platformParameters.parameters}}
+ * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
+{{/each}}
+ */
+{{/unless}}
+{{/if}}
+class {{classname}}PlatformParams(
+    {{#each platformParameters.parameters}}
+    {{#unless (isConst this.type)}}
+    private val {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
+        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
+    {{/unless}}
+    {{/each}}
+) {
+    {{#if platformParameters}}
+    {{#filterDefined platformParameters.parameters 'defaultValue'}}
+    {{#each this}}
+    {{#if (isRef this.defaultValue)}}
+    val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
+    {{/if}}
+    {{/each}}
+    {{/filterDefined}}
+    {{/if}}
+    internal fun writeAllTo(target: MutableMap<String, Any>) {
+        {{#each platformParameters.parameters}}
+        target["{{paramNameCase this.name}}"] = {{#unless (isConst this.type)}}this.{{/unless}}{{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
+        {{/each}}
+    }
+}
+

@@ -44,6 +44,17 @@ program
     .action(async (options) => {
         try {
             const config: Config = await parseConfigFile(options.evgen_config_path);
+            for (const [name, codeConfig] of Object.entries(config.code ?? {})) {
+                if (
+                    codeConfig.split_by_namespace !== undefined &&
+                    typeof codeConfig.split_by_namespace !== 'boolean'
+                ) {
+                    throw new Error(`${name}.split_by_namespace must be a boolean`);
+                }
+                if (codeConfig.split_by_namespace && codeConfig.language !== 'kotlin') {
+                    throw new Error(`${name}.split_by_namespace is supported only for Kotlin`);
+                }
+            }
             const events = await parseEventsFile(options.events_path, {
                 keepParametersOrder: config.options?.keepParametersOrder,
             });
@@ -77,6 +88,7 @@ program
                                               DEFAULT_TEMPLATES_DIRS[codeConfig.language]
                                           ),
                                     onlyLastVersion: codeConfig.only_last_version,
+                                    splitByNamespace: codeConfig.split_by_namespace ?? false,
                                     disableSendingMeta:
                                         codeConfig.disable_sending_meta ??
                                         config.options?.disable_sending_meta,
@@ -94,6 +106,7 @@ program
                             );
                         } catch (e) {
                             logger.error(`Failed to generate code for ${codeConfig.platform}`, e);
+                            process.exitCode = 1;
                         }
                     })
                 );
@@ -128,6 +141,7 @@ program
             }
         } catch (e) {
             console.error(e);
+            process.exitCode = 1;
         }
     });
 

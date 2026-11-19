@@ -57,8 +57,9 @@ code:
     platform: string          # Название платформы
     output_dir: string         # Папка для генерируемого кода
     language: string           # Язык программирования
-    class_name: string         # Имя генерируемого класса
+    class_name: string         # Имя класса; при split_by_namespace: true — префикс имён
     only_last_version: boolean # Генерировать только последние версии (опционально)
+    split_by_namespace: boolean # Kotlin: отдельный класс для каждого пространства имён (по умолчанию false)
     param_name_case: string    # Стиль именования параметров (опционально): snake | camel | pascal | upper | no (дефолт для type_script — camel, для kotlin/java/swift/dart/c_sharp — no; см. хелпер `paramNameCase` в шаблонах)
     template_dir: string       # Путь к пользовательским шаблонам (опционально)
     disable_sending_meta: boolean # Отключить _meta для этой платформы (опционально)
@@ -122,6 +123,19 @@ options:
 ```
 
 ### Опции конфигурации
+
+#### `split_by_namespace`
+Опция задаётся для конкретной конфигурации Kotlin в `code`. При `true` события разбиваются по первой части имени, а `class_name` используется без изменений как префикс. Например, при `class_name: 'EvgenAnalytics'` событие `Player.Showed` попадает в класс `EvgenAnalyticsPlayerEvents` в `EvgenAnalyticsPlayerEvents.kt`; общие параметры, провайдеры и типы находятся в `EvgenAnalyticsParameters.kt`. При `false` или отсутствии опции сохраняется один файл, а `class_name` задаёт имя единого класса.
+
+```yaml
+code:
+  AndroidKotlin:
+    platform: 'Android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
+    class_name: 'EvgenAnalytics'
+    split_by_namespace: true
+```
 
 #### `keepParametersOrder`
 Сохраняет порядок параметров в событиях согласно YAML-спецификации.

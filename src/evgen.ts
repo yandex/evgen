@@ -1,11 +1,19 @@
 import { rm } from 'fs/promises';
 import { resolve } from 'path';
 
-import { groupBy, sortBy, uniq, uniqBy, uniqWith } from 'lodash';
+import { get, groupBy, sortBy, uniq, uniqBy, uniqWith } from 'lodash';
 
 import { compileTemplates } from './compiler';
 import { CodeLanguage, type CaseMode } from './types/evgen-config';
-import { EventNamespace, Event, NamespaceCollection, EventVersion } from './types/parsed-types';
+import { SinglePlatformParameterType } from './types/data-types';
+import { typeFormat as kotlinTypeFormat } from './languages/kotlin/types';
+import {
+    EventNamespace,
+    Event,
+    NamespaceCollection,
+    EventVersion,
+    EventParameter,
+} from './types/parsed-types';
 import { SinglePlatformNamespaceCollection } from './types/single-platform-types';
 import {
     findNamedEnumsDeepInEvents,
@@ -13,6 +21,7 @@ import {
     compareCustomTypes,
     flattenAllEventVersionParameters,
     isRef,
+    isEnum,
     extractRef,
     pascalCase,
 } from './helpers';
@@ -33,6 +42,7 @@ interface CodeGenerateOptions extends GenerateOptions {
     notSendNullParameters?: boolean;
     paramNameCase?: CaseMode;
     languageVersion?: string;
+    splitByNamespace?: boolean;
 }
 
 interface DocsGenerateOptions extends GenerateOptions {
@@ -44,8 +54,11 @@ export const generateEventsCode = async (
     events: SinglePlatformNamespaceCollection,
     options: CodeGenerateOptions
 ) => {
-    await prepareOutDir(resolve(options.outputPath));
+    if (options.splitByNamespace && language !== 'kotlin') {
+        throw new Error('split_by_namespace is only supported for Kotlin');
+    }
 
+    const classname = options.className || DEFAULT_CLASS_NAME;
     const eventNamespaces = events.eventNamespaces.map(extendNamespaceData);
     const namedEnums = uniqBy(
         eventNamespaces.flatMap((namespace) => namespace.namedEnums),
@@ -58,15 +71,73 @@ export const generateEventsCode = async (
     );
 
     const allVersionsByEvent = groupAllVersionsByEvent(events.eventNamespaces);
+    const sharedNamedEnumNames = new Set(
+        Object.entries(
+            groupBy(
+                eventNamespaces.flatMap((namespace) => namespace.namedEnums),
+                'type.Enum.name'
+            )
+        )
+            .filter(([, occurrences]) => occurrences.length > 1)
+            .map(([name]) => name)
+    );
+    const sharedNamedEnums = namedEnums.filter((parameter) =>
+        sharedNamedEnumNames.has(get(parameter, 'type.Enum.name', ''))
+    );
+    const outputNamespaces = options.splitByNamespace
+        ? eventNamespaces.map((namespace) => ({
+              ...namespace,
+              namedEnums: namespace.namedEnums.filter(
+                  (parameter) => !sharedNamedEnumNames.has(get(parameter, 'type.Enum.name', ''))
+              ),
+          }))
+        : eventNamespaces;
+
+    if (options.splitByNamespace) {
+        const classNames = eventNamespaces.map(
+            (namespace) => `${classname}${pascalCase(namespace.name)}Events`
+        );
+        const topLevelNames = [
+            ...classNames,
+            ...[
+                'Tracker',
+                'GlobalParamsProvider',
+                'PlatformParamsProvider',
+                'GlobalParams',
+                'PlatformParams',
+            ].map((suffix) => `${classname}${suffix}`),
+            ...[...events.globalParameters.parameters, ...events.platformParameters.parameters]
+                .filter((parameter) => isEnum(parameter.type))
+                .map(kotlinTypeFormat),
+            ...sharedNamedEnums.map((parameter) =>
+                kotlinTypeFormat(parameter as EventParameter<SinglePlatformParameterType>)
+            ),
+            ...Object.values(events.globalTypes).map((parameter) =>
+                isEnum(parameter.type)
+                    ? kotlinTypeFormat(parameter as EventParameter<SinglePlatformParameterType>)
+                    : pascalCase(parameter.name)
+            ),
+        ];
+        const duplicateName = topLevelNames.find(
+            (name, index) => topLevelNames.indexOf(name) !== index
+        );
+        if (duplicateName) {
+            throw new Error(
+                `Duplicate Kotlin top-level declaration "${duplicateName}" in split_by_namespace output`
+            );
+        }
+    }
 
     const ctx = {
         ...events,
-        eventNamespaces,
+        eventNamespaces: outputNamespaces,
         allVersionsByEvent,
         namedEnums,
+        sharedNamedEnums,
         namedCustomParameters,
         onlyLastVersion: options.onlyLastVersion,
-        classname: options.className || DEFAULT_CLASS_NAME,
+        classname,
+        splitByNamespace: options.splitByNamespace ?? false,
         disableSendingMeta: options.disableSendingMeta,
         sendMetaEvent: options.sendMetaEvent,
         sendMetaInterfaces: options.sendMetaInterfaces,
@@ -74,6 +145,8 @@ export const generateEventsCode = async (
         paramNameCase: options.paramNameCase,
         languageVersion: options.languageVersion,
     };
+
+    await prepareOutDir(resolve(options.outputPath));
 
     return compileTemplates(ctx, {
         language,

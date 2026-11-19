@@ -1,239 +1,39 @@
-/**
- * AUTO-GENERATED FILE. DO NOT MODIFY
- * This class was automatically generated.
- */
-/* ktlint-disable */
-
-{{#unless @root.disableSendingMeta}}
-import java.util.Collections
-
-{{/unless}}
-interface {{classname}}Tracker {
-    fun trackEvent(event: String, parameters: Map<String, Any>)
-}
-
-interface {{classname}}GlobalParamsProvider {
-    fun getGlobalParams(): {{classname}}GlobalParams
-}
-
-interface {{classname}}PlatformParamsProvider {
-    fun getPlatformParams(): {{classname}}PlatformParams
-}
-
-{{#each globalParameters.parameters}}
-{{>enum parameter=this}}
-{{/each}}
-{{#unless (isEmpty globalParameters.parameters)}}
-/**
-{{#each globalParameters.parameters}}
- * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
-{{/each}}
- */
-{{/unless}}
-class {{classname}}GlobalParams(
-    {{#each globalParameters.parameters}}
-    {{#unless (isConst this.type)}}
-    private val {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
-        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
-    {{/unless}}
-    {{/each}}
+{{#if splitByNamespace}}
+#start-file:{{classname}}Parameters.kt
+{{>fileHeader}}
+{{>parameters}}
+{{>types namedEnums=sharedNamedEnums}}
+#end-file
+{{#each eventNamespaces}}
+#start-file:{{@root.classname}}{{pascalcase name}}Events.kt
+{{>fileHeader}}
+class {{@root.classname}}{{pascalcase name}}Events(
+    private val eventTracker: {{@root.classname}}Tracker,
+    private val globalParamsProvider: {{@root.classname}}GlobalParamsProvider,
+    private val platformParamsProvider: {{@root.classname}}PlatformParamsProvider,
 ) {
-    {{#filterDefined globalParameters.parameters 'defaultValue'}}
-    {{#each this}}
-    {{#if (isRef this.defaultValue)}}
-    val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
-    {{/if}}
+{{>tracking}}
+    {{>types globalTypes=false}}
+    {{#each allVersions}}
+{{>event}}
     {{/each}}
-    {{/filterDefined}}
-    internal fun writeAllTo(target: MutableMap<String, Any>) {
-        {{#each globalParameters.parameters}}
-        target["{{paramNameCase this.name}}"] = {{#unless (isConst this.type)}}this.{{/unless}}{{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
-        {{/each}}
-    }
 }
-
-{{#if platformParameters}}
-{{#each platformParameters.parameters}}
-{{>enum parameter=this}}
+#end-file
 {{/each}}
-{{#unless (isEmpty platformParameters.parameters)}}
-/**
-{{#each platformParameters.parameters}}
- * {{@index}}. {{name}} {{#if (isConst type)}}[const] {{/if}}- {{#escape newLine=" "}}{{../description}}{{/escape}}
-{{/each}}
- */
-{{/unless}}
-{{/if}}
-class {{classname}}PlatformParams(
-    {{#each platformParameters.parameters}}
-    {{#unless (isConst this.type)}}
-    private val {{camelcase this.name}}: {{typeFormat this~}}{{~#if (or (isRef this.defaultValue) (eq this.defaultValue null) this.optional)}}?{{/if~}}
-        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
-    {{/unless}}
-    {{/each}}
-) {
-    {{#if platformParameters}}
-    {{#filterDefined platformParameters.parameters 'defaultValue'}}
-    {{#each this}}
-    {{#if (isRef this.defaultValue)}}
-    val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
-    {{/if}}
-    {{/each}}
-    {{/filterDefined}}
-    {{/if}}
-    internal fun writeAllTo(target: MutableMap<String, Any>) {
-        {{#each platformParameters.parameters}}
-        target["{{paramNameCase this.name}}"] = {{#unless (isConst this.type)}}this.{{/unless}}{{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
-        {{/each}}
-    }
-}
-
+{{else}}
+{{>fileHeader}}
+{{>parameters}}
 class {{classname}}(
     private val eventTracker: {{classname}}Tracker,
     private val globalParamsProvider: {{classname}}GlobalParamsProvider,
     private val platformParamsProvider: {{classname}}PlatformParamsProvider,
 ) {
-    private fun trackEvent(event: String, parameters: MutableMap<String, Any>) {
-        globalParamsProvider.getGlobalParams().writeAllTo(parameters)
-        platformParamsProvider.getPlatformParams().writeAllTo(parameters)
-        {{#if @root.notSendNullParameters}}
-        parameters.entries.removeAll { it.value == null }
-        {{/if}}
-        eventTracker.trackEvent(event, parameters)
-    }
-
-    {{#unless @root.disableSendingMeta}}
-    private fun makeMeta(
-        {{~#if @root.sendMetaEvent~}}
-        event_version: Int
-        {{~#if @root.sendMetaInterfaces}}, {{/if~}}
-        {{~/if~}}
-        {{~#if @root.sendMetaInterfaces~}}
-        interfaces: Map<String, Any>
-        {{~/if~}}
-    ): Map<String, Any> {
-        val metaDict = HashMap<String, Any>({{#if (and @root.sendMetaEvent @root.sendMetaInterfaces)}}3{{else}}{{#if (or @root.sendMetaEvent @root.sendMetaInterfaces)}}2{{else}}0{{/if}}{{/if}})
-        {{#if @root.sendMetaEvent}}
-        val eventDict = Collections.singletonMap<String, Any>("version", event_version)
-        metaDict["event"] = eventDict
-        {{/if}}
-        {{#if @root.sendMetaInterfaces}}
-        metaDict["interfaces"] = interfaces
-        {{/if}}
-        return metaDict
-    }
-    {{/unless}}
-
-    {{#filterTruthy this.namedEnums "type.Enum.name"}}
-    {{#each this}}
-    {{>enum parameter=this}}
-    {{/each}}
-    {{/filterTruthy}}
-    {{#each globalTypes}}
-    {{#if (isEnum type)}}
-    {{>enum parameter=this}}
-    {{else}}
-    typealias {{pascalcase name}} = {{typeFormat this}}
-    {{/if}}
-    {{/each}}
+{{>tracking}}
+    {{>types}}
     {{#each eventNamespaces}}
     {{#each allVersions}}
-    {{#filterFalsy this.parameters "type.Enum.name"}}
-    {{#each this}}
-    {{>enum parameter=this}}
-    {{/each}}
-    {{/filterFalsy}}
-
-    {{#unless (isEmpty additionalNamespaces)}}
-    enum class {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}(val eventValue: String) {
-    {{#each additionalNamespaces}}
-        {{#if (isSpecialWord (pascalcase this))}}
-        `{{pascalcase this}}`("{{this}}"),
-        {{else}}
-        {{pascalcase this}}("{{this}}"),
-        {{/if}}
-    {{/each}}
-    }
-
-    {{/unless}}
-    /**
-    {{#each (splitByNewLine description)}}
-     *  {{this}}
-    {{/each}}
-    {{#if comment}}
-     *
-    {{/if}}
-    {{#each (splitByNewLine comment)}}
-     *  {{this}}
-    {{/each}}
-     *
-    {{#filterFalsy parameters 'type.Const'}}
-    {{#each this}}
-     *  {{sum @index 1}}. {{name}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
-    {{/each}}
-    {{/filterFalsy}}
-     */
-    fun {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({{#unless (isEmpty additionalNamespaces)}}
-        namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}},{{/unless}}
-        {{#filterUndefined this.parameters 'type.Const'}}
-        {{#each this}}
-        {{camelcase this.name}}: {{typeFormat this~}}{{~#if (isRef this.defaultValue)}}?{{else}}{{#eq this.defaultValue null}}?{{/eq}}{{/if~}}
-        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
-        {{/each}}
-        {{/filterUndefined}}
-    ) {
-        {{#filterDefined this.parameters 'defaultValue'}}
-        {{#each this}}
-        {{#if (isRef this.defaultValue)}}
-        val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
-        {{/if}}
-        {{/each}}
-        {{/filterDefined}}
-        {{#if @root.disableSendingMeta}}
-        val parameters = HashMap<String, Any>({{hashMapCapacity (sum (length this.parameters) (length @root.globalParameters.parameters) (length @root.platformParameters.parameters))}})
-        {{else}}
-        val parameters = HashMap<String, Any>({{hashMapCapacity (sum (length this.parameters) (length @root.globalParameters.parameters) (length @root.platformParameters.parameters) 1)}})
-        {{/if}}
-        {{#each this.parameters}}
-        parameters["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
-        {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}
-            .toString()
-        {{~/contains}}
-
-        {{/each}}
-        {{#unless @root.disableSendingMeta}}
-        {{#if @root.sendMetaInterfaces}}
-        {{#if (isEmpty this.interfaces)}}
-        val interfacesDict = emptyMap<String, Any>()
-        {{else}}
-        {{#if (eq (length this.interfaces) 1)}}
-        {{#each this.interfaces}}
-        val {{camelcase @key}} = Collections.singletonMap<String, Any>("version", {{this}})
-        val interfacesDict = Collections.singletonMap<String, Any>("{{@key}}", {{camelcase @key}})
-        {{/each}}
-        {{else}}
-        val interfacesDict = HashMap<String, Any>({{hashMapCapacity (length this.interfaces)}})
-        {{#each this.interfaces}}
-        val {{camelcase @key}} = Collections.singletonMap<String, Any>("version", {{this}})
-        interfacesDict["{{@key}}"] = {{camelcase @key}}
-        {{/each}}
-        {{/if}}
-        {{/if}}
-        {{/if}}
-        val _meta = makeMeta(
-            {{~#if @root.sendMetaEvent~}}
-            {{this.version}}
-            {{~#if @root.sendMetaInterfaces}}, {{/if~}}
-            {{~/if~}}
-            {{~#if @root.sendMetaInterfaces~}}
-            interfacesDict
-            {{~/if~}}
-        )
-        parameters["_meta"] = _meta
-        {{/unless}}
-        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + "." + {{/unless}}"{{this.event}}", parameters)
-    }
-
+{{>event}}
     {{/each}}
     {{/each}}
 }
+{{/if}}

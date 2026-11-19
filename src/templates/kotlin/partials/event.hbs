@@ -1,0 +1,96 @@
+    {{#filterFalsy this.parameters "type.Enum.name"}}
+    {{#each this}}
+    {{>enum parameter=this}}
+    {{/each}}
+    {{/filterFalsy}}
+
+    {{#unless (isEmpty additionalNamespaces)}}
+    enum class {{pascalcase this.name}}Namespaces{{#unless @root.onlyLastVersion}}{{#gt this.version 1}}V{{this.version}}{{/gt}}{{/unless}}(val eventValue: String) {
+    {{#each additionalNamespaces}}
+        {{#if (isSpecialWord (pascalcase this))}}
+        `{{pascalcase this}}`("{{this}}"),
+        {{else}}
+        {{pascalcase this}}("{{this}}"),
+        {{/if}}
+    {{/each}}
+    }
+
+    {{/unless}}
+    /**
+    {{#each (splitByNewLine description)}}
+     *  {{this}}
+    {{/each}}
+    {{#if comment}}
+     *
+    {{/if}}
+    {{#each (splitByNewLine comment)}}
+     *  {{this}}
+    {{/each}}
+     *
+    {{#filterFalsy parameters 'type.Const'}}
+    {{#each this}}
+     *  {{sum @index 1}}. {{name}} - {{#escape newLine=" "}}{{../description}}{{/escape}}
+    {{/each}}
+    {{/filterFalsy}}
+     */
+    fun {{camelcase this.name}}{{#gt this.version 1}}V{{this.version}}{{/gt}}({{#unless (isEmpty additionalNamespaces)}}
+        namespace: {{pascalcase this.name}}Namespaces{{#gt this.version 1}}V{{this.version}}{{/gt}},{{/unless}}
+        {{#filterUndefined this.parameters 'type.Const'}}
+        {{#each this}}
+        {{camelcase this.name}}: {{typeFormat this~}}{{~#if (isRef this.defaultValue)}}?{{else}}{{#eq this.defaultValue null}}?{{/eq}}{{/if~}}
+        {{~#if (isSpecified this.defaultValue)}}{{#if (isRef this.defaultValue)}} = null{{else}} = {{>defaultValueFormat parameter=this}}{{/if}},{{else}},{{/if}}
+        {{/each}}
+        {{/filterUndefined}}
+    ) {
+        {{#filterDefined this.parameters 'defaultValue'}}
+        {{#each this}}
+        {{#if (isRef this.defaultValue)}}
+        val _{{camelcase this.name}} = {{camelcase this.name}} ?: {{camelcase (extractRef this.defaultValue)}}.eventValue
+        {{/if}}
+        {{/each}}
+        {{/filterDefined}}
+        {{#if @root.disableSendingMeta}}
+        val parameters = HashMap<String, Any>({{hashMapCapacity (sum (length this.parameters) (length @root.globalParameters.parameters) (length @root.platformParameters.parameters))}})
+        {{else}}
+        val parameters = HashMap<String, Any>({{hashMapCapacity (sum (length this.parameters) (length @root.globalParameters.parameters) (length @root.platformParameters.parameters) 1)}})
+        {{/if}}
+        {{#each this.parameters}}
+        parameters["{{paramNameCase this.name}}"] = {{#if (isRef this.defaultValue)}}_{{/if}}{{>variableValueFormat parameter=this}}
+        {{~#contains (toArray 'Int' 'Long' 'Double' 'Boolean') (typeFormat this)~}}
+            .toString()
+        {{~/contains}}
+
+        {{/each}}
+        {{#unless @root.disableSendingMeta}}
+        {{#if @root.sendMetaInterfaces}}
+        {{#if (isEmpty this.interfaces)}}
+        val interfacesDict = emptyMap<String, Any>()
+        {{else}}
+        {{#if (eq (length this.interfaces) 1)}}
+        {{#each this.interfaces}}
+        val {{camelcase @key}} = Collections.singletonMap<String, Any>("version", {{this}})
+        val interfacesDict = Collections.singletonMap<String, Any>("{{@key}}", {{camelcase @key}})
+        {{/each}}
+        {{else}}
+        val interfacesDict = HashMap<String, Any>({{hashMapCapacity (length this.interfaces)}})
+        {{#each this.interfaces}}
+        val {{camelcase @key}} = Collections.singletonMap<String, Any>("version", {{this}})
+        interfacesDict["{{@key}}"] = {{camelcase @key}}
+        {{/each}}
+        {{/if}}
+        {{/if}}
+        {{/if}}
+        val _meta = makeMeta(
+            {{~#if @root.sendMetaEvent~}}
+            {{this.version}}
+            {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+            {{~/if~}}
+            {{~#if @root.sendMetaInterfaces~}}
+            interfacesDict
+            {{~/if~}}
+        )
+        parameters["_meta"] = _meta
+        {{/unless}}
+        trackEvent({{#unless (isEmpty additionalNamespaces)}}namespace.toString() + "." + {{/unless}}"{{this.event}}", parameters)
+    }
+

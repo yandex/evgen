@@ -18,6 +18,7 @@ export interface CodeConfig {
     language: CodeLanguage;
     class_name: string;
     only_last_version?: boolean;
+    split_by_namespace?: boolean;
     param_name_case?: CaseMode;
     template_dir?: string;
     disable_sending_meta?: boolean;

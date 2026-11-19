@@ -1,0 +1,12 @@
+{{#filterTruthy this.namedEnums "type.Enum.name"}}
+{{#each this}}
+{{>enum parameter=this}}
+{{/each}}
+{{/filterTruthy}}
+{{#each globalTypes}}
+{{#if (isEnum type)}}
+{{>enum parameter=this}}
+{{else}}
+typealias {{pascalcase name}} = {{typeFormat this}}
+{{/if}}
+{{/each}}

@@ -1,0 +1,31 @@
+    private fun trackEvent(event: String, parameters: MutableMap<String, Any>) {
+        globalParamsProvider.getGlobalParams().writeAllTo(parameters)
+        platformParamsProvider.getPlatformParams().writeAllTo(parameters)
+        {{#if @root.notSendNullParameters}}
+        parameters.entries.removeAll { it.value == null }
+        {{/if}}
+        eventTracker.trackEvent(event, parameters)
+    }
+
+    {{#unless @root.disableSendingMeta}}
+    private fun makeMeta(
+        {{~#if @root.sendMetaEvent~}}
+        event_version: Int
+        {{~#if @root.sendMetaInterfaces}}, {{/if~}}
+        {{~/if~}}
+        {{~#if @root.sendMetaInterfaces~}}
+        interfaces: Map<String, Any>
+        {{~/if~}}
+    ): Map<String, Any> {
+        val metaDict = HashMap<String, Any>({{#if (and @root.sendMetaEvent @root.sendMetaInterfaces)}}3{{else}}{{#if (or @root.sendMetaEvent @root.sendMetaInterfaces)}}2{{else}}0{{/if}}{{/if}})
+        {{#if @root.sendMetaEvent}}
+        val eventDict = Collections.singletonMap<String, Any>("version", event_version)
+        metaDict["event"] = eventDict
+        {{/if}}
+        {{#if @root.sendMetaInterfaces}}
+        metaDict["interfaces"] = interfaces
+        {{/if}}
+        return metaDict
+    }
+    {{/unless}}
+
