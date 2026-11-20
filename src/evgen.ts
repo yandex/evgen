@@ -35,6 +35,7 @@ interface GenerateOptions {
 
 interface CodeGenerateOptions extends GenerateOptions {
     className?: string;
+    packageName?: string;
     onlyLastVersion?: boolean;
     disableSendingMeta?: boolean;
     sendMetaEvent?: boolean;
@@ -54,6 +55,10 @@ export const generateEventsCode = async (
     events: SinglePlatformNamespaceCollection,
     options: CodeGenerateOptions
 ) => {
+    if (options.packageName && language !== 'kotlin') {
+        throw new Error('package_name is only supported for Kotlin');
+    }
+
     if (options.splitByNamespace && language !== 'kotlin') {
         throw new Error('split_by_namespace is only supported for Kotlin');
     }
@@ -137,6 +142,7 @@ export const generateEventsCode = async (
         namedCustomParameters,
         onlyLastVersion: options.onlyLastVersion,
         classname,
+        packageName: options.packageName,
         splitByNamespace: options.splitByNamespace ?? false,
         disableSendingMeta: options.disableSendingMeta,
         sendMetaEvent: options.sendMetaEvent,

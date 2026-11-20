@@ -17,6 +17,7 @@ export interface CodeConfig {
     output_dir: string;
     language: CodeLanguage;
     class_name: string;
+    package_name?: string;
     only_last_version?: boolean;
     split_by_namespace?: boolean;
     param_name_case?: CaseMode;

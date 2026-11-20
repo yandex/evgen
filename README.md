@@ -58,6 +58,7 @@ code:
     output_dir: string         # Папка для генерируемого кода
     language: string           # Язык программирования
     class_name: string         # Имя класса; при split_by_namespace: true — префикс имён
+    package_name: string       # Пакет Kotlin-файлов (опционально)
     only_last_version: boolean # Генерировать только последние версии (опционально)
     split_by_namespace: boolean # Kotlin: отдельный класс для каждого пространства имён (по умолчанию false)
     param_name_case: string    # Стиль именования параметров (опционально): snake | camel | pascal | upper | no (дефолт для type_script — camel, для kotlin/java/swift/dart/c_sharp — no; см. хелпер `paramNameCase` в шаблонах)
@@ -123,6 +124,19 @@ options:
 ```
 
 ### Опции конфигурации
+
+#### `package_name`
+Опция задаётся для конкретной конфигурации Kotlin в `code` и добавляет объявление `package` в генерируемый файл. При `split_by_namespace: true` тот же пакет получают все файлы, включая файл общих параметров и типов. Без опции код генерируется без объявления пакета. Структура выходного каталога не меняется.
+
+```yaml
+code:
+  AndroidKotlin:
+    platform: 'Android'
+    output_dir: 'android_kotlin'
+    language: 'kotlin'
+    class_name: 'EvgenAnalytics'
+    package_name: 'com.example.analytics'
+```
 
 #### `split_by_namespace`
 Опция задаётся для конкретной конфигурации Kotlin в `code`. При `true` события разбиваются по первой части имени, а `class_name` используется без изменений как префикс. Например, при `class_name: 'EvgenAnalytics'` событие `Player.Showed` попадает в класс `EvgenAnalyticsPlayerEvents` в `EvgenAnalyticsPlayerEvents.kt`; общие параметры, провайдеры и типы находятся в `EvgenAnalyticsParameters.kt`. При `false` или отсутствии опции сохраняется один файл, а `class_name` задаёт имя единого класса.
@@ -768,6 +782,7 @@ code:
 #### Основные переменные
 
 - **`classname`** (`string`) - имя генерируемого класса из конфигурации
+- **`packageName`** (`string | undefined`) - пакет Kotlin-файлов из опции `package_name`
 - **`onlyLastVersion`** (`boolean`) - флаг генерации только последних версий событий
 - **`disableSendingMeta`** (`boolean`) - флаг полного отключения генерации `_meta` атрибута
 - **`sendMetaEvent`** (`boolean`) - включать ли версию события в `_meta.event`

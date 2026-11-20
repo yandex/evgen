@@ -4,6 +4,10 @@
  */
 /* ktlint-disable */
 
+{{#if @root.packageName}}
+package {{{@root.packageName}}}
+
+{{/if}}
 {{#unless @root.disableSendingMeta}}
 import java.util.Collections
 

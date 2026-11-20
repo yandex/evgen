@@ -46,6 +46,15 @@ program
             const config: Config = await parseConfigFile(options.evgen_config_path);
             for (const [name, codeConfig] of Object.entries(config.code ?? {})) {
                 if (
+                    codeConfig.package_name !== undefined &&
+                    typeof codeConfig.package_name !== 'string'
+                ) {
+                    throw new Error(`${name}.package_name must be a string`);
+                }
+                if (codeConfig.package_name && codeConfig.language !== 'kotlin') {
+                    throw new Error(`${name}.package_name is supported only for Kotlin`);
+                }
+                if (
                     codeConfig.split_by_namespace !== undefined &&
                     typeof codeConfig.split_by_namespace !== 'boolean'
                 ) {
@@ -76,6 +85,7 @@ program
                                 }),
                                 {
                                     className: codeConfig.class_name,
+                                    packageName: codeConfig.package_name,
                                     outputPath: join(rootDir, codeConfig.output_dir),
                                     templateDir: codeConfig.template_dir
                                         ? resolve(
