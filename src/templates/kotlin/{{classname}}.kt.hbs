@@ -2,7 +2,9 @@
 #start-file:{{classname}}Parameters.kt
 {{>fileHeader}}
 {{>parameters}}
-{{>types namedEnums=sharedNamedEnums}}
+object {{classname}} {
+    {{>types namedEnums=sharedNamedEnums}}
+}
 #end-file
 {{#each eventNamespaces}}
 #start-file:{{@root.classname}}{{pascalcase name}}Events.kt

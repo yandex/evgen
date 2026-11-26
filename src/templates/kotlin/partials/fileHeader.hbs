@@ -12,3 +12,11 @@ package {{{@root.packageName}}}
 import java.util.Collections
 
 {{/unless}}
+{{#if @root.splitByNamespace}}
+{{#if sharedTypeNames}}
+{{#each sharedTypeNames}}
+import {{#if @root.packageName}}{{{@root.packageName}}}.{{/if}}{{@root.classname}}.{{this}}
+{{/each}}
+
+{{/if}}
+{{/if}}

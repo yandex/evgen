@@ -139,7 +139,7 @@ code:
 ```
 
 #### `split_by_namespace`
-Опция задаётся для конкретной конфигурации Kotlin в `code`. При `true` события разбиваются по первой части имени, а `class_name` используется без изменений как префикс. Например, при `class_name: 'EvgenAnalytics'` событие `Player.Showed` попадает в класс `EvgenAnalyticsPlayerEvents` в `EvgenAnalyticsPlayerEvents.kt`; общие параметры, провайдеры и типы находятся в `EvgenAnalyticsParameters.kt`. При `false` или отсутствии опции сохраняется один файл, а `class_name` задаёт имя единого класса.
+Опция задаётся для конкретной конфигурации Kotlin в `code`. При `true` события разбиваются по первой части имени, а `class_name` используется без изменений как префикс. Например, при `class_name: 'EvgenAnalytics'` событие `Player.Showed` попадает в класс `EvgenAnalyticsPlayerEvents` в `EvgenAnalyticsPlayerEvents.kt`; общие параметры, провайдеры и типы находятся в `EvgenAnalyticsParameters.kt`. Общие именованные перечисления и перечисления из `.GlobalTypes` вложены в `object` с именем из `class_name`, например `EvgenAnalytics.NavigatedV2.Auth`. При `false` или отсутствии опции сохраняется один файл, а `class_name` задаёт имя единого класса.
 
 ```yaml
 code:

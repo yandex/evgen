@@ -89,9 +89,25 @@ export const generateEventsCode = async (
     const sharedNamedEnums = namedEnums.filter((parameter) =>
         sharedNamedEnumNames.has(get(parameter, 'type.Enum.name', ''))
     );
+    const sharedTypeNames = [
+        ...sharedNamedEnums.map((parameter) =>
+            kotlinTypeFormat(parameter as EventParameter<SinglePlatformParameterType>)
+        ),
+        ...Object.values(events.globalTypes).map((parameter) =>
+            isEnum(parameter.type)
+                ? kotlinTypeFormat(parameter as EventParameter<SinglePlatformParameterType>)
+                : pascalCase(parameter.name)
+        ),
+    ];
     const outputNamespaces = options.splitByNamespace
         ? eventNamespaces.map((namespace) => ({
               ...namespace,
+              sharedTypeNames: uniq([
+                  ...namespace.namedEnums.map((parameter) =>
+                      kotlinTypeFormat(parameter as EventParameter<SinglePlatformParameterType>)
+                  ),
+                  ...namespace.typeRefs,
+              ]).filter((name) => sharedTypeNames.includes(name)),
               namedEnums: namespace.namedEnums.filter(
                   (parameter) => !sharedNamedEnumNames.has(get(parameter, 'type.Enum.name', ''))
               ),
@@ -103,6 +119,7 @@ export const generateEventsCode = async (
             (namespace) => `${classname}${pascalCase(namespace.name)}Events`
         );
         const topLevelNames = [
+            classname,
             ...classNames,
             ...[
                 'Tracker',
@@ -114,14 +131,7 @@ export const generateEventsCode = async (
             ...[...events.globalParameters.parameters, ...events.platformParameters.parameters]
                 .filter((parameter) => isEnum(parameter.type))
                 .map(kotlinTypeFormat),
-            ...sharedNamedEnums.map((parameter) =>
-                kotlinTypeFormat(parameter as EventParameter<SinglePlatformParameterType>)
-            ),
-            ...Object.values(events.globalTypes).map((parameter) =>
-                isEnum(parameter.type)
-                    ? kotlinTypeFormat(parameter as EventParameter<SinglePlatformParameterType>)
-                    : pascalCase(parameter.name)
-            ),
+            ...sharedTypeNames,
         ];
         const duplicateName = topLevelNames.find(
             (name, index) => topLevelNames.indexOf(name) !== index
@@ -139,6 +149,7 @@ export const generateEventsCode = async (
         allVersionsByEvent,
         namedEnums,
         sharedNamedEnums,
+        sharedTypeNames,
         namedCustomParameters,
         onlyLastVersion: options.onlyLastVersion,
         classname,
